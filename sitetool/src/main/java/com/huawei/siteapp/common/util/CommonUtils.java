@@ -1,6 +1,8 @@
 package com.huawei.siteapp.common.util;
 
-import org.apache.log4j.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Map;
@@ -15,7 +17,8 @@ import java.util.regex.Pattern;
 public class CommonUtils {
     private static final long SECOND = 1000;
 
-    private static final Logger logger = Logger.getLogger(CommonUtils.class);
+//    private static final Logger logger = Logger.getLogger(this.class);
+    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private static final String loginRegexp = "[a-zA-Z0-9-_]";
 
@@ -112,7 +115,8 @@ public class CommonUtils {
         catch (Exception e)
         {
             // TODO: handle exception
-            logger.error(e.getMessage());
+//            logger.error(e.getMessage());
+//            logger.error("");
             return "";
         }
     }
