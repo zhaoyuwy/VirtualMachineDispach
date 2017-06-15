@@ -28,6 +28,7 @@ public class MappRunApplicationTests {
         logger.trace("I am trace log.");
         logger.debug("I am debug log.");
         logger.warn("I am warn log.");
+        logger.info("I am info log.");
         logger.error("I am error log.");
     }
 }

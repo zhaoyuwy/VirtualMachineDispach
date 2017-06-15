@@ -6,6 +6,8 @@ import com.huawei.siteapp.common.constats.ParamKey;
 import com.huawei.siteapp.common.util.JSONUtils;
 import com.huawei.siteapp.common.util.PropertiesUtils;
 import com.huawei.siteapp.common.util.ServiceContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -23,6 +25,7 @@ import java.util.Map;
  */
 
 public class HttpGetRequest {
+    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
     /**
      * 向指定URL发送GET方法的请求
      *
@@ -31,6 +34,7 @@ public class HttpGetRequest {
      * @return URL 所代表远程资源的响应结果
      */
     public ServiceContext sendGet(String url, String param) {
+        logger.info(url);
         StringBuilder result = new StringBuilder();
         BufferedReader in = null;
         ServiceContext cxt = new ServiceContext();
