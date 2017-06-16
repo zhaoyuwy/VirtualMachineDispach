@@ -8,7 +8,6 @@ import com.huawei.siteapp.repository.PersonRepository2;
 import com.huawei.siteapp.repository.SitesRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-//import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +50,6 @@ public class MappRunApplicationTests {
 
     @Test
     public void testInsert2() {
-//        personRepository2.addPersonsBySQL("INSERT INTO person(name, age, address) VALUES ('ch', 16, 'cc')");
         Person person = new Person();
         person.setAddress("xian");
         person.setAge(31);
