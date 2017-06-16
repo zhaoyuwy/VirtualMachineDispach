@@ -1,5 +1,6 @@
 package com.huawei.siteapp.http;
 
+import com.huawei.siteapp.common.Bean.RestBean;
 import org.junit.Test;
 
 /**
@@ -9,18 +10,26 @@ import org.junit.Test;
  * @version [版本号, 2017/6/15]
  */
 public class HttpRequestTest {
-//    @Test
+    //测试rest 借口端口号
+    public RestBean getTestRest() {
+        RestBean restBean = new RestBean();
+        restBean.setVrmIp("192.145.17.200");
+        restBean.setRestPort("7070");
+        return restBean;
+    }
+
+    @Test
     public void propertiesRest() throws Exception {
 //        登录获取token
         SiteLoginHttpRequest siteLoginHttpRequest = new SiteLoginHttpRequest();
-        
-        String user ="kwx319070";
-        String pwd ="OpsImage@12345";
-        siteLoginHttpRequest.fcLoginRest(user,pwd);
-        
+
+        String user = "kwx319070";
+        String pwd = "OpsImage@12345";
+        siteLoginHttpRequest.fcLoginRest(getTestRest(), user, pwd);
+
         HttpGetRequest httpRequest = new HttpGetRequest();
-        httpRequest.fcGetSitesRest();
-        
-        httpRequest.fcGetSitesClustersRest();
+        httpRequest.fcGetSitesRest(getTestRest());
+
+        httpRequest.fcGetSitesClustersRest(getTestRest());
     }
 }

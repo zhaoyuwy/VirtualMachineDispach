@@ -2,7 +2,6 @@ package com.huawei.siteapp.repository;
 
 import com.huawei.siteapp.model.Person;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
@@ -11,7 +10,7 @@ import javax.transaction.Transactional;
  *
  * @version 1.0
  */
-@Service
+@Transactional
 public interface PersonRepository extends CrudRepository<Person, Long> {
 
 }

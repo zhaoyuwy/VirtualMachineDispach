@@ -6,13 +6,21 @@ import com.huawei.siteapp.common.constats.ParamKey;
 import com.huawei.siteapp.common.util.JSONUtils;
 import com.huawei.siteapp.common.util.PropertiesUtils;
 import com.huawei.siteapp.common.util.ServiceContext;
+import com.huawei.siteapp.model.Site;
+import com.huawei.siteapp.repository.SitesRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 
+import javax.annotation.Resource;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,11 +29,16 @@ import java.util.Map;
  * Created by z00390414 on 2017/6/15.
  *
  * @version 1.0
- * @date 2017/6/15
  */
-
+@Configuration
+//@ComponentScan({"com.huawei.siteapp"})
+//@EnableAutoConfiguration
 public class HttpGetRequest {
-    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    @Resource
+    private SitesRepository sitesRepository;
+
     /**
      * 向指定URL发送GET方法的请求
      *
@@ -33,8 +46,8 @@ public class HttpGetRequest {
      * @param param 请求参数，请求参数应该是 name1=value1&name2=value2 的形式。
      * @return URL 所代表远程资源的响应结果
      */
-    public ServiceContext sendGet(String url, String param) {
-        logger.info(url);
+    private ServiceContext sendGet(String url, String param) {
+        logger.info("Begin of get -- " + url);
         StringBuilder result = new StringBuilder();
         BufferedReader in = null;
         ServiceContext cxt = new ServiceContext();
@@ -66,8 +79,7 @@ public class HttpGetRequest {
                 result.append(line);
             }
         } catch (Exception e) {
-            System.out.println("发送GET请求出现异常！" + e);
-            e.printStackTrace();
+            logger.error("Send get rest Exception", e);
         }
         // 使用finally块来关闭输入流
         finally {
@@ -76,16 +88,16 @@ public class HttpGetRequest {
                     in.close();
                 }
             } catch (Exception e2) {
-                e2.printStackTrace();
+                logger.error("finally catch", e2);
             }
         }
         cxt.put(ParamKey.REST_RESPONSE, result.toString());
+        logger.info("Get rest " + url + " response -- " + result.toString());
+        logger.info("Begin of get -- " + url);
         return cxt;
     }
 
-    public void fcGetSitesRest() {
-        SiteLoginHttpRequest siteLoginHttpRequest = new SiteLoginHttpRequest();
-        RestBean restInfo = siteLoginHttpRequest.getTestRest();
+    public void fcGetSitesRest(RestBean restInfo) {
         String[] urlParm = new String[]{restInfo.getVrmIp(), restInfo.getRestPort()};
         String url = PropertiesUtils.getUrl("FcGetSites", urlParm);
         ServiceContext sr = sendGet(url, "");
@@ -93,13 +105,43 @@ public class HttpGetRequest {
 
         Map<String, Object> responseMap = JSONUtils.jsonToMap(restResponse);
         String urlSites = ((HashMap<String, String>) (((List) responseMap.get(ParamKey.SITES)).get(0))).get(ParamKey.URI);
+        List sites = new ArrayList<>();
+        for (Object siteTemp : (List) responseMap.get(ParamKey.SITES)) {
+//            JSONObject siteObj = JSONObject.fromObject(siteTemp);
+//            Site2 site2 = (Site2)obj.toBean(obj,Site2.class);
+
+            Site site = mapToSiteBean(siteTemp);
+            sites.add(site);
+            logger.error(site.toString());
+//            sitesRepository.save(site);
+        }
+//        sitesRepository.save(sites);
+
         CacheCenter.getInstance().addUrlResponse(ParamKey.SITE_ID, urlSites);
-        System.out.println(sr);
     }
 
-    public void fcGetSitesClustersRest() {
-        SiteLoginHttpRequest siteLoginHttpRequest = new SiteLoginHttpRequest();
-        RestBean restInfo = siteLoginHttpRequest.getTestRest();
+    private Site mapToSiteBean(Object siteObj) {
+        Site site = new Site();
+        String siteUri = ((HashMap<String, String>) siteObj).get("uri");
+        String siteUrn = ((HashMap<String, String>) siteObj).get("urn");
+        String siteIp = ((HashMap<String, String>) siteObj).get("ip");
+        String siteName = ((HashMap<String, String>) siteObj).get("name");
+        String siteStatus = ((HashMap<String, String>) siteObj).get("status");
+        boolean siteIsDC = ((HashMap<String, Boolean>) siteObj).get("isDC");
+        boolean siteIsSelf = ((HashMap<String, Boolean>) siteObj).get("isSelf");
+
+        site.setSiteUri(siteUri);
+        site.setSiteUrn(siteUrn);
+        site.setSiteIp(siteIp);
+        site.setSiteName(siteName);
+        site.setSiteStatus(siteStatus);
+        site.setSiteIsDC(siteIsDC);
+        site.setSiteIsSelf(siteIsSelf);
+
+        return site;
+    }
+
+    public void fcGetSitesClustersRest(RestBean restInfo) {
 
         String[] urlParm = new String[]{restInfo.getVrmIp(), restInfo.getRestPort(), (String) CacheCenter.getInstance().getRestBeanResponse(ParamKey.SITE_ID)};
         String url = PropertiesUtils.getUrl("FcGetClusters", urlParm);
@@ -108,6 +150,8 @@ public class HttpGetRequest {
         ((List) (JSONUtils.jsonToMap(restResponse).get("clusters"))).get(0);
 
         for (Object clusterTemp : ((List<Object>) (JSONUtils.jsonToMap(restResponse).get("clusters")))) {
+
+
             String uri = ((Map<String, String>) clusterTemp).get(ParamKey.URI);
 
             Object memResource = ((Map<String, String>) clusterTemp).get("memResource");
@@ -117,7 +161,7 @@ public class HttpGetRequest {
             setResponseInCache(cpuResource);
         }
 
-        System.out.println(sr);
+//        System.out.println(sr);
     }
 
     private void setResponseInCache(Object response) {
