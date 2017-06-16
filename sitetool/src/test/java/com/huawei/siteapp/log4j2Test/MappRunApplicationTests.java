@@ -32,6 +32,7 @@ public class MappRunApplicationTests {
 
     @Autowired
     private PersonRepository2 personRepository2;
+
     @Test
     public void contextLoads() {
         logger.trace("I am trace log.");
@@ -42,12 +43,12 @@ public class MappRunApplicationTests {
     }
 
     @Test
-    public void testInsert(){
+    public void testInsert() {
         personRepository2.addPersonsBySQL("INSERT INTO person(name, age, address) VALUES ('ch', 16, 'cc')");
     }
 
     @Test
-    public void testInsert2(){
+    public void testInsert2() {
 //        personRepository2.addPersonsBySQL("INSERT INTO person(name, age, address) VALUES ('ch', 16, 'cc')");
         Person person = new Person();
         person.setAddress("xian");
@@ -57,8 +58,9 @@ public class MappRunApplicationTests {
 
         personRepository.save(person);
     }
+
     @Test
-    public void testSysout(){
+    public void testSysout() {
         System.out.println("this is a test");
     }
 }
