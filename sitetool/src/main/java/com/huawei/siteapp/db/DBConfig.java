@@ -19,7 +19,7 @@ public class DBConfig {
     public DataSource dataSource(){
         DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
         dataSourceBuilder.driverClassName("org.sqlite.JDBC");
-        dataSourceBuilder.url("jdbc:sqlite:person.db");
+        dataSourceBuilder.url("jdbc:sqlite:site_source.db");
         return dataSourceBuilder.build();
     }
 }

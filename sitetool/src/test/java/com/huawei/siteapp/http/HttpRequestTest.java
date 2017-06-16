@@ -9,7 +9,7 @@ import org.junit.Test;
  * @version [版本号, 2017/6/15]
  */
 public class HttpRequestTest {
-    @Test
+//    @Test
     public void propertiesRest() throws Exception {
 //        登录获取token
         SiteLoginHttpRequest siteLoginHttpRequest = new SiteLoginHttpRequest();

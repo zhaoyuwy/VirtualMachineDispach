@@ -24,7 +24,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @SpringBootTest(classes = MappRunApplication.class)
 public class MappRunApplicationTests {
 
-    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     protected final ObjectMapper objectMapper = new ObjectMapper();
 
     @Autowired
@@ -53,6 +53,7 @@ public class MappRunApplicationTests {
         person.setAddress("xian");
         person.setAge(31);
         person.setName("zhaoxiao");
+        person.setId(1910);
 
         personRepository.save(person);
     }

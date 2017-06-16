@@ -8,7 +8,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * Created by z00390414 on 2017/6/14.
  *
  * @version 1.0
- * @date 2017/6/14
  */
 @SpringBootApplication
 @EnableScheduling

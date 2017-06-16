@@ -1,5 +1,7 @@
 package com.huawei.siteapp.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -13,11 +15,14 @@ import java.util.Date;
  */
 @Component
 public class MyTimer {
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 
     @Scheduled(fixedRate = 3000)
     public void timerRate() {
-        System.out.println(sdf.format(new Date()));
+        String tm = sdf.format(new Date());
+        System.out.println(tm);
+        logger.error("###每3秒执行一次 " + tm);;
     }
 }

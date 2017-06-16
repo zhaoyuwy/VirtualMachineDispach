@@ -5,6 +5,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by z00390414 on 2017/6/15.
  *
@@ -15,13 +18,17 @@ import org.springframework.stereotype.Component;
 public class ScheduleTask {
 
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
+    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 
     //    @Scheduled(cron = "0 0 2 * * ?")//每天凌晨两点执行
-    @Scheduled(cron = "0/5 * *  * * ? ")    //每5秒执行一次
+    @Scheduled(cron = "0/5 * *  * * ? ")
+    //每5秒执行一次
     void doSomethingWith() {
 //        logger.info("定时任务开始......");
         long begin = System.currentTimeMillis();
         System.out.println("进入测试");
+        String tm = sdf.format(new Date());
+        logger.warn("每5秒执行一次 " + tm);
         //执行数据库操作了哦...
 
         long end = System.currentTimeMillis();

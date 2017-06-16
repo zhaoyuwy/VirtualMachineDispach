@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
  * @version [版本号, 2017/6/15]
  */
 public class SiteLoginHttpRequestTest {
-    @Test
+//    @Test
     public void propertiesRest() throws Exception {
         SiteLoginHttpRequest siteLoginHttpRequest = new SiteLoginHttpRequest();
 //        siteLoginHttpRequest.fcLoginRest();
