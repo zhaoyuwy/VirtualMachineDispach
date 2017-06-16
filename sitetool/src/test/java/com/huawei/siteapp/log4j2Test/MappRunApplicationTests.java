@@ -1,6 +1,5 @@
 package com.huawei.siteapp.log4j2Test;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.huawei.siteapp.MappRunApplication;
 import com.huawei.siteapp.model.Person;
 import com.huawei.siteapp.model.Site;
@@ -26,7 +25,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class MappRunApplicationTests {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    protected final ObjectMapper objectMapper = new ObjectMapper();
 
     @Autowired
     private PersonRepository personRepository;
@@ -36,6 +34,7 @@ public class MappRunApplicationTests {
 
     @Autowired
     private PersonRepository2 personRepository2;
+
     @Test
     public void contextLoads() {
         logger.trace("I am trace log.");
@@ -46,12 +45,12 @@ public class MappRunApplicationTests {
     }
 
     @Test
-    public void testInsert(){
+    public void testInsert() {
         personRepository2.addPersonsBySQL("INSERT INTO person(name, age, address) VALUES ('ch', 16, 'cc')");
     }
 
     @Test
-    public void testInsert2(){
+    public void testInsert2() {
 //        personRepository2.addPersonsBySQL("INSERT INTO person(name, age, address) VALUES ('ch', 16, 'cc')");
         Person person = new Person();
         person.setAddress("xian");
@@ -63,15 +62,16 @@ public class MappRunApplicationTests {
     }
 
     @Test
-    public void testInsertSite(){
+    public void testInsertSite() {
         Site site = new Site();
         site.setSiteStatus("false");
         site.setSiteUrn("url");
 
         sitesRepository.save(site);
     }
+
     @Test
-    public void testSysout(){
+    public void testSysout() {
         System.out.println("this is a test");
     }
 }
