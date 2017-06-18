@@ -7,6 +7,11 @@
             <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
         </console>
 
+        <Properties>
+            <Property name="LOG_HOME">${sys:catalina.home}/logs/AppNetAgeService</Property>
+            <!--<Property name="LOG_HOME">${sys:catalina.home}/logs/AppNetAgeService</Property>-->
+        </Properties>
+
         <RollingFile name="RollingFileInfo" fileName="logs/siteapp/info.log"
                      filePattern="logs/siteapp/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log">
             <Filters>
