@@ -6,5 +6,5 @@ package com.huawei.siteapp.mail;
  * @author z00390414
  * @version [版本号, 2017/6/15]
  */
-public interface SendMailService {
+public interface ISendMailService {
 }

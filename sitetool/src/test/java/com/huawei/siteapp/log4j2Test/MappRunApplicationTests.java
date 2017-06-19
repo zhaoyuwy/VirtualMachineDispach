@@ -9,7 +9,7 @@ import com.huawei.siteapp.model.Person;
 import com.huawei.siteapp.model.Site;
 import com.huawei.siteapp.repository.PersonRepository;
 import com.huawei.siteapp.repository.PersonRepository2;
-import com.huawei.siteapp.repository.SitesRepository;
+import com.huawei.siteapp.repository.SiteRepository;
 import com.huawei.siteapp.service.HttpRestService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,7 +37,7 @@ public class MappRunApplicationTests {
     private PersonRepository personRepository;
 
     @Autowired
-    private SitesRepository sitesRepository;
+    private SiteRepository siteRepository;
 
     @Autowired
     private PersonRepository2 personRepository2;
@@ -76,7 +76,7 @@ public class MappRunApplicationTests {
         site.setSiteStatus("false");
         site.setSiteUrn("url");
 
-        sitesRepository.save(site);
+        siteRepository.save(site);
     }
 
     @Test
@@ -122,18 +122,29 @@ public class MappRunApplicationTests {
         }
         httpRestService.saveSiteList(sites);
     }
-
     @Test
-    public void testCrudRepositoryClear(){
+    public void testCrudRepositoryInterface(){
         List<Site> sites = new ArrayList<>();
-
         int index=0;
         for(int i='a';i<='z';i++){
             index++;
             Site site = new Site();
-            site.setSiteIp((char)i+""+(char)i+"@sina.com");
+            site.setSiteIp((char)i+""+(char)i+"@sina14.com"+ UctTimeUtil.getCurrentDate());
             sites.add(site);
         }
-        httpRestService.saveSiteList(sites);
+        siteRepository.save(sites);
+    }
+    @Test
+    public void testCrudRepositoryClear(){
+//        List<Site> sites = new ArrayList<>();
+//
+//        int index=0;
+//        for(int i='a';i<='z';i++){
+//            index++;
+//            Site site = new Site();
+//            site.setSiteIp((char)i+""+(char)i+"@sina.com");
+//            sites.add(site);
+//        }
+        httpRestService.clearSiteList();
     }
 }

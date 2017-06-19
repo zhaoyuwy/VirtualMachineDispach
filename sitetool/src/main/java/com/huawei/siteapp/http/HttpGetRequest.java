@@ -7,12 +7,9 @@ import com.huawei.siteapp.common.util.JSONUtils;
 import com.huawei.siteapp.common.util.PropertiesUtils;
 import com.huawei.siteapp.common.util.ServiceContext;
 import com.huawei.siteapp.model.Site;
-import com.huawei.siteapp.repository.SitesRepository;
+import com.huawei.siteapp.repository.SiteRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.Resource;
@@ -37,7 +34,7 @@ public class HttpGetRequest {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Resource
-    private SitesRepository sitesRepository;
+    private SiteRepository siteRepository;
 
     /**
      * 向指定URL发送GET方法的请求
@@ -114,7 +111,7 @@ public class HttpGetRequest {
             Site site = mapToSiteBean(siteTemp);
             sites.add(site);
             logger.error(site.toString());
-//            sitesRepository.save(site);
+            siteRepository.save(site);
         }
 //        sitesRepository.save(sites);
 
