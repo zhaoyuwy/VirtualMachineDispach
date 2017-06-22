@@ -45,9 +45,9 @@ public class SiteLoginHttpRequest {
             conn.setRequestProperty("X-Auth-User", user);
             conn.setRequestProperty("X-Auth-Key", pwd);
             conn.setRequestProperty("X-Auth-UserType", "0");
-            conn.setRequestProperty("X-Auth-AuthType", "0");
+//            conn.setRequestProperty("X-Auth-AuthType", "0");
             conn.setRequestProperty("X-ENCRIPT-ALGORITHM", "1");
-            conn.setRequestProperty("Accept-Language", "en_US");
+            conn.setRequestProperty("Accept-Language", "zh_CN");
             conn.setRequestProperty("Accept", "application/json;version=5.1;charset=UTF-8");
             conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
 

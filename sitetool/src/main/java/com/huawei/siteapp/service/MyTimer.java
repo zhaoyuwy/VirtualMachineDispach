@@ -38,6 +38,7 @@ public class MyTimer {
     public RestBean getTestRest() {
         RestBean restBean = new RestBean();
         restBean.setVrmIp("192.145.17.200");
+//        restBean.setVrmIp("10.44.70.245");
         restBean.setRestPort("7070");
         return restBean;
     }

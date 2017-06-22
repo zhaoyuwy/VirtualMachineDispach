@@ -108,7 +108,20 @@ public class MappRunApplicationTests {
 
 //        httpRequest.fcGetSitesClustersRest(getTestRest());
     }
+    @Test
+    public void LangFangFc() throws Exception {
+//        登录获取token
+        SiteLoginHttpRequest siteLoginHttpRequest = new SiteLoginHttpRequest();
 
+        String user = "admin";
+        String pwd = "HWS_lf@pub9001";
+//        siteLoginHttpRequest.fcLoginRest(getTestRest(), user, pwd);
+
+        HttpGetRequest httpRequest = new HttpGetRequest();
+        httpRequest.fcGetSitesRest(getTestRest());
+
+//        httpRequest.fcGetSitesClustersRest(getTestRest());
+    }
 
     @Test
     public void testCrudRepository(){

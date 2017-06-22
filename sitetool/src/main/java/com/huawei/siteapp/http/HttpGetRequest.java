@@ -97,9 +97,9 @@ public class HttpGetRequest {
     public void fcGetSitesRest(RestBean restInfo) {
         String[] urlParm = new String[]{restInfo.getVrmIp(), restInfo.getRestPort()};
         String url = PropertiesUtils.getUrl("FcGetSites", urlParm);
-//        ServiceContext sr = sendGet(url, "");
-//        String restResponse = (String) sr.get(ParamKey.REST_RESPONSE);
-        String restResponse = "{\"sites\":[{\"ip\":\"192.145.17.200\",\"uri\":\"/service/sites/43DA092B\",\"urn\":\"urn:sites:43DA092B\",\"isSelf\":true,\"isDC\":false,\"status\":\"normal\",\"name\":\"site\"}]}";
+        ServiceContext sr = sendGet(url, "");
+        String restResponse = (String) sr.get(ParamKey.REST_RESPONSE);
+//        String restResponse = "{\"sites\":[{\"ip\":\"192.145.17.200\",\"uri\":\"/service/sites/43DA092B\",\"urn\":\"urn:sites:43DA092B\",\"isSelf\":true,\"isDC\":false,\"status\":\"normal\",\"name\":\"site\"}]}";
 
         Map<String, Object> responseMap = JSONUtils.jsonToMap(restResponse);
         String urlSites = ((HashMap<String, String>) (((List) responseMap.get(ParamKey.SITES)).get(0))).get(ParamKey.URI);
