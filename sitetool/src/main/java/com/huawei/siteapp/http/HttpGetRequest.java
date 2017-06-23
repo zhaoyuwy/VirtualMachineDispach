@@ -6,11 +6,16 @@ import com.huawei.siteapp.common.constats.ParamKey;
 import com.huawei.siteapp.common.util.JSONUtils;
 import com.huawei.siteapp.common.util.PropertiesUtils;
 import com.huawei.siteapp.common.util.ServiceContext;
+import com.huawei.siteapp.common.util.SpringUtil;
 import com.huawei.siteapp.model.Site;
 import com.huawei.siteapp.repository.SiteRepository;
+import com.huawei.siteapp.service.HttpRestService;
+import com.huawei.siteapp.service.ModelService.SiteServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.io.BufferedReader;
@@ -27,14 +32,18 @@ import java.util.Map;
  *
  * @version 1.0
  */
-@Configuration
+//@Configuration
 //@ComponentScan({"com.huawei.siteapp"})
 //@EnableAutoConfiguration
+@Component
 public class HttpGetRequest {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Resource
     private SiteRepository siteRepository;
+
+    @Autowired
+    private SiteServiceImpl siteService;
 
     /**
      * 向指定URL发送GET方法的请求
@@ -97,13 +106,14 @@ public class HttpGetRequest {
     public void fcGetSitesRest(RestBean restInfo) {
         String[] urlParm = new String[]{restInfo.getVrmIp(), restInfo.getRestPort()};
         String url = PropertiesUtils.getUrl("FcGetSites", urlParm);
-        ServiceContext sr = sendGet(url, "");
-        String restResponse = (String) sr.get(ParamKey.REST_RESPONSE);
-//        String restResponse = "{\"sites\":[{\"ip\":\"192.145.17.200\",\"uri\":\"/service/sites/43DA092B\",\"urn\":\"urn:sites:43DA092B\",\"isSelf\":true,\"isDC\":false,\"status\":\"normal\",\"name\":\"site\"}]}";
+//        ServiceContext sr = sendGet(url, "");
+//        String restResponse = (String) sr.get(ParamKey.REST_RESPONSE);
+        String restResponse = "{\"sites\":[{\"ip\":\"192.145.17.200\",\"uri\":\"/service/sites/43DA092B\",\"urn\":\"urn:sites:43DA092B\",\"isSelf\":true,\"isDC\":false,\"status\":\"normal\",\"name\":\"site\"}]}";
 
         Map<String, Object> responseMap = JSONUtils.jsonToMap(restResponse);
         String urlSites = ((HashMap<String, String>) (((List) responseMap.get(ParamKey.SITES)).get(0))).get(ParamKey.URI);
         List sites = new ArrayList<>();
+        siteService = SpringUtil.getBean(SiteServiceImpl.class);
         for (Object siteTemp : (List) responseMap.get(ParamKey.SITES)) {
 //            JSONObject siteObj = JSONObject.fromObject(siteTemp);
 //            Site2 site2 = (Site2)obj.toBean(obj,Site2.class);
@@ -111,8 +121,10 @@ public class HttpGetRequest {
             Site site = mapToSiteBean(siteTemp);
             sites.add(site);
             logger.error(site.toString());
-            siteRepository.save(site);
+
+            siteService.save(site);
         }
+//            siteService.saveSiteList(sites);
 //        sitesRepository.save(sites);
 
         CacheCenter.getInstance().addUrlResponse(ParamKey.SITE_ID, urlSites);

@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,6 +23,8 @@ import java.util.Set;
  * @version [版本号, 2017/6/15]
  */
 public class JSONUtils {
+    private static final Logger logger = LoggerFactory.getLogger(JSONUtils.class);
+
     /**
      * 对象转换成JSON字符串
      *
@@ -121,5 +125,45 @@ public class JSONUtils {
         }
 
         return true;
+    }
+
+    public static boolean parseJSON(ServiceContext cxt, String jsonStr)
+
+    {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            Map<String, Object> maps = objectMapper.readValue(jsonStr, Map.class);
+            if (maps == null) {
+                return false;
+            }
+            for (Map.Entry<String, Object> en : maps.entrySet()) {
+                cxt.put(en.getKey(), en.getValue());
+            }
+        } catch (JsonParseException e) {
+            logger.error("parse json to map error JsonParseException ", e);
+        } catch (JsonMappingException e) {
+            logger.error("parse json to map error JsonMappingException", e);
+        } catch (IOException e) {
+            logger.error("parse json to map error IOException", e);
+        }
+        return true;
+    }
+
+    public static Map<String, Object> parseJSON(String jsonStr)
+
+    {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            return objectMapper.readValue(jsonStr, Map.class);
+
+        } catch (JsonParseException e) {
+//            throw new UpgradeToolException("parse json to map error", e);
+        } catch (JsonMappingException e) {
+//            throw new UpgradeToolException("parse json to map error", e);
+        } catch (IOException e) {
+//            throw new UpgradeToolException("parse json to map error", e);
+        }
+        return null;
+
     }
 }

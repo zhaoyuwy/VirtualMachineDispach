@@ -1,5 +1,8 @@
 package com.huawei.siteapp.common.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,6 +15,7 @@ import java.util.Properties;
  * @version [版本号, 2017/6/15]
  */
 public class PropertiesUtils {
+    private static final Logger logger =  LoggerFactory.getLogger(PropertiesUtils.class);
     private static final String TOOL_CONFIG = "url.properties";
     private static final String PARAM_NAME_REGEX = "\\{[a-zA-Z0-9]*\\}";
 
@@ -32,11 +36,11 @@ public class PropertiesUtils {
         }
         catch (FileNotFoundException e)
         {
-//            logger.error("url.properties not found error.");
+            logger.error("url.properties not found error.");
         }
         catch (IOException e)
         {
-//            logger.error("", e);
+            logger.error("", e);
         }
         finally
         {
@@ -48,7 +52,7 @@ public class PropertiesUtils {
                 }
                 catch (IOException e)
                 {
-//                    logger.error("", e);
+                    logger.error("", e);
                 }
             }
         }
@@ -93,5 +97,41 @@ public class PropertiesUtils {
             }
         }
         return url;
+    }
+
+    public static synchronized int getInt(String key)
+    {
+        try
+        {
+            return Integer.parseInt(config.getProperty(key).trim());
+        }
+        catch (Exception e)
+        {
+            if(CommonUtils.isNull(key))
+            {
+                logger.error("key is null.");
+                return 0;
+            }
+
+            logger.error(key + "'s value is not integer,value=" + config.getProperty(key), e);
+            return 0;
+        }
+    }
+
+    /**
+     * <一句话功能简述>置入配置信息
+     * <功能详细描述>
+     * @param key 键
+     * @param value 值
+     * @see [类、类#方法、类#成员]
+     */
+    public static synchronized void put(String key, String value)
+    {
+        if(CommonUtils.isNull(key))
+        {
+            return;
+        }
+
+        config.put(key, value);
     }
 }
