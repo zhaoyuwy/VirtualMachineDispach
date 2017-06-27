@@ -17,6 +17,8 @@ public class RestBean {
 
     private String restPassword;
 
+    private String restBody;
+
     public String getVrmIp() {
         return vrmIp;
     }
@@ -56,6 +58,15 @@ public class RestBean {
     public void setRestPassword(String restPassword) {
         this.restPassword = restPassword;
     }
+
+    public String getRestBody() {
+        return restBody;
+    }
+
+    public void setRestBody(String restBody) {
+        this.restBody = restBody;
+    }
+
     public String toString()
     {
         StringBuffer buffer = new StringBuffer();

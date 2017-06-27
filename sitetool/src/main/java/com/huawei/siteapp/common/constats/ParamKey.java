@@ -12,6 +12,7 @@ public interface ParamKey {
     String SITE_ID = "siteId";
     String SITES = "sites";
     String URI = "uri";
+    String URN = "urn";
 
     String REST_URL = "restUrl";
     String REST_METHOD = "restMethod";
@@ -19,4 +20,6 @@ public interface ParamKey {
     String REST_USER = "restUser";
     String REST_PWD = "restPwd";
     String HAPROXY_PROTOCOL = "haProxyProtocol";
+
+    String NAME = "name";
 }

@@ -10,6 +10,7 @@ import com.huawei.siteapp.model.Site;
 import com.huawei.siteapp.repository.PersonRepository;
 import com.huawei.siteapp.repository.PersonRepository2;
 import com.huawei.siteapp.repository.SiteRepository;
+import com.huawei.siteapp.service.ExcelService.HostReportServiceImpl;
 import com.huawei.siteapp.service.HttpRestService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +47,10 @@ public class MappRunApplicationTests {
     @Autowired
     private HttpRestService httpRestService;
 
+
+
+    @Autowired
+    private HostReportServiceImpl hostReportServiceImpl;
     @Test
     public void contextLoads() {
         logger.trace("I am trace log.");
@@ -159,5 +165,13 @@ public class MappRunApplicationTests {
 //            sites.add(site);
 //        }
         httpRestService.clearSiteList();
+    }
+    @Test
+    public void testReport(){
+        try {
+            hostReportServiceImpl.hostReportSaveDataToExcel("this");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

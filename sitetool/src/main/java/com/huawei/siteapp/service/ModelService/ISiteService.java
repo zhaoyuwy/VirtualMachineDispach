@@ -9,10 +9,10 @@ import java.util.List;
  *
  * @version 1.0
  */
-public interface ISiteService{
+public interface ISiteService {
     void save(Site site);
 
-    void save(List<Site> sites);
+    void save(List<Site> site);
 
     void deleteById(Long id);
 

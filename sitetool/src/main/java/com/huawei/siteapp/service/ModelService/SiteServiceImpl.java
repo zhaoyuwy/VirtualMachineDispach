@@ -4,7 +4,7 @@ import com.huawei.siteapp.model.Site;
 import com.huawei.siteapp.repository.SiteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @version 1.0
  */
-@Component
+@Service
 public class SiteServiceImpl implements ISiteService {
     @Autowired
     private SiteRepository siteRepository;
@@ -32,8 +32,8 @@ public class SiteServiceImpl implements ISiteService {
     }
 
     @Override
-    public void saveByBatch(List<Site> Sites) {
-        siteRepository.save(Sites);
+    public void saveByBatch(List<Site> sites) {
+        siteRepository.save(sites);
     }
 
     @Override

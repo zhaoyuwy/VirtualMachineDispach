@@ -5,7 +5,6 @@ import com.huawei.siteapp.http.HttpGetRequest;
 import com.huawei.siteapp.http.SiteLoginHttpRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
@@ -22,7 +21,7 @@ public class MyTimer {
 
     SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 
-    @Scheduled(fixedRate = 15000)
+//    @Scheduled(fixedRate = 15000)
     public void timerRate() {
         String tm = sdf.format(new Date());
         try {

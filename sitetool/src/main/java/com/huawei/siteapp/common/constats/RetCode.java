@@ -6,6 +6,7 @@ package com.huawei.siteapp.common.constats;
  * @version 1.0
  */
 public interface RetCode {
+    int INIT_ERROR = -1;
     int LOGIN_ERROR = 1;
     int UN_AUTHORIZED = 401;
     int OK = 200;

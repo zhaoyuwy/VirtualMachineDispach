@@ -6,7 +6,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * Created by z00390414 on 2017/6/15.
@@ -26,12 +25,12 @@ public class ScheduleTask {
     void doSomethingWith() {
 //        logger.info("定时任务开始......");
         long begin = System.currentTimeMillis();
-        System.out.println("进入测试");
-        String tm = sdf.format(new Date());
-        logger.warn("每5秒执行一次 " + tm);
-        //执行数据库操作了哦...
-
-        long end = System.currentTimeMillis();
+//        System.out.println("come in test");
+//        String tm = sdf.format(new Date());
+//        logger.warn("每5秒执行一次 " + tm);
+//        执行数据库操作了哦...
+//
+//        long end = System.currentTimeMillis();
 //        logger.info("定时任务结束，共耗时：[" + (end-begin) / 1000 + "]秒");
     }
 }

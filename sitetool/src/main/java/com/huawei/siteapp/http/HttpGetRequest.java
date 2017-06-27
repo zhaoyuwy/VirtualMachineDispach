@@ -3,23 +3,18 @@ package com.huawei.siteapp.http;
 import com.huawei.siteapp.cache.CacheCenter;
 import com.huawei.siteapp.common.Bean.RestBean;
 import com.huawei.siteapp.common.constats.ParamKey;
-import com.huawei.siteapp.common.util.JSONUtils;
-import com.huawei.siteapp.common.util.PropertiesUtils;
-import com.huawei.siteapp.common.util.ServiceContext;
-import com.huawei.siteapp.common.util.SpringUtil;
+import com.huawei.siteapp.common.util.*;
+import com.huawei.siteapp.model.Cluster;
+import com.huawei.siteapp.model.Host;
 import com.huawei.siteapp.model.Site;
-import com.huawei.siteapp.repository.SiteRepository;
-import com.huawei.siteapp.service.HttpRestService;
+import com.huawei.siteapp.service.ModelService.ClusterServiceImpl;
+import com.huawei.siteapp.service.ModelService.HostServiceImpl;
 import com.huawei.siteapp.service.ModelService.SiteServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -36,6 +31,7 @@ import java.util.Map;
 //@ComponentScan({"com.huawei.siteapp"})
 //@EnableAutoConfiguration
 //@Component
+@Service
 public class HttpGetRequest {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -103,12 +99,70 @@ public class HttpGetRequest {
         return cxt;
     }
 
+     ServiceContext sendPost(String url, String param) {
+        logger.info("Begin of sendPost -- " + url);
+        PrintWriter out = null;
+        BufferedReader in = null;
+        StringBuilder result = new StringBuilder();
+        ServiceContext cxt = new ServiceContext();
+        try {
+            URL realUrl = new URL(url);
+//             打开和URL之间的连接
+            URLConnection conn = realUrl.openConnection();
+//             设置通用的请求属性
+            conn.setRequestProperty("Accept-Language", "en_US");
+            conn.setRequestProperty("Accept", "application/json;version=5.1;charset=UTF-8");
+            conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+            conn.setRequestProperty("X-Auth-Token", (String) CacheCenter.getInstance().getRestBeanResponse("FcLogin"));
+
+
+//             发送POST请求必须设置如下两行
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+//             获取URLConnection对象对应的输出流
+            out = new PrintWriter(conn.getOutputStream());
+
+//             发送请求参数
+            out.print(param);
+//             flush输出流的缓冲
+            out.flush();
+
+//             定义BufferedReader输入流来读取URL的响应
+            InputStream inputStream = conn.getInputStream();
+            in = new BufferedReader(new InputStreamReader(inputStream));
+
+            String line;
+            while ((line = in.readLine()) != null) {
+                result.append(line);
+            }
+        } catch (Exception e) {
+            logger.error("Send post rest exception", e);
+        }
+        //使用finally块来关闭输出流、输入流
+        finally {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+                if (in != null) {
+                    in.close();
+                }
+            } catch (IOException e2) {
+                logger.error("finally catch", e2);
+            }
+        }
+        cxt.put(ParamKey.REST_RESPONSE, result.toString());
+        logger.info("Post rest " + url + " response -- " + result.toString());
+        logger.info("End of sendPost -- " + url);
+        return cxt;
+    }
+
     public void fcGetSitesRest(RestBean restInfo) {
         String[] urlParm = new String[]{restInfo.getVrmIp(), restInfo.getRestPort()};
         String url = PropertiesUtils.getUrl("FcGetSites", urlParm);
-//        ServiceContext sr = sendGet(url, "");
-//        String restResponse = (String) sr.get(ParamKey.REST_RESPONSE);
-        String restResponse = "{\"sites\":[{\"ip\":\"192.145.17.200\",\"uri\":\"/service/sites/43DA092B\",\"urn\":\"urn:sites:43DA092B\",\"isSelf\":true,\"isDC\":false,\"status\":\"normal\",\"name\":\"site\"}]}";
+        ServiceContext sr = sendGet(url, "");
+        String restResponse = (String) sr.get(ParamKey.REST_RESPONSE);
+//        String restResponse = "{\"sites\":[{\"ip\":\"192.145.17.200\",\"uri\":\"/service/sites/43DA092B\",\"urn\":\"urn:sites:43DA092B\",\"isSelf\":true,\"isDC\":false,\"status\":\"normal\",\"name\":\"site\"}]}";
 
         Map<String, Object> responseMap = JSONUtils.jsonToMap(restResponse);
         String urlSites = ((HashMap<String, String>) (((List) responseMap.get(ParamKey.SITES)).get(0))).get(ParamKey.URI);
@@ -120,12 +174,12 @@ public class HttpGetRequest {
 
             Site site = mapToSiteBean(siteTemp);
             sites.add(site);
-            logger.error(site.toString());
+//            logger.error(site.toString());
 
 //            siteService.save(site);
         }
-            siteService.save(sites);
-//        sitesRepository.save(sites);
+//            siteService.saveSiteList(sites);
+        siteService.save(sites);
 
         CacheCenter.getInstance().addUrlResponse(ParamKey.SITE_ID, urlSites);
     }
@@ -157,22 +211,87 @@ public class HttpGetRequest {
         String url = PropertiesUtils.getUrl("FcGetClusters", urlParm);
         ServiceContext sr = sendGet(url, "");
         String restResponse = (String) sr.get(ParamKey.REST_RESPONSE);
+//        String restResponse = "{\"clusters\":[{\"params\":null,\"description\":\"2017.3.14\",\"tag\":null,\"uri\":\"/service/sites/43DA092B/clusters/19220\",\"urn\":\"urn:sites:43DA092B:clusters:19220\",\"cpuResource\":{\"allocatedSizeMHz\":0,\"totalSizeMHz\":518800},\"memResource\":{\"allocatedSizeMB\":954284,\"totalSizeMB\":1052924},\"parentObjUrn\":null,\"parentObjName\":null,\"name\":\"IES\"},{\"params\":null,\"description\":null,\"tag\":\"domain/default\",\"uri\":\"/service/sites/43DA092B/clusters/108\",\"urn\":\"urn:sites:43DA092B:clusters:108\",\"cpuResource\":{\"allocatedSizeMHz\":39904,\"totalSizeMHz\":1882716},\"memResource\":{\"allocatedSizeMB\":3054672,\"totalSizeMB\":5636222},\"parentObjUrn\":null,\"parentObjName\":null,\"name\":\"ManagementCluster\"}]}";
         ((List) (JSONUtils.jsonToMap(restResponse).get("clusters"))).get(0);
-
+        ClusterServiceImpl service = SpringUtil.getBean(ClusterServiceImpl.class);
+        List<Cluster> clusters = new ArrayList<>();
         for (Object clusterTemp : ((List<Object>) (JSONUtils.jsonToMap(restResponse).get("clusters")))) {
 
-
+            Cluster cluster = new Cluster();
             String uri = ((Map<String, String>) clusterTemp).get(ParamKey.URI);
+            cluster.setClusterUri(uri);
+            String urn = ((Map<String, String>) clusterTemp).get(ParamKey.URN);
+            cluster.setClusterUrn(urn);
+            String name = ((Map<String, String>) clusterTemp).get(ParamKey.NAME);
+            cluster.setClusterName(name);
 
             Object memResource = ((Map<String, String>) clusterTemp).get("memResource");
-            setResponseInCache(memResource);
+            int allocatedSizeMB = ((Map<String, Integer>) memResource).get("allocatedSizeMB");
+            int totalSizeMB = ((Map<String, Integer>) memResource).get("totalSizeMB");
+            cluster.setClusterAllocatedSizeMB(allocatedSizeMB);
+            cluster.setClusterTotalSizeMB(totalSizeMB);
+//            setResponseInCache(memResource);
 
             Object cpuResource = ((Map<String, String>) clusterTemp).get("cpuResource");
-            setResponseInCache(cpuResource);
+            int allocatedSizeMHz = ((Map<String, Integer>) cpuResource).get("allocatedSizeMHz");
+            int totalSizeMHz = ((Map<String, Integer>) cpuResource).get("totalSizeMHz");
+            cluster.setClusterAllocatedSizeMHz(allocatedSizeMHz);
+            cluster.setClusterCpuTotalSizeMHz(totalSizeMHz);
+            cluster.setTime(UctTimeUtil.getCurrentDate());
+//            setResponseInCache(cpuResource);
+            clusters.add(cluster);
+
         }
+        service.save(clusters);
 
 //        System.out.println(sr);
     }
+
+
+    public void fcGetSitesClustersHostsRest(RestBean restInfo) {
+
+        String[] urlParm = new String[]{restInfo.getVrmIp(), restInfo.getRestPort(), (String) CacheCenter.getInstance().getRestBeanResponse(ParamKey.SITE_ID)};
+        String url = PropertiesUtils.getUrl("FcGetHosts", urlParm);
+        ServiceContext sr = sendGet(url, "");
+        String restResponse = (String) sr.get(ParamKey.REST_RESPONSE);
+//        String restResponse = "{\"clusters\":[{\"params\":null,\"description\":\"2017.3.14\",\"tag\":null,\"uri\":\"/service/sites/43DA092B/clusters/19220\",\"urn\":\"urn:sites:43DA092B:clusters:19220\",\"cpuResource\":{\"allocatedSizeMHz\":0,\"totalSizeMHz\":518800},\"memResource\":{\"allocatedSizeMB\":954284,\"totalSizeMB\":1052924},\"parentObjUrn\":null,\"parentObjName\":null,\"name\":\"IES\"},{\"params\":null,\"description\":null,\"tag\":\"domain/default\",\"uri\":\"/service/sites/43DA092B/clusters/108\",\"urn\":\"urn:sites:43DA092B:clusters:108\",\"cpuResource\":{\"allocatedSizeMHz\":39904,\"totalSizeMHz\":1882716},\"memResource\":{\"allocatedSizeMB\":3054672,\"totalSizeMB\":5636222},\"parentObjUrn\":null,\"parentObjName\":null,\"name\":\"ManagementCluster\"}]}";
+//        ((List) (JSONUtils.jsonToMap(restResponse).get("clusters"))).get(0);
+        HostServiceImpl service = SpringUtil.getBean(HostServiceImpl.class);
+        List<Host> hosts = new ArrayList<>();
+        for (Object hostTemp : ((List<Object>) (JSONUtils.jsonToMap(restResponse).get("hosts")))) {
+            Host host = new Host();
+            String uri = ((Map<String, String>) hostTemp).get(ParamKey.URI);
+            host.setHostUri(uri);
+            String urn = ((Map<String, String>) hostTemp).get(ParamKey.URN);
+            host.setHostUrn(urn);
+            String ip = ((Map<String, String>) hostTemp).get("ip");
+            host.setHostIp(ip);
+            String name = ((Map<String, String>) hostTemp).get(ParamKey.NAME);
+            host.setHostName(name);
+            String clusterName = ((Map<String, String>) hostTemp).get("clusterName");
+            host.setClusterName(clusterName);
+
+
+            Object memResource = ((Map<String, String>) hostTemp).get("memResource");
+            int allocatedSizeMB = ((Map<String, Integer>) memResource).get("allocatedSizeMB");
+            int totalSizeMB = ((Map<String, Integer>) memResource).get("totalSizeMB");
+            host.setHostAllocatedSizeMB(allocatedSizeMB);
+            host.setHostTotalSizeMB(totalSizeMB);
+
+            Object cpuResource = ((Map<String, String>) hostTemp).get("cpuResource");
+            int allocatedSizeMHz = ((Map<String, Integer>) cpuResource).get("allocatedSizeMHz");
+            int totalSizeMHz = ((Map<String, Integer>) cpuResource).get("totalSizeMHz");
+            host.setHostAllocatedSizeMHz(allocatedSizeMHz);
+            host.setHostTotalSizeMHz(totalSizeMHz);
+            host.setTime(UctTimeUtil.getCurrentDate());
+            hosts.add(host);
+        }
+        service.save(hosts);
+    }
+
+
+
+
 
     private void setResponseInCache(Object response) {
         for (Object o : ((Map<String, String>) response).entrySet()) {
