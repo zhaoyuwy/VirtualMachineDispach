@@ -12,6 +12,8 @@ import java.util.List;
 public interface ISiteService{
     void save(Site site);
 
+    void save(List<Site> sites);
+
     void deleteById(Long id);
 
     void saveByBatch(List<Site> Sites);

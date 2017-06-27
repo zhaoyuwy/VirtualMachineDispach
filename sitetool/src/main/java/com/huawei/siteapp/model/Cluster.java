@@ -17,13 +17,13 @@ public class Cluster {
     String tag;
     boolean isMemOvercommit;
     boolean isEnableHa;
-//    structure haResStting;
+    //        structure haResSetting;
     boolean isEnableDrs;
-    DrsInnerBean drsSetting;
+    //    DrsInnerBean drsSetting;
     String parentObjName;
     boolean enableHostNumaDRS;
     int dsFaultStrategy;
-//    Struct drsExtensionConfig;
+    //    Struct drsExtensionConfig;
     String statistics;
     String resStrategy;
     boolean isEnableImc;
@@ -35,8 +35,8 @@ public class Cluster {
 //    boolean enableIOTailor;
 //    Map<String, String> params;
 }
-
-class DrsInnerBean{
-    String key;
-    String value;
-}
+//
+//class DrsInnerBean{
+//    String key;
+//    String value;
+//}

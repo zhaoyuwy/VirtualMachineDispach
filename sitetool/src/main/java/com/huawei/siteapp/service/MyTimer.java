@@ -26,7 +26,7 @@ public class MyTimer {
     public void timerRate() {
         String tm = sdf.format(new Date());
         try {
-            mainRest();
+//            mainRest();
         } catch (Exception e) {
             logger.error("mainRest Exception ",e);
         }

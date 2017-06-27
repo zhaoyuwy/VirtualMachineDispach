@@ -25,7 +25,7 @@ public class LangFangHttpRequestTest {
 
         String user = "admin";
         String pwd = "HWS_lf@pub9001";
-        siteLoginHttpRequest.fcLoginRest(getTestRest(), user, pwd);
+//        siteLoginHttpRequest.fcLoginRest(getTestRest(), user, pwd);
 
         HttpGetRequest httpRequest = new HttpGetRequest();
         httpRequest.fcGetSitesRest(getTestRest());

@@ -35,15 +35,15 @@ import java.util.Map;
 //@Configuration
 //@ComponentScan({"com.huawei.siteapp"})
 //@EnableAutoConfiguration
-@Component
+//@Component
 public class HttpGetRequest {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Resource
-    private SiteRepository siteRepository;
-
-    @Autowired
-    private SiteServiceImpl siteService;
+//    @Resource
+//    private SiteRepository siteRepository;
+//
+//    @Autowired
+//    private SiteServiceImpl siteService;
 
     /**
      * 向指定URL发送GET方法的请求
@@ -113,7 +113,7 @@ public class HttpGetRequest {
         Map<String, Object> responseMap = JSONUtils.jsonToMap(restResponse);
         String urlSites = ((HashMap<String, String>) (((List) responseMap.get(ParamKey.SITES)).get(0))).get(ParamKey.URI);
         List sites = new ArrayList<>();
-        siteService = SpringUtil.getBean(SiteServiceImpl.class);
+        SiteServiceImpl siteService = SpringUtil.getBean(SiteServiceImpl.class);
         for (Object siteTemp : (List) responseMap.get(ParamKey.SITES)) {
 //            JSONObject siteObj = JSONObject.fromObject(siteTemp);
 //            Site2 site2 = (Site2)obj.toBean(obj,Site2.class);
@@ -122,9 +122,9 @@ public class HttpGetRequest {
             sites.add(site);
             logger.error(site.toString());
 
-            siteService.save(site);
+//            siteService.save(site);
         }
-//            siteService.saveSiteList(sites);
+            siteService.save(sites);
 //        sitesRepository.save(sites);
 
         CacheCenter.getInstance().addUrlResponse(ParamKey.SITE_ID, urlSites);

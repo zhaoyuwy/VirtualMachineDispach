@@ -4,9 +4,7 @@ import com.huawei.siteapp.model.Site;
 import com.huawei.siteapp.repository.SiteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -24,7 +22,10 @@ public class SiteServiceImpl implements ISiteService {
     public void save(Site site) {
         siteRepository.save(site);
     }
-
+    @Override
+    public void save(List<Site> sites) {
+        siteRepository.save(sites);
+    }
     @Override
     public void deleteById(Long id) {
         siteRepository.delete(id);
