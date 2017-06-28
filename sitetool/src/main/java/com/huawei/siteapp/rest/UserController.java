@@ -4,9 +4,9 @@ import com.huawei.siteapp.cache.CacheCenter;
 import com.huawei.siteapp.common.Bean.RestBean;
 import com.huawei.siteapp.common.constats.RetCode;
 import com.huawei.siteapp.common.util.UctTimeUtil;
-import com.huawei.siteapp.http.HttpGetRequest;
-import com.huawei.siteapp.http.MonitorsServiceImpl;
-import com.huawei.siteapp.http.SiteLoginHttpRequest;
+import com.huawei.siteapp.service.Http.HttpRestServiceImpl;
+import com.huawei.siteapp.service.Http.MonitorsServiceImpl;
+import com.huawei.siteapp.service.Http.SiteLoginHttpRequestServiceImpl;
 import com.huawei.siteapp.service.ExcelService.HostReportServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,11 +41,11 @@ public class UserController {
         CacheCenter.getInstance().addUrlResponse("ip", ip);
 
         //        登录获取token
-        SiteLoginHttpRequest siteLoginHttpRequest = new SiteLoginHttpRequest();
+        SiteLoginHttpRequestServiceImpl siteLoginHttpRequest = new SiteLoginHttpRequestServiceImpl();
 
         siteLoginHttpRequest.fcLoginRest(restBean, username, pwd);
 
-        HttpGetRequest httpRequest = new HttpGetRequest();
+        HttpRestServiceImpl httpRequest = new HttpRestServiceImpl();
         httpRequest.fcGetSitesRest(restBean);
 //
         httpRequest.fcGetSitesClustersRest(restBean);

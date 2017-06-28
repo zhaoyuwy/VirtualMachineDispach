@@ -3,14 +3,13 @@ package com.huawei.siteapp.log4j2Test;
 import com.huawei.siteapp.MappRunApplication;
 import com.huawei.siteapp.common.Bean.RestBean;
 import com.huawei.siteapp.common.util.UctTimeUtil;
-import com.huawei.siteapp.http.HttpGetRequest;
-import com.huawei.siteapp.http.SiteLoginHttpRequest;
-import com.huawei.siteapp.model.Person;
-import com.huawei.siteapp.model.Site;
+import com.huawei.siteapp.model.PersonModel;
+import com.huawei.siteapp.model.SiteModel;
 import com.huawei.siteapp.repository.PersonRepository;
 import com.huawei.siteapp.repository.PersonRepository2;
-import com.huawei.siteapp.repository.SiteRepository;
 import com.huawei.siteapp.service.ExcelService.HostReportServiceImpl;
+import com.huawei.siteapp.service.Http.HttpRestServiceImpl;
+import com.huawei.siteapp.service.Http.SiteLoginHttpRequestServiceImpl;
 import com.huawei.siteapp.service.HttpRestService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,8 +37,8 @@ public class MappRunApplicationTests {
     @Autowired
     private PersonRepository personRepository;
 
-    @Autowired
-    private SiteRepository siteRepository;
+//    @Autowired
+//    private SiteRepository siteRepository;
 
     @Autowired
     private PersonRepository2 personRepository2;
@@ -67,7 +66,7 @@ public class MappRunApplicationTests {
 
     @Test
     public void testInsert2() {
-        Person person = new Person();
+        PersonModel person = new PersonModel();
         person.setAddress("xian");
         person.setAge(31);
         person.setName("zhaoxiao");
@@ -78,11 +77,11 @@ public class MappRunApplicationTests {
 
     @Test
     public void testInsertSite() {
-        Site site = new Site();
+        SiteModel site = new SiteModel();
         site.setSiteStatus("false");
         site.setSiteUrn("url");
 
-        siteRepository.save(site);
+//        siteRepository.save(site);
     }
 
     @Test
@@ -103,13 +102,13 @@ public class MappRunApplicationTests {
     @Test
     public void propertiesRest() throws Exception {
 //        登录获取token
-        SiteLoginHttpRequest siteLoginHttpRequest = new SiteLoginHttpRequest();
+        SiteLoginHttpRequestServiceImpl siteLoginHttpRequest = new SiteLoginHttpRequestServiceImpl();
 
         String user = "kwx319070";
         String pwd = "OpsImage@12345";
 //        siteLoginHttpRequest.fcLoginRest(getTestRest(), user, pwd);
 
-        HttpGetRequest httpRequest = new HttpGetRequest();
+        HttpRestServiceImpl httpRequest = new HttpRestServiceImpl();
         httpRequest.fcGetSitesRest(getTestRest());
 
 //        httpRequest.fcGetSitesClustersRest(getTestRest());
@@ -117,13 +116,13 @@ public class MappRunApplicationTests {
     @Test
     public void LangFangFc() throws Exception {
 //        登录获取token
-        SiteLoginHttpRequest siteLoginHttpRequest = new SiteLoginHttpRequest();
+        SiteLoginHttpRequestServiceImpl siteLoginHttpRequest = new SiteLoginHttpRequestServiceImpl();
 
         String user = "admin";
         String pwd = "HWS_lf@pub9001";
 //        siteLoginHttpRequest.fcLoginRest(getTestRest(), user, pwd);
 
-        HttpGetRequest httpRequest = new HttpGetRequest();
+        HttpRestServiceImpl httpRequest = new HttpRestServiceImpl();
         httpRequest.fcGetSitesRest(getTestRest());
 
 //        httpRequest.fcGetSitesClustersRest(getTestRest());
@@ -131,11 +130,11 @@ public class MappRunApplicationTests {
 
     @Test
     public void testCrudRepository(){
-        List<Site> sites = new ArrayList<>();
+        List<SiteModel> sites = new ArrayList<>();
         int index=0;
         for(int i='a';i<='z';i++){
             index++;
-            Site site = new Site();
+            SiteModel site = new SiteModel();
             site.setSiteIp((char)i+""+(char)i+"@sina.com"+ UctTimeUtil.getCurrentDate());
             sites.add(site);
         }
@@ -143,24 +142,24 @@ public class MappRunApplicationTests {
     }
     @Test
     public void testCrudRepositoryInterface(){
-        List<Site> sites = new ArrayList<>();
+        List<SiteModel> sites = new ArrayList<>();
         int index=0;
         for(int i='a';i<='z';i++){
             index++;
-            Site site = new Site();
+            SiteModel site = new SiteModel();
             site.setSiteIp((char)i+""+(char)i+"@sina14.com"+ UctTimeUtil.getCurrentDate());
             sites.add(site);
         }
-        siteRepository.save(sites);
+//        siteRepository.save(sites);
     }
     @Test
     public void testCrudRepositoryClear(){
-//        List<Site> sites = new ArrayList<>();
+//        List<SiteModel> sites = new ArrayList<>();
 //
 //        int index=0;
 //        for(int i='a';i<='z';i++){
 //            index++;
-//            Site site = new Site();
+//            SiteModel site = new SiteModel();
 //            site.setSiteIp((char)i+""+(char)i+"@sina.com");
 //            sites.add(site);
 //        }

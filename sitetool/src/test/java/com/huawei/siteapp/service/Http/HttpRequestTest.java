@@ -1,4 +1,4 @@
-package com.huawei.siteapp.http;
+package com.huawei.siteapp.service.Http;
 
 import com.huawei.siteapp.MappRunApplication;
 import com.huawei.siteapp.common.Bean.RestBean;
@@ -27,13 +27,13 @@ public class HttpRequestTest {
     @Test
     public void propertiesRest() throws Exception {
 //        登录获取token
-        SiteLoginHttpRequest siteLoginHttpRequest = new SiteLoginHttpRequest();
+        SiteLoginHttpRequestServiceImpl siteLoginHttpRequest = new SiteLoginHttpRequestServiceImpl();
 
         String user = "kwx319070";
         String pwd = "OpsImage@12345";
         siteLoginHttpRequest.fcLoginRest(getTestRest(), user, pwd);
 
-        HttpGetRequest httpRequest = new HttpGetRequest();
+        HttpRestServiceImpl httpRequest = new HttpRestServiceImpl();
         httpRequest.fcGetSitesRest(getTestRest());
 
         httpRequest.fcGetSitesClustersRest(getTestRest());

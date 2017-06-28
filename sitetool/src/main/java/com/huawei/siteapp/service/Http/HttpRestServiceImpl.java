@@ -1,18 +1,17 @@
-package com.huawei.siteapp.http;
+package com.huawei.siteapp.service.Http;
 
 import com.huawei.siteapp.cache.CacheCenter;
 import com.huawei.siteapp.common.Bean.RestBean;
 import com.huawei.siteapp.common.constats.ParamKey;
 import com.huawei.siteapp.common.util.*;
-import com.huawei.siteapp.model.Cluster;
-import com.huawei.siteapp.model.Host;
-import com.huawei.siteapp.model.Site;
-import com.huawei.siteapp.service.ModelService.ClusterServiceImpl;
-import com.huawei.siteapp.service.ModelService.HostServiceImpl;
-import com.huawei.siteapp.service.ModelService.SiteServiceImpl;
+import com.huawei.siteapp.model.ClusterModel;
+import com.huawei.siteapp.model.HostModel;
+import com.huawei.siteapp.model.SiteModel;
+import com.huawei.siteapp.service.ModelService.Impl.ClusterServiceImpl;
+import com.huawei.siteapp.service.ModelService.Impl.HostServiceImpl;
+import com.huawei.siteapp.service.ModelService.Impl.SiteServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.net.URL;
@@ -27,19 +26,9 @@ import java.util.Map;
  *
  * @version 1.0
  */
-//@Configuration
-//@ComponentScan({"com.huawei.siteapp"})
-//@EnableAutoConfiguration
-//@Component
-@Service
-public class HttpGetRequest {
+//@Service
+public class HttpRestServiceImpl {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
-//    @Resource
-//    private SiteRepository siteRepository;
-//
-//    @Autowired
-//    private SiteServiceImpl siteService;
 
     /**
      * 向指定URL发送GET方法的请求
@@ -172,7 +161,7 @@ public class HttpGetRequest {
 //            JSONObject siteObj = JSONObject.fromObject(siteTemp);
 //            Site2 site2 = (Site2)obj.toBean(obj,Site2.class);
 
-            Site site = mapToSiteBean(siteTemp);
+            SiteModel site = mapToSiteBean(siteTemp);
             sites.add(site);
 //            logger.error(site.toString());
 
@@ -184,8 +173,8 @@ public class HttpGetRequest {
         CacheCenter.getInstance().addUrlResponse(ParamKey.SITE_ID, urlSites);
     }
 
-    private Site mapToSiteBean(Object siteObj) {
-        Site site = new Site();
+    private SiteModel mapToSiteBean(Object siteObj) {
+        SiteModel site = new SiteModel();
         String siteUri = ((HashMap<String, String>) siteObj).get("uri");
         String siteUrn = ((HashMap<String, String>) siteObj).get("urn");
         String siteIp = ((HashMap<String, String>) siteObj).get("ip");
@@ -214,10 +203,10 @@ public class HttpGetRequest {
 //        String restResponse = "{\"clusters\":[{\"params\":null,\"description\":\"2017.3.14\",\"tag\":null,\"uri\":\"/service/sites/43DA092B/clusters/19220\",\"urn\":\"urn:sites:43DA092B:clusters:19220\",\"cpuResource\":{\"allocatedSizeMHz\":0,\"totalSizeMHz\":518800},\"memResource\":{\"allocatedSizeMB\":954284,\"totalSizeMB\":1052924},\"parentObjUrn\":null,\"parentObjName\":null,\"name\":\"IES\"},{\"params\":null,\"description\":null,\"tag\":\"domain/default\",\"uri\":\"/service/sites/43DA092B/clusters/108\",\"urn\":\"urn:sites:43DA092B:clusters:108\",\"cpuResource\":{\"allocatedSizeMHz\":39904,\"totalSizeMHz\":1882716},\"memResource\":{\"allocatedSizeMB\":3054672,\"totalSizeMB\":5636222},\"parentObjUrn\":null,\"parentObjName\":null,\"name\":\"ManagementCluster\"}]}";
         ((List) (JSONUtils.jsonToMap(restResponse).get("clusters"))).get(0);
         ClusterServiceImpl service = SpringUtil.getBean(ClusterServiceImpl.class);
-        List<Cluster> clusters = new ArrayList<>();
+        List<ClusterModel> clusters = new ArrayList<>();
         for (Object clusterTemp : ((List<Object>) (JSONUtils.jsonToMap(restResponse).get("clusters")))) {
 
-            Cluster cluster = new Cluster();
+            ClusterModel cluster = new ClusterModel();
             String uri = ((Map<String, String>) clusterTemp).get(ParamKey.URI);
             cluster.setClusterUri(uri);
             String urn = ((Map<String, String>) clusterTemp).get(ParamKey.URN);
@@ -257,9 +246,9 @@ public class HttpGetRequest {
 //        String restResponse = "{\"clusters\":[{\"params\":null,\"description\":\"2017.3.14\",\"tag\":null,\"uri\":\"/service/sites/43DA092B/clusters/19220\",\"urn\":\"urn:sites:43DA092B:clusters:19220\",\"cpuResource\":{\"allocatedSizeMHz\":0,\"totalSizeMHz\":518800},\"memResource\":{\"allocatedSizeMB\":954284,\"totalSizeMB\":1052924},\"parentObjUrn\":null,\"parentObjName\":null,\"name\":\"IES\"},{\"params\":null,\"description\":null,\"tag\":\"domain/default\",\"uri\":\"/service/sites/43DA092B/clusters/108\",\"urn\":\"urn:sites:43DA092B:clusters:108\",\"cpuResource\":{\"allocatedSizeMHz\":39904,\"totalSizeMHz\":1882716},\"memResource\":{\"allocatedSizeMB\":3054672,\"totalSizeMB\":5636222},\"parentObjUrn\":null,\"parentObjName\":null,\"name\":\"ManagementCluster\"}]}";
 //        ((List) (JSONUtils.jsonToMap(restResponse).get("clusters"))).get(0);
         HostServiceImpl service = SpringUtil.getBean(HostServiceImpl.class);
-        List<Host> hosts = new ArrayList<>();
+        List<HostModel> hosts = new ArrayList<>();
         for (Object hostTemp : ((List<Object>) (JSONUtils.jsonToMap(restResponse).get("hosts")))) {
-            Host host = new Host();
+            HostModel host = new HostModel();
             String uri = ((Map<String, String>) hostTemp).get(ParamKey.URI);
             host.setHostUri(uri);
             String urn = ((Map<String, String>) hostTemp).get(ParamKey.URN);

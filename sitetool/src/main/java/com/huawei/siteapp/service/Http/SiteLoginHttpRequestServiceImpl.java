@@ -1,4 +1,4 @@
-package com.huawei.siteapp.http;
+package com.huawei.siteapp.service.Http;
 
 import com.huawei.siteapp.cache.CacheCenter;
 import com.huawei.siteapp.common.Bean.RestBean;
@@ -7,6 +7,7 @@ import com.huawei.siteapp.common.util.PropertiesUtils;
 import com.huawei.siteapp.common.util.ServiceContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.net.URL;
@@ -20,8 +21,8 @@ import java.util.Map;
  * @version 1.0
  */
 
-
-public class SiteLoginHttpRequest {
+@Service
+public class SiteLoginHttpRequestServiceImpl {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**

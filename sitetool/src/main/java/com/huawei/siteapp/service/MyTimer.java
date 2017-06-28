@@ -1,8 +1,8 @@
 package com.huawei.siteapp.service;
 
 import com.huawei.siteapp.common.Bean.RestBean;
-import com.huawei.siteapp.http.HttpGetRequest;
-import com.huawei.siteapp.http.SiteLoginHttpRequest;
+import com.huawei.siteapp.service.Http.HttpRestServiceImpl;
+import com.huawei.siteapp.service.Http.SiteLoginHttpRequestServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -44,13 +44,13 @@ public class MyTimer {
 
     public void mainRest() throws Exception {
 //        登录获取token
-        SiteLoginHttpRequest siteLoginHttpRequest = new SiteLoginHttpRequest();
+        SiteLoginHttpRequestServiceImpl siteLoginHttpRequest = new SiteLoginHttpRequestServiceImpl();
 
         String user = "kwx319070";
         String pwd = "OpsImage@12345";
         siteLoginHttpRequest.fcLoginRest(getTestRest(), user, pwd);
 
-        HttpGetRequest httpRequest = new HttpGetRequest();
+        HttpRestServiceImpl httpRequest = new HttpRestServiceImpl();
         httpRequest.fcGetSitesRest(getTestRest());
 
         httpRequest.fcGetSitesClustersRest(getTestRest());

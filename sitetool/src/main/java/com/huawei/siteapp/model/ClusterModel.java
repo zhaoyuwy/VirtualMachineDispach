@@ -13,7 +13,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "fc_cluster")
-public class Cluster implements Serializable {
+public class ClusterModel implements Serializable {
     String clusterUri;
     String clusterUrn;
     String clusterName;

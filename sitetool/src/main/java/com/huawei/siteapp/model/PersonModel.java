@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name="person")
-public class Person implements Serializable{
+public class PersonModel implements Serializable{
 
 	@Id
 	private int id;
@@ -53,7 +53,7 @@ public class Person implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Person [id=" + id + ", name=" + name + ", age=" + age + ", address=" + address + "]";
+		return "PersonModel [id=" + id + ", name=" + name + ", age=" + age + ", address=" + address + "]";
 	}
 
 }

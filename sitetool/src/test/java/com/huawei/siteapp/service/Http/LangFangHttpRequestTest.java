@@ -1,4 +1,4 @@
-package com.huawei.siteapp.http;
+package com.huawei.siteapp.service.Http;
 
 import com.huawei.siteapp.common.Bean.RestBean;
 import org.junit.Test;
@@ -21,13 +21,13 @@ public class LangFangHttpRequestTest {
     @Test
     public void propertiesRest() throws Exception {
 //        登录获取token
-        SiteLoginHttpRequest siteLoginHttpRequest = new SiteLoginHttpRequest();
+        SiteLoginHttpRequestServiceImpl siteLoginHttpRequest = new SiteLoginHttpRequestServiceImpl();
 
         String user = "admin";
         String pwd = "HWS_lf@pub9001";
         siteLoginHttpRequest.fcLoginRest(getTestRest(), user, pwd);
 
-        HttpGetRequest httpRequest = new HttpGetRequest();
+        HttpRestServiceImpl httpRequest = new HttpRestServiceImpl();
         httpRequest.fcGetSitesRest(getTestRest());
 
 //        httpRequest.fcGetSitesClustersRest(getTestRest());
