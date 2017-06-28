@@ -20,7 +20,7 @@ public class UctTimeUtil {
      * @return
      */
     public static String getCurrentDate() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:MM:SS");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
         return sdf.format(new Date());
     }
 

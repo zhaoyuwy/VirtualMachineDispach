@@ -1,67 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--设置log4j2的自身log级别为warn-->
-<configuration status="warn">
-
-    <appenders>
-        <console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
-        </console>
-
-        <Properties>
-            <Property name="LOG_HOME">${sys:catalina.home}/logs/AppNetAgeService</Property>
-            <!--<Property name="LOG_HOME">${sys:catalina.home}/logs/AppNetAgeService</Property>-->
-        </Properties>
-
-        <RollingFile name="RollingFileInfo" fileName="logs/siteapp/info.log"
-                     filePattern="logs/siteapp/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log">
-            <Filters>
-                <ThresholdFilter level="INFO"/>
-                <ThresholdFilter level="WARN" onMatch="DENY" onMismatch="NEUTRAL"/>
-            </Filters>
-            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+<Configuration status="WARN">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+        <RollingRandomAccessFile name="logfile"
+                                 fileName="site_log/sitetool-debug.log"
+                                 filePattern="site_log/sitetool-debug.log%i">
+            <PatternLayout
+                    pattern="%d{yyyy MMM dd HH:mm:ss,SSS} {%-5p} {%t} {%c %L} %m%n"/>
             <Policies>
-                <TimeBasedTriggeringPolicy/>
-                <SizeBasedTriggeringPolicy size="100 MB"/>
+                <SizeBasedTriggeringPolicy size="20 MB"/>
             </Policies>
-        </RollingFile>
-
-        <RollingFile name="RollingFileWarn" fileName="logs/siteapp/warn.log"
-                     filePattern="logs/siteapp/$${date:yyyy-MM}/warn-%d{yyyy-MM-dd}-%i.log">
-            <Filters>
-                <ThresholdFilter level="WARN"/>
-                <ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL"/>
-            </Filters>
-            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingRandomAccessFile>
+        <RollingRandomAccessFile name="errlogfile"
+                                 fileName="site_log/sitetool-error.log"
+                                 filePattern="site_log/sitetool-error.log%i">
+            <PatternLayout
+                    pattern="%d{yyyy MMM dd HH:mm:ss,SSS} {%-5p} {%t} {%c %L} %m%n"/>
+            <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
             <Policies>
-                <TimeBasedTriggeringPolicy/>
-                <SizeBasedTriggeringPolicy size="100 MB"/>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
             </Policies>
-        </RollingFile>
-
-        <RollingFile name="RollingFileError" fileName="logs/siteapp/error.log"
-                     filePattern="logs/siteapp/$${date:yyyy-MM}/error-%d{yyyy-MM-dd}-%i.log">
-            <ThresholdFilter level="ERROR"/>
-            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
-            <Policies>
-                <TimeBasedTriggeringPolicy/>
-                <SizeBasedTriggeringPolicy size="100 MB"/>
-            </Policies>
-        </RollingFile>
-
-    </appenders>
-
-    <loggers>
-        <!--过滤掉spring和hibernate的一些无用的debug信息-->
-        <logger name="org.springframework" level="INFO">
-        </logger>
-        <logger name="org.hibernate" level="INFO">
-        </logger>
-        <root level="all">
+            <DefaultRolloverStrategy max="5"/>
+        </RollingRandomAccessFile>
+    </Appenders>
+    <Loggers>
+        <Logger name="org.springframework" level="error" additivity="false">
+            <AppenderRef ref="logfile"/>
+            <AppenderRef ref="errlogfile"/>
+        </Logger>
+        <Logger name="org.hibernate" level="error" additivity="false">
+            <AppenderRef ref="logfile"/>
+            <AppenderRef ref="errlogfile"/>
+        </Logger>
+        <Logger name="com.huawei" level="info" additivity="false">
+            <AppenderRef ref="logfile"/>
+            <AppenderRef ref="errlogfile"/>
+        </Logger>
+        <Root level="ALL">
             <appender-ref ref="Console"/>
             <appender-ref ref="RollingFileInfo"/>
             <appender-ref ref="RollingFileWarn"/>
             <appender-ref ref="RollingFileError"/>
-        </root>
-    </loggers>
+        </Root>
 
-</configuration>
+        <!--过滤掉spring和hibernate的一些无用的debug信息-->
+        <!--<logger name="org.springframework" level="INFO">-->
+        <!--</logger>-->
+        <!--<logger name="org.hibernate" level="INFO">-->
+        <!--</logger>-->
+        <!--<root level="all">-->
+            <!--<appender-ref ref="Console"/>-->
+            <!--<appender-ref ref="RollingFileInfo"/>-->
+            <!--<appender-ref ref="RollingFileWarn"/>-->
+            <!--<appender-ref ref="RollingFileError"/>-->
+        <!--</root>-->
+    </Loggers>
+</Configuration>

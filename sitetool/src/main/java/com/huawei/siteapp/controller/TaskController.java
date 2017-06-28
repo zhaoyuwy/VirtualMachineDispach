@@ -1,6 +1,8 @@
 package com.huawei.siteapp.controller;
 
 import com.huawei.siteapp.service.Task.TaskServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 public class TaskController {
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private TaskServiceImpl TASK;
 
@@ -26,6 +29,8 @@ public class TaskController {
         TASK.doTaaskThree();
         long end = System.currentTimeMillis();
         System.out.println("完成Controller任务，耗时：" + (end - start) + "毫秒");
+        String path = getClass().getClassLoader().getResource("").getPath();
+        logger.error("This is a error test! path = "+path);
         return "success";
     }
 }
