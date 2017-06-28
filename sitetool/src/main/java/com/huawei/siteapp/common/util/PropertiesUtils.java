@@ -15,48 +15,37 @@ import java.util.Properties;
  * @version [版本号, 2017/6/15]
  */
 public class PropertiesUtils {
-    private static final Logger logger =  LoggerFactory.getLogger(PropertiesUtils.class);
-    private static final String TOOL_CONFIG = "url.properties";
+    private static final Logger logger = LoggerFactory.getLogger(PropertiesUtils.class);
+    private static final String URL_FILE = "url.properties";
     private static final String PARAM_NAME_REGEX = "\\{[a-zA-Z0-9]*\\}";
 
 
-
     private static Properties config = new Properties();
-    static
-    {
+
+    static {
         InputStream in = null;
 
-        try
-        {
+        try {
             ClassLoader classloader = PropertiesUtils.class.getClassLoader();
-            if(classloader != null){
-                in = classloader.getResourceAsStream(TOOL_CONFIG);
+            if (classloader != null) {
+                in = classloader.getResourceAsStream(URL_FILE);
                 config.load(in);
             }
-        }
-        catch (FileNotFoundException e)
-        {
+        } catch (FileNotFoundException e) {
             logger.error("url.properties not found error.");
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             logger.error("", e);
-        }
-        finally
-        {
-            if (in != null)
-            {
-                try
-                {
+        } finally {
+            if (in != null) {
+                try {
                     in.close();
-                }
-                catch (IOException e)
-                {
+                } catch (IOException e) {
                     logger.error("", e);
                 }
             }
         }
     }
+
     /**
      * <一句话功能简述>查找配置信息 <功能详细描述>
      *
@@ -64,33 +53,28 @@ public class PropertiesUtils {
      * @return value
      * @see [类、类#方法、类#成员]
      */
-    public static synchronized String get(String key)
-    {
-        if(CommonUtils.isNull(key))
-        {
+    public static synchronized String get(String key) {
+        if (CommonUtils.isNull(key)) {
             return null;
         }
 
         return config.getProperty(key);
     }
-    
+
     /**
      * <一句话功能简述>根据键值和参数查询对应的URL
      * <功能详细描述>
-     * @param key 键值
+     *
+     * @param key  键值
      * @param args 参数
      * @return 拼接后的url
      * @see [类、类#方法、类#成员]
      */
-    public static String getUrl(String key, String... args)
-    {
+    public static String getUrl(String key, String... args) {
         String url = get(key);
-        if (!CommonUtils.isNull(url))
-        {
-            for (String arg : args)
-            {
-                if (CommonUtils.isNull(arg))
-                {
+        if (!CommonUtils.isNull(url)) {
+            for (String arg : args) {
+                if (CommonUtils.isNull(arg)) {
                     arg = "";
                 }
                 url = url.replaceFirst(PARAM_NAME_REGEX, arg);
@@ -99,16 +83,11 @@ public class PropertiesUtils {
         return url;
     }
 
-    public static synchronized int getInt(String key)
-    {
-        try
-        {
+    public static synchronized int getInt(String key) {
+        try {
             return Integer.parseInt(config.getProperty(key).trim());
-        }
-        catch (Exception e)
-        {
-            if(CommonUtils.isNull(key))
-            {
+        } catch (Exception e) {
+            if (CommonUtils.isNull(key)) {
                 logger.error("key is null.");
                 return 0;
             }
@@ -121,14 +100,13 @@ public class PropertiesUtils {
     /**
      * <一句话功能简述>置入配置信息
      * <功能详细描述>
-     * @param key 键
+     *
+     * @param key   键
      * @param value 值
      * @see [类、类#方法、类#成员]
      */
-    public static synchronized void put(String key, String value)
-    {
-        if(CommonUtils.isNull(key))
-        {
+    public static synchronized void put(String key, String value) {
+        if (CommonUtils.isNull(key)) {
             return;
         }
 
