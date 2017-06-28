@@ -1,5 +1,8 @@
 package com.huawei.siteapp.configuration;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,7 +17,7 @@ import java.io.IOException;
  */
 @WebServlet(name = "siteAppServlet",urlPatterns = "/hello")
 public class SiteAppServlet extends HttpServlet {
-
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.getWriter().print("hello word");

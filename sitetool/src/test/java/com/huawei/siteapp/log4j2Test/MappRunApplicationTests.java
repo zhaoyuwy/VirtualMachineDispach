@@ -61,7 +61,7 @@ public class MappRunApplicationTests {
 
     @Test
     public void testInsert() {
-        personRepository2.addPersonsBySQL("INSERT INTO person(name, age, address) VALUES ('ch', 16, 'cc')");
+//        personRepository2.addPersonsBySQL("INSERT INTO person(name, age, address) VALUES ('ch', 16, 'cc')");
     }
 
     @Test
