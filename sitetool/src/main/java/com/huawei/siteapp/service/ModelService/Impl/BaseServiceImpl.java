@@ -3,8 +3,6 @@ package com.huawei.siteapp.service.ModelService.Impl;
 import com.huawei.siteapp.repository.BaseRepository;
 import com.huawei.siteapp.service.ModelService.IBaseService;
 
-import javax.annotation.Resource;
-
 /**
  * Created by z00390414 on 2017/6/28.
  *
@@ -14,7 +12,7 @@ public class BaseServiceImpl<T> implements IBaseService<T> {
 
     private BaseRepository<T> repository;
 
-    @Resource
+//    @Resource
     public void setRepository(BaseRepository<T> repository) {
 
         this.repository = repository;
