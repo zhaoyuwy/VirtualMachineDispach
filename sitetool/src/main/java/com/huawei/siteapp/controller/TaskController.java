@@ -21,7 +21,7 @@ public class TaskController {
     public String task() throws Exception {
         System.out.println("开始执行Controller任务");
         long start = System.currentTimeMillis();
-        TASK.doTaskOne();
+//        TASK.doTaskOne();
         TASK.doTaskTwo();
         TASK.doTaaskThree();
         long end = System.currentTimeMillis();
