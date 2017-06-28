@@ -1,9 +1,6 @@
 package com.huawei.siteapp.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -36,7 +33,8 @@ public class ClusterModel implements Serializable {
     }
 
     @Id
-    @GeneratedValue
+//    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long clusterId = -1L;
 
     public String getClusterUri() {

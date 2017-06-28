@@ -1,9 +1,6 @@
 package com.huawei.siteapp.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -15,7 +12,8 @@ import java.io.Serializable;
 @Table(name = "fc_users")
 public class UserModel implements Serializable {
     @Id
-    @GeneratedValue
+//    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long userId = -1L;
     private String userName;
     private String userPwd;
