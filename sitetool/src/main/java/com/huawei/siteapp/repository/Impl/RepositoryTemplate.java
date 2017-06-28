@@ -1,4 +1,4 @@
-package com.huawei.siteapp.repository;
+package com.huawei.siteapp.repository.Impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -10,12 +10,12 @@ import org.springframework.stereotype.Repository;
  * @version 1.0
  */
 @Repository
-public class PersonRepository2 {
+public class RepositoryTemplate {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public void addPersonsBySQL(String sql) {
-        jdbcTemplate.update(sql);
+    public void addTriggerBySQL(String triggerSql) {
+        jdbcTemplate.execute(triggerSql);
     }
 }

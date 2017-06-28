@@ -12,6 +12,7 @@ import com.huawei.siteapp.service.ModelService.Impl.HostServiceImpl;
 import com.huawei.siteapp.service.ModelService.Impl.SiteServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.net.URL;
@@ -26,7 +27,7 @@ import java.util.Map;
  *
  * @version 1.0
  */
-//@Service
+@Service
 public class HttpRestServiceImpl {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 

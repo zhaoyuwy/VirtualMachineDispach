@@ -14,17 +14,27 @@ import java.io.Serializable;
 @Entity
 @Table(name = "fc_cluster")
 public class ClusterModel implements Serializable {
-    String clusterUri;
-    String clusterUrn;
-    String clusterName;
-    String time;
+    private String clusterUri;
+    private String clusterUrn;
+    private String clusterName;
+    private String time;
     //    class ClusterCpuResource{
-    int clusterAllocatedSizeMHz;
-    int clusterCpuTotalSizeMHz;
+    private int clusterAllocatedSizeMHz;
+    private int clusterCpuTotalSizeMHz;
     //    }
 //    class ClusterMemResource{
-    int clusterAllocatedSizeMB;
-    int clusterTotalSizeMB;
+    private int clusterAllocatedSizeMB;
+    private int clusterTotalSizeMB;
+    private Long siteId;
+
+    public Long getSiteId() {
+        return siteId;
+    }
+
+    public void setSiteId(Long siteId) {
+        this.siteId = siteId;
+    }
+
     @Id
     @GeneratedValue
     private Long clusterId = -1L;

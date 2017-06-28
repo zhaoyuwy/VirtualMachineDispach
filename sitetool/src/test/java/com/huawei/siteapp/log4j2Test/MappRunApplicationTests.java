@@ -6,7 +6,7 @@ import com.huawei.siteapp.common.util.UctTimeUtil;
 import com.huawei.siteapp.model.PersonModel;
 import com.huawei.siteapp.model.SiteModel;
 import com.huawei.siteapp.repository.PersonRepository;
-import com.huawei.siteapp.repository.PersonRepository2;
+import com.huawei.siteapp.repository.Impl.RepositoryTemplate;
 import com.huawei.siteapp.service.ExcelService.HostReportServiceImpl;
 import com.huawei.siteapp.service.Http.HttpRestServiceImpl;
 import com.huawei.siteapp.service.Http.SiteLoginHttpRequestServiceImpl;
@@ -41,7 +41,7 @@ public class MappRunApplicationTests {
 //    private SiteRepository siteRepository;
 
     @Autowired
-    private PersonRepository2 personRepository2;
+    private RepositoryTemplate personRepository2;
 
 //    @Autowired
 //    private HttpRestService httpRestService;
