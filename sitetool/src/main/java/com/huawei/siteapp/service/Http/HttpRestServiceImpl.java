@@ -84,7 +84,7 @@ public class HttpRestServiceImpl {
         }
         cxt.put(ParamKey.REST_RESPONSE, result.toString());
         logger.info("Get rest " + url + " response -- " + result.toString());
-        logger.info("Begin of get -- " + url);
+        logger.info("End of get -- " + url);
         return cxt;
     }
 

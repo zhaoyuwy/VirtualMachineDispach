@@ -10,7 +10,7 @@ import com.huawei.siteapp.repository.PersonRepository2;
 import com.huawei.siteapp.service.ExcelService.HostReportServiceImpl;
 import com.huawei.siteapp.service.Http.HttpRestServiceImpl;
 import com.huawei.siteapp.service.Http.SiteLoginHttpRequestServiceImpl;
-import com.huawei.siteapp.service.HttpRestService;
+//import com.huawei.siteapp.service.HttpRestService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -43,8 +43,8 @@ public class MappRunApplicationTests {
     @Autowired
     private PersonRepository2 personRepository2;
 
-    @Autowired
-    private HttpRestService httpRestService;
+//    @Autowired
+//    private HttpRestService httpRestService;
 
 
 
@@ -138,7 +138,7 @@ public class MappRunApplicationTests {
             site.setSiteIp((char)i+""+(char)i+"@sina.com"+ UctTimeUtil.getCurrentDate());
             sites.add(site);
         }
-        httpRestService.saveSiteList(sites);
+//        httpRestService.saveSiteList(sites);
     }
     @Test
     public void testCrudRepositoryInterface(){
@@ -163,7 +163,7 @@ public class MappRunApplicationTests {
 //            site.setSiteIp((char)i+""+(char)i+"@sina.com");
 //            sites.add(site);
 //        }
-        httpRestService.clearSiteList();
+//        httpRestService.clearSiteList();
     }
     @Test
     public void testReport(){

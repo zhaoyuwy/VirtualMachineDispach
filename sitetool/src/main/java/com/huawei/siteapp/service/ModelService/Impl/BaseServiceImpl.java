@@ -12,11 +12,8 @@ public class BaseServiceImpl<T> implements IBaseService<T> {
 
     private BaseRepository<T> repository;
 
-//    @Resource
     public void setRepository(BaseRepository<T> repository) {
-
         this.repository = repository;
-
     }
 
     @Override
@@ -26,7 +23,8 @@ public class BaseServiceImpl<T> implements IBaseService<T> {
 
     @Override
     public <S extends T> Iterable<S> save(Iterable<S> iterable) {
-        return save(iterable);
+        repository.save(iterable);
+        return null;
     }
 
     @Override
