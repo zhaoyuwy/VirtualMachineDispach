@@ -169,7 +169,7 @@ public class MappRunApplicationTests {
     @Test
     public void testReport(){
         try {
-            hostReportServiceImpl.hostReportSaveDataToExcel("this");
+            hostReportServiceImpl.hostReportSaveDataToExcel(UctTimeUtil.getCurrentDate("yyyy_MM_dd_HH_MM_SS"));
         } catch (IOException e) {
             e.printStackTrace();
         }
