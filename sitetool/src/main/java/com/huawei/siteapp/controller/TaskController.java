@@ -5,10 +5,10 @@ import com.huawei.siteapp.common.Bean.RestBean;
 import com.huawei.siteapp.common.constats.RetCode;
 import com.huawei.siteapp.common.util.SpringUtil;
 import com.huawei.siteapp.common.util.UctTimeUtil;
-import com.huawei.siteapp.model.MonitorCpuMemModel;
+import com.huawei.siteapp.model.MonitorCnaInfoModel;
 import com.huawei.siteapp.service.ExcelService.HostReportServiceImpl;
 import com.huawei.siteapp.service.Http.MonitorAllVmsServiceImpl;
-import com.huawei.siteapp.service.ModelService.Impl.MonitorCpuMemServiceImpl;
+import com.huawei.siteapp.service.ModelService.Impl.MonitorCnaInfoServiceImpl;
 import com.huawei.siteapp.service.Task.TaskServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,11 +59,11 @@ public class TaskController {
         int retCode = RetCode.INIT_ERROR;
         try {
 //            retCode = hostReportServiceImpl.hostReportSaveDataToExcel(username + "_" + ip + "_" + UctTimeUtil.getCurrentDate("yyyy_MM_dd_HH_mm_ss"));
-            MonitorCpuMemServiceImpl monitorCpuMemService = SpringUtil.getBean(MonitorCpuMemServiceImpl.class);
+            MonitorCnaInfoServiceImpl monitorCpuMemService = SpringUtil.getBean(MonitorCnaInfoServiceImpl.class);
             HostReportServiceImpl hostReportService = SpringUtil.getBean(HostReportServiceImpl.class);
 //            HostReportServiceImpl hostReportService = SpringUtil.getBean(HostReportServiceImpl.class);
-            Iterable<MonitorCpuMemModel> hosts = monitorCpuMemService.findAll();
-            retCode = hostReportService.resourceInJar(UctTimeUtil.getCurrentDate(), (List<MonitorCpuMemModel>) hosts);
+            Iterable<MonitorCnaInfoModel> hosts = monitorCpuMemService.findAll();
+            retCode = hostReportService.poiTemplate(UctTimeUtil.getCurrentDate(), (List<MonitorCnaInfoModel>) hosts);
         } catch (Exception e) {
             logger.error("This is report Exception", e);
         }

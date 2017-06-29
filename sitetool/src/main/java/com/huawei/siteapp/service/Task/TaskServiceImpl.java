@@ -7,7 +7,7 @@ import com.huawei.siteapp.common.util.SpringUtil;
 import com.huawei.siteapp.common.util.UctTimeUtil;
 import com.huawei.siteapp.service.ExcelService.HostReportServiceImpl;
 import com.huawei.siteapp.service.Http.HttpRestServiceImpl;
-import com.huawei.siteapp.service.Http.MonitorsServiceImpl;
+import com.huawei.siteapp.service.Http.MonitorCnaServiceImpl;
 import com.huawei.siteapp.service.Http.SiteLoginHttpRequestServiceImpl;
 import com.huawei.siteapp.service.ModelService.Impl.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class TaskServiceImpl {
     //定义一个随机对象.
     public static Random random = new Random();
     @Autowired
-    MonitorsServiceImpl monitorsService;
+    MonitorCnaServiceImpl monitorsService;
     @Autowired
     private HostReportServiceImpl hostReportServiceImpl;
 
@@ -92,7 +92,7 @@ public class TaskServiceImpl {
         ClusterServiceImpl clusterService = SpringUtil.getBean(ClusterServiceImpl.class);
         HostServiceImpl hostService = SpringUtil.getBean(HostServiceImpl.class);
         SiteServiceImpl siteService = SpringUtil.getBean(SiteServiceImpl.class);
-        MonitorCpuMemServiceImpl monitorCpuMemService = SpringUtil.getBean(MonitorCpuMemServiceImpl.class);
+        MonitorCnaInfoServiceImpl monitorCpuMemService = SpringUtil.getBean(MonitorCnaInfoServiceImpl.class);
         VmServiceImpl vmService = SpringUtil.getBean(VmServiceImpl.class);
         clusterService.deleteAll();
         hostService.deleteAll();

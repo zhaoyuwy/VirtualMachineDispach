@@ -3,8 +3,8 @@ package com.huawei.siteapp.service.ExcelService;
 import com.huawei.siteapp.MappRunApplication;
 import com.huawei.siteapp.common.util.SpringUtil;
 import com.huawei.siteapp.common.util.UctTimeUtil;
-import com.huawei.siteapp.model.MonitorCpuMemModel;
-import com.huawei.siteapp.service.ModelService.Impl.MonitorCpuMemServiceImpl;
+import com.huawei.siteapp.model.MonitorCnaInfoModel;
+import com.huawei.siteapp.service.ModelService.Impl.MonitorCnaInfoServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,14 +26,14 @@ public class HostReportServiceImplTest {
 
     @Test
     public void poiTemplate() throws Exception {
-        MonitorCpuMemServiceImpl monitorCpuMemService = SpringUtil.getBean(MonitorCpuMemServiceImpl.class);
+        MonitorCnaInfoServiceImpl monitorCpuMemService = SpringUtil.getBean(MonitorCnaInfoServiceImpl.class);
         HostReportServiceImpl hostReportService = SpringUtil.getBean(HostReportServiceImpl.class);
-        Iterable<MonitorCpuMemModel> hosts = monitorCpuMemService.findAll();
+        Iterable<MonitorCnaInfoModel> hosts = monitorCpuMemService.findAll();
 //        hosts.forEach(monitorCpuMemModel -> {
 //            System.out.println(monitorCpuMemModel.getMonitorObjectName());
 //
 //        });
-        hostReportService.poiTemplate(UctTimeUtil.getCurrentDate(), (List<MonitorCpuMemModel>) hosts);
+        hostReportService.poiTemplate(UctTimeUtil.getCurrentDate(), (List<MonitorCnaInfoModel>) hosts);
     }
 
 }
