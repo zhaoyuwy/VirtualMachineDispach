@@ -12,7 +12,7 @@ import javax.annotation.Resource;
  *
  * @version 1.0
  */
-@Service("monitorCnaInfoService")
+@Service("monitorVmInfoService")
 public class MonitorVmInfoServiceImpl extends BaseServiceImpl<MonitorVmInfoModel> implements IMonitorVmInfoService {
 
     @Resource(name = "monitorVmInfoRepository")

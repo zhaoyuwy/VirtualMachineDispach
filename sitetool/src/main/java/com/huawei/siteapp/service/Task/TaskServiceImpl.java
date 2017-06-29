@@ -64,10 +64,12 @@ public class TaskServiceImpl {
     }
 
     @Async
-    public void doTaskTwo() throws InterruptedException {
+    public void doTaskTwo(String param) throws InterruptedException {
         System.out.println("开始执行任务二");
         long start = System.currentTimeMillis();
-        Thread.sleep(random.nextInt(10000));
+
+//        Thread.sleep(random.nextInt(10000));
+        System.out.print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+param);
         long end = System.currentTimeMillis();
         System.out.println("完成任务二，耗时：" + (end - start) + "毫秒");
     }
@@ -91,13 +93,16 @@ public class TaskServiceImpl {
     public int clearDb() {
         ClusterServiceImpl clusterService = SpringUtil.getBean(ClusterServiceImpl.class);
         HostServiceImpl hostService = SpringUtil.getBean(HostServiceImpl.class);
+        MonitorCnaInfoServiceImpl monitorCnaInfoService = SpringUtil.getBean(MonitorCnaInfoServiceImpl.class);
+        MonitorVmInfoServiceImpl monitorVmInfoService = SpringUtil.getBean(MonitorVmInfoServiceImpl.class);
         SiteServiceImpl siteService = SpringUtil.getBean(SiteServiceImpl.class);
-        MonitorCnaInfoServiceImpl monitorCpuMemService = SpringUtil.getBean(MonitorCnaInfoServiceImpl.class);
         VmServiceImpl vmService = SpringUtil.getBean(VmServiceImpl.class);
+
         clusterService.deleteAll();
         hostService.deleteAll();
         siteService.deleteAll();
-        monitorCpuMemService.deleteAll();
+        monitorCnaInfoService.deleteAll();
+        monitorVmInfoService.deleteAll();
         vmService.deleteAll();
         return RetCode.OK;
     }

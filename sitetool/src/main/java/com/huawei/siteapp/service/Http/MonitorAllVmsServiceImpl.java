@@ -7,8 +7,10 @@ import com.huawei.siteapp.common.constats.RetCode;
 import com.huawei.siteapp.common.util.JSONUtils;
 import com.huawei.siteapp.common.util.PropertiesUtils;
 import com.huawei.siteapp.common.util.ServiceContext;
+import com.huawei.siteapp.common.util.SpringUtil;
 import com.huawei.siteapp.model.VmModel;
 import com.huawei.siteapp.service.ModelService.IVmService;
+import com.huawei.siteapp.service.Task.AsyncTaskServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -48,7 +50,7 @@ public class MonitorAllVmsServiceImpl {
         logger.info("total vrm = " + total);
 
         for (int offSetTemp = 0; offSetTemp < offSetNum; offSetTemp++) {
-            if (RetCode.OK == getVmsByOffSet(url, offSetTemp*MAX_LIMIT)) {
+            if (RetCode.OK == getVmsByOffSet(url, offSetTemp * MAX_LIMIT, restInfo)) {
                 logger.info("Save vrms success ,offset = " + offSetTemp);
             } else {
                 logger.info("Save vrms error ,offset = " + offSetTemp);
@@ -60,10 +62,14 @@ public class MonitorAllVmsServiceImpl {
 //
     }
 
-    private int getVmsByOffSet(String url, int offSet) {
-        String param ="offset=" + offSet;
+    private int getVmsByOffSet(String url, int offSet, RestBean restInfo) {
+        String param = "offset=" + offSet;
         ServiceContext responseCxt = httpRestService.sendGet(url, param);
         String restResponse = (String) responseCxt.get(ParamKey.REST_RESPONSE);
+
+        AsyncTaskServiceImpl asyncTaskService = SpringUtil.getBean(AsyncTaskServiceImpl.class);
+
+        asyncTaskService.asyncSaveVmInfoInDB(restInfo, restResponse);
 
         List<VmModel> vmModels = new ArrayList<>();
         for (Object vmTemp : ((List<Object>) (JSONUtils.jsonToMap(restResponse).get("vms")))) {

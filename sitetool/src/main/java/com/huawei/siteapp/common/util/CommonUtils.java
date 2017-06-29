@@ -1,9 +1,11 @@
 package com.huawei.siteapp.common.util;
 
 
+import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -119,5 +121,15 @@ public class CommonUtils {
 //            logger.error("");
             return "";
         }
+    }
+
+    public static JSONObject getSendCpuMemInfo(String urn) {
+        JSONObject aCpuMem = new JSONObject();
+        aCpuMem.put("urn", urn);
+        List<String> cpuMems = new ArrayList<>();
+        cpuMems.add("cpu_usage");
+        cpuMems.add("mem_usage");
+        aCpuMem.put("metricId", cpuMems);
+        return aCpuMem;
     }
 }

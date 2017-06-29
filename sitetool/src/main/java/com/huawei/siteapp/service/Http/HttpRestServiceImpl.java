@@ -90,7 +90,7 @@ public class HttpRestServiceImpl {
         return cxt;
     }
 
-     ServiceContext sendPost(String url, String param) {
+    public ServiceContext sendPost(String url, String param) {
         logger.info("Begin of sendPost -- " + url);
         PrintWriter out = null;
         BufferedReader in = null;
@@ -279,9 +279,6 @@ public class HttpRestServiceImpl {
         }
         service.save(hosts);
     }
-
-
-
 
 
     private void setResponseInCache(Object response) {

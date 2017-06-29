@@ -2,6 +2,7 @@ package com.huawei.siteapp.service.ModelService.Impl;
 
 import com.huawei.siteapp.repository.BaseRepository;
 import com.huawei.siteapp.service.ModelService.IBaseService;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by z00390414 on 2017/6/28.
@@ -17,33 +18,37 @@ public class BaseServiceImpl<T> implements IBaseService<T> {
     }
 
     @Override
-    public <S extends T> S save(S s) {
+    public synchronized <S extends T> S save(S s) {
         return repository.save(s);
     }
 
     @Override
-    public <S extends T> Iterable<S> save(Iterable<S> iterable) {
+    public synchronized <S extends T> Iterable<S> save(Iterable<S> iterable) {
+
         repository.save(iterable);
         return null;
     }
 
     @Override
-    public T findOne(Long id) {
+    @Transactional(readOnly = true)
+    public synchronized T findOne(Long id) {
         return repository.findOne(id);
     }
 
     @Override
-    public boolean exists(Long aLong) {
+    public synchronized boolean exists(Long aLong) {
         return repository.exists(aLong);
     }
 
     @Override
-    public Iterable<T> findAll() {
+    @Transactional(readOnly = true)
+    public synchronized Iterable<T> findAll() {
         return repository.findAll();
     }
 
     @Override
-    public Iterable<T> findAll(Iterable<Long> iterable) {
+    @Transactional(readOnly = true)
+    public synchronized Iterable<T> findAll(Iterable<Long> iterable) {
         return repository.findAll(iterable);
     }
 
