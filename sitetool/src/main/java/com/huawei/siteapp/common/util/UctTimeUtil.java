@@ -13,6 +13,7 @@ import java.util.Date;
 public class UctTimeUtil {
     private Calendar calendar = Calendar.getInstance();
 
+    static String DATE_TIME_FORMAT = "yyyy_MM_dd_HH_mm_ss";
 
     /**
      * 得到当前的时间，时间格式yyyy-MM-dd

@@ -3,18 +3,21 @@ package com.huawei.siteapp.rest;
 import com.huawei.siteapp.cache.CacheCenter;
 import com.huawei.siteapp.common.Bean.RestBean;
 import com.huawei.siteapp.common.constats.RetCode;
+import com.huawei.siteapp.common.util.SpringUtil;
 import com.huawei.siteapp.common.util.UctTimeUtil;
+import com.huawei.siteapp.model.MonitorCpuMemModel;
 import com.huawei.siteapp.service.ExcelService.HostReportServiceImpl;
 import com.huawei.siteapp.service.Http.HttpRestServiceImpl;
 import com.huawei.siteapp.service.Http.MonitorsServiceImpl;
 import com.huawei.siteapp.service.Http.SiteLoginHttpRequestServiceImpl;
+import com.huawei.siteapp.service.ModelService.Impl.MonitorCpuMemServiceImpl;
 import com.huawei.siteapp.service.Task.TaskServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by z00390414 on 2017/6/14.
@@ -60,13 +63,16 @@ public class UserController {
         monitorsService.fcPostSitesClustersHostsCpuMemRest(restBean);
         int retCode = RetCode.INIT_ERROR;
         try {
-            retCode = hostReportServiceImpl.hostReportSaveDataToExcel(username + "_" + ip + "_" + UctTimeUtil.getCurrentDate("yyyy_MM_dd_HH_mm_ss"));
-        } catch (IOException e) {
-            e.printStackTrace();
+//            retCode = hostReportServiceImpl.hostReportSaveDataToExcel(username + "_" + ip + "_" + UctTimeUtil.getCurrentDate("yyyy_MM_dd_HH_mm_ss"));
+            MonitorCpuMemServiceImpl monitorCpuMemService = SpringUtil.getBean(MonitorCpuMemServiceImpl.class);
+//            HostReportServiceImpl hostReportService = SpringUtil.getBean(HostReportServiceImpl.class);
+            Iterable<MonitorCpuMemModel> hosts = monitorCpuMemService.findAll();
+            retCode = hostReportServiceImpl.poiTemplate(UctTimeUtil.getCurrentDate(), (List<MonitorCpuMemModel>) hosts);
+        } catch (Exception e) {
+            logger.error("This is report Exception", e);
         }
 
-
-        return "Welcome," + username + " retCode = " + retCode;
+        return "Welcome," + username + " retCode = " + retCode +"and time = "+UctTimeUtil.getCurrentDate();
     }
 
     private RestBean setRestBeanIp(String ip) {
