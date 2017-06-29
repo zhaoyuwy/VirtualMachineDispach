@@ -1,5 +1,9 @@
 package com.huawei.siteapp.controller;
 
+import com.huawei.siteapp.cache.CacheCenter;
+import com.huawei.siteapp.common.Bean.RestBean;
+import com.huawei.siteapp.common.util.SpringUtil;
+import com.huawei.siteapp.service.Http.MonitorAllVmsServiceImpl;
 import com.huawei.siteapp.service.Task.TaskServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,5 +36,14 @@ public class TaskController {
         String path = getClass().getClassLoader().getResource("").getPath();
         logger.error("This is a error test! path = "+path);
         return "success";
+    }
+    @ResponseBody
+    @RequestMapping("/task1")
+    public String getVms() throws Exception {
+        MonitorAllVmsServiceImpl monitorAllVmsService = SpringUtil.getBean(MonitorAllVmsServiceImpl.class);
+//        UserController userController = SpringUtil.getBean(UserController.class);
+//        userController.testPrint();
+        String response =monitorAllVmsService.fcGetSitesClustersHostsAllVrmRest((RestBean) CacheCenter.getInstance().getRestBeanResponse("restBean"));
+        return response;
     }
 }

@@ -36,6 +36,7 @@ public class UserController {
     @Autowired
     private TaskServiceImpl taskService;
 
+
     @RequestMapping(value = "/users/{username}", method = RequestMethod.GET)
     public String getUser(@PathVariable String username, @RequestParam String pwd, @RequestParam String ip) {
         taskService.clearDb();
@@ -75,11 +76,15 @@ public class UserController {
         return "Welcome," + username + " retCode = " + retCode +"and time = "+UctTimeUtil.getCurrentDate();
     }
 
-    private RestBean setRestBeanIp(String ip) {
+    public RestBean setRestBeanIp(String ip) {
         RestBean restBean = new RestBean();
         restBean.setVrmIp(ip);
         restBean.setRestPort("7070");
         return restBean;
+    }
+
+    public void testPrint(){
+        System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
     }
 
 }

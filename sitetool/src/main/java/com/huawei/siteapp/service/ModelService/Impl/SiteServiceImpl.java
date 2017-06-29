@@ -12,7 +12,7 @@ import javax.annotation.Resource;
  *
  * @version 1.0
  */
-@Service
+@Service("siteService")
 public class SiteServiceImpl extends BaseServiceImpl<SiteModel> implements ISiteService {
 
     @Resource(name = "siteRepository")
