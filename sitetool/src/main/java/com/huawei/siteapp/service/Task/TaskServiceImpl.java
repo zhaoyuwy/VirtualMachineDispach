@@ -9,10 +9,7 @@ import com.huawei.siteapp.service.ExcelService.HostReportServiceImpl;
 import com.huawei.siteapp.service.Http.HttpRestServiceImpl;
 import com.huawei.siteapp.service.Http.MonitorsServiceImpl;
 import com.huawei.siteapp.service.Http.SiteLoginHttpRequestServiceImpl;
-import com.huawei.siteapp.service.ModelService.Impl.ClusterServiceImpl;
-import com.huawei.siteapp.service.ModelService.Impl.HostServiceImpl;
-import com.huawei.siteapp.service.ModelService.Impl.MonitorCpuMemServiceImpl;
-import com.huawei.siteapp.service.ModelService.Impl.SiteServiceImpl;
+import com.huawei.siteapp.service.ModelService.Impl.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
@@ -96,10 +93,12 @@ public class TaskServiceImpl {
         HostServiceImpl hostService = SpringUtil.getBean(HostServiceImpl.class);
         SiteServiceImpl siteService = SpringUtil.getBean(SiteServiceImpl.class);
         MonitorCpuMemServiceImpl monitorCpuMemService = SpringUtil.getBean(MonitorCpuMemServiceImpl.class);
+        VmServiceImpl vmService = SpringUtil.getBean(VmServiceImpl.class);
         clusterService.deleteAll();
         hostService.deleteAll();
         siteService.deleteAll();
         monitorCpuMemService.deleteAll();
+        vmService.deleteAll();
         return RetCode.OK;
     }
 }

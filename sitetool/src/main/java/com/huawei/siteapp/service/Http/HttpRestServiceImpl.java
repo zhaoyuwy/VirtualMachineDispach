@@ -38,13 +38,14 @@ public class HttpRestServiceImpl {
      * @param param 请求参数，请求参数应该是 name1=value1&name2=value2 的形式。
      * @return URL 所代表远程资源的响应结果
      */
-    ServiceContext sendGet(String url, String param) {
-        logger.info("Begin of get -- " + url);
+    ServiceContext sendGet(String urlNameString, String param) {
+
         StringBuilder result = new StringBuilder();
         BufferedReader in = null;
         ServiceContext cxt = new ServiceContext();
         try {
-            String urlNameString = url + "?" + param;
+            urlNameString = urlNameString + "?" + param;
+            logger.info("Begin of get -- " + urlNameString);
             URL realUrl = new URL(urlNameString);
             // 打开和URL之间的连接
             URLConnection connection = realUrl.openConnection();
@@ -84,8 +85,8 @@ public class HttpRestServiceImpl {
             }
         }
         cxt.put(ParamKey.REST_RESPONSE, result.toString());
-        logger.info("Get rest " + url + " response -- " + result.toString());
-        logger.info("End of get -- " + url);
+        logger.info("Get rest " + urlNameString + " response -- " + result.toString());
+        logger.info("End of get -- " + urlNameString);
         return cxt;
     }
 

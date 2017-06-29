@@ -3,6 +3,7 @@ package com.huawei.siteapp.service.Http;
 import com.huawei.siteapp.cache.CacheCenter;
 import com.huawei.siteapp.common.Bean.RestBean;
 import com.huawei.siteapp.common.constats.ParamKey;
+import com.huawei.siteapp.common.constats.RetCode;
 import com.huawei.siteapp.common.util.JSONUtils;
 import com.huawei.siteapp.common.util.PropertiesUtils;
 import com.huawei.siteapp.common.util.ServiceContext;
@@ -43,8 +44,27 @@ public class MonitorAllVmsServiceImpl {
         int total = (Integer) (JSONUtils.jsonToMap(restResponse).get("total"));
 
 //         = total/MAX_LIMIT;
-        int offsetNum = (total%MAX_LIMIT==0)?total/MAX_LIMIT:(total/MAX_LIMIT+1);
+        int offSetNum = (total % MAX_LIMIT == 0) ? total / MAX_LIMIT : (total / MAX_LIMIT + 1);
         logger.info("total vrm = " + total);
+
+        for (int offSetTemp = 0; offSetTemp < offSetNum; offSetTemp++) {
+            if (RetCode.OK == getVmsByOffSet(url, offSetTemp*MAX_LIMIT)) {
+                logger.info("Save vrms success ,offset = " + offSetTemp);
+            } else {
+                logger.info("Save vrms error ,offset = " + offSetTemp);
+
+            }
+        }
+        logger.info("save vmModels succuss");
+        return restResponse;
+//
+    }
+
+    private int getVmsByOffSet(String url, int offSet) {
+        String param ="offset=" + offSet;
+        ServiceContext responseCxt = httpRestService.sendGet(url, param);
+        String restResponse = (String) responseCxt.get(ParamKey.REST_RESPONSE);
+
         List<VmModel> vmModels = new ArrayList<>();
         for (Object vmTemp : ((List<Object>) (JSONUtils.jsonToMap(restResponse).get("vms")))) {
             VmModel vmModel = new VmModel();
@@ -80,8 +100,7 @@ public class MonitorAllVmsServiceImpl {
         }
         vmService.save(vmModels);
 
-        logger.info("save vmModels succuss");
-        return restResponse;
-//
+        logger.info("save vmModels succuss , offSet = " + offSet);
+        return RetCode.OK;
     }
 }
