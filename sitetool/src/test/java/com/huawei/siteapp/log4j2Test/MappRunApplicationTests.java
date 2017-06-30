@@ -5,12 +5,11 @@ import com.huawei.siteapp.common.Bean.RestBean;
 import com.huawei.siteapp.common.util.UctTimeUtil;
 import com.huawei.siteapp.model.PersonModel;
 import com.huawei.siteapp.model.SiteModel;
-import com.huawei.siteapp.repository.PersonRepository;
 import com.huawei.siteapp.repository.Impl.RepositoryTemplate;
+import com.huawei.siteapp.repository.PersonRepository;
 import com.huawei.siteapp.service.ExcelService.HostReportServiceImpl;
 import com.huawei.siteapp.service.Http.HttpRestServiceImpl;
 import com.huawei.siteapp.service.Http.SiteLoginHttpRequestServiceImpl;
-//import com.huawei.siteapp.service.HttpRestService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -19,9 +18,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+//import com.huawei.siteapp.service.HttpRestService;
 
 /**
  * Created by z00390414 on 2017/6/15.
@@ -167,10 +167,10 @@ public class MappRunApplicationTests {
     }
     @Test
     public void testReport(){
-        try {
-            hostReportServiceImpl.hostReportSaveDataToExcel(UctTimeUtil.getCurrentDate("yyyy_MM_dd_HH_MM_SS"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            hostReportServiceImpl.hostReportSaveDataToExcel(UctTimeUtil.getCurrentDate("yyyy_MM_dd_HH_MM_SS"));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 }

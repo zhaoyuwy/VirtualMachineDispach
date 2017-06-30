@@ -8,13 +8,33 @@ import java.io.InputStream;
  * @version 1.0
  */
 public class TemplateSourceBean {
-    InputStream inputStream;
 
-    public InputStream getInputStream() {
-        return inputStream;
+
+    private String excelTemplatePath;
+    private InputStream hostInputStream;
+    private InputStream vmInputStream;
+
+    public InputStream getHostInputStream() {
+        return hostInputStream;
     }
 
-    public void setInputStream(InputStream inputStream) {
-        this.inputStream = inputStream;
+    public void setHostInputStream(InputStream hostInputStream) {
+        this.hostInputStream = hostInputStream;
+    }
+
+    public String getExcelTemplatePath() {
+        return excelTemplatePath;
+    }
+
+    public void setExcelTemplatePath(String excelTemplatePath) {
+        this.excelTemplatePath = excelTemplatePath;
+    }
+
+    public InputStream getVmInputStream() {
+        return vmInputStream;
+    }
+
+    public void setVmInputStream(InputStream vmInputStream) {
+        this.vmInputStream = vmInputStream;
     }
 }

@@ -6,10 +6,13 @@ import com.huawei.siteapp.common.constats.RetCode;
 import com.huawei.siteapp.common.util.SpringUtil;
 import com.huawei.siteapp.common.util.UctTimeUtil;
 import com.huawei.siteapp.model.MonitorCnaInfoModel;
+import com.huawei.siteapp.model.MonitorVmInfoModel;
 import com.huawei.siteapp.model.SiteModel;
 import com.huawei.siteapp.service.ExcelService.HostReportServiceImpl;
+import com.huawei.siteapp.service.ExcelService.VmReportServiceImpl;
 import com.huawei.siteapp.service.Http.MonitorAllVmsServiceImpl;
 import com.huawei.siteapp.service.ModelService.Impl.MonitorCnaInfoServiceImpl;
+import com.huawei.siteapp.service.ModelService.Impl.MonitorVmInfoServiceImpl;
 import com.huawei.siteapp.service.Task.AsyncTaskServiceImpl;
 import com.huawei.siteapp.service.Task.TaskServiceImpl;
 import org.slf4j.Logger;
@@ -35,6 +38,7 @@ public class TaskController {
 
     @Autowired
     private AsyncTaskServiceImpl asyncTaskService;
+
     @ResponseBody
     @RequestMapping("/task")
     public String task() throws Exception {
@@ -47,18 +51,20 @@ public class TaskController {
         long end = System.currentTimeMillis();
         System.out.println("完成Controller任务，耗时：" + (end - start) + "毫秒");
         String path = getClass().getClassLoader().getResource("").getPath();
-        logger.error("This is a error test! path = "+path);
+        logger.error("This is a error test! path = " + path);
         return "success";
     }
+
     @ResponseBody
     @RequestMapping("/task1")
     public String getVms() throws Exception {
         MonitorAllVmsServiceImpl monitorAllVmsService = SpringUtil.getBean(MonitorAllVmsServiceImpl.class);
 //        UserController userController = SpringUtil.getBean(UserController.class);
 //        userController.testPrint();
-        String response =monitorAllVmsService.fcGetSitesClustersHostsAllVrmRest((RestBean) CacheCenter.getInstance().getRestBeanResponse("restBean"));
+        String response = monitorAllVmsService.fcGetSitesClustersHostsAllVrmRest((RestBean) CacheCenter.getInstance().getRestBeanResponse("restBean"));
         return response;
     }
+
     @ResponseBody
     @RequestMapping("/task2")
     public int testResource() throws Exception {
@@ -69,7 +75,7 @@ public class TaskController {
             HostReportServiceImpl hostReportService = SpringUtil.getBean(HostReportServiceImpl.class);
 //            HostReportServiceImpl hostReportService = SpringUtil.getBean(HostReportServiceImpl.class);
             Iterable<MonitorCnaInfoModel> hosts = monitorCpuMemService.findAll();
-            retCode = hostReportService.poiTemplate(UctTimeUtil.getCurrentDate(), (List<MonitorCnaInfoModel>) hosts);
+            retCode = hostReportService.poiTemplate("host_" + UctTimeUtil.getCurrentDate(), (List<MonitorCnaInfoModel>) hosts);
         } catch (Exception e) {
             logger.error("This is report Exception", e);
         }
@@ -78,11 +84,26 @@ public class TaskController {
 
     @ResponseBody
     @RequestMapping("/task3")
-    public  String testAsyncTask() throws Exception{
+    public String testAsyncTask() throws Exception {
         String param = UctTimeUtil.getCurrentDate();
 //        asyncTaskService.asyncSaveVmInfoInDB(param);
-        CompletableFuture<SiteModel>  completableFuture= asyncTaskService.findUser(param);
+        CompletableFuture<SiteModel> completableFuture = asyncTaskService.findUser(param);
 //        asyncTaskService.asyncSaveVmInfoInDB(param+"###########");
         return completableFuture.toString();
+    }
+
+    @ResponseBody
+    @RequestMapping("/vmReport")
+    public int vmReport() throws Exception {
+        int retCode = -1;
+        try {
+            MonitorVmInfoServiceImpl monitorVmInfoService = SpringUtil.getBean(MonitorVmInfoServiceImpl.class);
+            Iterable<MonitorVmInfoModel> vms = monitorVmInfoService.findAll();
+            VmReportServiceImpl vmReportService = SpringUtil.getBean(VmReportServiceImpl.class);
+            retCode = vmReportService.poiVmTemplate("vms_" + UctTimeUtil.getCurrentDate(), (List<MonitorVmInfoModel>) vms);
+        } catch (Exception e) {
+            logger.error("Generate vmReport Exception", e);
+        }
+        return retCode;
     }
 }

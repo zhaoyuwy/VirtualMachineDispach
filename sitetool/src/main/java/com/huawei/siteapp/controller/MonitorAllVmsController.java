@@ -1,4 +1,4 @@
-package com.huawei.siteapp.rest;
+package com.huawei.siteapp.controller;
 
 import com.huawei.siteapp.cache.CacheCenter;
 import com.huawei.siteapp.common.Bean.RestBean;

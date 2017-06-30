@@ -18,8 +18,10 @@ public class TemplateSourceCfg {
     public TemplateSourceBean templateSource() throws FileNotFoundException {
         TemplateSourceBean templateSourceBean = new TemplateSourceBean();
         ClassLoader cl = getClass().getClassLoader();
-        InputStream stream = cl.getResourceAsStream("ExcelTemplate/HostReportTemplate2.xlsx");
-        templateSourceBean.setInputStream(stream );
+        InputStream hostStream = cl.getResourceAsStream("ExcelTemplate/HostReportTemplate2.xlsx");
+        InputStream vmStream = cl.getResourceAsStream("ExcelTemplate/VmReportTemplate.xlsx");
+        templateSourceBean.setHostInputStream(hostStream);
+        templateSourceBean.setVmInputStream(vmStream);
         return templateSourceBean;
     }
 }
