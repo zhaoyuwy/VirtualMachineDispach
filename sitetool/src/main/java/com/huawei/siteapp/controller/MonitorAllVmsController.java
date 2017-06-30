@@ -17,16 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class MonitorAllVmsController {
     @ResponseBody
     @RequestMapping("/vms")
-    public String getVms() {
+    public int getVms() {
         MonitorAllVmsServiceImpl monitorAllVmsService = SpringUtil.getBean(MonitorAllVmsServiceImpl.class);
 //        UserController userController = SpringUtil.getBean(UserController.class);
 //        userController.testPrint();
-        String response =monitorAllVmsService.fcGetSitesClustersHostsAllVrmRest((RestBean) CacheCenter.getInstance().getRestBeanResponse("restBean"));
+        int retCode = monitorAllVmsService.fcGetSitesClustersHostsAllVrmRest((RestBean) CacheCenter.getInstance().getRestBeanResponse("restBean"));
 
-
-
-
-
-        return response;
+        return retCode;
     }
 }

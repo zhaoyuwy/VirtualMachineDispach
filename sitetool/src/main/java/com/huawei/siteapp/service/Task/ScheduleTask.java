@@ -3,7 +3,6 @@ package com.huawei.siteapp.service.Task;
 import com.huawei.siteapp.cache.CacheCenter;
 import com.huawei.siteapp.common.Bean.RestBean;
 import com.huawei.siteapp.common.util.SpringUtil;
-import com.huawei.siteapp.service.Http.HttpRestServiceImpl;
 import com.huawei.siteapp.service.Http.SiteLoginHttpRequestServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +10,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.text.SimpleDateFormat;
 
 /**
  * Created by z00390414 on 2017/6/15.
@@ -23,7 +21,6 @@ import java.text.SimpleDateFormat;
 public class ScheduleTask {
 
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
-    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
     private static int num = 0;
 
     //        @Scheduled(cron = "0 0 2 * * ?")//每天凌晨两点执行
@@ -35,13 +32,13 @@ public class ScheduleTask {
         System.out.println("Schedule task doSomethingWith begin. times = " + num);
     }
 
-//    @Scheduled(cron = "0 0/5 * * * ?")
+    //    @Scheduled(cron = "0 0/5 * * * ?")
     @Scheduled(fixedDelay = 5000)
 //    每30分执行一次
     void doScheduleTaskHalfHour() {
         logger.info("Schedule task generate report begin ");
         boolean isLoginSuccess = (Boolean) CacheCenter.getInstance().getRestBeanResponse("loginSuccess");
-        if(!isLoginSuccess){
+        if (!isLoginSuccess) {
             logger.info("User has not login");
             return;
         }
@@ -53,17 +50,10 @@ public class ScheduleTask {
         String pwd = (String) CacheCenter.getInstance().getRestBeanResponse("pwd");
 
         TaskServiceImpl taskService = SpringUtil.getBean(TaskServiceImpl.class);
-        taskService.clearDb();
-
+//        清除monitor数据
+        taskService.clearDbMonitorData();
+//        登录token
         siteLoginHttpRequest.fcLoginRest(restBean, username, pwd);
-
-        HttpRestServiceImpl httpRestService = SpringUtil.getBean(HttpRestServiceImpl.class);
-//        HttpRestServiceImpl httpRequest = new HttpRestServiceImpl();
-        httpRestService.fcGetSitesRest(restBean);
-//
-        httpRestService.fcGetSitesClustersRest(restBean);
-//
-        httpRestService.fcGetSitesClustersHostsRest(restBean);
 
         AsyncTaskServiceImpl asyncTaskService = SpringUtil.getBean(AsyncTaskServiceImpl.class);
         asyncTaskService.asyncGenerateHostReport();
@@ -71,8 +61,9 @@ public class ScheduleTask {
         asyncTaskService.asyncGenerateVmReport();
         logger.info("Schedule task generate report end");
     }
+
     @PostConstruct
-    public void InitLogin(){
+    public void InitLogin() {
         CacheCenter.getInstance().addUrlResponse("loginSuccess", false);
     }
 }

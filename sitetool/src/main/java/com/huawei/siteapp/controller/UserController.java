@@ -27,9 +27,11 @@ public class UserController {
     public String getUser(@PathVariable String username, @RequestParam String pwd, @RequestParam String ip) {
 
         TaskServiceImpl taskService = SpringUtil.getBean(TaskServiceImpl.class);
-        taskService.clearDb();
+        taskService.clearDbAllData();
 //        int retCode = taskService.doTaskOne(username, pwd, ip);
         RestBean restBean = setRestBeanIp(ip);
+        restBean.setRestUserName(username);
+        restBean.setRestPwd(pwd);
         System.out.println("restBean = " + setRestBeanIp(ip) + " username = " + username + " pwd = " + pwd);
         CacheCenter.getInstance().addUrlResponse("restBean", restBean);
         CacheCenter.getInstance().addUrlResponse("username", username);
@@ -62,7 +64,7 @@ public class UserController {
     @RequestMapping(value = "/userLogin/{username}", method = RequestMethod.GET)
     public String userLogin(@PathVariable String username, @RequestParam String pwd, @RequestParam String ip) {
         TaskServiceImpl taskService = SpringUtil.getBean(TaskServiceImpl.class);
-        taskService.clearDb();
+        taskService.clearDbAllData();
 //        int retCode = taskService.doTaskOne(username, pwd, ip);
         RestBean restBean = setRestBeanIp(ip);
         System.out.println("restBean = " + setRestBeanIp(ip) + " username = " + username + " pwd = " + pwd);

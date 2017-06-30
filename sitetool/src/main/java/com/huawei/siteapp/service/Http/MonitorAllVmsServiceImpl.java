@@ -36,7 +36,7 @@ public class MonitorAllVmsServiceImpl {
     @Resource
     HttpRestServiceImpl httpRestService;
 
-    public String fcGetSitesClustersHostsAllVrmRest(RestBean restInfo) {
+    public int fcGetSitesClustersHostsAllVrmRest(RestBean restInfo) {
         logger.info("Enter MonitorAllVmsServiceImpl fcGetSitesClustersHostsAllVrmRest");
         String[] urlParm = new String[]{restInfo.getVrmIp(), restInfo.getRestPort(), (String) CacheCenter.getInstance().getRestBeanResponse(ParamKey.SITE_ID)};
         String url = PropertiesUtils.getUrl("FcGetAllVms", urlParm);
@@ -58,7 +58,7 @@ public class MonitorAllVmsServiceImpl {
             }
         }
         logger.info("save vmModels succuss");
-        return restResponse;
+        return RetCode.OK;
 //
     }
 

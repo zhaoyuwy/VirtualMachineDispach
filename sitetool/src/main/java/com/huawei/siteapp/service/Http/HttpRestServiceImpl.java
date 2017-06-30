@@ -160,14 +160,10 @@ public class HttpRestServiceImpl {
         List sites = new ArrayList<>();
         SiteServiceImpl siteService = SpringUtil.getBean(SiteServiceImpl.class);
         for (Object siteTemp : (List) responseMap.get(ParamKey.SITES)) {
-//            JSONObject siteObj = JSONObject.fromObject(siteTemp);
-//            Site2 site2 = (Site2)obj.toBean(obj,Site2.class);
-
             SiteModel site = mapToSiteBean(siteTemp);
+            site.setSiteLoginUser(restInfo.getRestUserName());
+            site.setSiteLoginPwd(restInfo.getRestPwd());
             sites.add(site);
-//            logger.error(site.toString());
-
-//            siteService.save(site);
         }
 //            siteService.saveSiteList(sites);
         siteService.save(sites);

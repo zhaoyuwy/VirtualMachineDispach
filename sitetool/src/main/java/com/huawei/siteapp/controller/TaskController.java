@@ -58,12 +58,12 @@ public class TaskController {
 
     @ResponseBody
     @RequestMapping("/task1")
-    public String getVms() throws Exception {
+    public int getVms() throws Exception {
         MonitorAllVmsServiceImpl monitorAllVmsService = SpringUtil.getBean(MonitorAllVmsServiceImpl.class);
 //        UserController userController = SpringUtil.getBean(UserController.class);
 //        userController.testPrint();
-        String response = monitorAllVmsService.fcGetSitesClustersHostsAllVrmRest((RestBean) CacheCenter.getInstance().getRestBeanResponse("restBean"));
-        return response;
+        int retCode = monitorAllVmsService.fcGetSitesClustersHostsAllVrmRest((RestBean) CacheCenter.getInstance().getRestBeanResponse("restBean"));
+        return retCode;
     }
 
     @ResponseBody
@@ -126,5 +126,21 @@ public class TaskController {
             logger.error("This is report Exception", e);
         }
         return retCode + "  and time = " + UctTimeUtil.getCurrentDate();
+    }
+
+    @ResponseBody
+    @RequestMapping("/monitorCnaVm")
+    public String monitorCnaVm() throws Exception {
+        TaskServiceImpl taskService = SpringUtil.getBean(TaskServiceImpl.class);
+        taskService.clearDbMonitorData();
+
+        RestBean restBean = (RestBean) CacheCenter.getInstance().getRestBeanResponse("restBean");
+
+        MonitorAllVmsServiceImpl monitorAllVmsService = SpringUtil.getBean(MonitorAllVmsServiceImpl.class);
+        int retCode = monitorAllVmsService.fcGetSitesClustersHostsAllVrmRest(restBean);
+
+        MonitorCnaServiceImpl monitorsService = SpringUtil.getBean(MonitorCnaServiceImpl.class);
+        int retCode2 = monitorsService.fcPostSitesClustersHostsCpuMemRest(restBean);
+        return "retCode = " + retCode + " retCode2 =" + retCode2;
     }
 }

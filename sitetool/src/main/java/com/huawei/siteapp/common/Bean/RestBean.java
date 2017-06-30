@@ -15,7 +15,7 @@ public class RestBean {
 
     private String restUserName;
 
-    private String restPassword;
+    private String restPwd;
 
     private String restBody;
 
@@ -51,12 +51,12 @@ public class RestBean {
         this.restUserName = restUserName;
     }
 
-    public String getRestPassword() {
-        return restPassword;
+    public String getRestPwd() {
+        return restPwd;
     }
 
-    public void setRestPassword(String restPassword) {
-        this.restPassword = restPassword;
+    public void setRestPwd(String restPwd) {
+        this.restPwd = restPwd;
     }
 
     public String getRestBody() {
