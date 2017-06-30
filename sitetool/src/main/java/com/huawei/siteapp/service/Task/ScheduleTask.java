@@ -35,7 +35,8 @@ public class ScheduleTask {
         System.out.println("Schedule task doSomethingWith begin. times = " + num);
     }
 
-    @Scheduled(cron = "0 0/5 * * * ?")
+//    @Scheduled(cron = "0 0/5 * * * ?")
+    @Scheduled(fixedDelay = 5000)
 //    每30分执行一次
     void doScheduleTaskHalfHour() {
         logger.info("Schedule task generate report begin ");

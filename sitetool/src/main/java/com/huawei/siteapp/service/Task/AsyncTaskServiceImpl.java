@@ -53,7 +53,12 @@ public class AsyncTaskServiceImpl {
         String[] urlParm = new String[]{restInfo.getVrmIp(), restInfo.getRestPort(), (String) CacheCenter.getInstance().getRestBeanResponse(ParamKey.SITE_ID)};
         String url = PropertiesUtils.getUrl("FcPostHostsCpuMem", urlParm);
         HttpRestServiceImpl httpRestService = SpringUtil.getBean(HttpRestServiceImpl.class);
-        ServiceContext responseCxt = httpRestService.sendPost(url, vmInfos.toString());
+        ServiceContext responseCxt = null;
+        try {
+            responseCxt = httpRestService.sendPost(url, vmInfos.toString());
+        } catch (Exception e) {
+            logger.error("Post Exception",e);
+        }
         String restResponse = (String) responseCxt.get(ParamKey.REST_RESPONSE);
 
         List<MonitorVmInfoModel> monitorVmInfoModels = new ArrayList<>();
