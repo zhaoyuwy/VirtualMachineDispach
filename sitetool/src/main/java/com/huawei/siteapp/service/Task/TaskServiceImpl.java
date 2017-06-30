@@ -3,10 +3,7 @@ package com.huawei.siteapp.service.Task;
 import com.huawei.siteapp.common.Bean.RestBean;
 import com.huawei.siteapp.common.constats.RetCode;
 import com.huawei.siteapp.common.util.SpringUtil;
-import com.huawei.siteapp.service.ExcelService.HostReportServiceImpl;
-import com.huawei.siteapp.service.Http.MonitorCnaServiceImpl;
 import com.huawei.siteapp.service.ModelService.Impl.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
@@ -21,10 +18,10 @@ import java.util.Random;
 public class TaskServiceImpl {
     //定义一个随机对象.
     public static Random random = new Random();
-    @Autowired
-    MonitorCnaServiceImpl monitorsService;
-    @Autowired
-    private HostReportServiceImpl hostReportServiceImpl;
+//    @Autowired
+//    MonitorCnaServiceImpl monitorsService;
+//    @Autowired
+//    private HostReportServiceImpl hostReportServiceImpl;
 
 
     @Async

@@ -14,7 +14,6 @@ import com.huawei.siteapp.service.ModelService.Impl.MonitorCnaInfoServiceImpl;
 import com.huawei.siteapp.service.Task.TaskServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,16 +28,17 @@ import java.util.List;
 public class UserController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Autowired
-    MonitorCnaServiceImpl monitorsService;
-    @Autowired
-    private HostReportServiceImpl hostReportServiceImpl;
-    @Autowired
-    private TaskServiceImpl taskService;
+//    @Autowired
+//    MonitorCnaServiceImpl monitorsService;
+//    @Autowired
+//    private HostReportServiceImpl hostReportServiceImpl;
+//    @Autowired
+//    private TaskServiceImpl taskService;
 
 
     @RequestMapping(value = "/users/{username}", method = RequestMethod.GET)
     public String getUser(@PathVariable String username, @RequestParam String pwd, @RequestParam String ip) {
+        TaskServiceImpl taskService = SpringUtil.getBean(TaskServiceImpl.class);
         taskService.clearDb();
 //        int retCode = taskService.doTaskOne(username, pwd, ip);
         RestBean restBean = setRestBeanIp(ip);
@@ -60,7 +60,7 @@ public class UserController {
 //
         httpRequest.fcGetSitesClustersHostsRest(restBean);
 
-//        MonitorsServiceImpl = SpringUtil.getBean(MonitorsServiceImpl.class);
+        MonitorCnaServiceImpl monitorsService = SpringUtil.getBean(MonitorCnaServiceImpl.class);
         monitorsService.fcPostSitesClustersHostsCpuMemRest(restBean);
         int retCode = RetCode.INIT_ERROR;
         try {
@@ -68,12 +68,13 @@ public class UserController {
             MonitorCnaInfoServiceImpl monitorCpuMemService = SpringUtil.getBean(MonitorCnaInfoServiceImpl.class);
 //            HostReportServiceImpl hostReportService = SpringUtil.getBean(HostReportServiceImpl.class);
             Iterable<MonitorCnaInfoModel> hosts = monitorCpuMemService.findAll();
-            retCode = hostReportServiceImpl.poiTemplate(UctTimeUtil.getCurrentDate(), (List<MonitorCnaInfoModel>) hosts);
+            HostReportServiceImpl hostReportServiceImpl = SpringUtil.getBean(HostReportServiceImpl.class);
+            retCode = hostReportServiceImpl.poiTemplate("host_"+UctTimeUtil.getCurrentDate(), (List<MonitorCnaInfoModel>) hosts);
         } catch (Exception e) {
             logger.error("This is report Exception", e);
         }
 
-        return "Welcome," + username + " retCode = " + retCode +"and time = "+UctTimeUtil.getCurrentDate();
+        return "Welcome," + username + " retCode = " + retCode + "and time = " + UctTimeUtil.getCurrentDate();
     }
 
     public RestBean setRestBeanIp(String ip) {
@@ -83,8 +84,24 @@ public class UserController {
         return restBean;
     }
 
-    public void testPrint(){
-        System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+    @RequestMapping(value = "/userLogin/{username}", method = RequestMethod.GET)
+    public String userLogin(@PathVariable String username, @RequestParam String pwd, @RequestParam String ip) {
+        TaskServiceImpl taskService = SpringUtil.getBean(TaskServiceImpl.class);
+        taskService.clearDb();
+//        int retCode = taskService.doTaskOne(username, pwd, ip);
+        RestBean restBean = setRestBeanIp(ip);
+        System.out.println("restBean = " + setRestBeanIp(ip) + " username = " + username + " pwd = " + pwd);
+        CacheCenter.getInstance().addUrlResponse("restBean", setRestBeanIp(ip));
+        CacheCenter.getInstance().addUrlResponse("username", username);
+        CacheCenter.getInstance().addUrlResponse("pwd", pwd);
+        CacheCenter.getInstance().addUrlResponse("ip", ip);
+
+        //        登录获取token
+        SiteLoginHttpRequestServiceImpl siteLoginHttpRequest = new SiteLoginHttpRequestServiceImpl();
+
+        siteLoginHttpRequest.fcLoginRest(restBean, username, pwd);
+        CacheCenter.getInstance().addUrlResponse("loginSuccess", true);
+        return "Login success";
     }
 
 }

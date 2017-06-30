@@ -3,13 +3,21 @@ package com.huawei.siteapp.service.Task;
 import com.huawei.siteapp.cache.CacheCenter;
 import com.huawei.siteapp.common.Bean.RestBean;
 import com.huawei.siteapp.common.constats.ParamKey;
+import com.huawei.siteapp.common.constats.RetCode;
 import com.huawei.siteapp.common.util.*;
+import com.huawei.siteapp.model.MonitorCnaInfoModel;
 import com.huawei.siteapp.model.MonitorVmInfoModel;
 import com.huawei.siteapp.model.SiteModel;
+import com.huawei.siteapp.service.ExcelService.HostReportServiceImpl;
 import com.huawei.siteapp.service.Http.HttpRestServiceImpl;
+import com.huawei.siteapp.service.Http.MonitorAllVmsServiceImpl;
+import com.huawei.siteapp.service.Http.MonitorCnaServiceImpl;
+import com.huawei.siteapp.service.ModelService.Impl.MonitorCnaInfoServiceImpl;
 import com.huawei.siteapp.service.ModelService.Impl.MonitorVmInfoServiceImpl;
 import com.huawei.siteapp.service.ModelService.Impl.SiteServiceImpl;
 import net.sf.json.JSONArray;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
@@ -25,9 +33,10 @@ import java.util.concurrent.CompletableFuture;
  */
 @Component
 public class AsyncTaskServiceImpl {
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 //    private static int testInt = 0;
 
-//    @Async  //加入"异步调用"注解
+    //    @Async  //加入"异步调用"注解
     public void asyncSaveVmInfoInDB(RestBean restInfo, String response) {
 ////        testInt++;
 //
@@ -112,5 +121,29 @@ public class AsyncTaskServiceImpl {
         // Artificial delay of 1s for demonstration purposes
         Thread.sleep(1000L);
         return CompletableFuture.completedFuture(results);
+    }
+
+
+    public void asyncGenerateHostReport() {
+        MonitorCnaServiceImpl monitorsService = SpringUtil.getBean(MonitorCnaServiceImpl.class);
+        RestBean restBean = (RestBean) CacheCenter.getInstance().getRestBeanResponse("restBean");
+        monitorsService.fcPostSitesClustersHostsCpuMemRest(restBean);
+        int retCode = RetCode.INIT_ERROR;
+        try {
+//            retCode = hostReportServiceImpl.hostReportSaveDataToExcel(username + "_" + ip + "_" + UctTimeUtil.getCurrentDate("yyyy_MM_dd_HH_mm_ss"));
+            MonitorCnaInfoServiceImpl monitorCpuMemService = SpringUtil.getBean(MonitorCnaInfoServiceImpl.class);
+//            HostReportServiceImpl hostReportService = SpringUtil.getBean(HostReportServiceImpl.class);
+            Iterable<MonitorCnaInfoModel> hosts = monitorCpuMemService.findAll();
+            HostReportServiceImpl hostReportServiceImpl = SpringUtil.getBean(HostReportServiceImpl.class);
+            retCode = hostReportServiceImpl.poiTemplate(UctTimeUtil.getCurrentDate(), (List<MonitorCnaInfoModel>) hosts);
+        } catch (Exception e) {
+            logger.error("This is report Exception", e);
+        }
+    }
+
+    public void asyncGenerateVmReport(){
+        MonitorAllVmsServiceImpl monitorAllVmsService = SpringUtil.getBean(MonitorAllVmsServiceImpl.class);
+        String response = monitorAllVmsService.fcGetSitesClustersHostsAllVrmRest((RestBean) CacheCenter.getInstance().getRestBeanResponse("restBean"));
+
     }
 }
