@@ -10,10 +10,13 @@ import com.huawei.siteapp.model.MonitorVmInfoModel;
 import com.huawei.siteapp.model.SiteModel;
 import com.huawei.siteapp.service.ExcelService.HostReportServiceImpl;
 import com.huawei.siteapp.service.ExcelService.VmReportServiceImpl;
+import com.huawei.siteapp.service.Http.HttpRestServiceImpl;
 import com.huawei.siteapp.service.Http.MonitorAllVmsServiceImpl;
 import com.huawei.siteapp.service.Http.MonitorCnaServiceImpl;
+import com.huawei.siteapp.service.Http.SiteLoginHttpRequestServiceImpl;
 import com.huawei.siteapp.service.ModelService.Impl.MonitorCnaInfoServiceImpl;
 import com.huawei.siteapp.service.ModelService.Impl.MonitorVmInfoServiceImpl;
+import com.huawei.siteapp.service.ModelService.Impl.SiteServiceImpl;
 import com.huawei.siteapp.service.Task.AsyncTaskServiceImpl;
 import com.huawei.siteapp.service.Task.TaskServiceImpl;
 import org.slf4j.Logger;
@@ -131,16 +134,43 @@ public class TaskController {
     @ResponseBody
     @RequestMapping("/monitorCnaVm")
     public String monitorCnaVm() throws Exception {
+        logger.info("Enter monitorCnaVm");
         TaskServiceImpl taskService = SpringUtil.getBean(TaskServiceImpl.class);
         taskService.clearDbMonitorData();
 
-        RestBean restBean = (RestBean) CacheCenter.getInstance().getRestBeanResponse("restBean");
+//        RestBean restBean = (RestBean) CacheCenter.getInstance().getRestBeanResponse("restBean");
 
-        MonitorAllVmsServiceImpl monitorAllVmsService = SpringUtil.getBean(MonitorAllVmsServiceImpl.class);
-        int retCode = monitorAllVmsService.fcGetSitesClustersHostsAllVrmRest(restBean);
+        SiteServiceImpl siteService = SpringUtil.getBean(SiteServiceImpl.class);
+        Iterable<SiteModel> siteModels = siteService.findAll();
 
-        MonitorCnaServiceImpl monitorsService = SpringUtil.getBean(MonitorCnaServiceImpl.class);
-        int retCode2 = monitorsService.fcPostSitesClustersHostsCpuMemRest(restBean);
-        return "retCode = " + retCode + " retCode2 =" + retCode2;
+        logger.info("Sites number = " + ((List) siteModels).size());
+        for (SiteModel siteModelTemp : siteModels) {
+            RestBean restBean = new RestBean();
+            String siteIp = siteModelTemp.getSiteLoginIp();
+            String siteLoginUser = siteModelTemp.getSiteLoginUser();
+            String siteLoginPwd = siteModelTemp.getSiteLoginPwd();
+
+            restBean.setVrmIp(siteIp);
+            restBean.setRestPort("7070");
+            restBean.setRestUserName(siteLoginUser);
+            restBean.setRestPwd(siteLoginPwd);
+            //        登录获取token
+            SiteLoginHttpRequestServiceImpl siteLoginHttpRequestService = SpringUtil.getBean(SiteLoginHttpRequestServiceImpl.class);
+            siteLoginHttpRequestService.fcLoginRest(restBean, siteLoginUser, siteLoginPwd);
+            HttpRestServiceImpl httpRestService = SpringUtil.getBean(HttpRestServiceImpl.class);
+            httpRestService.fcGetSitesRest(restBean);
+
+            logger.info("token is " + (String) CacheCenter.getInstance().getRestBeanResponse("FcLogin"));
+            MonitorAllVmsServiceImpl monitorAllVmsService = SpringUtil.getBean(MonitorAllVmsServiceImpl.class);
+            int retCode = monitorAllVmsService.fcGetSitesClustersHostsAllVrmRest(restBean);
+
+            MonitorCnaServiceImpl monitorsService = SpringUtil.getBean(MonitorCnaServiceImpl.class);
+            int retCode2 = monitorsService.fcPostSitesClustersHostsCpuMemRest(restBean);
+
+            if (200 != retCode || 200 != retCode2) {
+                return "monitorCnaVm error";
+            }
+        }
+        return "200";
     }
 }

@@ -163,6 +163,7 @@ public class HttpRestServiceImpl {
             SiteModel site = mapToSiteBean(siteTemp);
             site.setSiteLoginUser(restInfo.getRestUserName());
             site.setSiteLoginPwd(restInfo.getRestPwd());
+            site.setSiteLoginIp(restInfo.getVrmIp());
             sites.add(site);
         }
 //            siteService.saveSiteList(sites);
