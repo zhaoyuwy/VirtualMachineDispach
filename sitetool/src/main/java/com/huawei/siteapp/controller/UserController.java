@@ -50,7 +50,7 @@ public class UserController {
 //
         httpRequest.fcGetSitesClustersHostsRest(restBean);
 
-
+        CacheCenter.getInstance().addUrlResponse("loginSuccess", true);
         return "Welcome," + username + " retCode = " + RetCode.OK + "  and time = " + UctTimeUtil.getCurrentDate();
     }
 

@@ -69,13 +69,18 @@ public class ScheduleTask {
     }
 
     @Scheduled(fixedDelay = 5000)
-//    每30分执行一次
     void doScheduleGenerateReport() {
+
+        boolean isLoginSuccess = (Boolean) CacheCenter.getInstance().getRestBeanResponse("loginSuccess");
+        if (!isLoginSuccess) {
+            logger.info("User has not login");
+            return;
+        }
         TaskController taskController = SpringUtil.getBean(TaskController.class);
         try {
-//            taskController.monitorCnaVm();
+            taskController.monitorCnaVm();
             taskController.hostReport();
-//            taskController.vmReport();
+            taskController.vmReport();
         } catch (Exception e) {
             e.printStackTrace();
         }

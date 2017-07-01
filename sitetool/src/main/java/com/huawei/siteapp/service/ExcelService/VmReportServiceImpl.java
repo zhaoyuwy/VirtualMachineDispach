@@ -1,6 +1,7 @@
 package com.huawei.siteapp.service.ExcelService;
 
 import com.huawei.siteapp.bean.TemplateSourceBean;
+import com.huawei.siteapp.cache.InputStreamCache;
 import com.huawei.siteapp.common.constats.RetCode;
 import com.huawei.siteapp.common.util.CommonUtils;
 import com.huawei.siteapp.model.MonitorVmInfoModel;
@@ -16,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.List;
@@ -27,7 +27,7 @@ import java.util.List;
  * @version 1.0
  */
 @Service
-public class VmReportServiceImpl implements  IVmReportService {
+public class VmReportServiceImpl implements IVmReportService {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private static int HOST_CNA_INFO_START = 27;
     private static int reportInfoRowIndex = 3;
@@ -44,7 +44,7 @@ public class VmReportServiceImpl implements  IVmReportService {
         ClassLoader cl = getClass().getClassLoader();
         if (cl != null) {
 //            CLASS_LOADER_PATH = cl.getResource("").getPath();
-            EXCEL_TEMPLATE_PATH =  cl.getResource("").getPath() + "/ExcelTemplate/VmReportTemplate.xlsx";
+            EXCEL_TEMPLATE_PATH = cl.getResource("").getPath() + "/ExcelTemplate/VmReportTemplate.xlsx";
 //            EXCEL_REPORT_RESULT_PATH = "ExcelReportResult";
         } else {
             logger.error("get class path fail!");
@@ -57,16 +57,15 @@ public class VmReportServiceImpl implements  IVmReportService {
 //            logger.error("Decode failed.");
 //        }
     }
+
     @Autowired
     TemplateSourceBean templateSourceBean;
+
     @Override
     public int poiVmTemplate(String reportName, List<MonitorVmInfoModel> monitorVmInfoModels) throws Exception {
-        logger.info("Enter HostReportServiceImpl poiTemplate , hostCNA size = " + monitorVmInfoModels.size());
+        logger.info("Enter VmReportServiceImpl poiVmTemplate , vmMachine size = " + monitorVmInfoModels.size());
 
-//        InputStream inputStream = templateSourceBean.getHostInputStream();
-//        InputStream inputStream = templateSourceBean.getVmInputStream();
-        InputStream inputStream = new FileInputStream(EXCEL_TEMPLATE_PATH);
-//        InputStream inputStream1 = inputStream
+        InputStream inputStream = InputStreamCache.getInstance().getHostTemplateInputStream();
         XSSFWorkbook wbSrcFromReport = (XSSFWorkbook) WorkbookFactory.create(inputStream);
 
         Sheet sheet3 = wbSrcFromReport.getSheetAt(1);
@@ -111,7 +110,7 @@ public class VmReportServiceImpl implements  IVmReportService {
         wbSrcFromReport.write(fileOut);
         fileOut.close();
         wbSrcFromReport.close();
-        logger.info("Exit HostReportServiceImpl poiTemplate , hostCNA size = " + monitorVmInfoModels.size());
+        logger.info("Exit VmReportServiceImpl poiVmTemplate , vmMachine size = " + monitorVmInfoModels.size());
         logger.info("Exit save data in excel using poi");
         return RetCode.OK;
     }

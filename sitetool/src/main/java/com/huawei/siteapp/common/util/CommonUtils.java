@@ -5,7 +5,6 @@ import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -130,31 +129,4 @@ public class CommonUtils {
         return aCpuMem;
     }
 
-    public static InputStream copyStream(InputStream inputStream) {
-
-//        ByteArrayOutputStream in =new ByteArrayOutputStream(inputStream);
-        ByteArrayOutputStream rstStream = new ByteArrayOutputStream();
-        BufferedInputStream bis = new BufferedInputStream(inputStream);
-//        inputStream;
-//        BufferedReader input = new BufferedReader(new InputStreamReader(inputStream));
-        try {
-            byte[] buffer = new byte[1024];
-            int len;
-            while ((len = bis.read(buffer)) > -1) {
-                rstStream.write(buffer, 0, len);
-            }
-
-            rstStream.flush();
-            if (bis.markSupported()) {
-                bis.mark(bis.available());
-                bis.reset();
-
-            } else {
-                System.out.print("InputStream does not support reset()");
-            }
-        } catch (IOException e) {
-            logger.error("", e);
-        }
-        return new ByteArrayInputStream(rstStream.toByteArray());
-    }
 }
