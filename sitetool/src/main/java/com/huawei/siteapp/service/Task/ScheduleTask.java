@@ -3,6 +3,7 @@ package com.huawei.siteapp.service.Task;
 import com.huawei.siteapp.cache.CacheCenter;
 import com.huawei.siteapp.common.Bean.RestBean;
 import com.huawei.siteapp.common.util.SpringUtil;
+import com.huawei.siteapp.controller.TaskController;
 import com.huawei.siteapp.service.Http.SiteLoginHttpRequestServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,5 +66,18 @@ public class ScheduleTask {
     @PostConstruct
     public void InitLogin() {
         CacheCenter.getInstance().addUrlResponse("loginSuccess", false);
+    }
+
+    @Scheduled(fixedDelay = 5000)
+//    每30分执行一次
+    void doScheduleGenerateReport() {
+        TaskController taskController = SpringUtil.getBean(TaskController.class);
+        try {
+//            taskController.monitorCnaVm();
+            taskController.hostReport();
+//            taskController.vmReport();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

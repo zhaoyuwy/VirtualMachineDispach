@@ -24,4 +24,5 @@ public class TemplateSourceCfg {
         templateSourceBean.setVmInputStream(vmStream);
         return templateSourceBean;
     }
+
 }

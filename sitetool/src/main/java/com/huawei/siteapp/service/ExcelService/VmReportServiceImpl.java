@@ -66,6 +66,7 @@ public class VmReportServiceImpl implements  IVmReportService {
 //        InputStream inputStream = templateSourceBean.getHostInputStream();
 //        InputStream inputStream = templateSourceBean.getVmInputStream();
         InputStream inputStream = new FileInputStream(EXCEL_TEMPLATE_PATH);
+//        InputStream inputStream1 = inputStream
         XSSFWorkbook wbSrcFromReport = (XSSFWorkbook) WorkbookFactory.create(inputStream);
 
         Sheet sheet3 = wbSrcFromReport.getSheetAt(1);
