@@ -10,7 +10,6 @@ import com.huawei.siteapp.model.MonitorVmInfoModel;
 import com.huawei.siteapp.model.SiteModel;
 import com.huawei.siteapp.service.ExcelService.HostReportServiceImpl;
 import com.huawei.siteapp.service.ExcelService.VmReportServiceImpl;
-import com.huawei.siteapp.service.Http.HttpRestServiceImpl;
 import com.huawei.siteapp.service.Http.MonitorAllVmsServiceImpl;
 import com.huawei.siteapp.service.Http.MonitorCnaServiceImpl;
 import com.huawei.siteapp.service.Http.SiteLoginHttpRequestServiceImpl;
@@ -99,7 +98,7 @@ public class TaskController {
     @ResponseBody
     @RequestMapping("/vmReport")
     public int vmReport() throws Exception {
-        int retCode = -1;
+        int retCode = RetCode.INIT_ERROR;
         try {
             MonitorVmInfoServiceImpl monitorVmInfoService = SpringUtil.getBean(MonitorVmInfoServiceImpl.class);
             Iterable<MonitorVmInfoModel> vms = monitorVmInfoService.findAll();
@@ -113,22 +112,17 @@ public class TaskController {
 
     @ResponseBody
     @RequestMapping("/hostReport")
-    public String hostReport() throws Exception {
-        MonitorCnaServiceImpl monitorsService = SpringUtil.getBean(MonitorCnaServiceImpl.class);
-        RestBean restBean = (RestBean) CacheCenter.getInstance().getRestBeanResponse("restBean");
-        monitorsService.fcPostSitesClustersHostsCpuMemRest(restBean);
+    public int hostReport() throws Exception {
         int retCode = RetCode.INIT_ERROR;
         try {
-//            retCode = hostReportServiceImpl.hostReportSaveDataToExcel(username + "_" + ip + "_" + UctTimeUtil.getCurrentDate("yyyy_MM_dd_HH_mm_ss"));
             MonitorCnaInfoServiceImpl monitorCpuMemService = SpringUtil.getBean(MonitorCnaInfoServiceImpl.class);
-//            HostReportServiceImpl hostReportService = SpringUtil.getBean(HostReportServiceImpl.class);
             Iterable<MonitorCnaInfoModel> hosts = monitorCpuMemService.findAll();
             HostReportServiceImpl hostReportServiceImpl = SpringUtil.getBean(HostReportServiceImpl.class);
-            retCode = hostReportServiceImpl.poiTemplate("host_" + UctTimeUtil.getCurrentDate(), (List<MonitorCnaInfoModel>) hosts);
+            retCode = hostReportServiceImpl.poiTemplate("hosts_" + UctTimeUtil.getCurrentDate(), (List<MonitorCnaInfoModel>) hosts);
         } catch (Exception e) {
-            logger.error("This is report Exception", e);
+            logger.error("Generate hostReport Exception", e);
         }
-        return retCode + "  and time = " + UctTimeUtil.getCurrentDate();
+        return retCode;
     }
 
     @ResponseBody
@@ -149,18 +143,21 @@ public class TaskController {
             String siteIp = siteModelTemp.getSiteLoginIp();
             String siteLoginUser = siteModelTemp.getSiteLoginUser();
             String siteLoginPwd = siteModelTemp.getSiteLoginPwd();
+            String siteUri = siteModelTemp.getSiteUri();
 
             restBean.setVrmIp(siteIp);
             restBean.setRestPort("7070");
             restBean.setRestUserName(siteLoginUser);
             restBean.setRestPwd(siteLoginPwd);
+            restBean.setRestSiteUri(siteUri);
             //        登录获取token
             SiteLoginHttpRequestServiceImpl siteLoginHttpRequestService = SpringUtil.getBean(SiteLoginHttpRequestServiceImpl.class);
             siteLoginHttpRequestService.fcLoginRest(restBean, siteLoginUser, siteLoginPwd);
-            HttpRestServiceImpl httpRestService = SpringUtil.getBean(HttpRestServiceImpl.class);
-            httpRestService.fcGetSitesRest(restBean);
+//            HttpRestServiceImpl httpRestService = SpringUtil.getBean(HttpRestServiceImpl.class);
+//
+//            httpRestService.fcGetSitesRest(restBean);
 
-            logger.info("token is " + (String) CacheCenter.getInstance().getRestBeanResponse("FcLogin"));
+//            logger.info("token is " + (String) CacheCenter.getInstance().getRestBeanResponse("FcLogin"));
             MonitorAllVmsServiceImpl monitorAllVmsService = SpringUtil.getBean(MonitorAllVmsServiceImpl.class);
             int retCode = monitorAllVmsService.fcGetSitesClustersHostsAllVrmRest(restBean);
 

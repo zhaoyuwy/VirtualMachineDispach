@@ -17,6 +17,16 @@ public class RestBean {
 
     private String restPwd;
 
+    private String restSiteUri;
+
+    public String getRestSiteUri() {
+        return restSiteUri;
+    }
+
+    public void setRestSiteUri(String restSiteUri) {
+        this.restSiteUri = restSiteUri;
+    }
+
     private String restBody;
 
     public String getVrmIp() {
@@ -46,6 +56,7 @@ public class RestBean {
     public String getRestUserName() {
         return restUserName;
     }
+
 
     public void setRestUserName(String restUserName) {
         this.restUserName = restUserName;

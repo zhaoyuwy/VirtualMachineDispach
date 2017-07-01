@@ -41,9 +41,9 @@
         </Logger>
         <Root level="ALL">
             <appender-ref ref="Console"/>
-            <appender-ref ref="RollingFileInfo"/>
-            <appender-ref ref="RollingFileWarn"/>
-            <appender-ref ref="RollingFileError"/>
+            <!--<appender-ref ref="RollingFileInfo"/>-->
+            <!--<appender-ref ref="RollingFileWarn"/>-->
+            <!--<appender-ref ref="RollingFileError"/>-->
         </Root>
 
         <!--过滤掉spring和hibernate的一些无用的debug信息-->

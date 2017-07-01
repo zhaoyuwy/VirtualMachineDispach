@@ -4,6 +4,7 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.junit.Test;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -37,5 +38,12 @@ public class TemplateTest {
         FileOutputStream out = new FileOutputStream("D:/export.xls");
         wb.write(out);
         out.close();
+    }
+
+    @Test
+    public void testString(){
+        String param = "&^%$%^^";
+        String test = "begin "+"\n and postBody = "+param;
+        System.out.println(test);
     }
 }
