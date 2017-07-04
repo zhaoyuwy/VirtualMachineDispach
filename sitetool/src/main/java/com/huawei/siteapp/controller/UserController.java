@@ -50,7 +50,7 @@ public class UserController {
 //
         httpRequest.fcGetSitesClustersHostsRest(restBean);
 
-        CacheCenter.getInstance().addUrlResponse("loginSuccess", true);
+//        CacheCenter.getInstance().addUrlResponse("loginSuccess", true);
         return "Welcome," + username + " retCode = " + RetCode.OK + "  and time = " + UctTimeUtil.getCurrentDate();
     }
 
@@ -77,7 +77,7 @@ public class UserController {
         SiteLoginHttpRequestServiceImpl siteLoginHttpRequest = new SiteLoginHttpRequestServiceImpl();
 
         siteLoginHttpRequest.fcLoginRest(restBean, username, pwd);
-        CacheCenter.getInstance().addUrlResponse("loginSuccess", true);
+//        CacheCenter.getInstance().addUrlResponse("loginSuccess", true);
         return "Login success";
     }
 

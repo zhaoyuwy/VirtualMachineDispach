@@ -14,7 +14,8 @@ import java.util.concurrent.locks.ReentrantLock;
  *
  * @version 1.0
  */
-public class BaseServiceImpl<T> implements IBaseService<T> {
+@Transactional(readOnly = true)
+public abstract class BaseServiceImpl<T> implements IBaseService<T> {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private BaseRepository<T> repository;
     private Lock lock = new ReentrantLock();
@@ -29,14 +30,14 @@ public class BaseServiceImpl<T> implements IBaseService<T> {
     }
 
     @Override
-    public <S extends T> Iterable<S> save(Iterable<S> iterable) {
+    @Transactional()
+    public synchronized <S extends T> Iterable<S> save(Iterable<S> iterable) {
 
         save(iterable, "save model");
         return null;
     }
 
     @Override
-    @Transactional(readOnly = true)
     public T findOne(Long id) {
         return repository.findOne(id);
     }
@@ -47,13 +48,11 @@ public class BaseServiceImpl<T> implements IBaseService<T> {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Iterable<T> findAll() {
         return repository.findAll();
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Iterable<T> findAll(Iterable<Long> iterable) {
         return repository.findAll(iterable);
     }

@@ -165,7 +165,12 @@ public class HttpRestServiceImpl {
         String restResponse = (String) sr.get(ParamKey.REST_RESPONSE);
 //        String restResponse = "{\"sites\":[{\"ip\":\"192.145.17.200\",\"uri\":\"/service/sites/43DA092B\",\"urn\":\"urn:sites:43DA092B\",\"isSelf\":true,\"isDC\":false,\"status\":\"normal\",\"name\":\"site\"}]}";
 
-        Map<String, Object> responseMap = JSONUtils.jsonToMap(restResponse);
+        Map<String, Object> responseMap = null;
+        try {
+            responseMap = JSONUtils.jsonToMap(restResponse);
+        } catch (JSONException jsonException) {
+            logger.error("A JSONObject text must begin with ",jsonException);
+        }
         String urlSites = ((HashMap<String, String>) (((List) responseMap.get(ParamKey.SITES)).get(0))).get(ParamKey.URI);
         List<SiteModel> sites = new ArrayList<>();
         SiteServiceImpl siteService = SpringUtil.getBean(SiteServiceImpl.class);

@@ -7,7 +7,9 @@ import com.huawei.siteapp.common.constats.RetCode;
 import com.huawei.siteapp.common.util.*;
 import com.huawei.siteapp.model.MonitorCnaInfoModel;
 import com.huawei.siteapp.model.MonitorVmInfoModel;
+import com.huawei.siteapp.model.PersonModel;
 import com.huawei.siteapp.model.SiteModel;
+import com.huawei.siteapp.repository.PersonRepository;
 import com.huawei.siteapp.service.ExcelService.HostReportServiceImpl;
 import com.huawei.siteapp.service.Http.HttpRestServiceImpl;
 import com.huawei.siteapp.service.Http.MonitorAllVmsServiceImpl;
@@ -57,7 +59,7 @@ public class AsyncTaskServiceImpl {
         try {
             responseCxt = httpRestService.sendPost(url, vmInfos.toString());
         } catch (Exception e) {
-            logger.error("Post Exception",e);
+            logger.error("Post Exception", e);
         }
         String restResponse = (String) responseCxt.get(ParamKey.REST_RESPONSE);
 
@@ -146,9 +148,26 @@ public class AsyncTaskServiceImpl {
         }
     }
 
-    public void asyncGenerateVmReport(){
+    public void asyncGenerateVmReport() {
         MonitorAllVmsServiceImpl monitorAllVmsService = SpringUtil.getBean(MonitorAllVmsServiceImpl.class);
         int retCode = monitorAllVmsService.fcGetSitesClustersHostsAllVrmRest((RestBean) CacheCenter.getInstance().getRestBeanResponse("restBean"));
 
+    }
+
+    @Async  //加入"异步调用"注解
+    public void asyncSaveData1() {
+        List<PersonModel> userModels = new ArrayList<>();
+        PersonRepository personRepository = SpringUtil.getBean(PersonRepository.class);
+        for (int i = 0; i < 10; i++) {
+            PersonModel personModel = new PersonModel();
+            personModel.setAddress("address " + i);
+            userModels.add(personModel);
+//            personRepository.save(userModels);
+        }
+//        UserRepository userRepository = SpringUtil.getBean(UserRepository.class);
+//        logger.info("###############################  "+UctTimeUtil.getCurrentDate()+"  " +userModels.toString());
+        logger.info("###############################   " + userModels.toString());
+
+//        userRepository.save(userModels);
     }
 }

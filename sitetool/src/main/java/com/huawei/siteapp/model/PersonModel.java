@@ -1,8 +1,6 @@
 package com.huawei.siteapp.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -10,6 +8,7 @@ import java.io.Serializable;
 public class PersonModel implements Serializable{
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
 	private String name;

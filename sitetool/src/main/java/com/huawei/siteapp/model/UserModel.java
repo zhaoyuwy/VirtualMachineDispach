@@ -17,8 +17,14 @@ public class UserModel implements Serializable {
     private Long userId = -1L;
     private String userName;
     private String userPwd;
+//    private String newPassword;	// 新密码
     private String userEmail;
     private int userType;
+//    private String loginIp;	// 最后登陆IP
+//    private Date loginDate;	// 最后登陆日期
+//    private String loginFlag;	// 是否允许登陆
+//    private String oldLoginIp;	// 上次登陆IP
+//    private Date oldLoginDate;	// 上次登陆日期
 
     public Long getUserId() {
         return userId;
