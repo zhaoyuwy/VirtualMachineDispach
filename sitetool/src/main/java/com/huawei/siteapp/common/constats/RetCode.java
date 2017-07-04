@@ -15,4 +15,8 @@ public interface RetCode {
     int REST_IO_ERROR = 7001;
     int PARSE_RESPONSE_JSON_ERROR=7002;
     int RSET_FAILED = 7003;
+
+
+
+
 }

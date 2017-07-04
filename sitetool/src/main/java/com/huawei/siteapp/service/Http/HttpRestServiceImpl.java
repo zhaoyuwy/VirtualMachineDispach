@@ -3,6 +3,7 @@ package com.huawei.siteapp.service.Http;
 import com.huawei.siteapp.cache.CacheCenter;
 import com.huawei.siteapp.common.Bean.RestBean;
 import com.huawei.siteapp.common.constats.ParamKey;
+import com.huawei.siteapp.common.constats.RetCode;
 import com.huawei.siteapp.common.util.*;
 import com.huawei.siteapp.model.ClusterModel;
 import com.huawei.siteapp.model.HostModel;
@@ -158,7 +159,7 @@ public class HttpRestServiceImpl {
         return cxt;
     }
 
-    public void fcGetSitesRest(RestBean restInfo) {
+    public int fcGetSitesRest(RestBean restInfo) {
         String[] urlParm = new String[]{restInfo.getVrmIp(), restInfo.getRestPort()};
         String url = PropertiesUtils.getUrl("FcGetSites", urlParm);
         ServiceContext sr = sendGet(url, "");
@@ -169,7 +170,27 @@ public class HttpRestServiceImpl {
         try {
             responseMap = JSONUtils.jsonToMap(restResponse);
         } catch (JSONException jsonException) {
+            String errMsg = jsonException.getMessage();
             logger.error("A JSONObject text must begin with ",jsonException);
+
+            if (errMsg.contains("refused") || errMsg.contains("timed out"))
+            {
+                logger.error("rest connection time out");
+                return RetCode.REST_CONNECT_TIME_OUT;
+            }
+
+            if (errMsg.contains("peer not authenticated"))
+            {
+                logger.info("peer not auth, try again");
+//                return reLogin(cxt, request);
+                return RetCode.LOGIN_ERROR;
+            }
+
+            if(errMsg.contains("A JSONObject text must begin with")){
+                return RetCode.PARSE_RESPONSE_JSON_ERROR;
+            }
+            throw new BusinessException(jsonException,"execute rest request error");
+
         }
         String urlSites = ((HashMap<String, String>) (((List) responseMap.get(ParamKey.SITES)).get(0))).get(ParamKey.URI);
         List<SiteModel> sites = new ArrayList<>();
@@ -185,6 +206,7 @@ public class HttpRestServiceImpl {
         siteService.save(sites);
 
         CacheCenter.getInstance().addUrlResponse(ParamKey.SITE_ID, urlSites);
+        return RetCode.OK;
     }
 
     private SiteModel mapToSiteBean(Object siteObj) {
