@@ -1,6 +1,8 @@
 package com.huawei.siteapp.cache;
 
+import com.huawei.siteapp.common.constats.Const;
 import com.huawei.siteapp.common.util.CommonUtils;
+import com.huawei.siteapp.model.UserModel;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,14 +20,14 @@ public class CacheCenter {
     private static CacheCenter instance;
 
     private Map<String, Object> restBeansCache;
-    private Map<String, Object> restBeansResponse;
+    private Map<String, Object> userCache;
 
     /**
      * <默认构造函数>
      */
     public CacheCenter() {
         restBeansCache = new HashMap<String, Object>();
-        restBeansResponse = new HashMap<String,Object>();
+        userCache = new HashMap<String, Object>();
 //         new ConcurrentHashMap<String, Object>();
 //         new HashMap<String, Boolean>();
 //         new HashMap<String, Boolean>();
@@ -58,7 +60,31 @@ public class CacheCenter {
         return restBeanString;
     }
 
+    public Object getUserCacheByKey(String key) {
+        if (CommonUtils.isNull(key)) {
+            return null;
+        }
+        Object restBeanString = restBeansCache.get(key);
+        if (null == restBeanString) {
+            return null;
+        }
+        return restBeanString;
+    }
+
     public void addUrlResponse(String key, Object value) {
         restBeansCache.put(key, value);
+    }
+
+    public void addUserCache(String key, Object value) {
+        userCache.put(key, value);
+    }
+
+    public UserModel getUser() {
+        UserModel userModel = (UserModel) userCache.get(Const.USER_CACHE);
+        if (userModel != null) {
+            return userModel;
+        }
+        // 如果没有登录，则返回实例化空的User对象。
+        return new UserModel();
     }
 }

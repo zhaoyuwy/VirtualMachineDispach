@@ -5,9 +5,11 @@ import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -110,11 +112,11 @@ public class CommonUtils {
             return "";
         }
         try {
-            return getEmptyIfNull(String.valueOf(str));
+            return String.valueOf(str);
         } catch (Exception e) {
             // TODO: handle exception
 //            logger.error(e.getMessage());
-//            logger.error("");
+            logger.error("",e);
             return "";
         }
     }
@@ -129,4 +131,44 @@ public class CommonUtils {
         return aCpuMem;
     }
 
+    public static boolean isloginCharacterValid(String str) {
+        if(isNull(str))
+        {
+            logger.info("input str is null.");
+            return false;
+        }
+        String src = Normalizer.normalize(str, Normalizer.Form.NFKC);    //归一化字符串
+        int iLength = src.length();
+        String singleChar = null;
+        int i;
+
+        for ( i=0;i<iLength;i++ )
+        {
+            //singleChar = new Character(src.charAt(i)).toString();
+            singleChar = Character.toString(src.charAt(i));
+            if (!isContainRight(singleChar))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    public static boolean isContainRight(String str)
+    {
+        if(isNull(str))
+        {
+            return false;
+        }
+
+        Matcher tMatcher = loginPatern.matcher(str);
+        if(tMatcher.find())
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public static String buildResponse(Map<String, Object> result) {
+        return JSONUtils.jsonToStr(result);
+    }
 }

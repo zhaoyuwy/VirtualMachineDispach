@@ -1,20 +1,17 @@
 package com.huawei.siteapp.common.util;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by z00390414 on 2017/6/15.
@@ -103,67 +100,68 @@ public class JSONUtils {
         return map;
     }
 
-    public static boolean parseJSON(ServiceContext cxt, InputStream in) {
+    public static boolean parseJson(ServiceContext cxt, InputStream in) {
         ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, Object> maps = null;
         try {
-            Map<String, Object> maps = objectMapper.readValue(in, Map.class);
-            if (maps == null) {
-                return false;
-            }
-            for (Map.Entry<String, Object> en : maps.entrySet()) {
-                cxt.put(en.getKey(), en.getValue());
-            }
-        } catch (JsonParseException e) {
-//            throw new UpgradeToolException("parse json to map error", e);
-            e.printStackTrace();
-        } catch (JsonMappingException e) {
-//            throw new UpgradeToolException("parse json to map error", e);
-            e.printStackTrace();
+            maps = objectMapper.readValue(in, Map.class);
         } catch (IOException e) {
-            e.printStackTrace();
-//            throw new UpgradeToolException("parse json to map error", e);
+            logger.error("", e);
         }
-
-        return true;
-    }
-
-    public static boolean parseJSON(ServiceContext cxt, String jsonStr)
-
-    {
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            Map<String, Object> maps = objectMapper.readValue(jsonStr, Map.class);
-            if (maps == null) {
-                return false;
-            }
-            for (Map.Entry<String, Object> en : maps.entrySet()) {
-                cxt.put(en.getKey(), en.getValue());
-            }
-        } catch (JsonParseException e) {
-            logger.error("parse json to map error JsonParseException ", e);
-        } catch (JsonMappingException e) {
-            logger.error("parse json to map error JsonMappingException", e);
-        } catch (IOException e) {
-            logger.error("parse json to map error IOException", e);
+        if (maps == null) {
+            return false;
+        }
+        for (Map.Entry<String, Object> en : maps.entrySet()) {
+            cxt.put(en.getKey(), en.getValue());
         }
         return true;
     }
 
-    public static Map<String, Object> parseJSON(String jsonStr)
+    public static boolean parseJson(ServiceContext cxt, String jsonStr)
 
     {
         ObjectMapper objectMapper = new ObjectMapper();
+//        try {
+        Map<String, Object> maps = null;
         try {
-            return objectMapper.readValue(jsonStr, Map.class);
-
-        } catch (JsonParseException e) {
-//            throw new UpgradeToolException("parse json to map error", e);
-        } catch (JsonMappingException e) {
-//            throw new UpgradeToolException("parse json to map error", e);
+            maps = objectMapper.readValue(jsonStr, Map.class);
         } catch (IOException e) {
-//            throw new UpgradeToolException("parse json to map error", e);
+            logger.error("", e);
+        }
+        if (maps == null) {
+            return false;
+        }
+        for (Map.Entry<String, Object> en : maps.entrySet()) {
+            cxt.put(en.getKey(), en.getValue());
+        }
+        return true;
+    }
+
+
+    public static String jsonToStr(Object result) {
+        try {
+            return (new ObjectMapper()).writeValueAsString(result);
+        } catch (JsonProcessingException e) {
+            logger.error("", e);
         }
         return null;
+    }
+
+    public static boolean jsonToServiceContext(ServiceContext serviceContext, HttpServletRequest request) {
+        StringBuffer data = new StringBuffer();
+        String line = null;
+        BufferedReader reader = null;
+        try {
+            reader = request.getReader();
+            while (null != (line = reader.readLine()))
+                data.append(line);
+        } catch (IOException e) {
+            logger.error("", e);
+        } finally {
+        }
+        logger.info("request" + data.toString());
+        serviceContext.setData(jsonToMap(data.toString()));
+        return true;
 
     }
 }

@@ -9,7 +9,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.conn.scheme.Scheme;
-import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
@@ -75,7 +74,7 @@ public abstract class RestClient implements IClient {
             }
 
             logger.info("enter RESTDefaultHandle.handle");
-            JSONUtils.parseJSON(cxt, in);
+            JSONUtils.parseJson(cxt, in);
             logger.info("exit RESTDefaultHandle.handle");
         }
 
@@ -250,7 +249,7 @@ public abstract class RestClient implements IClient {
                 if (!respMsg.contains("assword")) {
                     logger.info("response ---->" + respMsg);
                 }
-                JSONUtils.parseJSON(cxt, respMsg);
+                JSONUtils.parseJson(cxt, respMsg);
                 ByteArrayInputStream in = new ByteArrayInputStream(respMsg.getBytes("UTF-8"));
                 if (null != handle) {
                     handle.handle(cxt, in);
