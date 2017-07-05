@@ -1,6 +1,5 @@
 package com.huawei.siteapp.common.client;
 
-import com.huawei.siteapp.common.constats.ParamKey;
 import com.huawei.siteapp.common.constats.RetCode;
 import com.huawei.siteapp.common.util.CommonUtils;
 import com.huawei.siteapp.common.util.JSONUtils;
@@ -103,7 +102,7 @@ public class FcRestClient extends RestClient {
                 return retCode;
             }
 
-            Map<String, Object> map = JSONUtils.parseJSON(respMsg);
+            Map<String, Object> map = JSONUtils.jsonToMap(respMsg);
             if (null == map) {
                 return RetCode.INNER_ERROR;
             }

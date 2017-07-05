@@ -2,15 +2,17 @@ package com.huawei.siteapp.log4j2Test;
 
 import com.huawei.siteapp.MappRunApplication;
 import com.huawei.siteapp.common.Bean.RestBean;
+import com.huawei.siteapp.common.util.SpringUtil;
 import com.huawei.siteapp.common.util.UctTimeUtil;
 import com.huawei.siteapp.model.PersonModel;
 import com.huawei.siteapp.model.SiteModel;
-import com.huawei.siteapp.repository.PersonRepository;
+import com.huawei.siteapp.model.UserModel;
 import com.huawei.siteapp.repository.Impl.RepositoryTemplate;
+import com.huawei.siteapp.repository.PersonRepository;
 import com.huawei.siteapp.service.ExcelService.HostReportServiceImpl;
 import com.huawei.siteapp.service.Http.HttpRestServiceImpl;
 import com.huawei.siteapp.service.Http.SiteLoginHttpRequestServiceImpl;
-//import com.huawei.siteapp.service.HttpRestService;
+import com.huawei.siteapp.service.ModelService.Impl.UserServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -18,10 +20,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+//import com.huawei.siteapp.service.HttpRestService;
 
 /**
  * Created by z00390414 on 2017/6/15.
@@ -47,9 +51,9 @@ public class MappRunApplicationTests {
 //    private HttpRestService httpRestService;
 
 
-
     @Autowired
     private HostReportServiceImpl hostReportServiceImpl;
+
     @Test
     public void contextLoads() {
         logger.trace("I am trace log.");
@@ -90,7 +94,6 @@ public class MappRunApplicationTests {
     }
 
 
-
     //测试rest 借口端口号
     public RestBean getTestRest() {
         RestBean restBean = new RestBean();
@@ -113,6 +116,7 @@ public class MappRunApplicationTests {
 
 //        httpRequest.fcGetSitesClustersRest(getTestRest());
     }
+
     @Test
     public void LangFangFc() throws Exception {
 //        登录获取token
@@ -129,31 +133,33 @@ public class MappRunApplicationTests {
     }
 
     @Test
-    public void testCrudRepository(){
+    public void testCrudRepository() {
         List<SiteModel> sites = new ArrayList<>();
-        int index=0;
-        for(int i='a';i<='z';i++){
+        int index = 0;
+        for (int i = 'a'; i <= 'z'; i++) {
             index++;
             SiteModel site = new SiteModel();
-            site.setSiteIp((char)i+""+(char)i+"@sina.com"+ UctTimeUtil.getCurrentDate());
+            site.setSiteIp((char) i + "" + (char) i + "@sina.com" + UctTimeUtil.getCurrentDate());
             sites.add(site);
         }
 //        httpRestService.saveSiteList(sites);
     }
+
     @Test
-    public void testCrudRepositoryInterface(){
+    public void testCrudRepositoryInterface() {
         List<SiteModel> sites = new ArrayList<>();
-        int index=0;
-        for(int i='a';i<='z';i++){
+        int index = 0;
+        for (int i = 'a'; i <= 'z'; i++) {
             index++;
             SiteModel site = new SiteModel();
-            site.setSiteIp((char)i+""+(char)i+"@sina14.com"+ UctTimeUtil.getCurrentDate());
+            site.setSiteIp((char) i + "" + (char) i + "@sina14.com" + UctTimeUtil.getCurrentDate());
             sites.add(site);
         }
 //        siteRepository.save(sites);
     }
+
     @Test
-    public void testCrudRepositoryClear(){
+    public void testCrudRepositoryClear() {
 //        List<SiteModel> sites = new ArrayList<>();
 //
 //        int index=0;
@@ -165,12 +171,36 @@ public class MappRunApplicationTests {
 //        }
 //        httpRestService.clearSiteList();
     }
+
     @Test
-    public void testReport(){
+    @Transactional
+    public void testReport() {
+//        try {
+//            hostReportServiceImpl.hostReportSaveDataToExcel(UctTimeUtil.getCurrentDate("yyyy_MM_dd_HH_MM_SS"));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        MyThread myThread = SpringUtil.getBean("myThread", MyThread.class);
+//        System.out.println(myThread);
+//        UserRepository userRepository = SpringUtil.getBean(UserRepository.class);
+//        userRepository.deleteAll();
+
+        List<UserModel> userModels = new ArrayList<>();
+//        PersonRepository personRepository = SpringUtil.getBean(PersonRepository.class);
+        for (int i = 0; i < 10; i++) {
+            UserModel personModel = new UserModel();
+            personModel.setUserName("address " + i);
+            userModels.add(personModel);
+//            personRepository.save(userModels);
+        }
+        UserServiceImpl userService = SpringUtil.getBean(UserServiceImpl.class);
+        userService.save(userModels);
         try {
-            hostReportServiceImpl.hostReportSaveDataToExcel(UctTimeUtil.getCurrentDate("yyyy_MM_dd_HH_MM_SS"));
-        } catch (IOException e) {
+            Thread.sleep(2000L);
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
+
+
 }

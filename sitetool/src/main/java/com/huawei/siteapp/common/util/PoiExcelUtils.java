@@ -1,37 +1,44 @@
 package com.huawei.siteapp.common.util;
 
+import com.huawei.siteapp.model.MachineModel;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.*;
 import java.text.NumberFormat;
 import java.util.*;
+
 /**
  * Created by z00390414 on 2017/6/29.
  *
  * @version 1.0
  */
 public class PoiExcelUtils {
-    /** 数字格式化 */
+    /**
+     * 数字格式化
+     */
     private static NumberFormat format = NumberFormat.getInstance();
-    /** 日志 */
+    /**
+     * 日志
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(PoiExcelUtils.class);
-    /** 列默认宽度 */
+    /**
+     * 列默认宽度
+     */
     private static final int DEFAUL_COLUMN_WIDTH = 4000;
 
     /**
      * 1.创建 workbook
+     *
      * @return {@link HSSFWorkbook}
      * @Author : ll. create at 2016年4月14日 上午9:28:27
      */
@@ -42,8 +49,9 @@ public class PoiExcelUtils {
 
     /**
      * 2.创建 sheet
+     *
      * @param hssfWorkbook {@link HSSFWorkbook}
-     * @param sheetName sheet 名称
+     * @param sheetName    sheet 名称
      * @return {@link HSSFSheet}
      * @Author : ll. create at 2016年4月14日 上午9:28:39
      */
@@ -54,16 +62,17 @@ public class PoiExcelUtils {
 
     /**
      * 3.写入表头信息
+     *
      * @param hssfWorkbook {@link HSSFWorkbook}
-     * @param hssfSheet {@link HSSFSheet}
-     * @param headers 列标题，数组形式
-     * <p>
-     * 如{"列标题1@beanFieldName1@columnWidth","列标题2@beanFieldName2@columnWidth","列标题3@beanFieldName3@columnWidth"}
-     * </p>
-     * <p>
-     * 其中参数@columnWidth可选，columnWidth为整型数值
-     * </p>
-     * @param title 标题
+     * @param hssfSheet    {@link HSSFSheet}
+     * @param headers      列标题，数组形式
+     *                     <p>
+     *                     如{"列标题1@beanFieldName1@columnWidth","列标题2@beanFieldName2@columnWidth","列标题3@beanFieldName3@columnWidth"}
+     *                     </p>
+     *                     <p>
+     *                     其中参数@columnWidth可选，columnWidth为整型数值
+     *                     </p>
+     * @param title        标题
      * @Author : ll. create at 2016年4月14日 上午9:28:39
      */
     private void writeHeader(HSSFWorkbook hssfWorkbook, HSSFSheet hssfSheet, String[] headers,
@@ -109,16 +118,17 @@ public class PoiExcelUtils {
 
     /**
      * 写入表头信息
+     *
      * @param hssfWorkbook {@link HSSFWorkbook}
-     * @param hssfSheet {@link HSSFSheet}
-     * @param headers 列标题，数组形式
-     * <p>
-     * 如{"列标题1@beanFieldName1@columnWidth","列标题2@beanFieldName2@columnWidth","列标题3@beanFieldName3@columnWidth"}
-     * </p>
-     * <p>
-     * 其中参数@columnWidth可选，columnWidth为整型数值
-     * </p>
-     * @param startIndex 起始行索引
+     * @param hssfSheet    {@link HSSFSheet}
+     * @param headers      列标题，数组形式
+     *                     <p>
+     *                     如{"列标题1@beanFieldName1@columnWidth","列标题2@beanFieldName2@columnWidth","列标题3@beanFieldName3@columnWidth"}
+     *                     </p>
+     *                     <p>
+     *                     其中参数@columnWidth可选，columnWidth为整型数值
+     *                     </p>
+     * @param startIndex   起始行索引
      * @Author : ll. create at 2016年4月14日 上午9:28:39
      */
     private void writeHeader(HSSFWorkbook hssfWorkbook, HSSFSheet hssfSheet, String[] headers,
@@ -145,13 +155,14 @@ public class PoiExcelUtils {
 
     /**
      * 头信息校验和处理
+     *
      * @param headers 列标题，数组形式
-     * <p>
-     * 如{"列标题1@beanFieldName1@columnWidth","列标题2@beanFieldName2@columnWidth","列标题3@beanFieldName3@columnWidth"}
-     * </p>
-     * <p>
-     * 其中参数@columnWidth可选，columnWidth为整型数值
-     * </p>
+     *                <p>
+     *                如{"列标题1@beanFieldName1@columnWidth","列标题2@beanFieldName2@columnWidth","列标题3@beanFieldName3@columnWidth"}
+     *                </p>
+     *                <p>
+     *                其中参数@columnWidth可选，columnWidth为整型数值
+     *                </p>
      * @return 校验后的头信息
      * @Author : ll. create at 2016年4月14日 上午9:24:48
      */
@@ -171,15 +182,15 @@ public class PoiExcelUtils {
      * 4.写入内容部分(默认从第三行开始写入)
      *
      * @param hssfWorkbook {@link HSSFWorkbook}
-     * @param hssfSheet {@link HSSFSheet}
-     * @param headers 列标题，数组形式
-     * <p>
-     * 如{"列标题1@beanFieldName1@columnWidth","列标题2@beanFieldName2@columnWidth","列标题3@beanFieldName3@columnWidth"}
-     * </p>
-     * <p>
-     * 其中参数@columnWidth可选，columnWidth为整型数值
-     * </p>
-     * @param dataList 要导出的数据集合
+     * @param hssfSheet    {@link HSSFSheet}
+     * @param headers      列标题，数组形式
+     *                     <p>
+     *                     如{"列标题1@beanFieldName1@columnWidth","列标题2@beanFieldName2@columnWidth","列标题3@beanFieldName3@columnWidth"}
+     *                     </p>
+     *                     <p>
+     *                     其中参数@columnWidth可选，columnWidth为整型数值
+     *                     </p>
+     * @param dataList     要导出的数据集合
      * @throws Exception
      * @Author : ll. create at 2016年4月14日 上午9:28:39
      */
@@ -192,16 +203,16 @@ public class PoiExcelUtils {
      * 4.写入内容部分
      *
      * @param hssfWorkbook {@link HSSFWorkbook}
-     * @param hssfSheet {@link HSSFSheet}
-     * @param headers 列标题，数组形式
-     * <p>
-     * 如{"列标题1@beanFieldName1@columnWidth","列标题2@beanFieldName2@columnWidth","列标题3@beanFieldName3@columnWidth"}
-     * </p>
-     * <p>
-     * 其中参数@columnWidth可选，columnWidth为整型数值
-     * </p>
-     * @param dataList 要导出的数据集合
-     * @param startIndex 起始行的索引
+     * @param hssfSheet    {@link HSSFSheet}
+     * @param headers      列标题，数组形式
+     *                     <p>
+     *                     如{"列标题1@beanFieldName1@columnWidth","列标题2@beanFieldName2@columnWidth","列标题3@beanFieldName3@columnWidth"}
+     *                     </p>
+     *                     <p>
+     *                     其中参数@columnWidth可选，columnWidth为整型数值
+     *                     </p>
+     * @param dataList     要导出的数据集合
+     * @param startIndex   起始行的索引
      * @throws Exception
      * @Author : ll. create at 2016年4月14日 上午9:28:39
      */
@@ -237,7 +248,8 @@ public class PoiExcelUtils {
 
     /**
      * 设置列宽度
-     * @param i 列的索引号
+     *
+     * @param i        列的索引号
      * @param headInfo 表头信息，其中包含了用户需要设置的列宽
      * @Author : ll. create at 2016年4月14日 上午9:28:39
      */
@@ -258,7 +270,8 @@ public class PoiExcelUtils {
 
     /**
      * 单元格写值处理器
-     * @param {{@link HSSFCell}
+     *
+     * @param {{@link   HSSFCell}
      * @param cellValue 单元格值
      * @Author : ll. create at 2016年4月14日 上午9:28:39
      */
@@ -287,6 +300,7 @@ public class PoiExcelUtils {
 
     /**
      * 创建标题和表头单元格样式
+     *
      * @param hssfWorkbook {@link HSSFWorkbook}
      * @return {@link HSSFCellStyle}
      * @Author : ll. create at 2016年4月14日 上午9:28:39
@@ -309,6 +323,7 @@ public class PoiExcelUtils {
 
     /**
      * 创建内容单元格样式
+     *
      * @param hssfWorkbook {@link HSSFWorkbook}
      * @return {@link HSSFCellStyle}
      * @Author : ll. create at 2016年4月14日 上午9:28:39
@@ -334,6 +349,7 @@ public class PoiExcelUtils {
 
     /**
      * 设置通用的单元格属性
+     *
      * @param cellStyle 要设置属性的单元格
      * @Author : ll. create at 2016年4月14日 上午9:28:39
      */
@@ -349,8 +365,9 @@ public class PoiExcelUtils {
 
     /**
      * 将生成的Excel输出到指定目录
+     *
      * @param hssfWorkbook {@link HSSFWorkbook}
-     * @param filePath 文件输出目录，包括文件名（.xls）
+     * @param filePath     文件输出目录，包括文件名（.xls）
      * @Author : ll. create at 2016年4月14日 上午9:28:39
      */
     private void write2FilePath(HSSFWorkbook hssfWorkbook, String filePath) {
@@ -369,17 +386,18 @@ public class PoiExcelUtils {
 
     /**
      * 生成Excel，存放到指定目录
+     *
      * @param sheetName sheet名称
-     * @param title 标题
-     * @param filePath 要导出的Excel存放的文件路径
-     * @param headers 列标题，数组形式
-     * <p>
-     * 如{"列标题1@beanFieldName1@columnWidth","列标题2@beanFieldName2@columnWidth","列标题3@beanFieldName3@columnWidth"}
-     * </p>
-     * <p>
-     * 其中参数@columnWidth可选，columnWidth为整型数值，默认4000
-     * </p>
-     * @param dataList 要导出数据的集合
+     * @param title     标题
+     * @param filePath  要导出的Excel存放的文件路径
+     * @param headers   列标题，数组形式
+     *                  <p>
+     *                  如{"列标题1@beanFieldName1@columnWidth","列标题2@beanFieldName2@columnWidth","列标题3@beanFieldName3@columnWidth"}
+     *                  </p>
+     *                  <p>
+     *                  其中参数@columnWidth可选，columnWidth为整型数值，默认4000
+     *                  </p>
+     * @param dataList  要导出数据的集合
      * @throws Exception
      * @Author : ll. create at 2016年4月14日 上午9:28:39
      */
@@ -407,21 +425,22 @@ public class PoiExcelUtils {
 
     /**
      * 生成Excel，存放到指定目录
-     * @param sheetName sheet名称
-     * @param title 标题
-     * @param filePath 要导出的Excel存放的文件路径
+     *
+     * @param sheetName      sheet名称
+     * @param title          标题
+     * @param filePath       要导出的Excel存放的文件路径
      * @param mainDataFields 主表数据需要展示的字段集合
-     * <p>
-     * 如{"字段1@beanFieldName1","字段2@beanFieldName2",字段3@beanFieldName3"}
-     * </p>
-     * @param mainData 主表数据
-     * @param headers 列标题，数组形式
-     * <p>
-     * 如{"列标题1@beanFieldName1@columnWidth","列标题2@beanFieldName2@columnWidth","列标题3@beanFieldName3@columnWidth"}
-     * </p>
-     * <p>
-     * 其中参数@columnWidth可选，columnWidth为整型数值，默认4000
-     * </p>
+     *                       <p>
+     *                       如{"字段1@beanFieldName1","字段2@beanFieldName2",字段3@beanFieldName3"}
+     *                       </p>
+     * @param mainData       主表数据
+     * @param headers        列标题，数组形式
+     *                       <p>
+     *                       如{"列标题1@beanFieldName1@columnWidth","列标题2@beanFieldName2@columnWidth","列标题3@beanFieldName3@columnWidth"}
+     *                       </p>
+     *                       <p>
+     *                       其中参数@columnWidth可选，columnWidth为整型数值，默认4000
+     *                       </p>
      * @param detailDataList 要导出数据的集合
      * @param needExportDate 是否需要显示“导出日期”
      * @throws Exception
@@ -466,10 +485,11 @@ public class PoiExcelUtils {
 
     /**
      * 写标题
+     *
      * @param hssfWorkbook {@link HSSFWorkbook}
-     * @param hssfSheet {@link HSSFSheet}
-     * @param headers 表头
-     * @param title 标题
+     * @param hssfSheet    {@link HSSFSheet}
+     * @param headers      表头
+     * @param title        标题
      * @return 去除无效表头后的新表头集合
      * @Author : ll. create at 2016年5月23日 上午11:24:08
      */
@@ -480,10 +500,11 @@ public class PoiExcelUtils {
 
     /**
      * 写标题
-     * @param hssfWorkbook {@link HSSFWorkbook}
-     * @param hssfSheet {@link HSSFSheet}
-     * @param headers 表头
-     * @param title 标题
+     *
+     * @param hssfWorkbook  {@link HSSFWorkbook}
+     * @param hssfSheet     {@link HSSFSheet}
+     * @param headers       表头
+     * @param title         标题
      * @param titleRowIndex 标题行的索引
      * @return 去除无效表头后的新表头集合
      * @Author : ll. create at 2016年5月23日 上午11:24:08
@@ -516,12 +537,13 @@ public class PoiExcelUtils {
 
     /**
      * 写主表（mainData）数据
-     * @param hssfWorkbook {@link HSSFWorkbook}
-     * @param hssfSheet {@link HSSFSheet}
-     * @param columnSize 列数
+     *
+     * @param hssfWorkbook   {@link HSSFWorkbook}
+     * @param hssfSheet      {@link HSSFSheet}
+     * @param columnSize     列数
      * @param mainDataFields 主表数据需要展示的字段集合
-     * @param mainData 主表数据对象
-     * @param startIndex 起始行索引
+     * @param mainData       主表数据对象
+     * @param startIndex     起始行索引
      * @param needExportDate 是否需要输出“导出日期”
      * @return 主表数据使用了多少行
      * @throws Exception
@@ -642,10 +664,11 @@ public class PoiExcelUtils {
 
     /**
      * 设置合并后的单元格的样式
-     * @param row {@link HSSFRow}
+     *
+     * @param row            {@link HSSFRow}
      * @param beginCellIdnex 合并开始的单元格
-     * @param endCellIndex 合并结束的单元格
-     * @param cellStyle {@link HSSFCellStyle}
+     * @param endCellIndex   合并结束的单元格
+     * @param cellStyle      {@link HSSFCellStyle}
      * @Author : ll. create at 2016年5月23日 下午5:32:12
      */
     private void setMergedCellStyle(HSSFRow row, int beginCellIdnex, int endCellIndex,
@@ -657,7 +680,8 @@ public class PoiExcelUtils {
 
     /**
      * 写入导出日期
-     * @param row {@link HSSFRow}
+     *
+     * @param row       {@link HSSFRow}
      * @param cellIndex 列索引
      * @Author : ll. create at 2016年5月23日 下午3:13:41
      */
@@ -677,16 +701,17 @@ public class PoiExcelUtils {
 
     /**
      * 生成Excel的WorkBook，用于导出Excel
+     *
      * @param sheetName sheet名称
-     * @param title 标题
-     * @param headers 列标题，数组形式
-     * <p>
-     * 如{"列标题1@beanFieldName1@columnWidth","列标题2@beanFieldName2@columnWidth","列标题3@beanFieldName3@columnWidth"}
-     * </p>
-     * <p>
-     * 其中参数@columnWidth可选，columnWidth为整型数值，默认4000
-     * </p>
-     * @param dataList 要导出数据的集合
+     * @param title     标题
+     * @param headers   列标题，数组形式
+     *                  <p>
+     *                  如{"列标题1@beanFieldName1@columnWidth","列标题2@beanFieldName2@columnWidth","列标题3@beanFieldName3@columnWidth"}
+     *                  </p>
+     *                  <p>
+     *                  其中参数@columnWidth可选，columnWidth为整型数值，默认4000
+     *                  </p>
+     * @param dataList  要导出数据的集合
      * @throws Exception
      * @Author : ll. create at 2016年4月14日 上午9:28:39
      */
@@ -714,20 +739,21 @@ public class PoiExcelUtils {
 
     /**
      * 生成Excel的WorkBook，用于导出Excel
-     * @param sheetName sheet名称
-     * @param title 标题
+     *
+     * @param sheetName      sheet名称
+     * @param title          标题
      * @param mainDataFields 主表数据需要展示的字段集合
-     * <p>
-     * 如{"字段1@beanFieldName1","字段2@beanFieldName2",字段3@beanFieldName3"}
-     * </p>
-     * @param mainData 主表数据
-     * @param headers 列标题，数组形式
-     * <p>
-     * 如{"列标题1@beanFieldName1@columnWidth","列标题2@beanFieldName2@columnWidth","列标题3@beanFieldName3@columnWidth"}
-     * </p>
-     * <p>
-     * 其中参数@columnWidth可选，columnWidth为整型数值，默认4000
-     * </p>
+     *                       <p>
+     *                       如{"字段1@beanFieldName1","字段2@beanFieldName2",字段3@beanFieldName3"}
+     *                       </p>
+     * @param mainData       主表数据
+     * @param headers        列标题，数组形式
+     *                       <p>
+     *                       如{"列标题1@beanFieldName1@columnWidth","列标题2@beanFieldName2@columnWidth","列标题3@beanFieldName3@columnWidth"}
+     *                       </p>
+     *                       <p>
+     *                       其中参数@columnWidth可选，columnWidth为整型数值，默认4000
+     *                       </p>
      * @param detailDataList 要导出数据的集合
      * @param needExportDate 是否需要“导出日期”
      * @return {@link HSSFWorkbook}
@@ -774,8 +800,9 @@ public class PoiExcelUtils {
 
     /**
      * 根据文件路径读取excel文件，默认读取第0个sheet
-     * @param excelPath excel的路径
-     * @param skipRows 需要跳过的行数
+     *
+     * @param excelPath   excel的路径
+     * @param skipRows    需要跳过的行数
      * @param columnCount 列数量
      * @return List<String[]> 集合中每一个元素是一个数组，按单元格索引存储每个单元格的值，一个元素可以封装成一个需要的java bean
      * @throws Exception
@@ -788,10 +815,11 @@ public class PoiExcelUtils {
 
     /**
      * 根据文件路径读取excel文件的指定sheet
-     * @param excelPath excel的路径
-     * @param skipRows 需要跳过的行数
+     *
+     * @param excelPath   excel的路径
+     * @param skipRows    需要跳过的行数
      * @param columnCount 列数量
-     * @param sheetNo 要读取的sheet的索引，从0开始
+     * @param sheetNo     要读取的sheet的索引，从0开始
      * @return List<String[]> 集合中每一个元素是一个数组，按单元格索引存储每个单元格的值，一个元素可以封装成一个需要的java bean
      * @throws Exception
      * @Author : ll. create at 2016年4月14日 上午9:28:39
@@ -803,9 +831,10 @@ public class PoiExcelUtils {
 
     /**
      * 根据文件路径读取excel文件的指定sheet，并封装空值单位各的坐标，默认读取第0个sheet
-     * @param excelPath excel的路径
-     * @param skipRows 需要跳过的行数
-     * @param columnCount 列数量
+     *
+     * @param excelPath                 excel的路径
+     * @param skipRows                  需要跳过的行数
+     * @param columnCount               列数量
      * @param noneCellValuePositionList 存储空值的单元格的坐标，每个坐标以x-y的形式拼接，如2-5表示第二行第五列
      * @return List<String[]> 集合中每一个元素是一个数组，按单元格索引存储每个单元格的值，一个元素可以封装成一个需要的java bean
      * @throws Exception
@@ -818,11 +847,12 @@ public class PoiExcelUtils {
 
     /**
      * 根据文件路径读取excel文件的指定sheet，并封装空值单位各的坐标，默认读取第0个sheet
-     * @param excelPath excel的路径
-     * @param skipRows 需要跳过的行数
-     * @param columnCount 列数量
+     *
+     * @param excelPath                           excel的路径
+     * @param skipRows                            需要跳过的行数
+     * @param columnCount                         列数量
      * @param columnNumberForSkipValueValidateSet 不需要做空值验证的列的索引集合
-     * @param noneCellValuePositionList 存储空值的单元格的坐标，每个坐标以x-y的形式拼接，如2-5表示第二行第五列
+     * @param noneCellValuePositionList           存储空值的单元格的坐标，每个坐标以x-y的形式拼接，如2-5表示第二行第五列
      * @return List<String[]> 集合中每一个元素是一个数组，按单元格索引存储每个单元格的值，一个元素可以封装成一个需要的java bean
      * @throws Exception
      * @Author : ll. create at 2016年4月14日 上午9:28:39
@@ -836,10 +866,11 @@ public class PoiExcelUtils {
 
     /**
      * 根据文件路径读取excel文件的指定sheet，并封装空值单位各的坐标
-     * @param excelPath excel的路径
-     * @param skipRows 需要跳过的行数
-     * @param columnCount 列数量
-     * @param sheetNo 要读取的sheet的索引，从0开始
+     *
+     * @param excelPath                 excel的路径
+     * @param skipRows                  需要跳过的行数
+     * @param columnCount               列数量
+     * @param sheetNo                   要读取的sheet的索引，从0开始
      * @param noneCellValuePositionList 存储空值的单元格的坐标，每个坐标以x-y的形式拼接，如2-5表示第二行第五列
      * @return List<String[]> 集合中每一个元素是一个数组，按单元格索引存储每个单元格的值，一个元素可以封装成一个需要的java bean
      * @throws Exception
@@ -853,12 +884,13 @@ public class PoiExcelUtils {
 
     /**
      * 根据文件路径读取excel文件的指定sheet，并封装空值单位各的坐标
-     * @param excelPath excel的路径
-     * @param skipRows 需要跳过的行数
-     * @param columnCount 列数量
-     * @param sheetNo 要读取的sheet的索引，从0开始
+     *
+     * @param excelPath                           excel的路径
+     * @param skipRows                            需要跳过的行数
+     * @param columnCount                         列数量
+     * @param sheetNo                             要读取的sheet的索引，从0开始
      * @param columnNumberForSkipValueValidateSet 不需要做空值验证的列的索引集合
-     * @param noneCellValuePositionList 存储空值的单元格的坐标，每个坐标以x-y的形式拼接，如2-5表示第二行第五列
+     * @param noneCellValuePositionList           存储空值的单元格的坐标，每个坐标以x-y的形式拼接，如2-5表示第二行第五列
      * @return List<String[]> 集合中每一个元素是一个数组，按单元格索引存储每个单元格的值，一个元素可以封装成一个需要的java bean
      * @throws Exception
      * @Author : ll. create at 2016年4月14日 上午9:28:39
@@ -925,6 +957,7 @@ public class PoiExcelUtils {
 
     /**
      * 获取单元格数据内容为字符串类型的数据
+     *
      * @param cell Excel单元格{@link HSSFCell}
      * @return 单元格数据内容（可能是布尔类型等，强制转换成String）
      * @Author : ll. create at 2016年4月14日 上午9:53:07
@@ -958,4 +991,64 @@ public class PoiExcelUtils {
 
         return strCell;
     }
+
+    public Workbook createWorkbook(InputStream is, String excelFileName) throws IOException {
+        if (excelFileName.endsWith(".xls")) {
+            return new HSSFWorkbook(is);
+        } else if (excelFileName.endsWith(".xlsx")) {
+            return new XSSFWorkbook(is);
+        }
+        return null;
+    }
+
+    public List<MachineModel> loadScoreInfo(String xlsPath) throws IOException {
+        List<MachineModel> machineModels = new ArrayList<>();
+
+        FileInputStream fileIn = new FileInputStream(xlsPath);
+        Workbook wb0 = createWorkbook(fileIn, xlsPath);
+//根据指定的文件输入流导入Excel从而产生Workbook对象
+//        Workbook wb0 = new XSSFWorkbook(fileIn);
+//获取Excel文档中的第一个表单
+        Sheet sht0 = wb0.getSheetAt(0);
+//对Sheet中的每一行进行迭代
+        for (Row r : sht0) {
+            //如果当前行的行号（从0开始）未达到2（第三行）则从新循环
+            if (r.getRowNum() < 5) {
+                continue;
+            }
+//创建实体类
+            MachineModel info = new MachineModel();
+//取出当前行第1个单元格数据，并封装在info实体stuName属性上
+//            info.setStuName(r.getCell(0).getStringCellValue());
+//            info.setClassName(r.getCell(1).getStringCellValue());
+//            info.setRscore(r.getCell(2).getNumericCellValue());
+//            info.setLscore(r.getCell(3).getNumericCellValue());
+//            temp.add(info);
+            info.setMachineName(r.getCell(0).getStringCellValue());
+            info.setRegionName(r.getCell(1).getStringCellValue());
+            info.setOperationSystem(r.getCell(2).getStringCellValue());
+//            info.setMachineCpu(String.valueOf(r.getCell(3).getStringCellValue()));
+//            info.setMachineMem(r.getCell(4).getStringCellValue());
+            System.out.println(info);
+            machineModels.add(info);
+
+        }
+        fileIn.close();
+        return machineModels;
+    }
+
+
+//    public static void main(String[] arg) {
+//
+//        PoiExcelUtils excelImport = new PoiExcelUtils();
+//        try {
+////            excelImport.loadScoreInfo("test.xlsx");
+////            excelImport.loadScoreInfo("test.xls");
+//            excelImport.loadScoreInfo("申请列表模板(2017年6月22日).xlsx");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
+
 }

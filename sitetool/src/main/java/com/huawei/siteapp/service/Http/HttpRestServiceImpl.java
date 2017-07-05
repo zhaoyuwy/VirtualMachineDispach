@@ -3,6 +3,7 @@ package com.huawei.siteapp.service.Http;
 import com.huawei.siteapp.cache.CacheCenter;
 import com.huawei.siteapp.common.Bean.RestBean;
 import com.huawei.siteapp.common.constats.ParamKey;
+import com.huawei.siteapp.common.constats.RetCode;
 import com.huawei.siteapp.common.util.*;
 import com.huawei.siteapp.model.ClusterModel;
 import com.huawei.siteapp.model.HostModel;
@@ -10,11 +11,13 @@ import com.huawei.siteapp.model.SiteModel;
 import com.huawei.siteapp.service.ModelService.Impl.ClusterServiceImpl;
 import com.huawei.siteapp.service.ModelService.Impl.HostServiceImpl;
 import com.huawei.siteapp.service.ModelService.Impl.SiteServiceImpl;
+import net.sf.json.JSONException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
+import java.net.ConnectException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -71,7 +74,10 @@ public class HttpRestServiceImpl {
             while ((line = in.readLine()) != null) {
                 result.append(line);
             }
-        } catch (Exception e) {
+        }catch (ConnectException connectException){
+            logger.error("Connection timed out: connect",connectException);
+        }
+        catch (Exception e) {
             logger.error("Send get rest Exception", e);
         }
         // 使用finally块来关闭输入流
@@ -85,13 +91,15 @@ public class HttpRestServiceImpl {
             }
         }
         cxt.put(ParamKey.REST_RESPONSE, result.toString());
-        logger.info("Get rest " + urlNameString + " response -- " + result.toString());
+        logger.info("Get rest " + urlNameString + " \n and response -- " + result.toString());
         logger.info("End of get -- " + urlNameString);
         return cxt;
     }
 
     public ServiceContext sendPost(String url, String param) {
-        logger.info("Begin of sendPost -- " + url);
+        logger.info("Begin of sendPost -- " + url +"\n and postBody = "+param);
+
+
         PrintWriter out = null;
         BufferedReader in = null;
         StringBuilder result = new StringBuilder();
@@ -126,7 +134,10 @@ public class HttpRestServiceImpl {
             while ((line = in.readLine()) != null) {
                 result.append(line);
             }
-        } catch (Exception e) {
+        }catch (JSONException jsonException){
+            logger.error("A JSONObject text must begin with ",jsonException);
+        }
+        catch (Exception e) {
             logger.error("Send post rest exception", e);
         }
         //使用finally块来关闭输出流、输入流
@@ -148,31 +159,55 @@ public class HttpRestServiceImpl {
         return cxt;
     }
 
-    public void fcGetSitesRest(RestBean restInfo) {
+    public int fcGetSitesRest(RestBean restInfo) {
         String[] urlParm = new String[]{restInfo.getVrmIp(), restInfo.getRestPort()};
         String url = PropertiesUtils.getUrl("FcGetSites", urlParm);
         ServiceContext sr = sendGet(url, "");
         String restResponse = (String) sr.get(ParamKey.REST_RESPONSE);
 //        String restResponse = "{\"sites\":[{\"ip\":\"192.145.17.200\",\"uri\":\"/service/sites/43DA092B\",\"urn\":\"urn:sites:43DA092B\",\"isSelf\":true,\"isDC\":false,\"status\":\"normal\",\"name\":\"site\"}]}";
 
-        Map<String, Object> responseMap = JSONUtils.jsonToMap(restResponse);
+        Map<String, Object> responseMap = null;
+        try {
+            responseMap = JSONUtils.jsonToMap(restResponse);
+        } catch (JSONException jsonException) {
+            String errMsg = jsonException.getMessage();
+            logger.error("A JSONObject text must begin with ",jsonException);
+
+            if (errMsg.contains("refused") || errMsg.contains("timed out"))
+            {
+                logger.error("rest connection time out");
+                return RetCode.REST_CONNECT_TIME_OUT;
+            }
+
+            if (errMsg.contains("peer not authenticated"))
+            {
+                logger.info("peer not auth, try again");
+//                return reLogin(cxt, request);
+                return RetCode.LOGIN_ERROR;
+            }
+
+            if(errMsg.contains("A JSONObject text must begin with")){
+                return RetCode.PARSE_RESPONSE_JSON_ERROR;
+            }
+            throw new BusinessException(jsonException,"execute rest request error");
+
+        }
         String urlSites = ((HashMap<String, String>) (((List) responseMap.get(ParamKey.SITES)).get(0))).get(ParamKey.URI);
-        List sites = new ArrayList<>();
+        List<SiteModel> sites = new ArrayList<>();
         SiteServiceImpl siteService = SpringUtil.getBean(SiteServiceImpl.class);
         for (Object siteTemp : (List) responseMap.get(ParamKey.SITES)) {
-//            JSONObject siteObj = JSONObject.fromObject(siteTemp);
-//            Site2 site2 = (Site2)obj.toBean(obj,Site2.class);
-
             SiteModel site = mapToSiteBean(siteTemp);
+            site.setSiteLoginUser(restInfo.getRestUserName());
+            site.setSiteLoginPwd(restInfo.getRestPwd());
+            site.setSiteLoginIp(restInfo.getVrmIp());
+            site.setSiteRegionName("廊坊_PUB");
             sites.add(site);
-//            logger.error(site.toString());
-
-//            siteService.save(site);
         }
 //            siteService.saveSiteList(sites);
         siteService.save(sites);
 
         CacheCenter.getInstance().addUrlResponse(ParamKey.SITE_ID, urlSites);
+        return RetCode.OK;
     }
 
     private SiteModel mapToSiteBean(Object siteObj) {

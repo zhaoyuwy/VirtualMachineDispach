@@ -1,6 +1,5 @@
 package com.huawei.siteapp.service.Http;
 
-import com.huawei.siteapp.cache.CacheCenter;
 import com.huawei.siteapp.common.Bean.RestBean;
 import com.huawei.siteapp.common.constats.ParamKey;
 import com.huawei.siteapp.common.constats.RetCode;
@@ -36,9 +35,9 @@ public class MonitorAllVmsServiceImpl {
     @Resource
     HttpRestServiceImpl httpRestService;
 
-    public String fcGetSitesClustersHostsAllVrmRest(RestBean restInfo) {
+    public int fcGetSitesClustersHostsAllVrmRest(RestBean restInfo) {
         logger.info("Enter MonitorAllVmsServiceImpl fcGetSitesClustersHostsAllVrmRest");
-        String[] urlParm = new String[]{restInfo.getVrmIp(), restInfo.getRestPort(), (String) CacheCenter.getInstance().getRestBeanResponse(ParamKey.SITE_ID)};
+        String[] urlParm = new String[]{restInfo.getVrmIp(), restInfo.getRestPort(), restInfo.getRestSiteUri()};
         String url = PropertiesUtils.getUrl("FcGetAllVms", urlParm);
 
         ServiceContext responseCxt = httpRestService.sendGet(url, "");
@@ -58,7 +57,7 @@ public class MonitorAllVmsServiceImpl {
             }
         }
         logger.info("save vmModels succuss");
-        return restResponse;
+        return RetCode.OK;
 //
     }
 

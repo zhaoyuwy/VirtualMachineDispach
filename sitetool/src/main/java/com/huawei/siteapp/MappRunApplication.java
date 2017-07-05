@@ -17,4 +17,6 @@ public class MappRunApplication {
     public static void main(String[] args) {
         SpringApplication.run(MappRunApplication.class, args);
     }
+
+
 }
