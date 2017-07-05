@@ -171,4 +171,8 @@ public class CommonUtils {
     public static String buildResponse(Map<String, Object> result) {
         return JSONUtils.jsonToStr(result);
     }
+
+    public static String getTestReportName(){
+        return "廊坊_PUB_10.44.70.245_hosts_" + UctTimeUtil.getCurrentDate();
+    }
 }

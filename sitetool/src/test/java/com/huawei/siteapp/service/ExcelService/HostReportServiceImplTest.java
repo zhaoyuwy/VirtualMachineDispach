@@ -1,6 +1,7 @@
 package com.huawei.siteapp.service.ExcelService;
 
 import com.huawei.siteapp.MappRunApplication;
+import com.huawei.siteapp.common.util.CommonUtils;
 import com.huawei.siteapp.common.util.SpringUtil;
 import com.huawei.siteapp.common.util.UctTimeUtil;
 import com.huawei.siteapp.model.MonitorCnaInfoModel;
@@ -33,7 +34,7 @@ public class HostReportServiceImplTest {
 //            System.out.println(monitorCpuMemModel.getMonitorObjectName());
 //
 //        });
-        hostReportService.poiTemplate(UctTimeUtil.getCurrentDate(), (List<MonitorCnaInfoModel>) hosts);
+        hostReportService.poiTemplate(CommonUtils.getTestReportName(), (List<MonitorCnaInfoModel>) hosts);
     }
 
     @Test

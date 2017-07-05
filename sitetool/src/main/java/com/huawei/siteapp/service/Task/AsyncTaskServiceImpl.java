@@ -142,7 +142,7 @@ public class AsyncTaskServiceImpl {
 //            HostReportServiceImpl hostReportService = SpringUtil.getBean(HostReportServiceImpl.class);
             Iterable<MonitorCnaInfoModel> hosts = monitorCpuMemService.findAll();
             HostReportServiceImpl hostReportServiceImpl = SpringUtil.getBean(HostReportServiceImpl.class);
-            retCode = hostReportServiceImpl.poiTemplate(UctTimeUtil.getCurrentDate(), (List<MonitorCnaInfoModel>) hosts);
+            retCode = hostReportServiceImpl.poiTemplate(CommonUtils.getTestReportName(), (List<MonitorCnaInfoModel>) hosts);
         } catch (Exception e) {
             logger.error("This is report Exception", e);
         }

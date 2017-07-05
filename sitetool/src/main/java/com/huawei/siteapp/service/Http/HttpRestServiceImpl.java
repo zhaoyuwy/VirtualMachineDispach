@@ -200,6 +200,7 @@ public class HttpRestServiceImpl {
             site.setSiteLoginUser(restInfo.getRestUserName());
             site.setSiteLoginPwd(restInfo.getRestPwd());
             site.setSiteLoginIp(restInfo.getVrmIp());
+            site.setSiteRegionName("廊坊_PUB");
             sites.add(site);
         }
 //            siteService.saveSiteList(sites);

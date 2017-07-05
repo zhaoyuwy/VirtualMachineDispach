@@ -3,6 +3,7 @@ package com.huawei.siteapp.controller;
 import com.huawei.siteapp.cache.CacheCenter;
 import com.huawei.siteapp.common.Bean.RestBean;
 import com.huawei.siteapp.common.constats.RetCode;
+import com.huawei.siteapp.common.util.CommonUtils;
 import com.huawei.siteapp.common.util.SpringUtil;
 import com.huawei.siteapp.common.util.UctTimeUtil;
 import com.huawei.siteapp.model.MonitorCnaInfoModel;
@@ -78,7 +79,8 @@ public class TaskController {
             HostReportServiceImpl hostReportService = SpringUtil.getBean(HostReportServiceImpl.class);
 //            HostReportServiceImpl hostReportService = SpringUtil.getBean(HostReportServiceImpl.class);
             Iterable<MonitorCnaInfoModel> hosts = monitorCpuMemService.findAll();
-            retCode = hostReportService.poiTemplate("host_" + UctTimeUtil.getCurrentDate(), (List<MonitorCnaInfoModel>) hosts);
+            retCode = hostReportService.poiTemplate(CommonUtils.getTestReportName(), (List<MonitorCnaInfoModel>) hosts);
+            retCode = hostReportService.poiTemplate(CommonUtils.getTestReportName(), (List<MonitorCnaInfoModel>) hosts);
         } catch (Exception e) {
             logger.error("This is report Exception", e);
         }
@@ -118,7 +120,7 @@ public class TaskController {
             MonitorCnaInfoServiceImpl monitorCpuMemService = SpringUtil.getBean(MonitorCnaInfoServiceImpl.class);
             Iterable<MonitorCnaInfoModel> hosts = monitorCpuMemService.findAll();
             HostReportServiceImpl hostReportServiceImpl = SpringUtil.getBean(HostReportServiceImpl.class);
-            retCode = hostReportServiceImpl.poiTemplate("廊坊_PUB_10.44.70.245_hosts_" + UctTimeUtil.getCurrentDate(), (List<MonitorCnaInfoModel>) hosts);
+            retCode = hostReportServiceImpl.poiTemplate(CommonUtils.getTestReportName(), (List<MonitorCnaInfoModel>) hosts);
         } catch (Exception e) {
             logger.error("Generate hostReport Exception", e);
         }
