@@ -1,14 +1,13 @@
 package com.huawei.siteapp.repository;
 
 import com.huawei.siteapp.model.UserModel;
-import org.springframework.stereotype.Service;
 
 /**
  * Created by z00390414 on 2017/7/3.
  *
  * @version 1.0
  */
-@Service("userRepository")
+//@Service("userRepository")
 public interface UserRepository extends BaseRepository<UserModel> {
 
 }
