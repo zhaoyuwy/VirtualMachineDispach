@@ -2,7 +2,9 @@ package com.huawei.siteapp.service.Http;
 
 import com.huawei.siteapp.cache.CacheCenter;
 import com.huawei.siteapp.common.Bean.RestBean;
+import com.huawei.siteapp.common.constats.ExceptionEnum;
 import com.huawei.siteapp.common.constats.ParamKey;
+import com.huawei.siteapp.common.util.BusinessException;
 import com.huawei.siteapp.common.util.PropertiesUtils;
 import com.huawei.siteapp.common.util.ServiceContext;
 import org.slf4j.Logger;
@@ -89,6 +91,7 @@ public class SiteLoginHttpRequestServiceImpl {
             }
         } catch (Exception e) {
             logger.error("Send post rest exception", e);
+            throw new BusinessException(ExceptionEnum.USER_LOGIN_ERROR);
         }
         //使用finally块来关闭输出流、输入流
         finally {
