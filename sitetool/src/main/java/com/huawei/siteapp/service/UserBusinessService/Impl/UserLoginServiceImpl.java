@@ -44,6 +44,6 @@ public class UserLoginServiceImpl implements IUserLoginService {
             return RetCode.LOGIN_FAILED;
         }
         logger.info("User login :" + userName);
-        return 0;
+        return RetCode.OK;
     }
 }

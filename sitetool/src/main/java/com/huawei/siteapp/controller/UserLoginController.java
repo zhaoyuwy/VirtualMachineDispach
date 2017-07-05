@@ -59,6 +59,7 @@ public class UserLoginController {
             retCode = service.login(userModel, request);
         }
         result.put(Const.RETURN_CODE, retCode);
+        result.put("login","OK");
         return CommonUtils.buildResponse(result);
     }
 }

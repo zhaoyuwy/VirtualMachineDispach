@@ -7,8 +7,8 @@ import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
@@ -148,19 +148,20 @@ public class JSONUtils {
     }
 
     public static boolean jsonToServiceContext(ServiceContext serviceContext, HttpServletRequest request) {
-        StringBuffer data = new StringBuffer();
-        String line = null;
-        BufferedReader reader = null;
+        StringBuilder content = new StringBuilder();
         try {
-            reader = request.getReader();
-            while (null != (line = reader.readLine()))
-                data.append(line);
+            ServletInputStream ris = request.getInputStream();
+
+            byte[] b = new byte[1024];
+            int lens = -1;
+            while ((lens = ris.read(b)) > 0) {
+                content.append(new String(b, 0, lens));
+            }
         } catch (IOException e) {
             logger.error("", e);
-        } finally {
         }
-        logger.info("request" + data.toString());
-        serviceContext.setData(jsonToMap(data.toString()));
+        logger.info("request" + content.toString());
+        serviceContext.setData(jsonToMap(content.toString()));
         return true;
 
     }
