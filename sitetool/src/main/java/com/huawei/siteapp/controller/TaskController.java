@@ -118,7 +118,7 @@ public class TaskController {
             MonitorCnaInfoServiceImpl monitorCpuMemService = SpringUtil.getBean(MonitorCnaInfoServiceImpl.class);
             Iterable<MonitorCnaInfoModel> hosts = monitorCpuMemService.findAll();
             HostReportServiceImpl hostReportServiceImpl = SpringUtil.getBean(HostReportServiceImpl.class);
-            retCode = hostReportServiceImpl.poiTemplate("hosts_" + UctTimeUtil.getCurrentDate(), (List<MonitorCnaInfoModel>) hosts);
+            retCode = hostReportServiceImpl.poiTemplate("廊坊_PUB_10.44.70.245_hosts_" + UctTimeUtil.getCurrentDate(), (List<MonitorCnaInfoModel>) hosts);
         } catch (Exception e) {
             logger.error("Generate hostReport Exception", e);
         }

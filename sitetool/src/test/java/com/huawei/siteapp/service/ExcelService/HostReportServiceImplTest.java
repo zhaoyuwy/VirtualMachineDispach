@@ -36,4 +36,8 @@ public class HostReportServiceImplTest {
         hostReportService.poiTemplate(UctTimeUtil.getCurrentDate(), (List<MonitorCnaInfoModel>) hosts);
     }
 
+    @Test
+    public void testTime() {
+        System.out.println(UctTimeUtil.getCurrentDate());
+    }
 }
