@@ -1,7 +1,10 @@
 package com.huawei.siteapp.repository.Impl;
 
 import com.huawei.siteapp.MappRunApplication;
+import com.huawei.siteapp.common.Bean.RestBean;
+import com.huawei.siteapp.common.util.SpringUtil;
 import com.huawei.siteapp.model.User2;
+import com.huawei.siteapp.service.UserBusinessService.ISiteLoginService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,5 +52,17 @@ public class UserRepositoryTest {
 //        userRepository.save(user2);
         User2 user2 = userRepository.findByName("AAA");
         System.out.println("DDDDDDDDDDDDDDD"+user2);
+    }
+
+    @Test
+    public void saveSiteData() {
+        RestBean restBean = new RestBean();
+        restBean.setSiteLoginUser("admin");
+        restBean.setSiteLoginPwd("ddd");
+        restBean.setSiteRegionName("廊坊");
+        restBean.setSiteLoginIp("1.1.1.1");
+        ISiteLoginService siteLoginService = SpringUtil.getBean(ISiteLoginService.class);
+//
+        siteLoginService.checkSiteUserLoginSuccess(restBean);
     }
 }

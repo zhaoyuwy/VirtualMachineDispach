@@ -8,7 +8,6 @@ import com.huawei.siteapp.common.util.UctTimeUtil;
 import com.huawei.siteapp.service.Http.HttpRestServiceImpl;
 import com.huawei.siteapp.service.Http.SiteLoginHttpRequestServiceImpl;
 import com.huawei.siteapp.service.Task.TaskServiceImpl;
-import com.huawei.siteapp.service.UserBusinessService.ISiteLoginService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -43,11 +42,11 @@ public class UserController {
 
         //        登录获取token
         SiteLoginHttpRequestServiceImpl siteLoginHttpRequest = SpringUtil.getBean(SiteLoginHttpRequestServiceImpl.class);
-
-        ISiteLoginService siteLoginService = SpringUtil.getBean(ISiteLoginService.class);
-
         siteLoginHttpRequest.fcLoginRest(restBean, username, pwd);
-        siteLoginService.checkSiteUserLoginSuccess(restBean);
+
+//        ISiteLoginService siteLoginService = SpringUtil.getBean(ISiteLoginService.class);
+
+//        siteLoginService.checkSiteUserLoginSuccess(restBean);
         saveSiteLoginUser(restBean);
 
 

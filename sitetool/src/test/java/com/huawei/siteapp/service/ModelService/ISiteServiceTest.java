@@ -1,7 +1,8 @@
 package com.huawei.siteapp.service.ModelService;
 
 import com.huawei.siteapp.MappRunApplication;
-import com.huawei.siteapp.service.ModelService.Impl.SiteServiceImpl;
+import com.huawei.siteapp.model.SiteModel;
+import com.huawei.siteapp.repository.SiteRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,15 +18,15 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @SpringBootTest(classes = MappRunApplication.class)
 public class ISiteServiceTest {
     @Autowired
-    SiteServiceImpl siteService;
+    SiteRepository siteRepository;
 
     @Test
     public void findById2() throws Exception {
 //      SiteModel siteModel =  querySites.findByEmailAddress("admin");
 
 //      System.out.println("###########"+siteModel.toString());
-//        SiteModel siteModel = siteService.findSiteModelBySiteLoginUser("admin");
-//        System.out.println("###########"+siteModel);
+        SiteModel siteModel = siteRepository.findSiteModelBySiteLoginUser("admin");
+        System.out.println("###########"+siteModel);
     }
 
 }

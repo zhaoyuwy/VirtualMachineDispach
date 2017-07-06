@@ -9,6 +9,7 @@ import com.huawei.siteapp.model.ClusterModel;
 import com.huawei.siteapp.model.HostModel;
 import com.huawei.siteapp.model.SiteModel;
 import com.huawei.siteapp.repository.SiteRepository;
+import com.huawei.siteapp.service.ModelService.ISiteService;
 import com.huawei.siteapp.service.ModelService.Impl.ClusterServiceImpl;
 import com.huawei.siteapp.service.ModelService.Impl.HostServiceImpl;
 import net.sf.json.JSONException;
@@ -210,7 +211,8 @@ public class HttpRestServiceImpl {
             sites.add(site);
         }
 //            siteService.saveSiteList(sites);
-        siteRepository.save(sites);
+        ISiteService siteService = SpringUtil.getBean(ISiteService.class);
+        siteService.save(sites);
 
         CacheCenter.getInstance().addUrlResponse(ParamKey.SITE_ID, urlSites);
         return RetCode.OK;

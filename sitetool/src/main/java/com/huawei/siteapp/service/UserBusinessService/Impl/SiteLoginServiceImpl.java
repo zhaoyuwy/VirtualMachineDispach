@@ -3,7 +3,7 @@ package com.huawei.siteapp.service.UserBusinessService.Impl;
 import com.huawei.siteapp.common.Bean.RestBean;
 import com.huawei.siteapp.common.constats.RetCode;
 import com.huawei.siteapp.model.SiteModel;
-import com.huawei.siteapp.service.ModelService.ISiteService;
+import com.huawei.siteapp.service.ModelService.Impl.SiteServiceImpl;
 import com.huawei.siteapp.service.UserBusinessService.ISiteLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 public class SiteLoginServiceImpl implements ISiteLoginService {
 
     @Autowired
-    ISiteService siteService;
+    SiteServiceImpl siteService;
 
     @Override
     public int checkSiteUserLoginSuccess(RestBean restBean) {

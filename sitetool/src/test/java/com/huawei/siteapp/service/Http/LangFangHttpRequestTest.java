@@ -1,7 +1,9 @@
 package com.huawei.siteapp.service.Http;
 
 import com.huawei.siteapp.common.Bean.RestBean;
+import com.huawei.siteapp.common.util.SpringUtil;
 import com.huawei.siteapp.common.util.UctTimeUtil;
+import com.huawei.siteapp.service.UserBusinessService.ISiteLoginService;
 import org.junit.Test;
 
 /**
@@ -37,6 +39,8 @@ public class LangFangHttpRequestTest {
     @Test
     public void testUctTIme() {
         String time = UctTimeUtil.getCurrentDate("yyyy_MM_dd_HH_mm_ss");
-        System.out.println("time = "+time);
+        System.out.println("time = " + time);
     }
+
+
 }

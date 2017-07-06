@@ -47,7 +47,7 @@ public class SiteLoginHttpRequestServiceImpl {
 //             打开和URL之间的连接
             URLConnection conn = realUrl.openConnection();
 //             设置通用的请求属性
-            conn.setRequestProperty("X-Auth-User2", user);
+            conn.setRequestProperty("X-Auth-User", user);
             conn.setRequestProperty("X-Auth-Key", pwd);
             conn.setRequestProperty("X-Auth-UserType", "0");
 //            conn.setRequestProperty("X-Auth-AuthType", "0");
@@ -115,12 +115,12 @@ public class SiteLoginHttpRequestServiceImpl {
     }
 
     public void fcLoginRest(RestBean restInfo, String user, String pwd) {
+        ISiteLoginService siteLoginService = SpringUtil.getBean(ISiteLoginService.class);
+        siteLoginService.checkSiteUserLoginSuccess(restInfo);
 //        发送登录 POST 请求
         String[] urlParm = new String[]{restInfo.getVrmIp(), restInfo.getRestPort()};
         String url = PropertiesUtils.getUrl("FcLogin", urlParm);
         ServiceContext sr = sendLoginPost(url, restInfo.getSiteLoginUser(), restInfo.getSiteLoginPwd());
-        ISiteLoginService siteLoginService = SpringUtil.getBean(ISiteLoginService.class);
-        siteLoginService.checkSiteUserLoginSuccess(restInfo);
 
 
 //        System.out.println(sr);
