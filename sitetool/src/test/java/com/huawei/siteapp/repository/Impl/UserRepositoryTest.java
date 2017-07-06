@@ -3,7 +3,9 @@ package com.huawei.siteapp.repository.Impl;
 import com.huawei.siteapp.MappRunApplication;
 import com.huawei.siteapp.common.Bean.RestBean;
 import com.huawei.siteapp.common.util.SpringUtil;
+import com.huawei.siteapp.model.SiteModel;
 import com.huawei.siteapp.model.User2;
+import com.huawei.siteapp.service.ModelService.Impl.SiteServiceImpl;
 import com.huawei.siteapp.service.UserBusinessService.ISiteLoginService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -64,5 +66,29 @@ public class UserRepositoryTest {
         ISiteLoginService siteLoginService = SpringUtil.getBean(ISiteLoginService.class);
 //
         siteLoginService.checkSiteUserLoginSuccess(restBean);
+    }
+    @Test
+    public void saveSiteData2() {
+        SiteServiceImpl siteService = SpringUtil.getBean(SiteServiceImpl.class);
+        SiteModel siteModel = new SiteModel();
+
+        RestBean restBean = new RestBean();
+        restBean.setSiteLoginUser("admin");
+        restBean.setSiteLoginPwd("ddd");
+        restBean.setSiteRegionName("廊坊");
+        restBean.setSiteLoginIp("1.1.1.1");
+
+
+        String siteLoginUser = restBean.getSiteLoginUser();
+        String siteLoginPwd = restBean.getSiteLoginPwd();
+        String siteLoginIp = restBean.getSiteLoginIp();
+        String siteRegionName = restBean.getSiteRegionName();
+
+        siteModel.setSiteLoginUser(siteLoginUser);
+        siteModel.setSiteLoginPwd(siteLoginPwd);
+        siteModel.setSiteLoginIp(siteLoginIp);
+        siteModel.setSiteRegionName(siteRegionName);
+
+        siteService.save(siteModel);
     }
 }

@@ -25,6 +25,7 @@ public abstract class BaseServiceImpl<T> implements IBaseService<T> {
     }
 
     @Override
+    @Transactional()
     public <S extends T> S save(S s) {
         return repository.save(s);
     }
@@ -63,21 +64,25 @@ public abstract class BaseServiceImpl<T> implements IBaseService<T> {
     }
 
     @Override
+    @Transactional()
     public void delete(Long aLong) {
         repository.delete(aLong);
     }
 
     @Override
+    @Transactional()
     public void delete(T t) {
         repository.delete(t);
     }
 
     @Override
+    @Transactional()
     public void delete(Iterable<? extends T> iterable) {
         repository.delete(iterable);
     }
 
     @Override
+    @Transactional()
     public void deleteAll() {
         repository.deleteAll();
     }

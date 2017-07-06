@@ -2,10 +2,11 @@ package com.huawei.siteapp.service.UserBusinessService.Impl;
 
 import com.huawei.siteapp.common.Bean.RestBean;
 import com.huawei.siteapp.common.constats.RetCode;
+import com.huawei.siteapp.common.util.SpringUtil;
 import com.huawei.siteapp.model.SiteModel;
+import com.huawei.siteapp.repository.SiteRepository;
 import com.huawei.siteapp.service.ModelService.Impl.SiteServiceImpl;
 import com.huawei.siteapp.service.UserBusinessService.ISiteLoginService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,11 +17,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class SiteLoginServiceImpl implements ISiteLoginService {
 
-    @Autowired
-    SiteServiceImpl siteService;
+
 
     @Override
     public int checkSiteUserLoginSuccess(RestBean restBean) {
+        SiteServiceImpl siteService = SpringUtil.getBean(SiteServiceImpl.class);
+        SiteRepository siteRepository = SpringUtil.getBean(SiteRepository.class);
         SiteModel siteModel = new SiteModel();
         String siteLoginUser = restBean.getSiteLoginUser();
         String siteLoginPwd = restBean.getSiteLoginPwd();
@@ -32,7 +34,8 @@ public class SiteLoginServiceImpl implements ISiteLoginService {
         siteModel.setSiteLoginIp(siteLoginIp);
         siteModel.setSiteRegionName(siteRegionName);
 
-        siteService.save(siteModel);
+//        siteService.save(siteModel);
+        siteRepository.save(siteModel);
         return RetCode.OK;
     }
 }
