@@ -1,0 +1,11 @@
+-- DROP TRIGGER IF EXISTS trigger_fc_host_monitor_insert;
+-- CREATE TRIGGER trigger_fc_host_monitor_insert
+--   AFTER
+--   INSERT
+--   ON fc_hosts
+-- BEGIN
+--   INSERT INTO fc_monitors (monitor_id, cluster_id, host_id, monitor_cpu_usage, monitor_mem_usage, monitor_object_name, monitor_object_urn, monitor_total_cpu, monitor_total_mem, monitor_used_cpu, monitor_used_mem, site_id, time)
+--   VALUES (NEW.cluster_id, NEW.site_id, -1, -1, -1, -1, -1, -1, -1, -1,-1,-1,-1);
+-- END;
+-- INSERT INTO user2 VALUES (2,3,"xxx");
+SELECT * FROM fc_users

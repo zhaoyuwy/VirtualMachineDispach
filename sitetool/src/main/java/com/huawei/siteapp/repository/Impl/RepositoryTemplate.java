@@ -7,6 +7,8 @@ import org.springframework.jdbc.datasource.init.ScriptUtils;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
 
 /**
@@ -29,6 +31,17 @@ public class RepositoryTemplate {
     public void executeSqlFile() throws SQLException {
         jdbcTemplate.getDataSource().getConnection();
         DataSource  dataSource = jdbcTemplate.getDataSource();
+        try {
+            InputStream sqlString = new ClassPathResource("sitetool.sql").getInputStream();
+            int line;
+            while ((line = sqlString.read())<0) {
+            System.out.println(line);
+            }
+            System.out.println(line);
+        System.out.println(new ClassPathResource("sitetool.sql").getInputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         ScriptUtils.executeSqlScript(dataSource.getConnection(), new ClassPathResource("sitetool.sql"));
 //        jdbcTemplate.ex
     }
