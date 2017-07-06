@@ -1,7 +1,9 @@
 package com.huawei.siteapp.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.huawei.siteapp.bean.Result;
 import com.huawei.siteapp.common.constats.RetCode;
+import com.huawei.siteapp.common.util.CommonUtils;
 import com.huawei.siteapp.common.util.JSONUtils;
 import com.huawei.siteapp.common.util.ServiceContext;
 import com.huawei.siteapp.model.UserModel;
@@ -37,22 +39,19 @@ public class UserLoginController {
         logger.info("Enter login.");
         Result result = new Result();
 
-        UserModel userModel = new UserModel();
+//        UserModel userModel = new UserModel();
 
         ServiceContext serviceContext = new ServiceContext();
 
         int retCode;
 
-        boolean jsonRst = false;
-        jsonRst = JSONUtils.jsonToServiceContext(serviceContext, request);
-        if (!jsonRst) {
+        String jsonRst = JSONUtils.jsonToServiceContext(request);
+        UserModel userModel =JSON.parseObject(jsonRst,UserModel.class);
+        if (CommonUtils.isNull(jsonRst)) {
             retCode = RetCode.INNER_ERROR;
             logger.error("parse param error");
         } else {
-            userModel.setUserName(serviceContext.getString("userName"));
-            userModel.setUserPwd(serviceContext.getString("userPwd"));
-            userModel.setUserType(serviceContext.getInt("userType"));
-            logger.info(userModel.toString());
+            logger.info(JSON.toJSONString(userModel),true);
             retCode = service.login(userModel, request);
         }
         result.setStatus(retCode);

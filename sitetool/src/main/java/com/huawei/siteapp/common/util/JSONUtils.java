@@ -147,7 +147,7 @@ public class JSONUtils {
         return null;
     }
 
-    public static boolean jsonToServiceContext(ServiceContext serviceContext, HttpServletRequest request) {
+    public static String jsonToServiceContext(HttpServletRequest request) {
         StringBuilder content = new StringBuilder();
         try {
             ServletInputStream ris = request.getInputStream();
@@ -161,8 +161,7 @@ public class JSONUtils {
             logger.error("", e);
         }
         logger.info("request" + content.toString());
-        serviceContext.setData(jsonToMap(content.toString()));
-        return true;
+        return content.toString();
 
     }
 }
