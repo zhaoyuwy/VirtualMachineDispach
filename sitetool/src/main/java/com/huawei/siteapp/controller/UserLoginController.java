@@ -1,8 +1,7 @@
 package com.huawei.siteapp.controller;
 
-import com.huawei.siteapp.common.constats.Const;
+import com.huawei.siteapp.bean.Result;
 import com.huawei.siteapp.common.constats.RetCode;
-import com.huawei.siteapp.common.util.CommonUtils;
 import com.huawei.siteapp.common.util.JSONUtils;
 import com.huawei.siteapp.common.util.ServiceContext;
 import com.huawei.siteapp.model.UserModel;
@@ -16,8 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by z00390414 on 2017/6/14.
@@ -35,10 +32,10 @@ public class UserLoginController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public String postLogin(HttpServletRequest request) {
+    public Result postLogin(HttpServletRequest request) {
 
         logger.info("Enter login.");
-        Map<String, Object> result = new HashMap<String, Object>();
+        Result result = new Result();
 
         UserModel userModel = new UserModel();
 
@@ -58,8 +55,9 @@ public class UserLoginController {
             logger.info(userModel.toString());
             retCode = service.login(userModel, request);
         }
-        result.put(Const.RETURN_CODE, retCode);
-        result.put("login","OK");
-        return CommonUtils.buildResponse(result);
+        result.setStatus(retCode);
+        result.setMsg("OK");
+        result.setData(userModel);
+        return result ;
     }
 }

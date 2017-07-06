@@ -1,0 +1,63 @@
+##用户登录
+
+
+接口功能 | 用户登录| 描述
+----|------|----|-----
+Name| 请求正文描述|说明
+Atribute| Type	| Description
+userName| string	| 用户名
+userPwd	|string	|用户密码
+userType	|int	|用户类型
+
+
+Name| 响应正文描述| 描述
+----|------|----|说明
+Atribute| Type	| Description
+returnCode	| integer	| 返回codeNum
+login	|string	|登录状态
+errorDes	|string	|用户登录异常描述
+
+
+
+请求样例	| -----|--
+----|------|----
+Post  |http://localhost:8080/login|
+Host|https://<ip>:<port>/login|
+Content-Type|application/json; charset=UTF-8
+```javascript
+{"userName":"admin",
+"userPwd":"Huawei@123",
+"userType":1
+}
+```
+
+响应样例	| HTTP/1.1 200 OKAY
+----|------|----
+Date Thu| 06 Jul 2017 04:51:29 GMT
+Content-Type| application/json; charset=UTF-8
+Content-Length| xxx
+```javascript
+{
+"returnCode":1602,
+"login":"OK"
+}
+```
+
+
+
+http错误码|errorcode|描述
+---|---------|--------|---
+400	|10100103|用户名或密码错误
+200	|10100108	|为保证账号口令安全，请修改密码（备注：会在响应消息中返回userId）
+200	|10100109	|密码已过期，请修改密码。（备注：会在响应消息中返回userId）
+200	|10100110	|密码还有 N 天过期，请修改密码。（备注：会在响应消息中返回userId，N为具体的数子）
+400	|10100112	|登录失败，请重新登录。
+400	|10100113	|密码N次输入错误，帐户锁定M分钟。（备注：N和M为具体的数子）
+400	|10100116	|帐户锁定中,再次登陆系统请等待 N 分钟。N为具体的数子。
+400	|10100117	|用户已被管理员锁定,禁止登陆。
+400	|10100118	|用户自动锁定，系统设置不启动解锁器。请联系管理员解锁。
+400	|10100119	|未配置级联控制器。
+400	|10100353	|用户未激活，不允许登录。
+400	|10100354	|用户未指定角色，不允许登录。
+400	|10100132	|认证类型不合法。
+
