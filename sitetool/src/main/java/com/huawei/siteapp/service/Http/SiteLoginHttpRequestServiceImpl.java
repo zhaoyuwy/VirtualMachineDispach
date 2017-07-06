@@ -7,6 +7,8 @@ import com.huawei.siteapp.common.constats.ParamKey;
 import com.huawei.siteapp.common.util.BusinessException;
 import com.huawei.siteapp.common.util.PropertiesUtils;
 import com.huawei.siteapp.common.util.ServiceContext;
+import com.huawei.siteapp.common.util.SpringUtil;
+import com.huawei.siteapp.service.UserBusinessService.ISiteLoginService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -45,7 +47,7 @@ public class SiteLoginHttpRequestServiceImpl {
 //             打开和URL之间的连接
             URLConnection conn = realUrl.openConnection();
 //             设置通用的请求属性
-            conn.setRequestProperty("X-Auth-User", user);
+            conn.setRequestProperty("X-Auth-User2", user);
             conn.setRequestProperty("X-Auth-Key", pwd);
             conn.setRequestProperty("X-Auth-UserType", "0");
 //            conn.setRequestProperty("X-Auth-AuthType", "0");
@@ -75,7 +77,7 @@ public class SiteLoginHttpRequestServiceImpl {
                 Map.Entry entry = (Map.Entry) o;
                 String key = (String) entry.getKey();
                 List<String> val = (List<String>) entry.getValue();
-
+                System.out.println("@@@@@@@@@@@@@@@@@"+val.toString());
                 cxt.put(key, val);
                 if ("X-Auth-Token".equals(key)) {
                     CacheCenter.getInstance().addUrlResponse("FcLogin", val.get(0));
@@ -116,7 +118,11 @@ public class SiteLoginHttpRequestServiceImpl {
 //        发送登录 POST 请求
         String[] urlParm = new String[]{restInfo.getVrmIp(), restInfo.getRestPort()};
         String url = PropertiesUtils.getUrl("FcLogin", urlParm);
-        ServiceContext sr = sendLoginPost(url, user, pwd);
+        ServiceContext sr = sendLoginPost(url, restInfo.getSiteLoginUser(), restInfo.getSiteLoginPwd());
+        ISiteLoginService siteLoginService = SpringUtil.getBean(ISiteLoginService.class);
+        siteLoginService.checkSiteUserLoginSuccess(restInfo);
+
+
 //        System.out.println(sr);
     }
 }

@@ -3,7 +3,7 @@ package com.huawei.siteapp.service.ModelService.Impl;
 import com.huawei.siteapp.model.SiteModel;
 import com.huawei.siteapp.repository.BaseRepository;
 import com.huawei.siteapp.service.ModelService.ISiteService;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 
@@ -12,11 +12,22 @@ import javax.annotation.Resource;
  *
  * @version 1.0
  */
-@Service("siteService")
+@Repository("siteService")
 public class SiteServiceImpl extends BaseServiceImpl<SiteModel> implements ISiteService {
 
     @Resource(name = "siteRepository")
     public void setRepository(BaseRepository<SiteModel> dao) {
         super.setRepository(dao);
+    }
+
+
+    public void saveSiteLoginInfo(){
+
+    }
+
+
+//    @Override
+    public SiteModel findById2(String categoryName) {
+        return null;
     }
 }

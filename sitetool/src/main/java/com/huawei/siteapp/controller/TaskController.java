@@ -149,8 +149,8 @@ public class TaskController {
 
             restBean.setVrmIp(siteIp);
             restBean.setRestPort("7070");
-            restBean.setRestUserName(siteLoginUser);
-            restBean.setRestPwd(siteLoginPwd);
+            restBean.setSiteLoginUser(siteLoginUser);
+            restBean.setSiteLoginPwd(siteLoginPwd);
             restBean.setRestSiteUri(siteUri);
             //        登录获取token
             SiteLoginHttpRequestServiceImpl siteLoginHttpRequestService = SpringUtil.getBean(SiteLoginHttpRequestServiceImpl.class);

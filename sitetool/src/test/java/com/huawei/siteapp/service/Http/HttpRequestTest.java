@@ -33,11 +33,11 @@ public class HttpRequestTest {
         String pwd = "OpsImage@12345";
         siteLoginHttpRequest.fcLoginRest(getTestRest(), user, pwd);
 
-        HttpRestServiceImpl httpRequest = new HttpRestServiceImpl();
-        httpRequest.fcGetSitesRest(getTestRest());
-
-        httpRequest.fcGetSitesClustersRest(getTestRest());
-
-        httpRequest.fcGetSitesClustersHostsRest(getTestRest());
+//        HttpRestServiceImpl httpRequest = new HttpRestServiceImpl();
+//        httpRequest.fcGetSitesRest(getTestRest());
+//
+//        httpRequest.fcGetSitesClustersRest(getTestRest());
+//
+//        httpRequest.fcGetSitesClustersHostsRest(getTestRest());
     }
 }

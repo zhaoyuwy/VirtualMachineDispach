@@ -182,7 +182,7 @@ public class MappRunApplicationTests {
 //        }
 //        MyThread myThread = SpringUtil.getBean("myThread", MyThread.class);
 //        System.out.println(myThread);
-//        UserRepository userRepository = SpringUtil.getBean(UserRepository.class);
+//        User2Repository userRepository = SpringUtil.getBean(User2Repository.class);
 //        userRepository.deleteAll();
 
         List<UserModel> userModels = new ArrayList<>();

@@ -3,7 +3,7 @@ package com.huawei.siteapp.service.ModelService.Impl;
 import com.huawei.siteapp.model.VmModel;
 import com.huawei.siteapp.repository.BaseRepository;
 import com.huawei.siteapp.service.ModelService.IVmService;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 
@@ -12,7 +12,7 @@ import javax.annotation.Resource;
  *
  * @version 1.0
  */
-@Service("vmService")
+@Repository("vmService")
 public class VmServiceImpl extends BaseServiceImpl<VmModel> implements IVmService {
     @Resource(name = "vmRepository")
     public void setRepository(BaseRepository<VmModel> dao) {

@@ -164,7 +164,7 @@ public class AsyncTaskServiceImpl {
             userModels.add(personModel);
 //            personRepository.save(userModels);
         }
-//        UserRepository userRepository = SpringUtil.getBean(UserRepository.class);
+//        User2Repository userRepository = SpringUtil.getBean(User2Repository.class);
 //        logger.info("###############################  "+UctTimeUtil.getCurrentDate()+"  " +userModels.toString());
         logger.info("###############################   " + userModels.toString());
 

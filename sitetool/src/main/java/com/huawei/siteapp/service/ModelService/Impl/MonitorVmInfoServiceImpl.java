@@ -3,7 +3,7 @@ package com.huawei.siteapp.service.ModelService.Impl;
 import com.huawei.siteapp.model.MonitorVmInfoModel;
 import com.huawei.siteapp.repository.BaseRepository;
 import com.huawei.siteapp.service.ModelService.IMonitorVmInfoService;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 
@@ -12,7 +12,7 @@ import javax.annotation.Resource;
  *
  * @version 1.0
  */
-@Service("monitorVmInfoService")
+@Repository("monitorVmInfoService")
 public class MonitorVmInfoServiceImpl extends BaseServiceImpl<MonitorVmInfoModel> implements IMonitorVmInfoService {
 
     @Resource(name = "monitorVmInfoRepository")

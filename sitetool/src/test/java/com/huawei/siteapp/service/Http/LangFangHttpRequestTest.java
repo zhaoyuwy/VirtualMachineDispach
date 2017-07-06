@@ -28,8 +28,8 @@ public class LangFangHttpRequestTest {
         String pwd = "HWS_lf@pub9001";
         siteLoginHttpRequest.fcLoginRest(getTestRest(), user, pwd);
 
-        HttpRestServiceImpl httpRequest = new HttpRestServiceImpl();
-        httpRequest.fcGetSitesRest(getTestRest());
+//        HttpRestServiceImpl httpRequest = new HttpRestServiceImpl();
+//        httpRequest.fcGetSitesRest(getTestRest());
 
 //        httpRequest.fcGetSitesClustersRest(getTestRest());
     }

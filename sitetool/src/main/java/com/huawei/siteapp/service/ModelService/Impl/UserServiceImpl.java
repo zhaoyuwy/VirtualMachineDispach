@@ -3,7 +3,7 @@ package com.huawei.siteapp.service.ModelService.Impl;
 import com.huawei.siteapp.model.UserModel;
 import com.huawei.siteapp.repository.BaseRepository;
 import com.huawei.siteapp.service.ModelService.IUserService;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 
@@ -12,7 +12,7 @@ import javax.annotation.Resource;
  *
  * @version 1.0
  */
-@Service("userService")
+@Repository("userService")
 public class UserServiceImpl extends BaseServiceImpl<UserModel> implements IUserService {
     @Resource(name = "userRepository")
     public void setRepository(BaseRepository<UserModel> dao) {

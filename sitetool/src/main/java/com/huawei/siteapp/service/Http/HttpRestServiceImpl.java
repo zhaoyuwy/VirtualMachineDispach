@@ -8,9 +8,9 @@ import com.huawei.siteapp.common.util.*;
 import com.huawei.siteapp.model.ClusterModel;
 import com.huawei.siteapp.model.HostModel;
 import com.huawei.siteapp.model.SiteModel;
+import com.huawei.siteapp.repository.SiteRepository;
 import com.huawei.siteapp.service.ModelService.Impl.ClusterServiceImpl;
 import com.huawei.siteapp.service.ModelService.Impl.HostServiceImpl;
-import com.huawei.siteapp.service.ModelService.Impl.SiteServiceImpl;
 import net.sf.json.JSONException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -170,6 +170,7 @@ public class HttpRestServiceImpl {
         try {
             responseMap = JSONUtils.jsonToMap(restResponse);
         } catch (JSONException jsonException) {
+            logger.error("A JSONObject text must begin with",jsonException);
             String errMsg = jsonException.getMessage();
             logger.error("A JSONObject text must begin with ",jsonException);
 
@@ -194,24 +195,28 @@ public class HttpRestServiceImpl {
         }
         String urlSites = ((HashMap<String, String>) (((List) responseMap.get(ParamKey.SITES)).get(0))).get(ParamKey.URI);
         List<SiteModel> sites = new ArrayList<>();
-        SiteServiceImpl siteService = SpringUtil.getBean(SiteServiceImpl.class);
+        SiteRepository siteRepository = SpringUtil.getBean(SiteRepository.class);
+
+
+//        siteService.findAll()
         for (Object siteTemp : (List) responseMap.get(ParamKey.SITES)) {
-            SiteModel site = mapToSiteBean(siteTemp);
-            site.setSiteLoginUser(restInfo.getRestUserName());
-            site.setSiteLoginPwd(restInfo.getRestPwd());
+            SiteModel siteModel  = siteRepository.findSiteModelBySiteLoginUser(restInfo.getSiteLoginUser());
+            SiteModel site = mapToSiteBean(siteTemp,siteModel);
+            site.setSiteLoginUser(restInfo.getSiteLoginUser());
+            site.setSiteLoginPwd(restInfo.getSiteLoginPwd());
             site.setSiteLoginIp(restInfo.getVrmIp());
-            site.setSiteRegionName("廊坊_PUB");
+            site.setSiteRegionName(restInfo.getSiteRegionName());
+            site.setSiteGroupId(restInfo.getSiteGroupId());
             sites.add(site);
         }
 //            siteService.saveSiteList(sites);
-        siteService.save(sites);
+        siteRepository.save(sites);
 
         CacheCenter.getInstance().addUrlResponse(ParamKey.SITE_ID, urlSites);
         return RetCode.OK;
     }
 
-    private SiteModel mapToSiteBean(Object siteObj) {
-        SiteModel site = new SiteModel();
+    private SiteModel mapToSiteBean(Object siteObj,SiteModel siteModel) {
         String siteUri = ((HashMap<String, String>) siteObj).get("uri");
         String siteUrn = ((HashMap<String, String>) siteObj).get("urn");
         String siteIp = ((HashMap<String, String>) siteObj).get("ip");
@@ -220,15 +225,15 @@ public class HttpRestServiceImpl {
         boolean siteIsDC = ((HashMap<String, Boolean>) siteObj).get("isDC");
         boolean siteIsSelf = ((HashMap<String, Boolean>) siteObj).get("isSelf");
 
-        site.setSiteUri(siteUri);
-        site.setSiteUrn(siteUrn);
-        site.setSiteIp(siteIp);
-        site.setSiteName(siteName);
-        site.setSiteStatus(siteStatus);
-        site.setSiteIsDC(siteIsDC);
-        site.setSiteIsSelf(siteIsSelf);
+        siteModel.setSiteUri(siteUri);
+        siteModel.setSiteUrn(siteUrn);
+        siteModel.setSiteIp(siteIp);
+        siteModel.setSiteName(siteName);
+        siteModel.setSiteStatus(siteStatus);
+        siteModel.setSiteIsDC(siteIsDC);
+        siteModel.setSiteIsSelf(siteIsSelf);
 
-        return site;
+        return siteModel;
     }
 
     public void fcGetSitesClustersRest(RestBean restInfo) {

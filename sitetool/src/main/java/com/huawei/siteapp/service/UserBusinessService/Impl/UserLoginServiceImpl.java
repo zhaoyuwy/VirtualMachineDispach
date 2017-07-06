@@ -43,7 +43,7 @@ public class UserLoginServiceImpl implements IUserLoginService {
             logger.error("username or pwd illegal. username：" + userName + " password: " + userType);
             return RetCode.LOGIN_FAILED;
         }
-        logger.info("User login :" + userName);
+        logger.info("User2 login :" + userName);
         return RetCode.OK;
     }
 }

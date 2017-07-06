@@ -32,9 +32,9 @@ public class FcRestClient extends RestClient {
     private static DefaultHttpClient client = null;
 
     /**
-     * HTTP "X-Auth-User" 消息头
+     * HTTP "X-Auth-User2" 消息头
      */
-    private static final String X_AUTH_USER = "X-Auth-User";
+    private static final String X_AUTH_USER = "X-Auth-User2";
 
     /**
      * HTTP "X-Auth-Key" 消息头
@@ -55,7 +55,7 @@ public class FcRestClient extends RestClient {
         logger.info("login userName--->" + userName);
 
         HttpPost post = new HttpPost(loginUrl);
-        //        X-Auth-User 值为user
+        //        X-Auth-User2 值为user
         //        X-Auth-Key 为密码经SHA-256加密
 
         post.addHeader(X_AUTH_USER, userName);
