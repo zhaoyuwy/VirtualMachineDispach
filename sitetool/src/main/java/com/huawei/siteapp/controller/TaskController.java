@@ -1,7 +1,7 @@
 package com.huawei.siteapp.controller;
 
 import com.huawei.siteapp.cache.CacheCenter;
-import com.huawei.siteapp.common.Bean.RestBean;
+import com.huawei.siteapp.common.Bean.SiteLoginRestBean;
 import com.huawei.siteapp.common.constats.RetCode;
 import com.huawei.siteapp.common.util.CommonUtils;
 import com.huawei.siteapp.common.util.SpringUtil;
@@ -65,7 +65,7 @@ public class TaskController {
         MonitorAllVmsServiceImpl monitorAllVmsService = SpringUtil.getBean(MonitorAllVmsServiceImpl.class);
 //        UserController userController = SpringUtil.getBean(UserController.class);
 //        userController.testPrint();
-        int retCode = monitorAllVmsService.fcGetSitesClustersHostsAllVrmRest((RestBean) CacheCenter.getInstance().getRestBeanResponse("restBean"));
+        int retCode = monitorAllVmsService.fcGetSitesClustersHostsAllVrmRest((SiteLoginRestBean) CacheCenter.getInstance().getRestBeanResponse("restBean"));
         return retCode;
     }
 
@@ -134,37 +134,38 @@ public class TaskController {
         TaskServiceImpl taskService = SpringUtil.getBean(TaskServiceImpl.class);
         taskService.clearDbMonitorData();
 
-//        RestBean restBean = (RestBean) CacheCenter.getInstance().getRestBeanResponse("restBean");
+//        SiteLoginRestBean restBean = (SiteLoginRestBean) CacheCenter.getInstance().getRestBeanResponse("restBean");
 
         SiteServiceImpl siteService = SpringUtil.getBean(SiteServiceImpl.class);
         Iterable<SiteModel> siteModels = siteService.findAll();
 
         logger.info("Sites number = " + ((List) siteModels).size());
         for (SiteModel siteModelTemp : siteModels) {
-            RestBean restBean = new RestBean();
+            SiteLoginRestBean siteLoginRestBean = new SiteLoginRestBean();
             String siteIp = siteModelTemp.getSiteLoginIp();
             String siteLoginUser = siteModelTemp.getSiteLoginUser();
             String siteLoginPwd = siteModelTemp.getSiteLoginPwd();
             String siteUri = siteModelTemp.getSiteUri();
 
-            restBean.setVrmIp(siteIp);
-            restBean.setRestPort("7070");
-            restBean.setSiteLoginUser(siteLoginUser);
-            restBean.setSiteLoginPwd(siteLoginPwd);
-            restBean.setRestSiteUri(siteUri);
+            siteLoginRestBean.setSiteLoginIp(siteIp);
+            siteLoginRestBean.setRestPort("7070");
+            siteLoginRestBean.setSiteLoginUser(siteLoginUser);
+            siteLoginRestBean.setSiteLoginPwd(siteLoginPwd);
+            siteLoginRestBean.setRestSiteUri(siteUri);
+//            SiteLoginRestBean siteLoginRestBean = setSiteLoginRestBean("廊坊",ip,username,pwd);
             //        登录获取token
             SiteLoginHttpRequestServiceImpl siteLoginHttpRequestService = SpringUtil.getBean(SiteLoginHttpRequestServiceImpl.class);
-            siteLoginHttpRequestService.fcLoginRest(restBean, siteLoginUser, siteLoginPwd);
+            siteLoginHttpRequestService.fcLoginRest(siteLoginRestBean);
 //            HttpRestServiceImpl httpRestService = SpringUtil.getBean(HttpRestServiceImpl.class);
 //
-//            httpRestService.fcGetSitesRest(restBean);
+//            httpRestService.fcGetSitesRest(siteLoginRestBean);
 
 //            logger.info("token is " + (String) CacheCenter.getInstance().getRestBeanResponse("FcLogin"));
             MonitorAllVmsServiceImpl monitorAllVmsService = SpringUtil.getBean(MonitorAllVmsServiceImpl.class);
-            int retCode = monitorAllVmsService.fcGetSitesClustersHostsAllVrmRest(restBean);
+            int retCode = monitorAllVmsService.fcGetSitesClustersHostsAllVrmRest(siteLoginRestBean);
 
             MonitorCnaServiceImpl monitorsService = SpringUtil.getBean(MonitorCnaServiceImpl.class);
-            int retCode2 = monitorsService.fcPostSitesClustersHostsCpuMemRest(restBean);
+            int retCode2 = monitorsService.fcPostSitesClustersHostsCpuMemRest(siteLoginRestBean);
 
             if (200 != retCode || 200 != retCode2) {
                 return "monitorCnaVm error";

@@ -25,7 +25,7 @@ public class ISiteServiceTest {
 //      SiteModel siteModel =  querySites.findByEmailAddress("admin");
 
 //      System.out.println("###########"+siteModel.toString());
-        SiteModel siteModel = siteRepository.findSiteModelBySiteLoginUser("admin");
+        SiteModel siteModel = siteRepository.findSiteModelBySiteLoginIpAndSiteLoginUser("1.1.1.1","admin");
         System.out.println("###########"+siteModel);
     }
 

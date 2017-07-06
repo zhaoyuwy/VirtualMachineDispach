@@ -1,6 +1,6 @@
 package com.huawei.siteapp.service;
 
-import com.huawei.siteapp.common.Bean.RestBean;
+import com.huawei.siteapp.common.Bean.SiteLoginRestBean;
 import com.huawei.siteapp.service.Http.HttpRestServiceImpl;
 import com.huawei.siteapp.service.Http.SiteLoginHttpRequestServiceImpl;
 import org.slf4j.Logger;
@@ -34,12 +34,12 @@ public class MyTimer {
     }
 
 
-    public RestBean getTestRest() {
-        RestBean restBean = new RestBean();
-        restBean.setVrmIp("192.145.17.200");
-//        restBean.setVrmIp("10.44.70.245");
-        restBean.setRestPort("7070");
-        return restBean;
+    public SiteLoginRestBean getTestRest() {
+        SiteLoginRestBean siteLoginRestBean = new SiteLoginRestBean();
+        siteLoginRestBean.setVrmIp("192.145.17.200");
+//        siteLoginRestBean.setVrmIp("10.44.70.245");
+        siteLoginRestBean.setRestPort("7070");
+        return siteLoginRestBean;
     }
 
     public void mainRest() throws Exception {
@@ -48,7 +48,7 @@ public class MyTimer {
 
         String user = "kwx319070";
         String pwd = "OpsImage@12345";
-        siteLoginHttpRequest.fcLoginRest(getTestRest(), user, pwd);
+        siteLoginHttpRequest.fcLoginRest(getTestRest());
 
         HttpRestServiceImpl httpRequest = new HttpRestServiceImpl();
         httpRequest.fcGetSitesRest(getTestRest());

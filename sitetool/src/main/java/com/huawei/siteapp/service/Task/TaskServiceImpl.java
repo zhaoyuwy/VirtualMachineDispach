@@ -1,6 +1,6 @@
 package com.huawei.siteapp.service.Task;
 
-import com.huawei.siteapp.common.Bean.RestBean;
+import com.huawei.siteapp.common.Bean.SiteLoginRestBean;
 import com.huawei.siteapp.common.constats.RetCode;
 import com.huawei.siteapp.common.util.SpringUtil;
 import com.huawei.siteapp.service.ModelService.Impl.*;
@@ -30,11 +30,11 @@ public class TaskServiceImpl {
     public void doTaaskThree() throws InterruptedException {
     }
 
-    private RestBean setRestBeanIp(String ip) {
-        RestBean restBean = new RestBean();
-        restBean.setVrmIp(ip);
-        restBean.setRestPort("7070");
-        return restBean;
+    private SiteLoginRestBean setRestBeanIp(String ip) {
+        SiteLoginRestBean siteLoginRestBean = new SiteLoginRestBean();
+        siteLoginRestBean.setVrmIp(ip);
+        siteLoginRestBean.setRestPort("7070");
+        return siteLoginRestBean;
     }
 
     public int clearDbAllData() {

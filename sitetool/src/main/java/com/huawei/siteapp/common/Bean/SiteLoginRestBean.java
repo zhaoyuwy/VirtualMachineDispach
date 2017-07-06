@@ -6,7 +6,7 @@ package com.huawei.siteapp.common.Bean;
  * @author z00390414
  * @version [版本号, 2017/6/15]
  */
-public class RestBean {
+public class SiteLoginRestBean {
     private String vrmIp;
 
     private String restPort;
@@ -109,8 +109,10 @@ public class RestBean {
     public String toString()
     {
         StringBuffer buffer = new StringBuffer();
-        buffer.append("vrmIp:")
-                .append(vrmIp)
+        buffer.append("siteRegionName:")
+                .append(siteRegionName)
+                .append("siteLoginIp：")
+                .append(siteLoginIp)
                 .append(",restPort:")
                 .append(restPort)
                 .append(",siteLoginUser:")

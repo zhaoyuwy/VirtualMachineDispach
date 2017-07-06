@@ -1,7 +1,7 @@
 package com.huawei.siteapp.service.Http;
 
 import com.huawei.siteapp.cache.CacheCenter;
-import com.huawei.siteapp.common.Bean.RestBean;
+import com.huawei.siteapp.common.Bean.SiteLoginRestBean;
 import com.huawei.siteapp.common.constats.ParamKey;
 import com.huawei.siteapp.common.constats.RetCode;
 import com.huawei.siteapp.common.util.*;
@@ -159,8 +159,8 @@ public class HttpRestServiceImpl {
         return cxt;
     }
 
-    public int fcGetSitesRest(RestBean restInfo) {
-        String[] urlParm = new String[]{restInfo.getVrmIp(), restInfo.getRestPort()};
+    public int fcGetSitesRest(SiteLoginRestBean restInfo) {
+        String[] urlParm = new String[]{restInfo.getSiteLoginIp(), restInfo.getRestPort()};
         String url = PropertiesUtils.getUrl("FcGetSites", urlParm);
         ServiceContext sr = sendGet(url, "");
         String restResponse = (String) sr.get(ParamKey.REST_RESPONSE);
@@ -200,11 +200,11 @@ public class HttpRestServiceImpl {
 
 //        siteService.findAll()
         for (Object siteTemp : (List) responseMap.get(ParamKey.SITES)) {
-            SiteModel siteModel  = siteRepository.findSiteModelBySiteLoginUser(restInfo.getSiteLoginUser());
+            SiteModel siteModel  = siteRepository.findSiteModelBySiteLoginIpAndSiteLoginUser(restInfo.getSiteLoginIp(),restInfo.getSiteLoginUser());
             SiteModel site = mapToSiteBean(siteTemp,siteModel);
             site.setSiteLoginUser(restInfo.getSiteLoginUser());
             site.setSiteLoginPwd(restInfo.getSiteLoginPwd());
-            site.setSiteLoginIp(restInfo.getVrmIp());
+            site.setSiteLoginIp(restInfo.getSiteLoginIp());
             site.setSiteRegionName(restInfo.getSiteRegionName());
             site.setSiteGroupId(restInfo.getSiteGroupId());
             sites.add(site);
@@ -237,9 +237,9 @@ public class HttpRestServiceImpl {
         return siteModel;
     }
 
-    public void fcGetSitesClustersRest(RestBean restInfo) {
+    public void fcGetSitesClustersRest(SiteLoginRestBean restInfo) {
 
-        String[] urlParm = new String[]{restInfo.getVrmIp(), restInfo.getRestPort(), (String) CacheCenter.getInstance().getRestBeanResponse(ParamKey.SITE_ID)};
+        String[] urlParm = new String[]{restInfo.getSiteLoginIp(), restInfo.getRestPort(), (String) CacheCenter.getInstance().getRestBeanResponse(ParamKey.SITE_ID)};
         String url = PropertiesUtils.getUrl("FcGetClusters", urlParm);
         ServiceContext sr = sendGet(url, "");
         String restResponse = (String) sr.get(ParamKey.REST_RESPONSE);
@@ -280,9 +280,9 @@ public class HttpRestServiceImpl {
     }
 
 
-    public void fcGetSitesClustersHostsRest(RestBean restInfo) {
+    public void fcGetSitesClustersHostsRest(SiteLoginRestBean restInfo) {
 
-        String[] urlParm = new String[]{restInfo.getVrmIp(), restInfo.getRestPort(), (String) CacheCenter.getInstance().getRestBeanResponse(ParamKey.SITE_ID)};
+        String[] urlParm = new String[]{restInfo.getSiteLoginIp(), restInfo.getRestPort(), (String) CacheCenter.getInstance().getRestBeanResponse(ParamKey.SITE_ID)};
         String url = PropertiesUtils.getUrl("FcGetHosts", urlParm);
         ServiceContext sr = sendGet(url, "");
         String restResponse = (String) sr.get(ParamKey.REST_RESPONSE);

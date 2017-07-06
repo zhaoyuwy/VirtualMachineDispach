@@ -1,6 +1,6 @@
 package com.huawei.siteapp.service.Http;
 
-import com.huawei.siteapp.common.Bean.RestBean;
+import com.huawei.siteapp.common.Bean.SiteLoginRestBean;
 import com.huawei.siteapp.common.constats.ParamKey;
 import com.huawei.siteapp.common.constats.RetCode;
 import com.huawei.siteapp.common.util.JSONUtils;
@@ -35,9 +35,9 @@ public class MonitorAllVmsServiceImpl {
     @Resource
     HttpRestServiceImpl httpRestService;
 
-    public int fcGetSitesClustersHostsAllVrmRest(RestBean restInfo) {
+    public int fcGetSitesClustersHostsAllVrmRest(SiteLoginRestBean restInfo) {
         logger.info("Enter MonitorAllVmsServiceImpl fcGetSitesClustersHostsAllVrmRest");
-        String[] urlParm = new String[]{restInfo.getVrmIp(), restInfo.getRestPort(), restInfo.getRestSiteUri()};
+        String[] urlParm = new String[]{restInfo.getSiteLoginIp(), restInfo.getRestPort(), restInfo.getRestSiteUri()};
         String url = PropertiesUtils.getUrl("FcGetAllVms", urlParm);
 
         ServiceContext responseCxt = httpRestService.sendGet(url, "");
@@ -61,7 +61,7 @@ public class MonitorAllVmsServiceImpl {
 //
     }
 
-    private int getVmsByOffSet(String url, int offSet, RestBean restInfo) {
+    private int getVmsByOffSet(String url, int offSet, SiteLoginRestBean restInfo) {
         String param = "offset=" + offSet;
         ServiceContext responseCxt = httpRestService.sendGet(url, param);
         String restResponse = (String) responseCxt.get(ParamKey.REST_RESPONSE);

@@ -1,7 +1,7 @@
 package com.huawei.siteapp.service.Http;
 
 import com.huawei.siteapp.MappRunApplication;
-import com.huawei.siteapp.common.Bean.RestBean;
+import com.huawei.siteapp.common.Bean.SiteLoginRestBean;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,11 +17,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @SpringBootTest(classes = MappRunApplication.class)
 public class HttpRequestTest {
     //测试rest 借口端口号
-    public RestBean getTestRest() {
-        RestBean restBean = new RestBean();
-        restBean.setVrmIp("192.145.17.200");
-        restBean.setRestPort("7070");
-        return restBean;
+    public SiteLoginRestBean getTestRest() {
+        SiteLoginRestBean siteLoginRestBean = new SiteLoginRestBean();
+        siteLoginRestBean.setVrmIp("192.145.17.200");
+        siteLoginRestBean.setRestPort("7070");
+        return siteLoginRestBean;
     }
 
     @Test
@@ -31,7 +31,7 @@ public class HttpRequestTest {
 
         String user = "kwx319070";
         String pwd = "OpsImage@12345";
-        siteLoginHttpRequest.fcLoginRest(getTestRest(), user, pwd);
+        siteLoginHttpRequest.fcLoginRest(getTestRest());
 
 //        HttpRestServiceImpl httpRequest = new HttpRestServiceImpl();
 //        httpRequest.fcGetSitesRest(getTestRest());

@@ -1,7 +1,7 @@
 package com.huawei.siteapp.service.Task;
 
 import com.huawei.siteapp.cache.CacheCenter;
-import com.huawei.siteapp.common.Bean.RestBean;
+import com.huawei.siteapp.common.Bean.SiteLoginRestBean;
 import com.huawei.siteapp.common.util.SpringUtil;
 import com.huawei.siteapp.controller.TaskController;
 import com.huawei.siteapp.service.Http.SiteLoginHttpRequestServiceImpl;
@@ -46,7 +46,7 @@ public class ScheduleTask {
         logger.info("Schedule task generate report begin after user login success");
         //                登录获取token
         SiteLoginHttpRequestServiceImpl siteLoginHttpRequest = new SiteLoginHttpRequestServiceImpl();
-        RestBean restBean = (RestBean) CacheCenter.getInstance().getRestBeanResponse("restBean");
+        SiteLoginRestBean siteLoginRestBean = (SiteLoginRestBean) CacheCenter.getInstance().getRestBeanResponse("siteLoginRestBean");
         String username = (String) CacheCenter.getInstance().getRestBeanResponse("username");
         String pwd = (String) CacheCenter.getInstance().getRestBeanResponse("pwd");
 
@@ -54,7 +54,7 @@ public class ScheduleTask {
 //        清除monitor数据
         taskService.clearDbMonitorData();
 //        登录token
-        siteLoginHttpRequest.fcLoginRest(restBean, username, pwd);
+        siteLoginHttpRequest.fcLoginRest(siteLoginRestBean);
 
         AsyncTaskServiceImpl asyncTaskService = SpringUtil.getBean(AsyncTaskServiceImpl.class);
         asyncTaskService.asyncGenerateHostReport();

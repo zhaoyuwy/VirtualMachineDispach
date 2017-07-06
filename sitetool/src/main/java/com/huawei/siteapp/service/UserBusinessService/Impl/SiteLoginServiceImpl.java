@@ -1,6 +1,6 @@
 package com.huawei.siteapp.service.UserBusinessService.Impl;
 
-import com.huawei.siteapp.common.Bean.RestBean;
+import com.huawei.siteapp.common.Bean.SiteLoginRestBean;
 import com.huawei.siteapp.common.constats.RetCode;
 import com.huawei.siteapp.common.util.SpringUtil;
 import com.huawei.siteapp.model.SiteModel;
@@ -20,14 +20,14 @@ public class SiteLoginServiceImpl implements ISiteLoginService {
 
 
     @Override
-    public int checkSiteUserLoginSuccess(RestBean restBean) {
+    public int checkSiteUserLoginSuccess(SiteLoginRestBean siteLoginRestBean) {
         SiteServiceImpl siteService = SpringUtil.getBean(SiteServiceImpl.class);
         SiteRepository siteRepository = SpringUtil.getBean(SiteRepository.class);
         SiteModel siteModel = new SiteModel();
-        String siteLoginUser = restBean.getSiteLoginUser();
-        String siteLoginPwd = restBean.getSiteLoginPwd();
-        String siteLoginIp = restBean.getSiteLoginIp();
-        String siteRegionName = restBean.getSiteRegionName();
+        String siteLoginUser = siteLoginRestBean.getSiteLoginUser();
+        String siteLoginPwd = siteLoginRestBean.getSiteLoginPwd();
+        String siteLoginIp = siteLoginRestBean.getSiteLoginIp();
+        String siteRegionName = siteLoginRestBean.getSiteRegionName();
 
         siteModel.setSiteLoginUser(siteLoginUser);
         siteModel.setSiteLoginPwd(siteLoginPwd);

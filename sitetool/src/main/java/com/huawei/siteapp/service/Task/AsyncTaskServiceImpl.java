@@ -1,7 +1,7 @@
 package com.huawei.siteapp.service.Task;
 
 import com.huawei.siteapp.cache.CacheCenter;
-import com.huawei.siteapp.common.Bean.RestBean;
+import com.huawei.siteapp.common.Bean.SiteLoginRestBean;
 import com.huawei.siteapp.common.constats.ParamKey;
 import com.huawei.siteapp.common.constats.RetCode;
 import com.huawei.siteapp.common.util.*;
@@ -39,7 +39,7 @@ public class AsyncTaskServiceImpl {
 //    private static int testInt = 0;
 
     //    @Async  //加入"异步调用"注解
-    public void asyncSaveVmInfoInDB(RestBean restInfo, String response) {
+    public void asyncSaveVmInfoInDB(SiteLoginRestBean restInfo, String response) {
 ////        testInt++;
 //
 //        int a =0;
@@ -52,7 +52,7 @@ public class AsyncTaskServiceImpl {
             String urn = ((Map<String, String>) vmTemp).get(ParamKey.URN);
             vmInfos.add(CommonUtils.getSendCpuMemInfo(urn));
         }
-        String[] urlParm = new String[]{restInfo.getVrmIp(), restInfo.getRestPort(), restInfo.getRestSiteUri()};
+        String[] urlParm = new String[]{restInfo.getSiteLoginIp(), restInfo.getRestPort(), restInfo.getRestSiteUri()};
         String url = PropertiesUtils.getUrl("FcPostHostsCpuMem", urlParm);
         HttpRestServiceImpl httpRestService = SpringUtil.getBean(HttpRestServiceImpl.class);
         ServiceContext responseCxt = null;
@@ -133,8 +133,8 @@ public class AsyncTaskServiceImpl {
 
     public void asyncGenerateHostReport() {
         MonitorCnaServiceImpl monitorsService = SpringUtil.getBean(MonitorCnaServiceImpl.class);
-        RestBean restBean = (RestBean) CacheCenter.getInstance().getRestBeanResponse("restBean");
-        monitorsService.fcPostSitesClustersHostsCpuMemRest(restBean);
+        SiteLoginRestBean siteLoginRestBean = (SiteLoginRestBean) CacheCenter.getInstance().getRestBeanResponse("siteLoginRestBean");
+        monitorsService.fcPostSitesClustersHostsCpuMemRest(siteLoginRestBean);
         int retCode = RetCode.INIT_ERROR;
         try {
 //            retCode = hostReportServiceImpl.hostReportSaveDataToExcel(username + "_" + ip + "_" + UctTimeUtil.getCurrentDate("yyyy_MM_dd_HH_mm_ss"));
@@ -150,7 +150,7 @@ public class AsyncTaskServiceImpl {
 
     public void asyncGenerateVmReport() {
         MonitorAllVmsServiceImpl monitorAllVmsService = SpringUtil.getBean(MonitorAllVmsServiceImpl.class);
-        int retCode = monitorAllVmsService.fcGetSitesClustersHostsAllVrmRest((RestBean) CacheCenter.getInstance().getRestBeanResponse("restBean"));
+        int retCode = monitorAllVmsService.fcGetSitesClustersHostsAllVrmRest((SiteLoginRestBean) CacheCenter.getInstance().getRestBeanResponse("restBean"));
 
     }
 

@@ -1,7 +1,7 @@
 package com.huawei.siteapp.repository.Impl;
 
 import com.huawei.siteapp.MappRunApplication;
-import com.huawei.siteapp.common.Bean.RestBean;
+import com.huawei.siteapp.common.Bean.SiteLoginRestBean;
 import com.huawei.siteapp.common.util.SpringUtil;
 import com.huawei.siteapp.model.SiteModel;
 import com.huawei.siteapp.model.User2;
@@ -58,31 +58,31 @@ public class UserRepositoryTest {
 
     @Test
     public void saveSiteData() {
-        RestBean restBean = new RestBean();
-        restBean.setSiteLoginUser("admin");
-        restBean.setSiteLoginPwd("ddd");
-        restBean.setSiteRegionName("廊坊");
-        restBean.setSiteLoginIp("1.1.1.1");
+        SiteLoginRestBean siteLoginRestBean = new SiteLoginRestBean();
+        siteLoginRestBean.setSiteLoginUser("admin");
+        siteLoginRestBean.setSiteLoginPwd("ddd");
+        siteLoginRestBean.setSiteRegionName("廊坊");
+        siteLoginRestBean.setSiteLoginIp("1.1.1.1");
         ISiteLoginService siteLoginService = SpringUtil.getBean(ISiteLoginService.class);
 //
-        siteLoginService.checkSiteUserLoginSuccess(restBean);
+        siteLoginService.checkSiteUserLoginSuccess(siteLoginRestBean);
     }
     @Test
     public void saveSiteData2() {
         SiteServiceImpl siteService = SpringUtil.getBean(SiteServiceImpl.class);
         SiteModel siteModel = new SiteModel();
 
-        RestBean restBean = new RestBean();
-        restBean.setSiteLoginUser("admin");
-        restBean.setSiteLoginPwd("ddd");
-        restBean.setSiteRegionName("廊坊");
-        restBean.setSiteLoginIp("1.1.1.1");
+        SiteLoginRestBean siteLoginRestBean = new SiteLoginRestBean();
+        siteLoginRestBean.setSiteLoginUser("admin");
+        siteLoginRestBean.setSiteLoginPwd("ddd");
+        siteLoginRestBean.setSiteRegionName("廊坊");
+        siteLoginRestBean.setSiteLoginIp("1.1.1.1");
 
 
-        String siteLoginUser = restBean.getSiteLoginUser();
-        String siteLoginPwd = restBean.getSiteLoginPwd();
-        String siteLoginIp = restBean.getSiteLoginIp();
-        String siteRegionName = restBean.getSiteRegionName();
+        String siteLoginUser = siteLoginRestBean.getSiteLoginUser();
+        String siteLoginPwd = siteLoginRestBean.getSiteLoginPwd();
+        String siteLoginIp = siteLoginRestBean.getSiteLoginIp();
+        String siteRegionName = siteLoginRestBean.getSiteRegionName();
 
         siteModel.setSiteLoginUser(siteLoginUser);
         siteModel.setSiteLoginPwd(siteLoginPwd);

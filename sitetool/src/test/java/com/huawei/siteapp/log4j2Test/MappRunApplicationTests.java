@@ -1,7 +1,7 @@
 package com.huawei.siteapp.log4j2Test;
 
 import com.huawei.siteapp.MappRunApplication;
-import com.huawei.siteapp.common.Bean.RestBean;
+import com.huawei.siteapp.common.Bean.SiteLoginRestBean;
 import com.huawei.siteapp.common.util.SpringUtil;
 import com.huawei.siteapp.common.util.UctTimeUtil;
 import com.huawei.siteapp.model.PersonModel;
@@ -95,11 +95,11 @@ public class MappRunApplicationTests {
 
 
     //测试rest 借口端口号
-    public RestBean getTestRest() {
-        RestBean restBean = new RestBean();
-        restBean.setVrmIp("192.145.17.200");
-        restBean.setRestPort("7070");
-        return restBean;
+    public SiteLoginRestBean getTestRest() {
+        SiteLoginRestBean siteLoginRestBean = new SiteLoginRestBean();
+        siteLoginRestBean.setVrmIp("192.145.17.200");
+        siteLoginRestBean.setRestPort("7070");
+        return siteLoginRestBean;
     }
 
     @Test

@@ -1,7 +1,7 @@
 package com.huawei.siteapp.service.Http;
 
 import com.huawei.siteapp.cache.CacheCenter;
-import com.huawei.siteapp.common.Bean.RestBean;
+import com.huawei.siteapp.common.Bean.SiteLoginRestBean;
 import com.huawei.siteapp.common.constats.ExceptionEnum;
 import com.huawei.siteapp.common.constats.ParamKey;
 import com.huawei.siteapp.common.util.BusinessException;
@@ -114,11 +114,11 @@ public class SiteLoginHttpRequestServiceImpl {
         return cxt;
     }
 
-    public void fcLoginRest(RestBean restInfo, String user, String pwd) {
+    public void fcLoginRest(SiteLoginRestBean restInfo) {
         ISiteLoginService siteLoginService = SpringUtil.getBean(ISiteLoginService.class);
         siteLoginService.checkSiteUserLoginSuccess(restInfo);
 //        发送登录 POST 请求
-        String[] urlParm = new String[]{restInfo.getVrmIp(), restInfo.getRestPort()};
+        String[] urlParm = new String[]{restInfo.getSiteLoginIp(), restInfo.getRestPort()};
         String url = PropertiesUtils.getUrl("FcLogin", urlParm);
         ServiceContext sr = sendLoginPost(url, restInfo.getSiteLoginUser(), restInfo.getSiteLoginPwd());
 

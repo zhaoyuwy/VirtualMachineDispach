@@ -1,9 +1,7 @@
 package com.huawei.siteapp.service.Http;
 
-import com.huawei.siteapp.common.Bean.RestBean;
-import com.huawei.siteapp.common.util.SpringUtil;
+import com.huawei.siteapp.common.Bean.SiteLoginRestBean;
 import com.huawei.siteapp.common.util.UctTimeUtil;
-import com.huawei.siteapp.service.UserBusinessService.ISiteLoginService;
 import org.junit.Test;
 
 /**
@@ -14,11 +12,11 @@ import org.junit.Test;
  */
 public class LangFangHttpRequestTest {
     //测试rest 借口端口号
-    public RestBean getTestRest() {
-        RestBean restBean = new RestBean();
-        restBean.setVrmIp("10.44.70.245");
-        restBean.setRestPort("7070");
-        return restBean;
+    public SiteLoginRestBean getTestRest() {
+        SiteLoginRestBean siteLoginRestBean = new SiteLoginRestBean();
+        siteLoginRestBean.setVrmIp("10.44.70.245");
+        siteLoginRestBean.setRestPort("7070");
+        return siteLoginRestBean;
     }
 
     @Test
@@ -26,14 +24,6 @@ public class LangFangHttpRequestTest {
 //        登录获取token
         SiteLoginHttpRequestServiceImpl siteLoginHttpRequest = new SiteLoginHttpRequestServiceImpl();
 
-        String user = "admin";
-        String pwd = "HWS_lf@pub9001";
-        siteLoginHttpRequest.fcLoginRest(getTestRest(), user, pwd);
-
-//        HttpRestServiceImpl httpRequest = new HttpRestServiceImpl();
-//        httpRequest.fcGetSitesRest(getTestRest());
-
-//        httpRequest.fcGetSitesClustersRest(getTestRest());
     }
 
     @Test

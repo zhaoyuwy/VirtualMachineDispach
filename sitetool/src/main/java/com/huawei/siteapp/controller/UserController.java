@@ -1,7 +1,7 @@
 package com.huawei.siteapp.controller;
 
 import com.huawei.siteapp.cache.CacheCenter;
-import com.huawei.siteapp.common.Bean.RestBean;
+import com.huawei.siteapp.common.Bean.SiteLoginRestBean;
 import com.huawei.siteapp.common.constats.RetCode;
 import com.huawei.siteapp.common.util.SpringUtil;
 import com.huawei.siteapp.common.util.UctTimeUtil;
@@ -29,46 +29,45 @@ public class UserController {
         TaskServiceImpl taskService = SpringUtil.getBean(TaskServiceImpl.class);
         taskService.clearDbAllData();
 //        int retCode = taskService.doTaskOne(username, pwd, ip);
-        RestBean restBean = setRestBeanIp(ip);
-        restBean.setSiteLoginUser(username);
-        restBean.setSiteLoginPwd(pwd);
-        restBean.setSiteRegionName("廊坊");
-        restBean.setSiteLoginIp(ip);
-        logger.info("restBean = " + setRestBeanIp(ip) + " username = " + username + " pwd = " + pwd);
-        CacheCenter.getInstance().addUrlResponse("restBean", restBean);
+        SiteLoginRestBean siteLoginRestBean = setSiteLoginRestBean("廊坊",ip,username,pwd);
+        logger.info("siteLoginRestBean = " +siteLoginRestBean);
+        CacheCenter.getInstance().addUrlResponse("siteLoginRestBean", siteLoginRestBean);
         CacheCenter.getInstance().addUrlResponse("username", username);
         CacheCenter.getInstance().addUrlResponse("pwd", pwd);
         CacheCenter.getInstance().addUrlResponse("ip", ip);
 
         //        登录获取token
         SiteLoginHttpRequestServiceImpl siteLoginHttpRequest = SpringUtil.getBean(SiteLoginHttpRequestServiceImpl.class);
-        siteLoginHttpRequest.fcLoginRest(restBean, username, pwd);
+        siteLoginHttpRequest.fcLoginRest(siteLoginRestBean);
 
 //        ISiteLoginService siteLoginService = SpringUtil.getBean(ISiteLoginService.class);
 
-//        siteLoginService.checkSiteUserLoginSuccess(restBean);
-        saveSiteLoginUser(restBean);
+//        siteLoginService.checkSiteUserLoginSuccess(siteLoginRestBean);
+        saveSiteLoginUser(siteLoginRestBean);
 
 
 //        CacheCenter.getInstance().addUrlResponse("loginSuccess", true);
         return "Welcome," + username + " retCode = " + RetCode.OK + "  and time = " + UctTimeUtil.getCurrentDate();
     }
 
-    private void saveSiteLoginUser(RestBean restBean) {
+    private void saveSiteLoginUser(SiteLoginRestBean siteLoginRestBean) {
         HttpRestServiceImpl httpRequest = SpringUtil.getBean(HttpRestServiceImpl.class);
-        httpRequest.fcGetSitesRest(restBean);
+        httpRequest.fcGetSitesRest(siteLoginRestBean);
 //
-        httpRequest.fcGetSitesClustersRest(restBean);
+        httpRequest.fcGetSitesClustersRest(siteLoginRestBean);
 //
-        httpRequest.fcGetSitesClustersHostsRest(restBean);
+        httpRequest.fcGetSitesClustersHostsRest(siteLoginRestBean);
 
     }
 
-    public RestBean setRestBeanIp(String ip) {
-        RestBean restBean = new RestBean();
-        restBean.setVrmIp(ip);
-        restBean.setRestPort("7070");
-        return restBean;
+    public SiteLoginRestBean setSiteLoginRestBean(String siteRegionName,String siteLoginIp, String siteLoginUser, String siteLoginPwd) {
+        SiteLoginRestBean siteLoginRestBean = new SiteLoginRestBean();
+        siteLoginRestBean.setSiteRegionName(siteRegionName);
+        siteLoginRestBean.setSiteLoginIp(siteLoginIp);
+        siteLoginRestBean.setSiteLoginUser(siteLoginUser);
+        siteLoginRestBean.setSiteLoginPwd(siteLoginPwd);
+        siteLoginRestBean.setRestPort("7070");
+        return siteLoginRestBean;
     }
 
     @RequestMapping(value = "/userLogin/{username}", method = RequestMethod.GET)
@@ -76,17 +75,12 @@ public class UserController {
         TaskServiceImpl taskService = SpringUtil.getBean(TaskServiceImpl.class);
         taskService.clearDbAllData();
 //        int retCode = taskService.doTaskOne(username, pwd, ip);
-        RestBean restBean = setRestBeanIp(ip);
-        System.out.println("restBean = " + setRestBeanIp(ip) + " username = " + username + " pwd = " + pwd);
-        CacheCenter.getInstance().addUrlResponse("restBean", setRestBeanIp(ip));
-        CacheCenter.getInstance().addUrlResponse("username", username);
-        CacheCenter.getInstance().addUrlResponse("pwd", pwd);
-        CacheCenter.getInstance().addUrlResponse("ip", ip);
+        SiteLoginRestBean siteLoginRestBean = setSiteLoginRestBean("廊坊",ip,username,pwd);
 
         //        登录获取token
         SiteLoginHttpRequestServiceImpl siteLoginHttpRequest = new SiteLoginHttpRequestServiceImpl();
 
-        siteLoginHttpRequest.fcLoginRest(restBean, username, pwd);
+        siteLoginHttpRequest.fcLoginRest(siteLoginRestBean);
 //        CacheCenter.getInstance().addUrlResponse("loginSuccess", true);
         return "Login success";
     }
