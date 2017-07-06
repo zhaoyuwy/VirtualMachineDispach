@@ -34,7 +34,7 @@ public class FcRestClient extends RestClient {
     /**
      * HTTP "X-Auth-User2" 消息头
      */
-    private static final String X_AUTH_USER = "X-Auth-User2";
+    private static final String X_AUTH_USER = "X-Auth-User";
 
     /**
      * HTTP "X-Auth-Key" 消息头

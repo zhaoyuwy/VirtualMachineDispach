@@ -1,6 +1,5 @@
 package com.huawei.siteapp.common.util;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -21,31 +20,6 @@ import java.util.*;
  */
 public class JSONUtils {
     private static final Logger logger = LoggerFactory.getLogger(JSONUtils.class);
-
-    /**
-     * 对象转换成JSON字符串
-     *
-     * @param obj 需要转换的对象
-     * @return 对象的string字符
-     */
-    public static String toJson(Object obj) {
-        JSONObject jSONObject = JSONObject.fromObject(obj);
-        return jSONObject.toString();
-    }
-
-    /**
-     * JSON字符串转换成对象
-     *
-     * @param jsonString 需要转换的字符串
-     * @param type       需要转换的对象类型
-     * @return 对象
-     */
-    @SuppressWarnings("unchecked")
-    public static <T> T fromJson(String jsonString, Class<T> type) {
-        JSONObject jsonObject = JSONObject.fromObject(jsonString);
-        return (T) JSONObject.toBean(jsonObject, type);
-    }
-
     /**
      * 将JSONArray对象转换成list集合
      *
@@ -137,15 +111,6 @@ public class JSONUtils {
         return true;
     }
 
-
-    public static String jsonToStr(Object result) {
-        try {
-            return (new ObjectMapper()).writeValueAsString(result);
-        } catch (JsonProcessingException e) {
-            logger.error("", e);
-        }
-        return null;
-    }
 
     public static String jsonToServiceContext(HttpServletRequest request) {
         StringBuilder content = new StringBuilder();

@@ -5,6 +5,7 @@ import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -20,6 +21,7 @@ import java.util.List;
 @SpringBootApplication
 @EnableScheduling   //开启定时任务
 @EnableAsync        //开启异步任务
+@ServletComponentScan
 public class MappRunApplication extends WebMvcConfigurerAdapter {
     public static void main(String[] args) {
         SpringApplication.run(MappRunApplication.class, args);
