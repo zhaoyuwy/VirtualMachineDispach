@@ -8,4 +8,5 @@ import com.huawei.siteapp.model.UserModel;
  * @version 1.0
  */
 public interface IUserService extends IBaseService<UserModel> {
+    UserModel findUserModelByUserNameAndUserType(String userName,int userType);
 }

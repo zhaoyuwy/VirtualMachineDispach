@@ -17,7 +17,7 @@ import java.util.concurrent.locks.ReentrantLock;
 @Transactional(readOnly = true)
 public abstract class BaseServiceImpl<T> implements IBaseService<T> {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    private BaseRepository<T> repository;
+    BaseRepository<T> repository;
     private Lock lock = new ReentrantLock();
 
     public void setRepository(BaseRepository<T> repository) {

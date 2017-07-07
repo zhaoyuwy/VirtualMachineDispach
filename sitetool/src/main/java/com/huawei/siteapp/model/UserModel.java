@@ -15,6 +15,7 @@ public class UserModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="user_id")
     private Long userId = -1L;
     private String userName;
     private String userPwd;

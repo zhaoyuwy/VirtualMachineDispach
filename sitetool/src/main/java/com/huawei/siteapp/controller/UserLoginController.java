@@ -5,7 +5,6 @@ import com.huawei.siteapp.bean.Result;
 import com.huawei.siteapp.common.constats.RetCode;
 import com.huawei.siteapp.common.util.CommonUtils;
 import com.huawei.siteapp.common.util.JSONUtils;
-import com.huawei.siteapp.common.util.ServiceContext;
 import com.huawei.siteapp.model.UserModel;
 import com.huawei.siteapp.service.UserBusinessService.IUserLoginService;
 import org.slf4j.Logger;
@@ -30,7 +29,7 @@ public class UserLoginController {
 
 
     @Autowired
-    IUserLoginService service;
+    IUserLoginService userLoginService;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
@@ -38,10 +37,6 @@ public class UserLoginController {
 
         logger.info("Enter login.");
         Result result = new Result();
-
-//        UserModel userModel = new UserModel();
-
-        ServiceContext serviceContext = new ServiceContext();
 
         int retCode;
 
@@ -52,7 +47,7 @@ public class UserLoginController {
             logger.error("parse param error");
         } else {
             logger.info(JSON.toJSONString(userModel),true);
-            retCode = service.login(userModel, request);
+            retCode = userLoginService.login(userModel, request);
         }
         result.setStatus(retCode);
         result.setMsg("OK");

@@ -52,11 +52,15 @@ public class SiteAppListener implements ServletContextListener {
         String defaultPwd = "Huawei123";
         IUserService userService = webApplicationContext.getBean("IUserService", IUserService.class);
 
-        UserModel newUser = new UserModel();
-        newUser.setUserType(1);
-        newUser.setUserName(defaultUserName);
-        newUser.setUserPwd(defaultPwd);
+        UserModel userModelInDb =userService.findUserModelByUserNameAndUserType(defaultUserName,1);
+        if(null == userModelInDb){
+            UserModel newUser = new UserModel();
+            newUser.setUserType(1);
+            newUser.setUserName(defaultUserName);
+            newUser.setUserPwd(defaultPwd);
 
-        userService.save(newUser);
+            userService.save(newUser);
+        }
+
     }
 }

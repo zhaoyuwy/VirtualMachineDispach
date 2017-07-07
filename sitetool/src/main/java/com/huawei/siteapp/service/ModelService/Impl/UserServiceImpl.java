@@ -1,7 +1,9 @@
 package com.huawei.siteapp.service.ModelService.Impl;
 
+import com.huawei.siteapp.common.util.SpringUtil;
 import com.huawei.siteapp.model.UserModel;
 import com.huawei.siteapp.repository.BaseRepository;
+import com.huawei.siteapp.repository.UserRepository;
 import com.huawei.siteapp.service.ModelService.IUserService;
 import org.springframework.stereotype.Repository;
 
@@ -17,5 +19,11 @@ public class UserServiceImpl extends BaseServiceImpl<UserModel> implements IUser
     @Resource(name = "userRepository")
     public void setRepository(BaseRepository<UserModel> dao) {
         super.setRepository(dao);
+    }
+
+    @Override
+    public UserModel findUserModelByUserNameAndUserType(String userName, int userType) {
+        UserRepository userRepository = SpringUtil.getBean(UserRepository.class);
+        return userRepository.findUserModelByUserNameAndUserType(userName,userType);
     }
 }

@@ -9,5 +9,6 @@ import com.huawei.siteapp.model.UserModel;
  */
 //@Service("userRepository")
 public interface UserRepository extends BaseRepository<UserModel> {
+    UserModel findUserModelByUserNameAndUserType(String userName,int userType);
 
 }
