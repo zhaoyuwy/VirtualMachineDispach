@@ -7,6 +7,8 @@ import com.huawei.siteapp.model.SiteModel;
 import com.huawei.siteapp.repository.SiteRepository;
 import com.huawei.siteapp.service.ModelService.Impl.SiteServiceImpl;
 import com.huawei.siteapp.service.UserBusinessService.ISiteLoginService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,7 +19,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class SiteLoginServiceImpl implements ISiteLoginService {
 
-
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
     public int checkSiteUserLoginSuccess(SiteLoginRestBean siteLoginRestBean) {
@@ -29,13 +31,18 @@ public class SiteLoginServiceImpl implements ISiteLoginService {
         String siteLoginIp = siteLoginRestBean.getSiteLoginIp();
         String siteRegionName = siteLoginRestBean.getSiteRegionName();
 
-        siteModel.setSiteLoginUser(siteLoginUser);
-        siteModel.setSiteLoginPwd(siteLoginPwd);
-        siteModel.setSiteLoginIp(siteLoginIp);
-        siteModel.setSiteRegionName(siteRegionName);
 
-//        siteService.save(siteModel);
-        siteRepository.save(siteModel);
+        SiteModel siteModelLogin = siteRepository.findSiteModelBySiteLoginIpAndSiteLoginUser(siteLoginIp, siteLoginUser);
+        if (null == siteModelLogin) {
+            logger.info("Save siteModel : siteLoginIp = " + siteLoginIp + " ,siteLoginUser = " + siteLoginUser);
+            siteModel.setSiteLoginUser(siteLoginUser);
+            siteModel.setSiteLoginPwd(siteLoginPwd);
+            siteModel.setSiteLoginIp(siteLoginIp);
+            siteModel.setSiteRegionName(siteRegionName);
+            siteRepository.save(siteModel);
+        }else {
+            logger.info("SiteModel already exist:  siteLoginIp = " + siteLoginIp + " ,siteLoginUser = " + siteLoginUser );
+        }
         return RetCode.OK;
     }
 }
