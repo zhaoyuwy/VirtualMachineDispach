@@ -1,0 +1,125 @@
+<div id="index">
+    <div class="yunTwo"></div>
+    <div class="yunOne"></div>
+    <div class="none">
+        <img src="./theme/home/images/1.11.png" class="resourceCenter-shadow">
+        <img src="./theme/home/images/1.png" class="resourceCenter">
+        <img src="" class="resourceCenter-vehice">
+        <img src="./theme/home/images/1.1.png" class="resourceCenter-construction">
+        <div class="resourceCenter-tip">
+            <span class="icon-triangle"></span>
+            <span  ng-if="resourceCenterDisable" class="icon"></span>
+            <div class="titleOne" ng-bind="i18n.resourceCenter"></div>
+            <ul class="titleTwo ">
+                <li ng-repeat="endpoint in resourceCenter.endpoints">
+                    <a ng-if="endpoint.defaultOpen" hws-href ng-href="{{endpoint.endpoint}}" target="_self"  ng-bind="endpoint.name" title="{{endpoint.name}}"></a>
+                    <a ng-if="!endpoint.defaultOpen" hws-href ng-href="{{endpoint.endpoint}}" target="_blank"  ng-bind="endpoint.name" title="{{endpoint.name}}"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="none">
+        <img src="./theme/home/images/2.11.png" class="missionCenter-shadow">
+        <img src="./theme/home/images/2.png" class="missionCenter">
+        <img src="./theme/home/images/2.1.png" ng-hide="language" class="missionCenter-construction chinaMC">
+        <div class="missionCenter-tip">
+            <span class="icon-triangle"></span>
+            <span ng-if="missionCenterDisable" class="icon"></span>
+            <div class="titleOne" ng-bind="i18n.missionCenter"></div>
+            <ul class="titleTwo">
+                <li ng-repeat="endpoint in missionCenter.endpoints">
+                    <a ng-if="endpoint.defaultOpen" hws-href ng-href="{{endpoint.endpoint}}" target="_self"  ng-bind="endpoint.name" title="{{endpoint.name}}"></a>
+                    <a ng-if="!endpoint.defaultOpen" hws-href ng-href="{{endpoint.endpoint}}" target="_blank"  ng-bind="endpoint.name" title="{{endpoint.name}}"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="none">
+        <img src="./theme/home/images/5.11.png" class="changeAnalysis-shadow">
+        <img src="./theme/home/images/5.png" class="changeAnalysis">
+        <img src="./theme/home/images/5.1.png" class="changeAnalysis-construction chinaCA">
+        <div class="changeAnalysis-tip">
+            <span class="icon-triangle"></span>
+            <span ng-if="changeAnalysisDisable" class="icon"></span>
+            <div class="titleOne"  ng-bind="i18n.changeAnalysis"></div>
+            <ul class="titleTwo">
+                <li ng-repeat="endpoint in changeAnalysis.endpoints">
+                    <a ng-if="endpoint.defaultOpen" hws-href ng-href="{{endpoint.endpoint}}" target="_self"  ng-bind="endpoint.name" title="{{endpoint.name}}"></a>
+                    <a ng-if="!endpoint.defaultOpen" hws-href ng-href="{{endpoint.endpoint}}" target="_blank"  ng-bind="endpoint.name" title="{{endpoint.name}}"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="none">
+        <img src="./theme/home/images/4.11.png" class="evaluationAnalysis-shadow">
+        <img src="./theme/home/images/4.png" class="evaluationAnalysis">
+        <img src="./theme/home/images/4.1.png" class="evaluationAnalysis-construction">
+        <div class="evaluationAnalysis-tip">
+            <span class="icon-triangle"></span>
+            <span ng-if="evaluationAnalysisDisable" class="icon"></span>
+            <div class="titleOne"  ng-bind="i18n.evaluationAnalysis"></div>
+            <ul class="titleTwo">
+                <li ng-repeat="endpoint in evaluationAnalysis.endpoints">
+                    <a ng-if="endpoint.defaultOpen" hws-href ng-href="{{endpoint.endpoint}}" target="_self"  ng-bind="endpoint.name" title="{{endpoint.name}}"></a>
+                    <a ng-if="!endpoint.defaultOpen" hws-href ng-href="{{endpoint.endpoint}}" target="_blank"  ng-bind="endpoint.name" title="{{endpoint.name}}"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="none">
+        <img src="./theme/home/images/3.11.png" class="tenantProtection-shadow">
+        <img src="./theme/home/images/3.png" class="tenantProtection">
+        <img src="./theme/home/images/3.1.png" class="tenantProtection-construction">
+        <div class="tenantProtection-tip">
+            <span class="icon-triangle"></span>
+            <span ng-if="tenantProtectionDisable" class="icon"></span>
+            <div class="titleOne" ng-bind="i18n.tenantProtection"></div>
+            <ul class="titleTwo">
+                <li ng-repeat="endpoint in tenantProtection.endpoints">
+                    <a ng-if="endpoint.defaultOpen" hws-href ng-href="{{endpoint.endpoint}}" target="_self"  ng-bind="endpoint.name" title="{{endpoint.name}}"></a>
+                    <a ng-if="!endpoint.defaultOpen" hws-href ng-href="{{endpoint.endpoint}}" target="_blank"  ng-bind="endpoint.name" title="{{endpoint.name}}"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="none">
+        <img src="./theme/home/images/6.11.png" class="securityCenter-shadow">
+        <img src="" class="securityCenter-vehice">
+        <img src="./theme/home/images/6.png" class="securityCenter">
+        <img src="./theme/home/images/6.1.png" class="securityCenter-construction">
+        <div class="securityCenter-tip">
+            <span class="icon-triangle"></span>
+            <span ng-if="securityCenterDisable" class="icon"></span>
+            <div class="titleOne"  ng-bind="i18n.securityCenter"></div>
+            <ul class="titleTwo">
+                <li ng-repeat="endpoint in securityCenter.endpoints">
+                    <a ng-if="endpoint.defaultOpen" hws-href ng-href="{{endpoint.endpoint}}" target="_self"  ng-bind="endpoint.name" title="{{endpoint.name}}"></a>
+                    <a ng-if="!endpoint.defaultOpen" hws-href ng-href="{{endpoint.endpoint}}" target="_blank"  ng-bind="endpoint.name" title="{{endpoint.name}}"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="none">
+        <img src="./theme/home/images/7.11.png" class="monitoringCenter-shadow">
+        <img src="" class="monitoringCenter-vehice">
+        <img src="./theme/home/images/7.png" class="monitoringCenter">
+        <img src="./theme/home/images/7.1.png" class="monitoringCenter-construction">
+        <div class="monitoringCenter-tip">
+            <span class="icon-triangle"></span>
+            <span ng-if="monitoringCenterDisable" class="icon"></span>
+            <div class="titleOne"  ng-bind="i18n.monitoringCenter"></div>
+            <ul class="titleTwo">
+                <li ng-repeat="endpoint in monitoringCenter.endpoints">
+                    <a ng-if="endpoint.defaultOpen" hws-href ng-href="{{endpoint.endpoint}}" target="_self"  ng-bind="endpoint.name" title="{{endpoint.name}}"></a>
+                    <a ng-if="!endpoint.defaultOpen" hws-href ng-href="{{endpoint.endpoint}}" target="_blank"  ng-bind="endpoint.name" title="{{endpoint.name}}"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="treeOne"></div>
+    <div class="treeTwo"></div>
+</div>
+
+
+

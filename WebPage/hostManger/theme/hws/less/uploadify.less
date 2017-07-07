@@ -1,0 +1,73 @@
+@import "variables.less";
+@import "mixins.less";
+
+.tiny-file-select {
+  float: left;
+  height: @input-height-base;
+  border-radius: @input-border-radius;
+  border: 1px solid @input-border;
+  width: 300px;
+  background-color: @input-bg;
+  .box-sizing(border-box);
+}
+.tiny-file-upload {
+  height: @input-height-base;
+}
+.tiny-file-input {
+  outline: none;
+  border: 0;
+  color: @input-color-disabled;
+  border-radius: @input-border-radius 0 0 @input-border-radius;
+  .box-shadow(@input-box-shadow);
+  padding: @input-padding-vertical 0 @input-padding-vertical @input-padding-horizontal;
+  height: @input-height-base - 2;
+  line-height: @input-height-base - 2-2*@input-padding-vertical;  
+  background: @input-bg;
+  width: 100%;
+  .box-sizing(border-box);
+}
+.tiny-file-focus {
+  border: 1px solid @input-focus-border;
+}
+.tiny-file-select-button-container {
+  float: right;
+  position: relative;
+  width: 29px;
+  height: 100%;
+  overflow: hidden!important;
+  border-left: 1px solid @input-border;
+  border-radius: @input-border-radius;
+  background-color: @input-bg;
+}
+.tiny-file-selimage{
+  font-size: 20px;
+  line-height: @input-height-base;
+  margin-left: 5px;
+}
+.tiny-file-selected-button-container {
+  background-color: @input-bg-disabled;
+}
+.tiny-file-upload-button.tiny-file-upload-single{
+  height: @input-height-base - 2;
+}
+.tiny-upload-success-icon, .tiny-upload-waiting-icon{
+  font-size: 14px;
+  vertical-align: middle;
+  color: #5ECC49;
+  line-height: 17px;
+}
+.tiny-upload-error-icon {
+  font-size: 14px;
+  vertical-align: middle;
+  color: #FC5043;
+  line-height: 17px;
+}
+.tiny-file-disabled.tiny-file-select{
+  background-color: @input-bg-disabled;
+}
+.tiny-file-disabled .tiny-file-input{
+  background-color: @input-bg-disabled;
+}
+.tiny-file-disabled .tiny-file-select-button-container{
+  background-color: @input-bg-disabled;
+}

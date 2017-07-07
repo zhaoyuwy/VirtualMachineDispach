@@ -61,16 +61,7 @@ public class SiteSaveController {
             JSONObject jo = JSONObject.parseObject(jsonRst);
             System.out.println(jo.get("regions"));
 
-//            TopologyTreeBean p=(TopologyTreeBean)JSONObject.toJavaObject(jo,TopologyTreeBean.class);    //转换成JavaBean
-//            TopologyTreeBean p2=(TopologyTreeBean)JSONObject.parse(jsonRst);    //转换成JavaBean
-//            System.out.println(p.getRegionBeans());
 
-//        }
-//        TopologyTreeBean topologyTreeBean3 = JSON.toJavaObject(json, TopologyTreeBean.class);
-        //        String topoStr = JSON.toJSONString(topologyTreeBean);
-//        String topoStr = "{\"total\":1,\"regions\":[{\"evName\":\"廊坊\",\"sites\":[{\"siteRegion\":\"lf\",\"siteRegionName \":\"pub\",\"siteLoginUser\":\"admin\",\"siteLoginPwd\":\"HWS_lf@pub9001\",\"siteLoginIp\":\"10.44.70.245\"}]}]}";
-//        System.out.println("@@@@@@@@@@@@@@@@@@@"+topoStr);
-//        System.out.println("@@@@@@@@@@@@@@@@@@@333"+topologyTreeBean2);
         if (CommonUtils.isNull(jsonRst)) {
             retCode = RetCode.INNER_ERROR;
             logger.error("parse param error");

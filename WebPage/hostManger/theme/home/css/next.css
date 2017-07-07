@@ -1,0 +1,729 @@
+@CHARSET "UTF-8";
+/* w3next 宽屏 头部处理 */
+.fullScreen #W3AppTop_gray_Bar_div{/* max-width:600px; */ padding-right: 10px;}
+
+/* .fullScreen .W3AppTop_gray_Bar_Content ul{margin-right:-3px} */
+.fullScreen .w3AppTop_drop ul{margin-right:0px}
+ul li a:hover{color:#2d91cc;}/* 字体悬停颜色 */
+
+/* w3next 宽屏 头部链接无·图标 */
+#W3AppTop_gray_Bar .W3AppTop_dot{ background: none; padding-left:0px;}
+/* w3next 宽屏 头部链接清楚浮动 */
+.W3AppTop_split {padding: 0 0px;display:none;}
+.W3AppTop_dot{/* float:left; */ text-align:right; height:18px; padding-left:10px;display:none;margin-left:6px;}
+.W3AppTop_dot a{ text-decoration:none;color:#000;font-family:arial,verdana,tahoma;font-size:12px;}
+.W3AppTop_dot a:hover{color:#900;}
+.W3AppTop_dot{ float:none;}
+
+/* w3next 覆盖default主题上的这个样式(global.css)*/
+#head_div #W3AppTop_gray_Bar {margin-left: 67%;margin-top: 5px;margin-left: -250px;position: absolute;}
+#head_div #W3AppTop_Header {padding-top:0px;width: 1423px;height: 60px;}
+body.fullScreen #W3AppTop_gray_Bar_div,body.fullScreen #c_layout{table-layout:fixed;border-collapse:collapse; border-spacing:0;}
+
+/* ***********************************区域背景色*********************************** */
+.jalor-contextmenu-list{display: none !important;}
+.jalor-form-content
+{ 
+	font-size:0px;
+}
+.jalor-form-content *
+{ 
+	font-size:12px;
+}
+
+/* w3next 左边与右边区域背景色 */
+#leftPanel,#rightPanel
+{
+	background-color:#E9EEF4);
+}
+
+/* w3next 右边区域边框色 */
+#rightPanel
+{
+/* 	border: 1px solid #DDDDDD; */
+	padding:0px;
+}
+
+
+/* w3next ...标题外边距 */
+h4
+{
+	/* margin: 10px 0 3px; */
+	border-bottom: 1px dotted #F3811D;
+}
+
+/* w3next new*/
+#myPrivilegeList h4 span.i18n
+{
+	margin-left:0px;
+}
+/* w3next new 【新增border-bottom 修改background-color padding 】 */
+h4 span
+{
+	background-color: #F3811D;
+	padding:3px 5px;
+	font-weight:bold;
+	color:#fff;
+	border-bottom:2px solid #F3811D;
+}
+
+/* ***********************************收缩条*********************************** */
+/* w3next 收缩条外边距 */
+#leftMenuContentHide
+{
+	margin-top: 130px;
+}
+
+/* w3next 收缩条收缩图片 */
+#leftMenuContentHide span
+{
+	background:url(images/jalor.png) no-repeat -509px 0px;
+	height:193px;
+	width:9px;
+	display:block;
+	position:relative;
+	margin-left:-1px;
+}
+ 
+/* w3next 收缩条展开图片 */
+#leftMenuContentHide span.narrow
+{
+	background-position: -493px -0px;
+}
+
+
+/* ***********************************nav*********************************** */
+/* w3next 左侧导航搜索条边框 */
+#leftMenuContent  div.jalor-tree-filter
+{
+	border:1px solid #e7e7e7;
+	margin:5px; 
+}
+/* w3next 左侧导航搜索条 */
+#leftMenuContent  div.jalor-tree-filter input{
+	height : 20px;
+	outline:none;
+}
+/* w3next 左侧导航搜索条外边距行高*/
+div.jalor-tree-filter{
+	height:22px;
+}
+
+/* w3next 左侧导航搜索条背景*/
+input[type="text"], input[type="password"]
+{
+	background-color: #fff;	
+	border:1px solid #dfdfdf
+}
+/* w3next 文本框错误input的背景色*/
+input.error, textarea.error, select.error 
+{
+background-color: #CCFFCC;
+border-color: #2d91cc;
+}
+
+/* w3next 左侧导航关闭图标 */
+#leftSiteMapTree button.noline_close,#leftSiteMapTree button.center_close,#leftSiteMapTree button.bottom_close
+{
+	/* margin-left:5px; */
+	background:#fff url(../images/icons.png) no-repeat -60px -180px;
+	width:16px;
+}
+/* w3next 左侧导航展开图标 */
+#leftSiteMapTree button.noline_open,#leftSiteMapTree button.bottom_open,#leftSiteMapTree button.center_open
+{
+	/* margin-left:5px; */
+	background:#fff url(../images/icons.png) no-repeat -40px -180px;
+	width:16px;
+}
+
+/* w3next 左侧导航搜索input边框*/
+#filter_leftSiteMapTree input
+{
+	border:none;
+}
+
+/* w3next 首页背景色 */
+#leftSiteMapTree_1 
+{
+    background-color: #fff;
+}
+
+/* w3next nav链接离图标外边距|行高 */
+.ztree li span 
+{
+	margin:0px 2px;
+	line-height:17px;
+	font-size:1.3em;
+	
+}
+
+/* w3next 树导航边框*/
+ul.ztree
+{
+	border: 1px solid #FFF;
+}
+
+/* w3next nav上边框 */
+#leftSiteMapTree li
+{
+	border-top:none;
+}
+
+/* w3next nav下边框 */
+#leftSiteMapTree
+{
+	border-bottom:none;
+}
+
+/* w3next nav高|内边距*/
+#leftSiteMapTree li
+{
+	min-height: 20px;
+    padding: 4px 0;
+}
+
+/* w3next 字体悬停*/
+#leftSiteMapTree span:hover
+{
+	color:#F3811D;
+}
+
+/* w3next 当前页面字体颜色*/
+#leftSiteMapTree a.curSelectedNode
+{
+	color:#F3811D;
+	text-decoration:none;
+}
+#leftSiteMapTree a.curSelectedNode span
+{
+	color: #F3811D;
+}
+
+/* w3next 左侧导航消息推送*/
+#unReadMsgAccount,.jalor-push-message{
+	border-radius: 3px;
+	background-color: #cf0000;
+	/*font-weight: bold;*/
+	color: white;
+}
+
+
+/* ***********************************选项卡*********************************** */
+/* w3next 当前页选卡背景边框*/
+div.jalor-tab .tab-link li.tab-selected {
+	background: #2d91cc;
+	border : 0px #F3811D solid;
+}
+
+/* w3next 选卡字体样式*/
+div.jalor-tab .tab-link li a
+{
+	font-size:13.5px;
+}
+
+/* w3next 当前页选卡字体样式*/
+div.jalor-tab .tab-link li.tab-selected a
+{
+	color:#fff;
+	font-weight:bold;
+}
+
+/* w3next 选卡关闭悬停背景色*/
+div.jalor-tab .tab-item-close:hover{
+	background-color: #E91B22;
+}
+
+/* w3next 选卡关闭位置*/
+/* div.jalor-tab .tab-item-close
+{
+	top:8px;
+} */
+
+/* w3next 默认高度控制*/
+div.jalor-tab .tab-link li
+{
+	margin:0 1px 0 0;
+	background: #ccc;
+}
+
+/* w3next 右边区域内边距*/
+div.jalor-tab .tab-content-item
+{
+	padding: 0px 1px 10px 0px;
+}
+
+/* w3next 选卡下线条*/
+ div.jalor-tab .tab-link
+{
+	margin-right:1px;
+}
+
+/*w3next link区容器*/
+div.jalor-tab .tab-link .link-container {
+	border-bottom: #ccc 0px solid;
+}
+ 
+/*  w3next 按钮图标 */
+a.jalor-icon
+{
+     background:url('../images/icons.png') no-repeat 0 0;
+}
+
+/* ***********************************流布局*********************************** */
+/* w3next 右边内容背景*/
+div.jalor-tab .tab-link
+{
+	background:none;
+}
+/* w3next 右边内容区域边框*/
+.tab-content
+ {
+ 	/* border-top:1px solid #ddd; */
+	margin-top:-1px
+ }
+ 
+/* w3next 流布局标题背景色*/
+ li.jalor-form-row samp, .jalor-form samp.require, .jalor-form samp.required
+ {
+ 	background-color: #eee;
+ }
+ 
+/* w3next 流布局标题背景色*/
+textarea
+ {
+ 	border:1px solid #dfdfdf;
+ 	background:#fff;
+ }
+ 
+ /* w3next 文本框点击边框色*/
+ input[type="text"]:focus, input[type="password"]:focus, textarea:focus
+ {
+ 	border:1px solid #2d91cc;
+ }
+ 
+ 
+/* ***********************************按钮样式*********************************** */
+ /* w3next fieldset|select边框色*/
+fieldset, select
+{
+	border:1px solid #ccc;
+}
+
+ /* w3next 默认按钮样式*/
+input[type="button"],.jalor-button,.jalor-menubutton-body
+{
+	 background-color:#2d91cc;
+    color: #fff;
+    border-radius: 3px;
+    /*background: url(/octopus/octopus/images/icon_5.png) no-repeat;*/
+}
+ input[type="reset"],.jalor-button,.jalor-menubutton-body
+{
+	 background-color:#5ecc49;
+     border-color:#5ecc49; 
+    color: #fff;
+    border-radius: 3px;
+    /*background: url(/octopus/octopus/images/icon_5.png) no-repeat;*/
+}
+ /* w3next 默认触发按钮样式*/
+input.default, .jalor-btn-focus,.jalor-button.default
+{
+    /*background-color: #CF0000;
+    border: 1px solid #CF0000;*/
+    color:#fff;
+}
+
+/*  w3next 默认按钮悬停样式 */
+input[type='button']:hover,.jalor-button:hover,.jalor-menubutton-body:hover
+{
+	 background-color:#2d91cc;
+     border-color:#2d91cc; 
+    color:#fff;
+}
+input[type='reset']:hover,.jalor-button:hover,.jalor-menubutton-body:hover
+{
+	 background-color:#2d91cc;
+     border-color:#5ecc49; 
+   /*  border-color:#2d91cc;
+    background-color:#2d91cc;
+    color:#fff;*/
+}
+
+/*  w3next 默认触发按钮悬停样式 */
+input.default:hover,.jalor-button.default:hover
+{
+   /*  border-color:#ad0000;
+    background-color:#ad0000; */
+}
+
+/*  w3next 默认触发按钮下拉框背景色 */
+.jalor-menubutton-btn:hover
+{
+	/* background-color:#F3811D; */
+}
+
+/*  w3next 默认触发按钮带图标下拉框 */
+.jalor-menubutton-body
+{
+	line-height: 18px;
+}
+
+/*  w3next 默认按钮 */
+.jalor-menubutton-body,a.jalor-icon
+{
+	margin:0px;
+}
+
+/*  w3next  特殊按钮样式 */
+input.special
+{
+	background-color:#2d91cc;
+	border-color:#2d91cc;
+	color:#fff;
+}
+/*  w3next 特殊按钮悬停样式 */
+input.special:hover
+{
+   /*  border-color:#F3811D;
+    background-color:#F3811D; */
+}
+
+/*  w3next 图标 */
+a.jalor-icon
+{
+	height:16px;
+    background:url('../images/icons.png') no-repeat 0 0;
+    cursor:pointer; 
+    padding:3px 20px 2px 0; 
+    margin-right:auto;
+    *display: inline-block;
+    border-width: 0px;
+}
+
+/* ***********************************表格样式*********************************** */
+/*  w3next 表格按钮区背景颜色 */
+.jalor-toolbar, .jalor-grid-toolbar
+{
+	background-color: #fff;
+	border-top:1px solid #2d91cc;
+	border: 0;
+}
+
+/*  w3next 表格标题背景颜色 */
+.jalor-table th,.jalor-igrid-thead td
+{
+	background-color: #eee;
+}
+
+/*  w3next 表格标题图标默认状态边框 */
+.grid-cell.sort .g-sort
+{
+	border:1px solid #eee;
+}
+
+/*  w3next grid表头图标边框 */
+.jalor-igrid-thead td.sort:hover .g-sort,.grid-cell.sort .g-sort.desc,.grid-cell.sort .g-sort.asc,.grid-cell.filter .g-sort.asc,.grid-cell.filter .g-sort.desc,.grid-cell.filter .g-sort
+{	
+	border:1px solid #F3811D;
+}
+
+
+
+/*  w3next grid表头上的图点击弹出框边框*/
+.jalor-contextmenu-list
+{
+	border: 1px solid #F3811D;	
+}
+
+/*  w3next grid表头上的图点击弹出框链接背景 */
+.jalor-contextmen-item a.context-item:hover
+{
+	background-color:#2d91cc;
+}
+/*  w3next grid标题背景色*/
+.jalor-igrid-headplace
+{
+    background: #eee/*  url(images/ver_bg.png) repeat-x 0 -713px */;
+}
+/*  w3next grid上个性化设置图标*/
+a.jalor-icon.setting {
+	background-position: 0px -20px
+}
+/* w3next new 新增igrid上筛选图标 */
+a.jalor-icon.screening {
+	background-position: -320px -60px
+}
+/* w3next new 新增igrid上查询图标 */
+a.jalor-icon.inquire {
+	background-position: -340px -60px
+}
+/*  w3next grid最大化图标*/
+a.jalor-icon.panel-maximize {
+	background-position: -100px -200px
+}
+/* w3next new 角色最大化图标 */
+a.jalor-icon.big-maximize{
+	margin-left:5px;
+	background-position: -160px -200px
+}
+/* w3next new 角色最小化图标 */
+a.jalor-icon.small-maximize{
+	margin-left:5px;
+	background-position: -180px -200px
+}
+/* ***********************************翻页*********************************** */
+
+/*  w3next 翻页当前状态背景|边框颜色 */
+.jalor-pager-number a.jalor-pager-numbtn.cur
+{
+	border: 1px solid #CCCCCC;
+	background-color:#2d91cc;
+}
+/*  w3next 翻页当前状态字体颜色 */
+.jalor-pager-number a.jalor-pager-numbtn.cur span
+{
+	color: #fff;
+}
+
+/*  w3next 翻页悬停样式 */
+.jalor-pager a.jalor-pager-numbtn:hover
+{
+	border: 1px solid #CCCCCC;
+	text-decoration:none;
+}
+/*  w3next 翻页悬停字体|背景色样式*/
+.jalor-pager a.jalor-pager-numbtn:hover span
+{
+	background-color:#2d91cc;
+	color: #fff;
+}
+
+/* ***********************************弹出框*********************************** */
+/*  w3next 开始结果input */
+.jalor-popup #focusInputBegin,.jalor-popup #focusInputEnd
+{
+	border:none;
+	height:0px;
+}
+
+/*  w3next 弹出框下grid标题渐变背景 */
+table.gt-head-table tr.gt-hd-row td
+{
+	background:none;
+}
+
+
+/* w3next new */
+.jalor-popup td fieldset legend
+{
+	padding-bottom: 3px;
+	margin:5px 0;
+	border-bottom: 1px dotted #2d91cc;
+	width:445px;
+	padding-left:0px;
+}
+/* w3next new */
+.jalor-popup fieldset legend span
+{
+	background-color: #2d91cc;
+	padding:3px 5px;
+	font-weight: bold;
+	color:#fff;
+	border-bottom:2px solid #2d91cc;
+}
+
+/* w3next new 多选弹出框下边距 */
+.jalor-popup .jalor-pager,.jalor-popup .jalor-igrid,.jalor-popup .jalor-dialog-body
+{
+	margin:0px;
+}
+/* w3next new 多选弹出框确定取消按钮图标 */
+.jalor-popup .jalor-dialog-button.jalor-icon
+{  
+	background:url('../images/icons.png') no-repeat 0 0 #d7d7d7;
+	text-indent:14px;
+}
+.jalor-popup .jalor-dialog-button.jalor-icon:hover
+{
+	background:url('../images/icons.png') no-repeat 0 0 #c9c9c9;
+}
+/* w3next new 多选弹出框确定按钮图标 */
+.jalor-popup .jalor-dialog-button.jalor-icon.confirm{
+	/* background-position: -375px -20px */
+	background: url('../../images/tijiao.png') 7px 3px no-repeat #2d91cc
+}
+/* w3next new 多选弹出框取消按钮图标 */
+.jalor-popup .jalor-dialog-button.jalor-icon.cancel{
+	/* background-position: -375px -40px */
+	background: url('../../images/close.png') 7px 3px no-repeat #2d91cc
+}
+
+/* ***********************************首页*********************************** */
+.r_wndlet_m ul li
+{
+	background:url('w3/img/dot_black_b.gif') 0 12px no-repeat;
+}
+.r_wndlet_m ul li a span:hover
+{
+	color:#F3811D;
+}
+/*  解决w3定义的该样式的背景图片找不到 */
+.r_wndlet_b
+{
+	background:none;
+}
+.r_wndlet_b div{
+	background:none;
+}
+
+/***********************************widget**************************************/
+.jalor-widget-head
+{
+	background: none;
+	background-color:#EEE;
+}
+
+/* w3next 下拉宽图片 */
+.jalor-menubutton-btn
+{
+	background: url('images/jalor.png') no-repeat -38px -41px #cde4ff;
+}
+
+/* w3next 表格标题背景颜色 */
+div.jalor-form-custom li.jalor-form-row
+{
+	background: #fff url('images/hor_bg.png') repeat-y -2105px top;
+}
+
+.jalor-dropdown-btn.history {
+margin-left: -20px;
+background: url('images/jalor.png') no-repeat 0 -252px;
+display: none;
+}
+
+/***********************************弹出**************************************/
+.jalor-dialog
+{
+	border:#ddd 2px solid;
+	background-color: #fff;
+	z-index: 1100 ! important;
+	position: absolute;
+}
+
+.jalor-dialog-head
+{
+	background-color: #F3F3F3;
+	/* border-bottom: #CF0000 1px solid; */
+	height:30px;
+}
+.jalor-dialog-title
+{
+	background-color: #e9eef4;
+	font-size:14px;
+	color:#2d91cc;
+	padding: 7px 3px 1px 3px;
+}
+.jalor-dialog-body
+{
+
+	border-bottom:none;
+}
+
+.jalor-overlay
+{
+	filter: alpha(opacity=50);
+    opacity: 0.50;
+}
+
+/* w3next 搜索按钮图标 */
+.jalor-button.default
+{
+	font-size:12px;	
+}
+/***********************************弹出Loading**************************************/
+.loading
+{
+    background: #fff url('../../default/images/loading.gif') no-repeat center center;
+}
+/* w3next 新增【border-top:】 */
+#loading_msg 
+{
+	border:#2d91cc 1px solid;
+	border-top:#2d91cc 2px solid;
+	border-bottom:#2d91cc 2px solid;
+}
+/* w3next 新增【padding-left: font-size: font-weight: color: line-height:】 */
+#loading_msg div.jalor-dialog-body
+{
+	/* padding:25px 0 0 60px; */
+	padding-left:60px;
+	background: url('../../default/images/loading.gif') no-repeat 10px center;
+	font-size:14px;
+	font-weight:bold;
+	color:#666;
+	line-height:30px;
+}
+/***********************************弹出筛选图标**************************************/
+.jalor-contextmen-item .jalor-icon.active-bg{
+	border:1px solid #ffca9c;
+	background-color:#fffce5;	
+}
+
+/***********************************老版grid弹出样式调整**************************************/
+.gt-grid-dialog {
+	z-index:102;
+	width : 300px;
+	height : 150px;
+	margin-left : -150px;
+	margin-top : -75px;
+	border: #ddd 2px solid;
+	background-color:#fff;
+}
+.gt-dialog-head {
+	padding:0px;
+	position: relative;
+	width:100%;
+	background-color: #f3f3f3;
+	border-bottom: #cf0000 1px solid;
+	height: 30px;
+	line-height:26px;
+}
+.gt-dialog-head-text {
+	float:left;
+	margin-top:3px;
+	font-weight:bold;
+	font-size:14px;
+	color:#cf0000;
+}
+/*** 浮动框 begin***/
+.jalor-float-bar{
+	background: #F7F7F7;
+	border: 1px solid #ccc;
+	border-top:2px solid #cf0000;
+}
+/*** 浮动框 end***/
+
+
+.nano > .pane {
+  background : rgba(0,0,0,0.4);
+  right:2px;
+}
+.nano > .pane > .slider {
+  background: rgba(243,129,29,.65);
+  right:0px;
+}
+.nano .pane   { background: #d5d5d5; width:7px;}
+.nano .slider {background: #2d6188; width:5px;}
+#bodyfixed #head_div{
+	height: 65px;
+}
+.jalor-title{
+	border-bottom-color:#cf0000;
+}
+#jalor_tip{ 
+	background-color: #2d91cc;	 
+}
+
+
+	

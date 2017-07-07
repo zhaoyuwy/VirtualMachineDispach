@@ -1,0 +1,183 @@
+<style>
+    .dropdown-menu > li > a {
+        color:white;
+    }
+    div.pull-right ul.dropdown-menu {
+
+   }
+    .hwsicon-frame-userhead {
+        position: relative;
+        top: 0;
+        margin-right:4px;
+    }
+
+
+
+</style>
+
+<div class="menu-top-line"></div>
+<div id="console-top-menu" class="console-top-menu common-page-header common-font-size-big1 common-link-inherit-color"
+     ng-controller="menusCtrl">
+
+    <div id="menu" class="menu console-content-padding common-content-screen">
+        <div class="frame-menu-left">
+            <div class="hwsicon-frame-service-ecm icomoon-loading-div"></div>
+
+            <a locale-href ng-href="{{links.portal_common}}" class="console-menu-logo pull-left" target="_blank">
+            </a>
+
+            <!--home-->
+            <a href="" ng-click="goHome()" class="pull-left console-menu-home"></a>
+            <!-- 顶部导航的左侧部分菜单页面-->
+            <!--<div class="menu-table pull-left">-->
+                <!--<div class="pull-left menu-table-list" ng-show="isServiceConsole && elementDisplayFlag" ng-repeat="catalog in menuItem">-->
+                    <!--<a class="menu-header-word" ng-bind="catalog.catalog" ng-href="catalog.state"></a>-->
+                    <!--<div class="menu-body" style="display: none">-->
+                        <!--<div>-->
+                            <!--<ul class="left-list pull-left">-->
+                                <!--<li ng-repeat="endpoint in catalog.endpoints" ng-if="$index <=5">-->
+                                    <!--<span style="color: #d0d0d0;" ng-show="endpoint.notDisable" ng-bind="endpoint.name"></span>-->
+                                    <!--<a hws-href ng-if="endpoint.defaultOpen" ng-hide="endpoint.notDisable" ng-href="{{endpoint.endpoint}}" target="_self" menu-bodclass="y-text pull-left" ng-bind="endpoint.name"></a>-->
+                                    <!--<a hws-href ng-if="!endpoint.defaultOpen" ng-hide="endpoint.notDisable" ng-href="{{endpoint.endpoint}}" target="_blank" menu-bodclass="y-text pull-left" ng-bind="endpoint.name"></a>-->
+
+                                <!--</li>-->
+                            <!--</ul>-->
+                            <!--<ul class="right-list pull-left">-->
+                                <!--<li ng-repeat="endpoint in catalog.endpoints" ng-if="$index > 6">-->
+                                    <!--<span style="color: #d0d0d0;" ng-show="endpoint.notDisable" ng-bind="endpoint.name"></span>-->
+                                    <!--<a hws-href ng-if="endpoint.defaultOpen" ng-hide="endpoint.notDisable" ng-href="{{endpoint.endpoint}}" target="_self" menu-bodclass="y-text pull-left" ng-bind="endpoint.name"></a>-->
+                                    <!--<a hws-href ng-if="!endpoint.defaultOpen" ng-hide="endpoint.notDisable" ng-href="{{endpoint.endpoint}}" target="_blank" menu-bodclass="y-text pull-left" ng-bind="endpoint.name"></a>-->
+                                <!--</li>-->
+                            <!--</ul>-->
+
+
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+
+        </div>
+
+
+            <!-- modified-->
+
+
+
+        <div class="frame-menu-right common-page-header">
+
+
+            <!--menus-dt-start-->
+            <div class="custom-style">
+
+
+
+
+
+                <div class="pull-right dropdown nav-menu-dropdown">
+                    <a hws-href href class="dropdown-toggle" data-toggle="dropdown" ng-attr-title="{{meeting_userName}}">
+                        <!--<span class="menu-dropdown-head pull-left"></span>-->
+                        <span class="hwsicon-frame-image-user-head hwsicon-frame-userhead pull-left"> </span>
+                        <span class="common-font-size-big1 console-topbar-fixed-width-username pull-left"
+                              ng-bind="meeting_userName">
+
+                        </span>
+                        <span class="menu-dropdown-icon pull-left"></span>
+
+                    </a>
+                    <ul class="dropdown-menu user-dropdown-menu common-font-size-common">
+                        <!--<li class="dropdown-menu-li-height frame-user-center bottom">-->
+                            <!--<a hws-href target="_self" ng-href="{{UserCenterEndpoint.endpoint}}" class="user-center-dropdown-text" ng-bind="i18n.console_term_userCenter_label"></a>-->
+                        <!--</li>-->
+                        <li class="dropdown-menu-li-height">
+                            <a href="" ng-click="meeting_logout()">
+                                <span class="user-center-dropdown-text" ng-bind="i18n.console_term_back_button" ></span>
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+
+
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    $(function () {
+        "use strict";
+        $(".menu-body").each(function(index,element){
+
+        });
+        $(".dropdown-menu").on("click", "[data-stopPropagation]", function (e) {
+            $(".frame-dropdown-tinyTip").remove();
+            e.stopPropagation();
+        });
+
+        //deal drop down menu click event
+        $(document).on('click.bs.dropdown.data-api', '[data-toggle="dropdown"]', function () {
+            var $this = $(this);
+            if ($this.is('.disabled, :disabled')) {
+                return;
+            }
+            clearMenu();
+            var $parent = getParent($this);
+            if (!$parent.hasClass('menu-dropdown')) {
+                return;
+            }
+            var isActive = $parent.hasClass('open');
+            if (isActive) {
+                $($parent.children()[0]).css("display", "none");
+                $($parent.children()[1]).css("display", "inline-block");
+            } else {
+                $($parent.children()[0]).css("display", "inline-block");
+                $($parent.children()[1]).css("display", "none");
+            }
+        });
+
+        //deal hover menu event
+        $(document).on('mouseenter.bs.dropdown.data-api','.menu-table .menu-table-list',function(){
+            var $this = $(this);
+            if($($this.children()[1]).find("li").length>6){
+                $($this.children()[1]).find("div").css("width","600px");
+                $($this.children()[1]).find("ul.left-list").css("border-right","1px solid #ffffff");
+            }else{
+                $($this.children()[1]).find("div").css("width","290px");
+            }
+            $($this.children()[0]).addClass("menu-header-word-in");
+            $($this.children()[1]).css("display","block");
+        });
+        $(document).on('mouseleave.bs.dropdown.data-api','.menu-table .menu-table-list',function(){
+            var $this = $(this);
+            $($this.children()[0]).removeClass("menu-header-word-in");
+            $($this.children()[1]).css("display","none");
+        });
+
+        $(document).on('click.bs.dropdown.data-api', clearMenu);
+
+        function clearMenu() {
+            $('[data-toggle=dropdown]').each(function () {
+                if (getParent($(this)).hasClass('menu-dropdown')) {
+                    if ($(this).hasClass('console-topbar-btn-click')) {
+                        $(this).css("display", "none");
+                    } else {
+                        $(this).css("display", "inline-block");
+                    }
+                }
+            })
+        }
+
+        function getParent($this) {
+            var selector = $this.attr('data-target');
+            if (!selector) {
+                selector = $this.attr('href');
+                selector = selector && /#[A-Za-z]/.test(selector) && selector.replace(/.*(?=#[^\s]*$)/, '');
+            }
+            var $parent = selector && $(selector);
+            return $parent && $parent.length ? $parent : $this.parent()
+        }
+    });
+</script>

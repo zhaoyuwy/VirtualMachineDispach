@@ -1,0 +1,269 @@
+@import "variables.less";
+@import "mixins.less";
+
+.tiny-datetime-enableclass {
+  display: inline-block;
+  position: relative;
+  background-color: @input-bg;
+  .box-shadow(@input-box-shadow);
+  border: 1px solid @input-border;
+  border-radius: @input-border-radius;
+  height: @input-height-base;
+  line-height: @input-height-base - 2;
+  .box-sizing(border-box);
+}
+
+.tiny-datetime-input {
+  border: 0;
+  font-size: @datetime-input-font-size;
+  outline: none;
+  height: @input-height-base - 1;
+  line-height: @input-height-base - 1;
+  background-color: transparent;
+  color: @input-color;
+  padding-left: @input-padding-horizontal;
+  font-family: "Microsoft Yahei";
+  .box-sizing(border-box);
+}
+.tiny-datetime-calendarimage {
+  font-size: 15px;
+  color: @datetime-theme-color;
+  line-height:22px;
+}
+.tiny-datetime-container-disable .tiny-datetime-calendarimage {
+  color: #BCBCBC;
+}
+.tiny-ui-datepicker .ui-datepicker-prev span, .tiny-ui-datepicker .ui-datepicker-next span {
+  display: block;
+  position: absolute;
+  left: 60%;
+  margin-left: -8px;
+  top: 62%;
+  margin-top: -8px;
+  font-size: 12px;
+  color: @datetime-theme-color;
+  line-height:12px;
+}
+.tiny-time-upbtn {
+  float: right;
+  cursor: pointer;
+  margin-right: 4px;
+  margin-top: 4px;
+  .triangle-up(8px;5px;@datetime-theme-color);
+}
+
+.tiny-time-downbtn {
+  float: right;
+  cursor: pointer;
+  margin-right: 4px;
+  margin-top: 4px;
+  .triangle-down(8px;5px;@datetime-theme-color);
+}
+
+.tiny-datetime-container-disable .tiny-time-upbtn{
+  .triangle-up(8px;5px;#BCBCBC);
+}
+.tiny-datetime-container-disable .tiny-time-downbtn{
+  .triangle-down(8px;5px;#BCBCBC);
+}
+
+.downbtn {
+  display: inline-block;
+  margin-bottom: 2px;
+  .triangle-down(8px;4px;#AAA);
+}
+.upbtn {
+  display: inline-block;
+  margin-bottom: 2px;
+  .triangle-up(8px;4px;#1C73A9);
+}
+
+.tiny-time-container {
+  border: 1px solid @input-border;
+  margin-top: 7px;
+  float: left;
+  margin-left: 5px;
+  margin-bottom: 8px;
+  width: 100px;
+  height: @datetime-time-height-base - 2;
+  border-radius: @input-border-radius;
+  .box-sizing(content-box);
+}
+.tiny-datetime-container-disable {
+  background-color : @input-bg-disabled !important;
+}
+.tiny-timet-container {
+  .box-shadow(@input-box-shadow);
+  border: 1px solid @input-border;
+  border-radius: @input-border-radius;
+  display: inline-block;
+  height: @time-height-base;
+  background-color: @input-bg;
+  position: relative;
+  .box-sizing(border-box);
+}
+.tiny-time-editor {
+  width : 82px;
+  float: left;
+  overflow: hidden;
+  padding-left: 5px;
+  font-size: @datetime-input-font-size;
+  .box-sizing(content-box);
+}
+.tiny-timet-editor {
+  float: left;
+  padding-left: @input-padding-horizontal;
+  height: 100%;
+  .box-sizing(border-box);
+}
+.tiny-timet-inputs {
+  height: 100%;
+}
+.tiny-timet-inputs .tiny-time-input {
+  height:100%;
+}
+.tiny-time-input {
+  width: 20px;
+  height: 24px;
+  border: 0;
+  text-align: center;
+  outline: none;
+  background-color: transparent;
+  color: @input-color;
+  ime-mode:disabled;
+}
+.tiny_timet_btn {
+  height: 100%;
+  width: 17px;
+  float: right;
+  cursor: pointer;
+  border-radius: 0 @input-border-radius @input-border-radius 0;
+  &:hover{
+    background-color: @spinner-btn-bg-color-hover;
+  }
+}
+.tiny-timet-upbtn{
+  height: 50%;
+  border-radius: 0 @input-border-radius 0 0;
+  &:hover{
+    background-color: @icon-bg-color-hover;
+  }
+}
+.tiny-timet-downbtn{
+  height: 50%;
+  border-radius: 0 0 @input-border-radius 0;
+  &:hover{
+    background-color: @icon-bg-color-hover;
+  }
+}
+.tiny-timet-up-arrow{
+  .triangle-up(8px;5px;@theme-color);
+  position: absolute;
+  right: 5px;
+  top: (@time-height-base/2 - 5)/2;
+}
+.tiny-timet-down-arrow{
+  .triangle-down(8px;5px;@theme-color);
+  position: absolute;
+  right: 5px;
+  bottom: (@time-height-base/2 - 5)/2;
+}
+.tiny-datetime-container-disable{
+  .tiny-timet-up-arrow{
+    .triangle-up(8px;5px;#BCBCBC);
+  }
+  .tiny-timet-down-arrow{
+    .triangle-down(8px;5px;#BCBCBC);
+  }
+  .tiny_timet_btn{
+    cursor:default;
+  }
+  .tiny_timet_btn,.tiny-timet-upbtn,.tiny-timet-downbtn{
+    &:hover{
+      background-color: @input-bg-disabled;
+    }
+  }
+  .ui-datepicker-trigger{
+    cursor:default;
+  }
+  .ui-datepicker-trigger:hover .tiny-datetime-calendarimage{
+    color:#BCBCBC;
+  }
+}
+
+.tiny-ui-datepicker table {
+  width: 100%;
+  font-size: @datetime-input-font-size;
+  border-collapse: collapse;
+}
+#ui-datepicker-div {
+  width: 255px;
+  font-size: @datetime-input-font-size;
+  color: black;
+  border: 1px solid #c6c6c6;
+  border-radius: 5px;
+  background-color: #fff;
+  .box-sizing(content-box);
+}
+.tiny-ui-state-default, .tiny-ui-widget-content .tiny-ui-state-default, .tiny-ui-widget-header .tiny-ui-state-default {
+  background: #ffffff;
+  color: #666666;
+  text-align: center;
+  line-height: 24px;
+  font-size: @datetime-input-font-size;
+  font-family: @datetime-content-font-family;
+}
+.ui-datepicker-current-day {
+  background-color: @datetime-content-active-color;
+  color: #ffffff;
+  text-align: center;
+  line-height: 24px;
+}
+.tiny-ui-datepicker td a:hover {
+  background-color: @datetime-content-hover-color;
+}
+.tiny-ui-datepicker .ui-datepicker-title div.tiny_Date_Select_Year li.tiny-datepicker-selected-yearmonth,
+.tiny-ui-datepicker .ui-datepicker-title div.tiny_Date_Select_Month li.tiny-datepicker-selected-yearmonth {
+  color:#fff;
+  background-color:@datetime-content-active-color;
+}
+.tiny-ui-datepicker
+.ui-datepicker-title div li:hover {
+  color: #fff;
+  background: @datetime-content-hover-color;
+}
+.tiny-ui-datepicker .ui-datepicker-title div li:active {
+  background-color: @datetime-content-active-color;
+  color: #fff;
+}
+.tiny-datetime-btn-wrapper .tiny-datetime-clear-btn,
+.tiny-datetime-btn-wrapper .tiny-datetime-confirm-btn{
+  height: 24px;
+}
+.ui-datepicker-trigger{
+  display: inline-block;
+  width: 22px;
+  cursor: pointer;
+}
+.tiny-datepicker-title-head:hover{
+  .ui-datepicker-month,.ui-datepicker-year,.ui-datepicker-year-name{
+    color: @icon-color-hover;
+  }
+} 
+.ui-datepicker-trigger:hover .tiny-datetime-calendarimage {
+  color: @icon-color-hover;
+}
+.tiny-datepicker-title-head:hover .downbtn{
+  border-top: 4px solid @icon-color-hover;
+}
+.ui-datepicker-prev,.ui-datepicker-next{
+  &:hover{
+    background-color: @icon-bg-color-hover;
+    border-radius: 3px;
+  }
+}
+.tiny-ui-title-expand .tiny-datepicker-title-head{
+  .ui-datepicker-month,.ui-datepicker-year,.ui-datepicker-year-name{
+    color:@icon-color-hover;
+  }
+}

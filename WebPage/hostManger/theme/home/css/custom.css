@@ -1,0 +1,266 @@
+#W3AppTop_Header .W3AppTop_Header_w3logo_app{ float:left; width: 423px;height: 87px;background:url(../images/back-logo.png); margin-top:18px;margin-left:-5px;position:absolute;z-index:1}
+.W3AppTop_Header_title_app{display:none}
+.W3AppTop_Header_title_app{float:left; width:auto;font-size:16px;text-align:left; font-weight:bold; padding-top:18px; color:#fff;}
+#W3AppTop_Container{margin:0px auto;color:#000;font-family:arial,verdana,tahoma;font-size:12px; margin:0px; padding:0px; text-align:center; background-color: #f3f3f3; border-bottom:3px solid #cf0000;} 
+html{color:#888;background-color:#fafeff;}
+#W3AppTop_Header{width:100%; margin:0 auto; padding-bottom:5px;} 
+
+/* @skin 【font-family:; font-size: ; color:;蓝色主题默认字体，字体大小，字体颜色】 */
+body,td, textarea, input, span, select, div,samp,a,th {font-family:"Microsoft yahei";
+	/*font-size: 12px;*/
+	/*color:#424244;*/
+}
+
+body {font-family:"Microsoft yahei"; font-size: 12px; color:#424244;background-color: #fff;}
+img{border:0;margin-left: 4px;margin-top: 6px;margin-right: 2px;margin-bottom: -2px;}
+/**************************************/
+/* @skin background-color:默认按钮背景颜色 按钮font-size:font-weight:字体设置 */
+.jalor-button{
+	/* background:url(images/ver_bg.png) repeat-x 0px -307px; */
+	background-color: #fff;
+    color: #ababab;
+    border: solid 1px #2d91cc;
+    cursor: pointer;
+    border-radius: 0px;
+    display: inline-block;
+    height: 25px;
+    line-height: 25px;
+    min-width: 65px;
+    text-align: center;
+    margin-left: 5px;
+    padding: 0px;
+    font-size: 12px;
+    font-weight: normal;
+    /* vertical-align: bottom; */
+    margin: 5px 5px;
+    border-radius: 5px;
+	/* vertical-align:bottom; */
+	
+}
+input[type='button'], input[type='reset']{height: 25px;line-height: 25px;}
+.showClew{
+	margin-left:15px;
+	margin-right:15px;
+	margin-bottom:5px;
+}
+/* @skin background-color:按钮悬停背景颜色 */
+/* .jalor-button:hover,.jalor-button.default:hover{
+    background-position: center -351px;
+  background-color:#2d91cc;;
+    border-color:#2d91cc;
+    color: #fff;
+} */
+.jalor-button label{
+	margin-right: 15px;
+	margin-left: 1px;
+	cursor: pointer;
+}
+li.jalor-form-row .jalor-form-input  .jalor-button label{ 
+    display:inline-block;
+    overflow:visible;    
+}
+
+/* @skin background-color:默认触发按钮背景颜色 */
+.jalor-button.default{
+	/* background-position: center -327px; */
+	
+     background-color:#2d91cc;
+    border-color:#2d91cc;
+    color: #fff;
+}
+.jalor-button:hover, .jalor-button.default:hover{ background-color:#2d91cc;border: 1px solid #2d91cc;color:#fff;}
+/* @skin background-color:默认按钮背景颜色 */
+input[type='button'],input[type='reset']{
+    margin-left:5px;
+}
+
+/***************************************************************New UI For Footer********************************************************/
+/*********************** foot 样式处理 ****************/
+#W3Appfooter {width:100%;height:40px; border-top:#ccc 1px solid;background-color:#BDBDBD;}
+.W3Appfooter_center{width:100%; height:40px; margin:5px auto 0px auto;}
+.W3Appfooter_content{line-height:40px; padding:0px 10px;color:#616161;text-align: center}
+.W3Appfooter_content ul{margin:0px; padding:0px; float:right;}
+.W3Appfooter_content li{display:inline;}
+.W3Appfooter_content li a{ text-decoration:none;color:#616161;}
+.W3Appfooter_content li a:visited{ text-decoration:none;color:#616161;}
+.W3Appfooter_content li a:hover{ text-decoration:underline;}
+#W3Appfooter_center_div{
+	background-image: none;
+}
+
+#c_layout
+{
+	width:100%;
+	margin: 0px auto 0px auto;
+	border:0px solid #e9eef4;
+}
+
+
+/***************************************************************/
+/************************************ validate *******************************/
+label.error {
+/* 		color:red;
+		margin-left:2px;
+		font-style: italic; */
+		position:absolute;
+		top:300px; left:300px;
+		display:block;
+		z-index:900;
+		
+
+        background: #CCFFCC;
+		box-shadow: 0px 0px 4px #000;
+		-moz-box-shadow: 0px 0px 4px #000;
+		-webkit-box-shadow: 0px 0px 4px #000;
+		padding:3px 6px;
+		/* border-radius: 4px;
+		-moz-border-radius: 4px;
+		-webkit-border-radius: 4px; */
+		filter: alpha(opacity=80);
+        opacity: 0.80;
+        _width:150px;
+        white-space: normal !important;
+        max-width:400px;
+        min-width:100px;
+        overflow: visible !important;
+        word-break:break-all !important;
+        min-height:16px;
+        line-height: 16px !important;
+        width:auto !important;
+}
+label.error span.light{
+	color:#fff;
+	font-weight: bold;
+}
+input.error,textarea.error,select.error
+{
+	background-color: #ccffcc;
+	border-color:#2d91cc;
+	
+}
+
+/* @skin new grid表头图标边框 */
+.jalor-igrid-thead .grid-cell.sort:hover .g-sort,
+.jalor-igrid-thead .grid-cell.sort .g-sort.desc,
+.jalor-igrid-thead .grid-cell.sort .g-sort.asc,
+.jalor-igrid-thead .grid-cell.filter .g-sort.asc,
+.jalor-igrid-thead .grid-cell.filter .g-sort.desc,
+.jalor-igrid-thead .grid-cell.filter div.g-sort
+{	
+	border: 1px solid #2d91cc;
+}
+
+/***************************页头字体背景颜色*************/
+.W3AppTop_gray_Bar_Content li a:link,.W3AppTop_gray_Bar_Content li a:visited{color: #424244; text-decoration:none; line-height:18px;} 
+.W3AppTop_gray_Bar_Content li a:hover{ text-decoration:none; color: #fff;background-color: #2d91cc;}
+.W3AppTop_gray_Bar_Content .W3AppTop_li {padding-left: 5px; float:left; position: relative;display: inline-block;height:15px;margin-top: 15px;}
+.W3AppTop_user {height: 100%;overflow:hidden;_overflow:visible;max-width: 200px;padding-right: 0px;display: initial;}
+
+.W3AppTop_role span{color:#fff;}
+.w3AppTop_arrow_down {
+display:none;
+position: absolute;
+right: 0;
+top: 7px;
+width: 8px;
+height: 6px;
+cursor: pointer;
+margin-left: 8px;
+}
+/* jalor5 新增*/
+#W3AppTop_Header_right{position: relative;float:right;max-width:300px;margin-top: -60px;height: 30px;}
+
+/*上传文件提示语字体颜色*/
+/* @skin new 警告 */
+.msg-warn
+{
+	background-color:#fff9e2;
+	border:1px solid #f8de90;
+	color:#2d91cc;
+}
+.msg-warn span
+{
+	color:#2d91cc;
+}
+
+/*@skin 搜索无条件文字样式*/
+.jalor-pager .jalor-pager-text
+{
+	font-weight:bold;
+	text-align:center;
+	color:#2d91cc;
+}
+
+/* @skin 新增 */
+.jalor-grid
+{
+	margin-top: 0px;
+	float: left;
+	width: 100%;
+}
+ .jalor-form {
+    height: auto;
+    margin-bottom:5px;
+    font-size:0px\0;
+  	padding: 0px;
+}
+
+.jalor-igrid-body
+{
+    overflow-y:auto;
+    overflow-x:hidden;
+ 	position: relative;
+	margin-top:-1px;
+	z-index:1;
+	background-color:#fff;
+}
+
+input.custom-calendar
+{
+	width:136px;
+	padding-left:20px; 
+	background:#FAFCFD url('../images/rili.png') no-repeat 0 0;
+}
+
+input.jalor-calendar
+{
+	width:136px;
+	padding-left:20px; 
+	background:#FAFCFD url('../images/rili.png') no-repeat 0 0;
+}
+
+#loading_msg {
+	z-index: 9000;
+	border:#2d91cc 1px solid;
+	background-color: #fff;
+	position:absolute;
+	border-top:#2d91cc 1px solid;
+	border-bottom:#2d91cc 1px solid;
+}
+
+span{
+	word-break:break-all;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+
+}
+
+.jalor-igrid-wrap td.grid-cell
+{
+ word-break:break-all;
+ white-space:nowrap;
+ overflow:hidden;
+ text-overflow:ellipsis;
+
+}
+
+.jalor-igrid-tbody tr.igrid-actived {
+	background-color: #d3edfa;
+}
+
+.jalor-igrid-tbody tr.grid-row:hover
+{ 
+	background-color:#d3edfa;
+}
+#foot_div{display: none;}

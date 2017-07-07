@@ -1,0 +1,32 @@
+<style>
+    #myTabs{
+        font-family: "Helvetica Neue55", Arial, Helvetica, sans-serif;
+    }
+
+</style>
+<div id="myTabs" class="tiny-tabs-container" style="width:100%;" >
+    <div class="tiny-tabs-content">
+        <div id="tabs-1">
+            <div  style="width:100%;">
+                <div class="row">
+
+                    <div class="mainTitle page-header" style="text-align:center;">管理用户的系统管理页面</div>
+
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>
+
+<script>
+    require(["tiny-widgets/Tabs"], function (Tabs) {
+        var tabs = new Tabs({
+            "id": "myTabs",
+            "setActiveClass": false
+        });
+    });
+</script>

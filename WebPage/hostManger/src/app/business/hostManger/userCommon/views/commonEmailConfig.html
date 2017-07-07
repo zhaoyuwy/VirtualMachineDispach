@@ -1,0 +1,49 @@
+<style>
+    #myTabs{
+        font-family: "Helvetica Neue55", Arial, Helvetica, sans-serif;
+    }
+
+</style>
+<div id="myTabs" class="tiny-tabs-container" style="width:100%;" >
+    <div class="tiny-tabs-content">
+        <div id="tabs-1">
+            <div  style="width:100%;">
+                <div class="row">
+
+                    <div class="mainTitle page-header" style="text-align:center;">{{list}}</div>
+
+                    <ti-table class="containerStyle" displayed-data="displayed" src-data="environmentData" columns="emailColumns">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th ng-repeat="column in emailColumns" width="{{column.width}}">{{column.title}}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <!--注意:ng-repeat中的displayed数据与displayed-data传入的数据一致,在scope中初始化设置为[]即可-->
+                            <!--为了更好的渲染性能，建议在ng-repeat数据时总是track by数据条目中的某个唯一属性值(如id)-->
+                            <tr ng-repeat="row in emailData.data">
+                                <td>{{row.email_Info}}</td>
+                                <td>{{row.email_name}}</td>
+                                <td><a style="margin-right:30px;"><span>test</span></a><a><span>保存</span></a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </ti-table>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>
+
+<script>
+    require(["tiny-widgets/Tabs"], function (Tabs) {
+        var tabs = new Tabs({
+            "id": "myTabs",
+            "setActiveClass": false
+        });
+    });
+</script>

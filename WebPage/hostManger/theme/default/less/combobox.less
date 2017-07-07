@@ -1,0 +1,122 @@
+@import "variables.less";
+@import "mixins.less";
+
+.tiny-combobox-popbutton{
+    position: relative;
+    float: right;
+    width: 25px;
+    height: 100%;
+    border-radius: 0 4px 4px 0;
+}
+
+/*基于客户换肤方便，分页控件定制了这个样式类。因此，修改这个样式类时需要同步排查分页控件*/
+.tiny-combobox-container {
+    height: @input-height-base;
+    line-height: @input-height-base - 2;
+    border: 1px solid @input-border;
+    border-radius: @input-border-radius;
+    background: @input-bg;
+    box-shadow: 1px 1px 1px #fff,inset 1px 1px 1px rgba(0,0,0,0.1);
+    .box-sizing(border-box);
+}
+
+.tiny-combobox-popbutton:before {
+    content: "";
+    height: 0;
+    width: 0;
+    border-top: 5px solid #999;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+    position: absolute;
+    top: 42%;
+    right: 9px;
+}
+
+.tiny-combobox-editor {
+  margin: 0;
+  border: 0;
+  float: left;
+  overflow: hidden;
+  padding-left: @input-padding-horizontal;
+  font-size: 12px;
+  height: @input-height-base - 2;
+  resize: none;
+  .box-sizing(border-box);
+}
+
+/*基于客户换肤方便，分页控件定制了这个样式类。因此，修改这个样式类时需要同步排查分页控件*/
+.tiny-combobox-input {
+    outline: none;
+    box-shadow: none;
+    border: 0;
+    background-color: transparent;
+    color: @input-color;
+    width: 100%;
+    height: 100%;
+    line-height: @input-height-base - 2;
+    text-overflow: ellipsis;
+}
+
+.tiny-combobox-disable {
+    background-color: @input-bg-disabled;
+    color: @input-color-disabled;
+}
+
+.tiny-combobox-container-focus {
+    border: 1px solid @input-focus-border;
+}
+
+.tiny-combobox-popup-container {
+    z-index: 10002;
+    position: absolute;
+    background: white;
+    display: none;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border: 1px solid @input-focus-border;
+    border-bottom-left-radius: @input-border-radius;
+    border-bottom-right-radius: @input-border-radius;
+    .box-sizing(border-box);
+}
+
+/**
+ * 针对下拉选项样式规则的修改，必须要测试在火狐31版本（或较早）中下拉框的滚轮操作是否正常
+ */
+.tiny-combobox-option {
+    color: @input-color;
+    background-color: inherit;
+    list-style: none;
+    padding-left: @input-padding-horizontal;
+    cursor: default;
+    height: @input-height-base;
+    line-height: @input-height-base;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.tiny-combobox-popup-container-up {
+    border-radius: @input-border-radius @input-border-radius 0 0;
+}
+
+.tiny-combobox-container-pop-down {
+    border-color: @input-focus-border @input-focus-border transparent @input-focus-border !important;
+    border-bottom-left-radius: 0!important;
+    border-bottom-right-radius: 0!important;
+}
+
+.tiny-combobox-container-pop-up {
+    border-color: transparent @input-focus-border @input-focus-border @input-focus-border !important;
+    border-top-left-radius: 0!important;
+    border-top-right-radius: 0!important;
+}
+
+.tiny-combobox-option-selected {
+    color: #08c;
+    background-color: #F1F1F1;
+}
+
+.tiny-combobox-option-default-selected {
+    color: #08c;
+    background-color: #F1F1F1;
+}

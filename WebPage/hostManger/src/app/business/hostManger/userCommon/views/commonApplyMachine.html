@@ -1,0 +1,133 @@
+<style>
+    #myTabs{
+        font-family: "Helvetica Neue55", Arial, Helvetica, sans-serif;
+    }
+
+    .content_left {
+        display: inline-block;
+        width: 15%;
+        position: absolute;
+        top: 61px;
+        left: 222px;
+        bottom: 0;
+        min-height: 600px;
+        overflow: auto;
+        /*border: 1px solid #61105e*/
+        background:#FdFdFd;
+        padding:10px 0 0 5px;;
+
+    }
+
+    .content_right {
+        display: inline-block;
+        width: 70%;
+        position: absolute;
+        top: 80px;
+        left: 28%;
+        bottom: 0;
+
+    }
+    .blank {
+        width: 100%;
+        height: 30px;
+    }
+
+    .radio_group{
+        margin-bottom:30px;
+    }
+
+    .mawizard{
+        /*overflow: visible;*/
+    }
+    .keright{
+        display: inline-block;
+    }
+    /*button.glyphicon-plus{*/
+    /*float: right;*/
+    /*position:relative;*/
+    /*right:-20px;*/
+    /*top:40px;*/
+    /*}*/
+
+
+</style>
+<div id="myTabs" class="tiny-tabs-container" style="width:100%;" >
+    <div class="tiny-tabs-content">
+        <div id="tabs-1">
+            <!--左侧的树-->
+            <div class="content_left">
+                <div>
+                    <tiny-tree id="trees.id"
+                               setting="trees.setting"
+                               values="trees.values">
+                    </tiny-tree>
+                </div>
+                <div class="blank">
+
+                </div>
+            </div>
+
+
+            <div class="content_right">
+                <div class="row">
+                    <!--提示文本-->
+                    <ti-alert type="type1"
+                              show="show"
+                              type-icon="typeIcon"
+                              close-icon="closeIcon"
+                              dismiss-on-timeout="dismissOnTimeout">{{label1}}</ti-alert><br>
+
+                    <div class="radio_group">
+                        <ti-btn-radio-group items="selectModel.values" selected-id="selectModel.selectedId" change="selectModel.change">
+                        </ti-btn-radio-group>
+
+                    </div>
+
+                    <!--向导-->
+                    <div class="mawizard">
+                        <div id="tinyplus-wizard-demo">
+                            <ul class="tinyplus-wizard-steps">
+                                <li ng-repeat="step in steps" class="{{step.state}}">
+                                    <span class="tinyplus-step-title">{{step.title}}</span>
+                                    <div class="tinyplus-step-icon"></div>
+                                </li>
+                            </ul>
+
+
+                            <div class="widget-box">
+                                <div ng-repeat="step in steps" ng-include="step.templateUrl" ng-show="currentStep-1 == $index"></div>
+                            </div>
+                            <div class="wizard-actions">
+                                <!--<span ng-if="currentStep !== 1"> <tiny-button click="stepBackward()" text="stepWardmodel.previousTxt"></tiny-button> </span>-->
+                                <span ng-if="currentStep < steps.length"> <tiny-button click="stepForward()" text="stepWardmodel.nextTxt"></tiny-button> </span>
+                                <span ng-if="currentStep == steps.length"> <tiny-button click="finish()" text="stepWardmodel.finishTxt"></tiny-button></span>
+                                <span> <tiny-button  click="buttonCancel()"text="stepWardmodel.cancelTxt"></tiny-button> </span>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                    <div style="height:60px;"></div>
+
+                </div>
+            </div>
+
+
+
+
+        </div>
+
+    </div>
+</div>
+</div>
+
+<script>
+    require(["tiny-widgets/Tabs"], function (Tabs) {
+        var tabs = new Tabs({
+            "id": "myTabs",
+            "setActiveClass": false
+        });
+    });
+</script>

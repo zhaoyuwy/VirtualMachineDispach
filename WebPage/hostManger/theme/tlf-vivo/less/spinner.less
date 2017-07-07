@@ -1,0 +1,95 @@
+@import "variables.less";
+@import "mixins.less";
+
+.tiny-spinner-container {
+  position: relative;
+	border: 1px solid @input-border;
+	border-radius: @input-border-radius;
+	.box-shadow(@input-box-shadow);
+	background-color: rgb(255, 255, 255);
+	height: @input-height-base;
+	width: 200px;
+	.box-sizing(border-box);
+}
+.tiny-spinner-container-focus {
+	border: 1px solid @input-focus-border;
+}
+.tiny-spinner-editor {
+  float: left;
+  padding: @input-padding-vertical 0 @input-padding-vertical @input-padding-horizontal;
+  width: 181px;
+  .box-sizing(border-box);
+}
+
+.tiny-spinner-input {
+  width: 100%;
+  border: 0;
+  outline: none;
+  height: @input-height-base - 2 - @input-padding-vertical*2;
+  line-height:@input-height-base - 2 - @input-padding-vertical*2;
+  color: @input-color;
+  background-color: @input-bg;
+  ime-mode: disabled;
+}
+
+.tiny-spinner-btn {
+    height: 100%;
+    width: 17px;
+    float: right;
+    cursor: pointer;
+    border-radius: 0 @input-border-radius @input-border-radius 0;
+    &:hover{
+      background-color: @spinner-btn-bg-color-hover;
+    }
+}
+
+.tiny-spinner-upbtn {
+  height: 50%;
+  border-radius: 0 @input-border-radius 0 0;
+  &:hover{
+    background-color: @icon-bg-color-hover;
+  }
+}
+.tiny-spinner-up-arrow {
+  .triangle-up(8px;5px;@theme-color);
+  position: absolute;
+  right: 5px;
+  top: (@input-height-base/2 - 5)/2;
+}
+
+.tiny-spinner-downbtn{
+  height: 50%;
+  border-radius: 0 0 @input-border-radius 0;
+  &:hover{
+    background-color: @icon-bg-color-hover;
+  }
+}
+
+.tiny-spinner-down-arrow {
+  .triangle-down(8px;5px;@theme-color);
+  position: absolute;
+  right: 5px;
+  bottom: (@input-height-base/2 - 5)/2;}
+
+.tiny-spinner-container-disabled{
+	background-color: @input-bg-disabled;
+	.tiny-spinner-btn{
+	  cursor:default;
+	}
+	.tiny-spinner-btn,.tiny-spinner-upbtn,.tiny-spinner-downbtn{
+	  &:hover{
+	    background-color: @input-bg-disabled;
+	  }
+	}
+	
+}
+.tiny-spinner-container-disabled .tiny-spinner-up-arrow{
+  .triangle-up(8px;5px;#BCBCBC);
+}
+.tiny-spinner-container-disabled .tiny-spinner-down-arrow{
+  .triangle-down(8px;5px;#BCBCBC);
+}
+.tiny-spinner-input-disabled {
+	background-color: @input-bg-disabled;
+	color: @input-color-disabled;
+}

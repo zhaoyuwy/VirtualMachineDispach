@@ -1,0 +1,112 @@
+define([], function() {
+    var widgetsLanguage = {
+        locale : {
+            NUMBER_FORMATS : {
+                DECIMAL_SEP : ".",
+                GROUP_SEP : ","
+            }
+        },
+
+        noDataLineplot : "No data available.",
+        gotoTitleText : "Go",
+        nextTitleText : "Next",
+        prevTitleText : "Previous",
+        totRecText    : "Total Records: ",
+        promptTitle : "Information",
+        errorTitle : "Error",
+        warnTitle : "Warning",
+        confirmTitle : "Confirm",
+        systemNoticeTitle : "System Notice",
+        detailMsgHeading : "Details",
+        okBtnTitile : "OK",
+        cancelBtnTitile : "Cancel",
+        yesBtnTitile : "Yes",
+        noBtnTitile : "No",
+        uploadFile:"upload:",
+        beginUpload:"OK",
+        uploading:"Uploading...",
+        uploadSuccess:"Upload successful.",
+        del:"Delete",
+        uploadFail:"Upload failed.",
+        uploaded:"Uploaded",
+        moreTitle : "More",
+        operate : "Operation",
+        //FileUpload
+        selectFileTip:"Select File",
+        title : 'File Upload:',
+        upload : "Upload",
+        selectFile : "Add File",
+        totalProgress : "Total Upload Progress:", 
+        uploadProgress : "Uploaded",
+        totalSize : "Total Size",
+        uploadWaiting:"(Waiting...)",
+        multiFailed:"(Uploading failed!)",
+        reload : "Reload",
+        multiFailed : "(Upload failed. Check connection to server.)",
+        regional : { 
+            okBtn: "OK",
+            clearBtn: "Clear",
+            closeText: "Done",
+            prevText: "Prev",
+            nextText: "Next",
+            currentText: "Today",
+            monthNames: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+            monthNamesShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+            dayNames: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            dayNamesShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+            dayNamesMin: ["Su","Mo","Tu","We","Th","Fr","Sa"],
+            weekHeader: "Wk",
+            dateFormat: "mm/dd/yy",
+            firstDay: 0,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: ""
+        },
+        selectAll: "All",
+        comboboxTip: "Enter a keyword...",
+        comboboxNoSearch: 'No results found.',
+        //table language
+        emptyTable: "No data available.",
+        colVisRestore: "Restore original",
+        colVisText: "Show/hide columns",
+        //UnifyValid
+        unifyValid : {
+            "required" : "This field cannot be left blank.",
+            "maxSize" : "Enter a maximum of {0} characters.",
+            "minSize" : "Enter at least {0} characters.",
+            "rangeSize" : "Enter {0} to {1} characters.",
+            "maxValue" : "Enter a value less than or equal to {0}.",
+            "minValue" : "Enter a value greater than or equal to {0}.",
+            "rangeValue" : "Enter a value from {0} to {1}.",
+            "regularCheck" : "Invalid value.",
+            "notContains" : "The value cannot contain the following invalid characters: {0}.",
+            "checkScriptInfo" : "The value cannot contain script tags.",
+            "equal" : "The value must be equal to {0}.",
+            "port" : "Enter an integer from 0 to 65535.",
+            "path" : "Enter a value conforming to the path format requirement.",
+            "email" : "Enter a valid email address.",
+            "date" : "Enter a valid date.",
+            "url" : "Enter a valid URL.",
+            "integer" : "Enter a valid integer.",
+            "number" : "Enter a valid number.",
+            "floatCheck" : "Enter a valid floating point number.",
+            "digits" : "Enter a valid number.",
+            "ipv4" : "Enter a valid IPv4 address.",
+            "ipv6" : "Enter a valid IPv6 address.",
+            "phoneNumber": {
+                "invalidNumber": "Enter a valid phone number.",
+                "tooShort":"The phone number is too short.",
+                "tooLong":"The phone number is too long."
+           }
+        },
+        preview: "Preview",
+        previousBtnTitle: "Previous",
+        nextBtnTitle: "Next",
+        finishBtnTitle: "Finish",
+        on: "ON",
+        off: "OFF",
+        // cirqueChart
+        noDataCirque : "No data available."
+  };
+    return widgetsLanguage;
+})

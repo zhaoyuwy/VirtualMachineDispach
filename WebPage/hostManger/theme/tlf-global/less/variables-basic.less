@@ -1,0 +1,302 @@
+//整体皮肤颜色，包括：dateTime/spinner/searchbox等蓝色按钮的色值
+@theme-color:#0af;
+@icon-color-hover:#3bf;
+@icon-bg-color-hover:#bde9ff;
+
+//form common
+@input-border : #c3c3c3;
+@input-border-radius:4px;
+@input-color:#666;
+@input-height-base:26px;
+@input-bg:#fff;
+@input-bg-disabled:#f3f3f3;
+@input-color-disabled:#999;
+@input-padding-vertical:2px;
+@input-padding-horizontal:8px;
+@input-focus-border:#3bf;
+@input-box-shadow:0 1px 1px 0px #f6f6f6 inset;
+
+//formValid variable
+@form-valid-input-border:#fc5043;
+@form-valid-input-bg:#fff;
+@form-valid-error-text-color:#333;
+
+// datetime variable
+@datetime-input-font-size:12px;
+@datetime-theme-color:@theme-color;
+@datetime-content-font-family:Helvetic Nene;//datetime select panel date font-family
+@datetime-content-active-color:#5ecc49;//datetime select panel date/month/year selected color
+@datetime-content-hover-color:#d2fbca;//datetime select panel date/month/year hover color
+@datetime-time-height-base:26px;
+@time-height-base:@input-height-base;
+
+// 下拉选择类下拉项效果变量 variable
+@select-item-hover-bg:#f1f1f1;
+@select-item-hover-color:#08c;
+@select-item-selected-bg:#f1f1f1;
+@select-item-selected-color:#08c;
+
+//button variable
+//button基础样式
+@btn-border-radius:6px;
+@btn-height:@input-height-base;
+@btn-without-icon-padding-horizon:20px;
+@btn-with-icon-padding-horizon:15px;
+@btn-blue-padding-horizon:@btn-without-icon-padding-horizon;
+@btn-red-padding-horizon:@btn-without-icon-padding-horizon;
+@btn-red-border-padding-horizon:@btn-red-padding-horizon;
+
+//1.白色按钮样式
+//1.1 normal状态样式
+@btn-border-default:#c3c3c3;//border边线颜色
+@btn-color-default:#000;//字体颜色
+//白色按钮渐变背景色
+.btn-bg-default{
+  background-color: #FbFbFb;
+  background-image:-webkit-linear-gradient(to bottom, #f7f7f7, #ffffff);
+  background-image:linear-gradient(to bottom, #f7f7f7, #ffffff);
+}
+
+//1.2 hover状态
+@btn-color-hover:#009ae7;
+@btn-border-hover:#c3c3c3;//border边线颜色
+//白色按钮hover渐变背景色：.btn-bg-hover
+.btn-bg-hover{
+  background-color: #FbFbFb;
+  background-image:-webkit-linear-gradient(to bottom, #f7f7f7, #ffffff);
+  background-image:linear-gradient(to bottom, #f7f7f7, #ffffff);
+}
+
+//1.3 active状态
+@btn-bg-active:#f0f0f0;//active状态背景色
+@btn-color-active:#000;//active状态字体颜色
+@btn-border-active:#c3c3c3;//active状态边线颜色
+
+//1.4 focus状态
+@btn-color-focus:#000;//focus状态字体颜色
+@btn-border-focus:#53B8EB;//focus状态边线颜色
+
+//1.5 disable状态
+@btn-border-disable:#C3C3C3;//disable状态边线颜色
+@btn-bg-disable:#ececec;//disable状态背景色
+@btn-color-disable:#999;//disable状态字体颜色
+
+//2.蓝色按钮样式
+//2.1 normal状态样式
+@btn-blue-bg-default:#33bbff;
+@btn-blue-border-default:#33bbff;//border边线颜色
+@btn-blue-color-default:#fff;//字体颜色
+
+//2.2 hover状态
+@btn-blue-bg-hover:#55c7ff;
+@btn-blue-border-hover:#55c7ff;
+
+//2.3 active状态
+@btn-blue-bg-active:#1bacf4;//active状态背景色
+@btn-blue-border-active:#1bacf4;//active状态边线颜色
+
+//2.4 focus状态  蓝色按钮focus状态颜色不变
+
+//2.5 disable状态
+@btn-blue-bg-disable:#cccccc;//disable状态背景色
+@btn-blue-border-disable:#cccccc;//disable状态边线颜色
+
+//3.红色按钮样式
+//3.1 normal状态样式
+@btn-red-bg-default:#E41E2B;
+@btn-red-border-default:#E41E2B;//border边线颜色
+@btn-red-color-default:#fff;//字体颜色
+
+//3.2 hover状态
+@btn-red-bg-hover:#F62633;
+@btn-red-border-hover:#F62633;
+
+//3.3 active状态
+@btn-red-bg-active:#E41E2B;//active状态背景色
+@btn-red-border-active:#E41E2B;//active状态边线颜色
+
+//3.4 focus状态  红色按钮focus状态颜色不变
+
+//3.5 disable状态
+@btn-red-bg-disable:#bbb;//disable状态背景色
+@btn-red-border-disable:#bbb;//disable状态边线颜色
+
+//4.红色重点突出按钮样式
+//4.1 normal状态样式
+@btn-red-border-bg-default:#fff;
+@btn-red-border-border-default:#e41e2b;
+@btn-red-border-color-default:#e41e2b;
+//4.2 hover状态样式
+@btn-red-border-bg-hover:@btn-red-bg-hover;
+@btn-red-border-border-hover:@btn-red-border-hover;
+@btn-red-border-color-hover:#fff;
+//4.3 active状态样式
+@btn-red-border-bg-active:@btn-red-bg-active;
+@btn-red-border-border-active:@btn-red-border-active;
+@btn-red-border-color-active:@btn-red-border-color-hover;
+//4.4 disable状态样式
+@btn-red-border-bg-disable:@btn-red-bg-disable;
+@btn-red-border-border-disable:@btn-red-border-disable;
+@btn-red-border-color-disable:@btn-red-border-color-hover;
+
+//accordion variable
+/*
+ * ----面板边线----
+ * 边线颜色：@panel-border-color
+ * 面板圆角弧度：@panel-border-radius
+ * ----面板头部----
+ * 头部背景色：@panel-heading-color
+ * 头部间距：@panel-heading-padding
+ * ----面板内容区----
+ * 面板内容区域背景色：@panel-bg
+ * 面板内容区域间距：@panel-body-padding
+ * ----面板间距----
+ * @panel-space-between
+ * 
+ */
+
+@panel-bg : #fff;
+@panel-border-radius : 4px;
+@panel-body-padding : 20px 15px;
+@panel-heading-padding : 8px 15px;
+@panel-border-color : #e5e5e5;
+@panel-heading-color : #f5f5f5;
+@panel-space-between : 10px;
+
+//slider variable
+@slider-border-radius:4px;//slider左右圆角
+@slider-bg:#E4E4E4;//slider背景色
+@slider-from-bg:#9592F0;//slider双滑块起始处背景色
+@slider-value-bg:#42CCEF;//slider值区域背景色
+@slider-tip-bg:#fff;//slider tip提示背景色
+@slider-tip-border:#c3c3c3;//slider tip提示边线颜色
+
+
+/* ---------------Layout控件样式设置----START-----------------------------------------------------*/
+
+@layout-header-background-color: #ccc; // 头部的背景颜色，通常在头部DOM中直接设定
+@layout-footer-background-color: #ccc; // 页脚的背景颜色，通常在DOM中直接设定
+@layout-container-background-color: #fafafa; // 右侧内容区域的背景颜色
+@layout-sidebar-background-color: #f5f5f5; // 左侧导航区域的背景颜色
+
+@layout-first-level-background-color: #f5f5f5; // 一级菜单的背景颜色
+@layout-first-level-font-size: 14px; // 一级菜单的字体大小
+@layout-second-level-background-color: #f5f5f5; // 二级菜单的背景颜色
+@layout-second-level-font-size: 14px; // 二级菜单的字体大小
+
+@layout-item-selected-background-color: #fafafa; // 点击某一菜单项时的背景颜色
+@layout-item-selected-text-color: #009ae7; // 点击某一菜单项时的文本颜色
+@layout-item-selected-border-left-color: #4ac9ff; // 点击某一菜单项时的左边框颜色
+
+@layout-collapse-icon-color: #00aaff; // 菜单展开按钮的颜色
+
+/* ----------------Layout控件样式设置----END------------------------------------------------------*/
+
+
+
+/* ---------------Message/Window控件样式设置----START---------------------------------------------*/
+
+@window-titleBar-height: 36px; // 弹出框头部的高度
+@window-content-background-color: #f5f5f5; // 弹出框的背景颜色(不包含头部)
+@window-content-text-color: #222;
+@window-border-radious: 5px;
+
+/* ----------------Message/Window控件样式设置----END----------------------------------------------*/
+
+
+
+/* ---------------Pagination控件样式设置----START-------------------------------------------------*/
+@tiny-Pagination-Btn-bg-Color:#fff;//分页各按钮默认背景色
+@tiny-Pagination-Prev-Next-Btn-bg-Color-Disable:#f3f3f3; //前后翻页按钮灰化状态背景色
+@tiny-Pagination-Prev-Next-Btn-Color-Disable:#bbb;//前后翻页箭头灰化状态按钮箭头颜色
+@tiny-Pagination-Prev-Next-Btn-Color:#4ad2ff;//前后翻页箭头颜色
+@tiny-Pagination-Prev-Next-Btn-Color-Hover:@tiny-Pagination-Prev-Next-Btn-Color;//前后翻页箭头hover颜色
+
+@pagination-height:26px;
+@tiny-Pagination-Link-Button-Border-Color: #e0e0e0; // 页码链接按钮默认边框颜色
+@tiny-Pagination-Link-Button-Border-Hover: #4ac9ff; // 页码链接按钮hover时的边框颜色
+@tiny-Pagination-Link-Button-Text-Hover: #4a97c6; // 页码链接按钮hover时的文本颜色
+
+@tiny-Pagination-Link-Selected-Border-Color: #00adf5; // 页码链接按钮选中时的边框颜色
+@tiny-Pagination-Link-Selected-Background-Color: @tiny-Pagination-Prev-Next-Btn-Color; // 页码链接按钮选中时的背景颜色
+@tiny-Pagination-Link-Selected-Text-Color: #fff; // 页码链接按钮选中时的文本颜色
+
+@tiny-Pagination-Goto-Button-Icon-Color: #00adf5; // 跳转按钮三角图标颜色
+@tiny-Pagination-Goto-Btn-Icon-Color-Hover: @tiny-Pagination-Goto-Button-Icon-Color; // 跳转按钮三角图标hover颜色
+
+/* ----------------Pagination控件样式设置----END--------------------------------------------------*/
+
+
+
+/* ------------------------Radio控件样式设置----START---------------------------------------------*/
+
+@radio-checked-color: @theme-color; // 选中状态时，按钮的颜色
+
+@radio-disable-background-color: #f3f3f3; // 不可用状态下，按钮区域的背景颜色
+
+// 可用状态下，鼠标hover时，按钮的边框颜色
+.radio-circle-hover{
+  border: 1px solid @theme-color;
+  box-shadow: 0 0 1px @theme-color;
+}
+
+/* -------------------------Radio控件样式设置----END----------------------------------------------*/
+
+
+
+/* ------------------------Table控件样式设置----START---------------------------------------------*/
+/*表头设置*/
+@table-colvis-config-icon-color: #21B5FF; // 表格列选择配置按钮的颜色
+@table-tHead-height: 25px; // 表头高度
+@table-tHead-text-color: #333; // 表头文本颜色
+@table-tHead-font-size: 12px; // 表头字体大小, 排序按钮的大小会根据该字体大小变化(0.4em)
+@table-tHead-bg:#ebebeb;//表头背景色
+@table-sorting-basic-color: #A9ACAD; // 非排序状态下排序按钮的颜色
+@table-sorting-active-color: #00adf5; // 排序状态下排序按钮的颜色
+
+/*表体设置*/
+@table-row-height: 29px; // 表体的行高
+@table-row-odd-background-color: #fdfdfd; // 奇数行的背景颜色，包括表格空数据时的背景颜色
+@table-row-even-background-color: #f3f3f3; // 偶数行的背景颜色
+@table-row-hover-background-color: #efd; // 表体鼠标hover时的背景颜色
+@table-row-click-background-color: #e5f9ff; // 表体鼠标点击后的背景颜色
+
+@table-detail-close-arrow-color: #16BF67; // 详情关闭状态箭头的默认颜色
+@table-detail-close-hover-arrow-color:@table-detail-close-arrow-color; // 详情关闭状态箭头的hover颜色
+@table-detail-open-arrow-color:@table-detail-close-arrow-color; // 详情展开状态箭头的颜色
+@table-detail-open-hover-arrow-color: @table-detail-close-arrow-color; // 详情展开状态箭头hover颜色
+@table-detail-background-color: #f5f5f5; // 详情展开内容区域的背景颜色
+
+/* ------------------------Table控件样式设置----END-----------------------------------------------*/
+
+
+
+/* -------------------------Tabs控件样式设置----START---------------------------------------------*/
+
+@tabs-active-background-color: #fafafa; // 选项在激活状态下的背景颜色
+@tabs-active-border-color: #4ac9ff; // 选项在激活状态下重点标识边框的颜色
+@tabs-active-text-color: #333; // 选项在激活状态下的文本颜色
+@tabs-active-text-color-hover: #0088cc; // 选项在激活状态下鼠标hover时的文本颜色
+
+/* -------------------------Tabs控件样式设置----END-----------------------------------------------*/
+
+
+
+/* -------------------------Tip控件样式设置----START----------------------------------------------*/
+
+@tip-background-color: #fff; // Tip的背景颜色
+@tip-border-color: #c3c3c3; // Tip的边框颜色
+
+/* -------------------------Tip控件样式设置----END------------------------------------------------*/
+
+
+
+/* -------------------------Tree控件样式设置----START---------------------------------------------*/
+
+@tree-font-family: Verdana, Arial, Helvetica, AppleGothic, sans-serif;
+@tree-text-color: #666; // Tree控件默认文本颜色
+
+@tree-node-selected-background-color: #08c; // 选中节点时的背景颜色
+@tree-node-selected-text-color: #fff; // 选中节点时的文本颜色
+
+/* -------------------------Tree控件样式设置----END-----------------------------------------------*/

@@ -1,0 +1,40 @@
+<link rel="stylesheet" href="theme/home/css/common.css"/>
+<style>
+    .sideMenu .tiny-layout-sideli a {
+        width: 240px;
+    }
+    .tiny-layout-container {
+        margin: 60px 0 0;
+    }
+
+</style>
+<div id="leftBar" ng-controller="leftmenuCtrl">
+    <div class="tiny-layout-container" style="margin-top:58px">
+        <div class="tiny-layout-west">
+            <ul>
+                <li class="leftMenuTitle">
+                    <span class="icons-imageconsole"></span>
+                    <div class="font18 lheight_40 ng-binding" ng-bind="i18n.hostManger_summary"></div>
+                </li>
+                <li ng-repeat="m1 in leftMenu.children">
+                    <div class="tiny-layout-head" ng-if="m1.children && m1.children.length" ui-sref="{{m1.state}}"
+                         ng-click="headClickFn()" ng-class="m1.icons">
+                        <span class="ui-icon"></span>
+                        <span ng-bind="m1.text"></span>
+                    </div>
+                    <a ui-sref="{{m1.state}}" ng-if="!(m1.children && m1.children.length)" ng-class="m1.icons"
+                       ng-bind="m1.text"></a>
+                    <ul ng-if="m1.children && m1.children.length" class="sideMenu_two">
+                        <li ng-repeat="m2 in m1.children">
+                            <a ui-sref="{{m2.state}}" ng-bind="m2.text"></a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="tiny-layout-center">
+            <div ui-view>
+            </div>
+        </div>
+    </div>
+</div>

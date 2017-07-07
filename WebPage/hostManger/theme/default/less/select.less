@@ -1,0 +1,120 @@
+@import "variables.less";
+@import "mixins.less";
+
+/*基于客户换肤方便，分页控件定制了这个样式类。因此，修改这个样式类时需要同步排查分页控件*/
+.tiny-select-input-field {
+  border: 1px solid @input-border;
+  border-radius: @input-border-radius;
+  padding: 0 35px 0 5px;
+  height: @input-height-base; // 盒模型修改为border-box后需要在最外层设置总高度
+  .box-sizing(border-box);
+}
+
+.tiny-select {
+    position: relative;
+    display: inline-block;
+    background-color: @input-bg;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    line-height: @input-height-base - 2;
+}
+
+/*基于客户换肤方便，分页控件定制了这个样式类。因此，修改这个样式类时需要同步排查分页控件*/
+.tiny-select-text {
+    outline: none;
+    box-shadow: none;
+    border: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    line-height: @input-height-base - 2;
+    color: @input-color;
+    text-overflow: ellipsis;
+     white-space: nowrap;
+  -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    padding-left: 3px;
+}
+
+.tiny-select-input-field-selected-down {
+    border-color: @input-focus-border @input-focus-border transparent @input-focus-border;
+    border-bottom-left-radius: 0!important;
+    border-bottom-right-radius: 0!important;
+}
+.tiny-select-input-field-selected-up {
+    border-color: transparent @input-focus-border @input-focus-border @input-focus-border;
+    border-top-left-radius: 0!important;
+    border-top-right-radius: 0!important;
+}
+
+.tiny-select-input-field-disable {
+    background-color: @input-bg-disabled;
+    color: @input-color-disabled;
+}
+.tiny-select-popup-container {
+    display: none;
+    position: absolute;
+    .box-sizing(border-box);
+    border: 1px solid @input-focus-border;
+    border-bottom-left-radius: @input-border-radius;
+    border-bottom-right-radius: @input-border-radius;
+    overflow-y: auto;
+    overflow-x:hidden;
+    background-color: #FFF;
+    z-index: 10002;
+}
+
+/**
+ * 针对下拉选项样式规则的修改，必须要测试在火狐31版本（或较早）中下拉框的滚轮操作是否正常
+ */
+.tiny-select-option {
+    list-style: none;
+    padding-left: 8px;
+    cursor: default;
+    height: @input-height-base;
+    line-height: @input-height-base;
+    color: #666;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.tiny-select-popup-container-up {
+    border-radius: @input-border-radius @input-border-radius 0 0;
+}
+
+.tiny-select-option-selected {
+  color: @select-item-selected-color;
+  background: @select-item-selected-bg;
+}
+
+.tiny-select-option-default-selected {
+  color: @select-item-hover-color;
+  background: @select-item-hover-bg;
+}
+
+.tiny-select-input-field:after {
+  content: "";
+  height: 100%;
+  width: 1px;
+  background-color: #C3c3c3;
+  position: absolute;
+  top: 0;
+  right: 25px;
+}
+
+.tiny-select-input-field:before {
+  content: "";
+  width: 0;
+  height: 0;
+  border-top: 6px solid #999;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+  position: absolute;
+  top: 42%;
+  right: 9px;
+}

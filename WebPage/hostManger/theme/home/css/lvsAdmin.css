@@ -1,0 +1,11 @@
+.tiny-btn-without-icon, .tiny-btn-with-icon{
+    border-width: 0 !important;
+}
+.tiny-btn-without-icon{
+    padding-left: 15px !important;
+    padding-right:15px !important;
+}
+/*.tiny-btn-basic{*/
+    /*height: 14px !important;*/
+    /*line-height: 6px !important;*/
+/*}*/

@@ -1,0 +1,382 @@
+#index{
+    width:1280px;
+    min-height:809px;
+    margin:0 auto;
+    position: relative;
+}
+
+.icon{
+    display: inline-block;
+    width:13px;
+    height: 15px;
+    background: url(../images/suo.png);
+    position: absolute;
+    top:14px;
+    right: 15px;
+}
+
+.icon-triangle{
+    display: inline-block;
+    width: 20px;
+    height: 18px;
+    background: url(../images/icon.png);
+    position: absolute;
+    bottom:-18px;
+    left: 55px;
+}
+
+.yunTwo{
+    width: 46px;
+    height:48px;
+    position: absolute;
+    top:74px;
+    left: 150px;
+    background: url(../images/yun2.png);
+}
+
+.yunOne{
+    width: 296px;
+    height: 85px;
+    position: absolute;
+    top: 54px;
+    left: 847px;
+    background: url(../images/yun1.png);
+}
+
+.hide{
+    display: none;
+}
+
+.resourceCenter{
+    position: absolute;
+    top:171px;
+    left:236px;
+}
+
+
+.resourceCenter-construction{
+    position: absolute;
+    top: 210px;
+    left: 198px;
+}
+
+
+.resourceCenter-vehice{
+    position: absolute;
+    top:268px;
+    left:269px;
+}
+
+.resourceCenter-shadow{
+    position: absolute;
+    top: 268px;
+    left: 272px;
+}
+
+.resourceCenter-tip{
+    border: 1px solid #E9E9ED;
+    border-radius: 5px;
+    position: absolute;
+    bottom:650px;
+    left: 255px;
+    box-shadow: 0px 1px 4px 2px #F1F1F3;
+    background: #FFFFFF;
+}
+
+.missionCenter{
+    position: absolute;
+    top:383px;
+    left:49px;
+}
+
+
+.missionCenter-construction{
+    position: absolute;
+    top: 441px;
+    left: 29px;
+}
+
+
+.missionCenter-shadow{
+    position: absolute;
+    top: 489px;
+    left: 84px;
+}
+
+
+.missionCenter-tip{
+    border: 1px solid #E9E9ED;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 435px;
+    left: 59px;
+    box-shadow: 0px 1px 4px 2px #F1F1F3;
+    background: #FFFFFF;
+}
+
+.tenantProtection{
+    position: absolute;
+    top:553px;
+    left:722px;
+}
+
+.tenantProtection-construction{
+    position: absolute;
+    top: 607px;
+    left: 719px;
+}
+
+.tenantProtection-shadow{
+    position: absolute;
+    top: 636px;
+    left: 750px;
+}
+
+.tenantProtection-tip{
+    border: 1px solid #E9E9ED;
+    border-radius: 5px;
+    position: absolute;
+    bottom:265px;
+    left: 757px;
+    box-shadow: 0px 1px 4px 2px #F1F1F3;
+    background: #FFFFFF;
+}
+
+.evaluationAnalysis{
+    position: absolute;
+    top:300px;
+    left:1112px;
+}
+
+.evaluationAnalysis-construction{
+    position: absolute;
+    top: 447px;
+    left: 1087px;
+}
+
+.evaluationAnalysis-shadow{
+    position: absolute;
+    top: 482px;
+    left: 1112px;
+}
+
+.evaluationAnalysis-tip{
+    border: 1px solid #E9E9ED;
+    border-radius: 5px;
+    position: absolute;
+    bottom:525px;
+    left: 1100px;
+    box-shadow: 0px 1px 4px 2px #F1F1F3;
+    background: #FFFFFF;
+}
+
+.changeAnalysis{
+    position: absolute;
+    top:164px;
+    left:916px;
+}
+
+.changeAnalysis-construction{
+    position: absolute;
+    top: 294px;
+    left: 890px;
+}
+
+.changeAnalysis-shadow{
+    position: absolute;
+    top: 335px;
+    left: 924px;
+}
+
+.changeAnalysis-tip{
+    border: 1px solid #E9E9ED;
+    border-radius: 5px;
+    position: absolute;
+    bottom:663px;
+    left: 907px;
+    box-shadow: 0px 1px 4px 2px #F1F1F3;
+    background: #FFFFFF;
+}
+
+.securityCenter{
+    position: absolute;
+    top:213px;
+    left:605px;
+}
+
+.securityCenter-shadow{
+    position: absolute;
+    top: 461px;
+    left: 620px;
+}
+
+.securityCenter-construction{
+    position: absolute;
+    top: 411px;
+    left: 571px;
+}
+
+.securityCenter-vehice{
+    position: absolute;
+    top:399px;
+    left:541px;
+}
+
+.securityCenter-tip{
+    border: 1px solid #E9E9ED;
+    border-radius: 5px;
+    position: absolute;
+    bottom:610px;
+    left: 596px;
+    box-shadow: 0px 1px 4px 2px #F1F1F3;
+    background: #FFFFFF;
+}
+
+.monitoringCenter{
+    position: absolute;
+    top:456px;
+    left:401px;
+}
+
+.monitoringCenter-shadow{
+    position: absolute;
+    top: 660px;
+    left: 402px;
+}
+
+.monitoringCenter-construction{
+    position: absolute;
+    top: 633px;
+    left: 374px;
+}
+
+.monitoringCenter-vehice{
+    position: absolute;
+    top:618px;
+    left:371px;
+}
+
+.monitoringCenter-tip{
+    border: 1px solid #E9E9ED;
+    border-radius: 5px;
+    position: absolute;
+    bottom:367px;
+    left: 402px;
+    box-shadow: 0px 1px 4px 2px #F1F1F3;
+    background: #FFFFFF;
+}
+
+.treeOne{
+    width: 69px;
+    height: 69px;
+    position: absolute;
+    top:659px;
+    left:139px;
+    background: url(../images/shu1.png);
+}
+
+.treeTwo{
+    width: 27px;
+    height: 42px;
+    position: absolute;
+    top:675px;
+    left:1131px;
+    background: url(../images/shu2.png);
+}
+
+.titleOne{
+    font-family: "Arial", "Microsoft Yahei";
+    font-size: 18px;
+    padding: 10px 10px;
+    color:#999999;
+    margin-right: 25px;
+    width:102px;
+}
+
+.enable{
+    font-family: "微软雅黑 Bold", "微软雅黑";
+    color:#202020;
+    font-weight: 500;
+}
+
+.titleTwo li{
+    padding: 0 15px 20px;
+    height: 30px;
+    text-decoration: none;
+    font-family: "Arial", "Microsoft Yahei";
+    font-size: 14px;
+    width:118px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+@-webkit-keyframes test{
+    0%{
+        transform-origin: 50% 100%;
+        transform: translate(0,0) scaleY(0.8)
+    }
+    25%{transform: translate(0,0) scaleY(1)}
+    50%{transform: translate(0,-20px) scaleY(1)}
+    75%{
+        transform-origin: 50% 100%;
+        transform: translate(0,0) scaleY(0.8)
+    }
+    100%{transform: translate(0,0) scaleY(1)}
+}
+
+@-o-keyframes test{
+    0%{
+        transform-origin: 50% 100%;
+        transform: translate(0,0) scaleY(0.8)
+    }
+    25%{transform: translate(0,0) scaleY(1)}
+    50%{transform: translate(0,-20px) scaleY(1)}
+    75%{
+        transform-origin: 50% 100%;
+        transform: translate(0,0) scaleY(0.8)
+    }
+    100%{transform: translate(0,0) scaleY(1)}
+}
+
+@-moz-keyframes test{
+    0%{
+        transform-origin: 50% 100%;
+        transform: translate(0,0) scaleY(0.8)
+    }
+    25%{transform: translate(0,0) scaleY(1)}
+    50%{transform: translate(0,-20px) scaleY(1)}
+    75%{
+        transform-origin: 50% 100%;
+        transform: translate(0,0) scaleY(0.8)
+    }
+    100%{transform: translate(0,0) scaleY(1)}
+}
+
+@-ms-keyframes test{
+    0%{
+        transform-origin: 50% 100%;
+        transform: translate(0,0) scaleY(0.8)
+    }
+    25%{transform: translate(0,0) scaleY(1)}
+    50%{transform: translate(0,-20px) scaleY(1)}
+    75%{
+        transform-origin: 50% 100%;
+        transform: translate(0,0) scaleY(0.8)
+    }
+    100%{transform: translate(0,0) scaleY(1)}
+}
+
+.resourceCenter-yes:hover,
+.missionCenter-yes:hover,
+.tenantProtection-yes:hover,
+.evaluationAnalysis-yes:hover,
+.changeAnalysis-yes:hover,
+.securityCenter-yes:hover,
+.monitoringCenter-yes:hover{
+    -webkit-animation:test 1s ease 1;
+    -o-animation: test 1s ease 1;
+    -moz-animation: test 1s ease 1;
+    -ms-animation: test 1s ease 1;
+}
+

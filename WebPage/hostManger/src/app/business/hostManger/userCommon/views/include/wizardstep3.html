@@ -1,0 +1,18 @@
+<div id="myAdd"  class="container">
+    <div  style="margin:90px 0 60px 0px" >
+        <div>{{test3}} </div>
+    </div>
+
+
+</div>
+<script type="application/javascript">
+    require(['app/business/hostManger/userAdmin/controllers/adminApplyMachineCtrl'],
+            function (adminApplyMachineCtrl) {
+                angular.element(document).injector().invoke(function ($compile) {
+                    var scope = $("#myAdd").scope();
+                    $compile($("#myAdd"))(scope);
+                    scope.$digest();
+                })
+
+            })
+</script>

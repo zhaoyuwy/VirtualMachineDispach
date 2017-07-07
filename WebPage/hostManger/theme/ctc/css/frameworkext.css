@@ -1,0 +1,109 @@
+.menu-hwsicon-frame-service-favorite {
+    color: #ff2929;
+}
+.menu-hwsicon-frame-service-favorite:hover {
+    color: #ef1414;
+}
+
+.console-menu-nav-list .console-menu-nav-item ul li:hover .menu-hwsicon-frame-service-favorite {
+    color: #ef1414;
+}
+
+.console-menu-notice-num {
+    background-color: #ff9832;
+}
+
+.service-list-item-icon:hover {
+    color: #ff9832;
+}
+
+.dropdown-submenu:hover>a:after {
+    border-left-color: #ff9832;
+}
+
+.console-menu-word {
+    margin-left: 78px;
+    font-size: 18px;
+    color: #000000;
+    font-family: "Helvetica", "Myriad", "Arial", "Microsoft Yahei", "SimSun";
+    line-height: 60px;
+}
+
+.console-menu-logo {
+    display: block;
+    background: url("../images/logo.png") no-repeat left center;
+    height: 60px;
+    width: 180px;
+}
+
+.menu-table .menu-header-word {
+    display: block;
+    width: 80px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    font-family: '微软雅黑 Regular', '微软雅黑';
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    color: #000000;
+}
+
+.console-menu-home-link-other {
+    padding-left: 10px;
+    display: block;
+    padding-right: 10px;
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+.console-menu-home-link-other>span {
+    color: #ffffff;
+}
+
+.console-menu-home-link {
+    display: none;
+}
+
+.user-dropdown-menu .frame-user-application,
+.user-dropdown-menu .frame-seller-center,
+.user-dropdown-menu {
+    display: none;
+}
+
+.user-dropdown-menu .frame-bill-list {
+    display: block;
+}
+
+.default-style .help-menu-dropdown {
+    display: none;
+}
+
+.default-style .common-help {
+    display: block;
+}
+
+.console-topbar-btn-oldConsole {
+    margin-left: 0;
+}
+
+.console-topbar-btn-oldConsole .content-text {
+    color: #aaaaaa;
+}
+
+.console-topbar-btn-oldResource {
+    display: block;
+    margin-right: 10px;
+}
+
+.default-style .custom-style {
+    display: block;
+}
+
+.default-style .ocb-custom-style {
+    display: none;
+}
+
+.console-menu-nav-list-width {
+    left: -260px;
+}

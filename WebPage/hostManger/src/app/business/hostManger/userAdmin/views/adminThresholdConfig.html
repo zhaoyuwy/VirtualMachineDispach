@@ -1,0 +1,54 @@
+<style>
+    #myTabs{
+        font-family: "Helvetica Neue55", Arial, Helvetica, sans-serif;
+    }
+
+</style>
+<div id="myTabs" class="tiny-tabs-container" style="width:100%;" >
+    <div class="tiny-tabs-content">
+        <div id="tabs-1">
+            <div  style="width:100%;">
+                <div class="row">
+
+                    <div class="mainTitle page-header" style="text-align:center;">{{list}}</div>
+
+
+                    <ti-table class="containerStyle"  displayed-data="displayed" src-data="thresholdData" columns="thresholdColumns">
+                        <ti-cols-toggle style="float:right;"></ti-cols-toggle>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th ng-repeat="column in thresholdColumns" ng-if="column.show || column.show === undefined">{{column.title}}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <!--注意:ng-repeat中的displayed数据与displayed-data传入的数据一致,在scope中初始化设置为[]即可-->
+                            <!--<tr ng-repeat="row in displayed track by $index">-->  <!--下面两种效果都能出来-->
+                            <tr ng-repeat="row in thresholdData.data">
+                              <td ng-if="thresholdColumns[0].show">{{row.cpu_percent}}</td>
+                              <td ng-if="thresholdColumns[1].show">{{row.ram_percent}}</td>
+                              <td ng-if="thresholdColumns[2].show">{{row.birth_date}}</td>
+                              <td>{{row.balance}}</td>
+                              <td ><a style="margin-right:30px;"><span>编辑</span></a><a><span>删除</span></a></td>
+                          </tr>
+                          </tbody>
+                      </table>
+                  </ti-table>
+
+
+              </div>
+          </div>
+      </div>
+
+  </div>
+</div>
+</div>
+
+<script>
+  require(["tiny-widgets/Tabs"], function (Tabs) {
+      var tabs = new Tabs({
+          "id": "myTabs",
+          "setActiveClass": false
+      });
+  });
+</script>

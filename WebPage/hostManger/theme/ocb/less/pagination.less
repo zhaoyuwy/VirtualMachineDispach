@@ -1,0 +1,225 @@
+@import "variables.less";
+@import "mixins.less";
+
+.tiny-Pagination-Goto-Button-Image{
+    width: 0;
+    height: 0;
+    border-top: 7px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-left: 6px solid @tiny-Pagination-Goto-Button-Icon-Color;
+    margin: 5px 38%;
+}
+
+a.tiny-Pagination-tiny-button{
+  background-color:@tiny-Pagination-Btn-bg-Color;
+  cursor: pointer;
+}
+
+a.tiny-Pagination-tiny-button:hover {
+  border: 1px solid @tiny-Pagination-Link-Button-Border-Hover;
+}
+
+.tiny-Pagination-tiny-button:hover .tiny-Pagination-Goto-Button-Image{
+  border-left: 6px solid @tiny-Pagination-Goto-Btn-Icon-Color-Hover;
+}
+
+.tiny-Pagination-Link-Button {
+  text-decoration: none !important;
+  color: #666;
+  float: left;
+  height: @pagination-height - 2;
+  display: inline;
+  margin-right: 5px;
+  padding-left: 6px;
+  padding-right: 6px;
+  border: 1px solid @tiny-Pagination-Link-Button-Border-Color;
+  border-radius: 3px;
+}
+
+.tiny-Pagination-GoTo-Button {
+  float: left;
+  height: @pagination-height - 2;
+  width: 24px;
+  display: inline;
+  margin-right: 5px;
+  border: 1px solid @tiny-Pagination-Link-Button-Border-Color;
+  border-radius: 3px;
+}
+
+.tiny-Pagination-Prev-Span {
+  line-height: @pagination-height - 2;
+  min-width: 20px;
+  border: 1px solid @tiny-Pagination-Link-Button-Border-Color;
+  border-radius:2px;
+  -moz-border-radius:2px;
+  -webkit-border-radius:2px;
+  color: #333;
+  font-size: 16px;
+  margin-left: 5px;
+}
+
+a.tiny-Pagination-tiny-button.tiny-Pagination-Prev-Span:hover {
+  display: inline-block;
+  line-height: @pagination-height - 2;
+  min-width: 20px;
+  border: 1px solid @tiny-Pagination-Link-Button-Border-Hover;
+}
+
+.tiny-Pagination-Next-Span-Simple {
+  border: 1px solid @tiny-Pagination-Link-Button-Border-Color;
+  height: @pagination-height - 2;
+  margin-right: 8px;
+  padding: 0 !important;
+  text-decoration: none;
+  vertical-align: middle;
+  background-position: center;
+}
+
+a.tiny-Pagination-tiny-button.tiny-Pagination-Next-Span{
+  width:30px;
+  text-align: center;
+  color: @tiny-Pagination-Prev-Next-Btn-Color;
+}
+
+a.tiny-Pagination-tiny-button.tiny-Pagination-Next-Span:hover {
+  width:30px;
+  color: @tiny-Pagination-Prev-Next-Btn-Color-Hover;
+  border: 1px solid @tiny-Pagination-Link-Button-Border-Hover;
+}
+
+a.tiny-Pagination-tiny-button.tiny-Pagination-Next-Span-Disabled,
+a.tiny-Pagination-tiny-button.tiny-Pagination-Next-Span-Disabled:hover {
+  float: none;
+  display: inline-block;
+  text-decoration: none;
+  margin-right: 8px;
+  height: @pagination-height - 2;
+  line-height: @pagination-height - 2;
+  border: 1px solid @tiny-Pagination-Link-Button-Border-Color;
+  border-radius:2px;
+  -moz-border-radius:2px;
+  -webkit-border-radius:2px;
+  min-width: 20px;
+}
+
+a.tiny-Pagination-tiny-button.tiny-Pagination-Next-Span-Simple.tiny-Pagination-Next-Span-Disabled {
+  color: @tiny-Pagination-Prev-Next-Btn-Color-Disable;
+  width: 30px;
+  background-color: @tiny-Pagination-Prev-Next-Btn-bg-Color-Disable;
+  cursor: default;
+  -moz-border-radius:2px;
+}
+
+a.tiny-Pagination-tiny-button.tiny-Pagination-Prev-Span-Disabled:hover {
+  line-height: @pagination-height - 2;
+  border: 1px solid @tiny-Pagination-Link-Button-Border-Color;
+  -moz-border-radius:2px;
+}
+
+.tiny-Pagination-Link-Selected {
+  border: 1px solid @tiny-Pagination-Link-Selected-Border-Color;
+  background-color: @tiny-Pagination-Link-Selected-Background-Color;
+  color: @tiny-Pagination-Link-Selected-Text-Color;
+}
+
+.tiny-Pagination-Goto-Input-Text {
+  margin-right: -1px;
+  height: @pagination-height - 2;
+  line-height: @pagination-height - 2;
+  padding: 0 3px;
+  width: 29px;
+  float: left;
+  border:1px solid @tiny-Pagination-Link-Button-Border-Color;
+  background: #fff;
+  border-radius:2px;
+  -moz-border-radius:2px;
+  -webkit-border-radius:2px;
+}
+
+.tiny-Pagination-Goto-Input-Text:focus{
+  outline: none;
+  border: 1px solid @input-focus-border;
+}
+
+.tiny-Pagination-Prev-Span-Disabled{
+  line-height: @pagination-height - 2;
+  border: 1px solid @tiny-Pagination-Link-Button-Border-Color;
+  background-color: @tiny-Pagination-Prev-Next-Btn-bg-Color-Disable !important;
+  color: @tiny-Pagination-Prev-Next-Btn-Color-Disable !important;
+  -moz-border-radius:2px;
+}
+
+.tiny-Pagination-Link-Panel .tiny-Pagination-Prev-Span-Simple {
+    float : left;
+    padding: 0 !important;
+    text-decoration: none;
+    vertical-align: middle;
+    width:30px;
+    height: @pagination-height - 2;
+    display: inline-block;
+    margin-right:5px;
+    text-align: center;
+    color: @tiny-Pagination-Prev-Next-Btn-Color;
+}
+
+a.tiny-Pagination-tiny-button.tiny-Pagination-Prev-Span-Simple:hover {
+    cursor: pointer;
+    text-decoration: none;
+    height: @pagination-height - 2;
+    width:30px;
+    clear:both;
+    margin-right:5px;
+    color: @tiny-Pagination-Prev-Next-Btn-Color-Hover;
+}
+.tiny-Pagination-left-Panel{
+  float: left;
+  height: @pagination-height;
+}
+a.tiny-Pagination-tiny-button.tiny-Pagination-Prev-Span-Simple.tiny-Pagination-Prev-Span-Disabled,
+a.tiny-Pagination-tiny-button.tiny-Pagination-Prev-Span-Simple.tiny-Pagination-Prev-Span-Disabled:hover {
+  cursor: default;
+  text-decoration: none;
+  height: @pagination-height - 2;
+  width:30px;
+  border-radius:2px;
+  margin-right:5px;
+}
+a.tiny-Pagination-tiny-button:hover span {
+  height: @pagination-height;
+  line-height: @pagination-height;
+}
+#tiny-Pagination-goToTitle{
+  float:left;
+  height:@pagination-height;
+  line-height:@pagination-height;
+  margin:0 5px 0 20px;
+}
+.tiny-Pagination-Next-Span {
+  border-radius:2px;
+  -moz-border-radius:2px;
+  -webkit-border-radius:2px;
+  display: inline-block;
+  line-height: @pagination-height - 2;
+  font-size: 16px;
+}
+.tiny-Pagination-Total-Record-Label {
+  vertical-align: middle;
+  margin:0px 15px 0px 5px;
+  line-height: @pagination-height;
+}
+
+a.tiny-Pagination-Link-Button span, a.tiny-Pagination-GoTo-Button span {
+  height: @pagination-height;
+  line-height: @pagination-height;
+}
+.tiny-Pagination-Container .tiny-select-text{
+  height: @pagination-height - 2;
+  line-height: @pagination-height - 2;
+}
+.tiny-Pagination-Container .tiny-combobox-container{
+  height: @pagination-height - 2;
+}
+.tiny-Pagination-Container .tiny-combobox-input{
+  height: @pagination-height - 2;
+  line-height: @pagination-height - 2;
+}

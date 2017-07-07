@@ -1,0 +1,173 @@
+.btn-success {
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+}
+.table-right{
+    margin-bottom:20px;
+    overflow: hidden;
+}
+
+.clickmeeting-overlay {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    height: 100%;
+    filter: alpha(opacity=25);
+    /* support: IE8 */
+    /*opacity: 0.1;*/
+    background-color: transparent;
+    display: none;
+}
+
+.td-fill-short {
+    width: 35%;
+}
+
+.td-fill-long {
+    width: 85%;
+}
+
+.modal-dialog {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.del-div {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border: 0;
+}
+
+.del_todo_left {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border: 0;
+    /*background-image: url(../img/disk_error4.png);*/
+    width: 16px;
+    height: 17px;
+    /* float: right; */
+    margin-top: 5px;
+}
+
+.notice_todo_left {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border: 0;
+    /*background-image: url(../img/notice.png);*/
+    width: 16px;
+    height: 17px;
+    /* float: right; */
+    margin-top: 5px;
+    margin-left: 5px;
+    /* display: block; */
+}
+
+.angular-dialog {
+    position: fixed;
+    height: auto;
+    width: 90%;
+    top: 10%;
+    left: 5%;
+    display: block;
+    z-index: 1000001;
+}
+
+.angular-dialog-content {
+    width: 100%;
+    min-height: 400px;
+    max-height: none;
+    height: auto;
+}
+
+.editable-cancel {
+    background: #ddd;
+}
+
+.editable-buttons {
+    float: right;
+}
+
+.meeting-div {
+    overflow: hidden;
+    max-height: 60px;
+}
+ul, li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.upload_file{
+    margin-right:10px;
+}
+.title{
+    margin-bottom:20px;
+    font-size:16px;
+}
+
+div.ti-file-upload-container {
+    display:inline-block;
+}
+
+.td-nofill {
+    width: 15%;
+    background-color: #eee;
+    font-weight: normal;
+    vertical-align: middle!important;
+    padding-left: 20px!important;
+    font-weight: bold;
+}
+
+.mainTitle_1 {
+    font-family: "微软雅黑 Regular", "微软雅黑";
+    font-weight: bold;
+    font-style: normal;
+    font-size: 16px;
+    color: #666;
+}
+
+.new-meeting-mustfill {
+    color: #cd4a58;
+}
+.btn_group_fixed {
+    position: fixed;
+    right: 18px;
+    top: 50%;
+    z-index: 10000;
+}
+.buttonS{
+    display:block;
+    margin-bottom:3px;
+}
+.bBlue {
+    border: 2px solid #3e76af;
+    /*box-shadow: 0 1px 2px 0 #66b2d2 inset;*/
+    -webkit-box-shadow: 0 1px 2px 0 #66b2d2 inset;
+    -moz-box-shadow: 0 1px 2px 0 #66b2d2 inset;
+    background: #5ba5cb;
+    background: -moz-linear-gradient(top, #5ba5cb 0%, #3a70ab 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#5ba5cb), color-stop(100%,#3a70ab));
+    background: -webkit-linear-gradient(top, #5ba5cb 0%,#3a70ab 100%);
+    background: -o-linear-gradient(top, #5ba5cb 0%,#3a70ab 100%);
+    background: -ms-linear-gradient(top, #5ba5cb 0%,#3a70ab 100%);
+    background: linear-gradient(top, #5ba5cb 0%,#3a70ab 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5ba5cb', endColorstr='#3a70ab',GradientType=0 );
+}
+.btn-primary-1{
+    background-color: #18a689;
+    border-color: #18a689;
+    color: #FFFFFF;
+}
+.btn-primary-1:hover{
+    background-color: #18c889;
+    border-color: #18a689;
+    color: #FFFFFF;
+}

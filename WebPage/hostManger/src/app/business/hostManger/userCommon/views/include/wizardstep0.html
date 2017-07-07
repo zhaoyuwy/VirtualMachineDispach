@@ -1,0 +1,69 @@
+<div id="myAdd0"  class="container">
+    <div  style="margin:90px 0 60px 0px" >
+
+
+
+        <form action="#">
+
+            <ti-formfield cols="zeroCols">
+                <ti-item label="firstItem.label" required="firstItem.required">
+                    <ti-select ng-cloak
+                               selected-id="selectModel1.selectedId"
+                               disable="selectModel1.disable"
+                               placeholder-text="selectModel1.placeholder"
+                               panel-max-height="selectModel1.panelMaxHeight"
+                               change="selectModel1.change"
+                               focus="selectModel1.focus"
+                               blur="selectModel1.blur"
+                               options="selectModel1.options"
+                               panel-width="selectModel1.panelWidth">
+
+                    </ti-select>
+                </ti-item>
+                <ti-item required="secondItem.required">
+                    <ti-item-label>{{secondItem.label}}</ti-item-label>
+                    <ti-file-upload uploader="loadModel.uploaderConfig">
+                    </ti-file-upload>
+                </ti-item>
+            </ti-formfield>
+            <div style="margin:20px;"></div>
+            <ti-formfield cols="zeroCols">
+                <ti-item  label="thirdItem.label" required="thirdItem.required">
+                    <ti-select ng-cloak
+                               selected-id="selectModel2.selectedId"
+                               disable="selectModel2.disable"
+                               placeholder-text="selectModel2.placeholder"
+                               panel-max-height="selectModel2.panelMaxHeight"
+                               change="selectModel2.change"
+                               focus="selectModel2.focus"
+                               blur="selectModel2.blur"
+                               options="selectModel2.options"
+                               panel-width="selectModel2.panelWidth">
+
+                    </ti-select>
+                </ti-item>
+            </ti-formfield>
+
+        </form>
+
+    </div>
+
+
+</div>
+
+<!--这里不要配置 否则报错（因为向导组件已经配置好了）-->
+<!--<script type="application/javascript">-->
+    <!--require(['app/business/hostManger/userAdmin/controllers/adminApplyMachineCtrl',"tiny-widgets/Tabs"],-->
+            <!--function (adminApplyMachineCtrl,Tabs) {-->
+                <!--angular.element(document).injector().invoke(function ($compile) {-->
+                    <!--var scope = $("#myAdd0").scope();-->
+                    <!--$compile($("#myAdd0"))(scope);-->
+                    <!--scope.$digest();-->
+                <!--})-->
+
+                <!--var tabs = new Tabs({-->
+                    <!--"id": "myTabs",-->
+                    <!--"setActiveClass": false-->
+                <!--});-->
+            <!--})-->
+<!--</script>-->
