@@ -3,10 +3,9 @@ package com.huawei.siteapp.service.Http;
 import com.huawei.siteapp.cache.CacheCenter;
 import com.huawei.siteapp.common.Bean.SiteLoginRestBean;
 import com.huawei.siteapp.common.constats.ExceptionEnum;
-import com.huawei.siteapp.common.constats.ParamKey;
+import com.huawei.siteapp.common.constats.RetCode;
 import com.huawei.siteapp.common.util.BusinessException;
 import com.huawei.siteapp.common.util.PropertiesUtils;
-import com.huawei.siteapp.common.util.ServiceContext;
 import com.huawei.siteapp.common.util.SpringUtil;
 import com.huawei.siteapp.service.UserBusinessService.ISiteLoginService;
 import org.slf4j.Logger;
@@ -36,12 +35,12 @@ public class SiteLoginHttpRequestServiceImpl {
      *            //     * @param param 请求参数，请求参数应该是 name1=value1&name2=value2 的形式。
      * @return 所代表远程资源的响应结果
      */
-    private ServiceContext sendLoginPost(String url, String user, String pwd) {
+    private int sendLoginPost(String url, String user, String pwd) {
         logger.info("Begin of login -- " + url);
         PrintWriter out = null;
         BufferedReader in = null;
+        int retCode = RetCode.INIT_ERROR;
         StringBuilder result = new StringBuilder();
-        ServiceContext cxt = new ServiceContext();
         try {
             URL realUrl = new URL(url);
 //             打开和URL之间的连接
@@ -77,8 +76,7 @@ public class SiteLoginHttpRequestServiceImpl {
                 Map.Entry entry = (Map.Entry) o;
                 String key = (String) entry.getKey();
                 List<String> val = (List<String>) entry.getValue();
-                System.out.println("@@@@@@@@@@@@@@@@@"+val.toString());
-                cxt.put(key, val);
+                System.out.println("@@@@@@@@@@@@@@@@@" + val.toString());
                 if ("X-Auth-Token".equals(key)) {
                     CacheCenter.getInstance().addUrlResponse("FcLogin", val.get(0));
                 }
@@ -108,21 +106,20 @@ public class SiteLoginHttpRequestServiceImpl {
                 logger.error("finally catch", e2);
             }
         }
-        cxt.put(ParamKey.REST_RESPONSE, result.toString());
+        retCode = RetCode.OK;
         logger.info("Post rest " + url + " response -- " + result.toString());
         logger.info("End of login -- " + url);
-        return cxt;
+        return retCode;
     }
 
-    public void fcLoginRest(SiteLoginRestBean restInfo) {
+    public int fcLoginRest(SiteLoginRestBean restInfo) {
         ISiteLoginService siteLoginService = SpringUtil.getBean(ISiteLoginService.class);
         siteLoginService.checkSiteUserLoginSuccess(restInfo);
 //        发送登录 POST 请求
         String[] urlParm = new String[]{restInfo.getSiteLoginIp(), restInfo.getRestPort()};
         String url = PropertiesUtils.getUrl("FcLogin", urlParm);
-        ServiceContext sr = sendLoginPost(url, restInfo.getSiteLoginUser(), restInfo.getSiteLoginPwd());
+        int retCode = sendLoginPost(url, restInfo.getSiteLoginUser(), restInfo.getSiteLoginPwd());
+        return retCode;
 
-
-//        System.out.println(sr);
     }
 }

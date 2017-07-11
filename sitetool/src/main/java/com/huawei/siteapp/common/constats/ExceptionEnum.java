@@ -6,9 +6,9 @@ package com.huawei.siteapp.common.constats;
  * @version 1.0
  */
 public enum ExceptionEnum {
-    UNKNOW_ERROR(-1, "未知错误"),
-    USER_LOGIN_ERROR(6001,"用户登录失败"),
-    USER_NOT_FIND(6002, "用户不存在");
+    UNKNOW_ERROR(-1, "unknown error"),
+    USER_LOGIN_ERROR(6001,"user login failed"),
+    USER_NOT_FIND(6002, "user not exist");
 
     private Integer code;
 

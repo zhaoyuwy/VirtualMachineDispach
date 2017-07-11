@@ -13,7 +13,7 @@ import java.util.Date;
 public class UctTimeUtil {
     private Calendar calendar = Calendar.getInstance();
 
-    static String DATE_TIME_FORMAT = "yyyy-MM-dd HH时mm分ss秒";
+    static String DATE_TIME_FORMAT = "yyyy-MM-dd HHmmss";
 
     /**
      * 得到当前的时间，时间格式yyyy-MM-dd
@@ -21,7 +21,7 @@ public class UctTimeUtil {
      * @return
      */
     public static String getCurrentDate() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH时mm分ss秒");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HHmmss");
         return sdf.format(new Date());
     }
 
