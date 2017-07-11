@@ -60,7 +60,6 @@ public class SiteSaveController {
         } else {
             retCode =siteLoginService.checkAndSaveSiteInfo(siteModel);
         }
-
         TopologyTreeBean  topologyTreeBean = siteLoginService.queryAllSiteLoginUsers();
         result.setStatus(retCode);
         result.setMsg("OK");

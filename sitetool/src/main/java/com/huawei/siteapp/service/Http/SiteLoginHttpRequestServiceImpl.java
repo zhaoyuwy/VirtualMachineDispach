@@ -113,12 +113,13 @@ public class SiteLoginHttpRequestServiceImpl {
     }
 
     public int fcLoginRest(SiteLoginRestBean restInfo) {
-        ISiteLoginService siteLoginService = SpringUtil.getBean(ISiteLoginService.class);
-        siteLoginService.checkSiteUserLoginSuccess(restInfo);
+
 //        发送登录 POST 请求
         String[] urlParm = new String[]{restInfo.getSiteLoginIp(), restInfo.getRestPort()};
         String url = PropertiesUtils.getUrl("FcLogin", urlParm);
         int retCode = sendLoginPost(url, restInfo.getSiteLoginUser(), restInfo.getSiteLoginPwd());
+        ISiteLoginService siteLoginService = SpringUtil.getBean(ISiteLoginService.class);
+        siteLoginService.checkSiteUserLoginSuccess(restInfo);
         return retCode;
 
     }

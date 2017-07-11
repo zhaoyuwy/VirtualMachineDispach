@@ -91,43 +91,43 @@ define([
 
                             //把添加页面的数据传给
 
-                            //var jsObj = {
-                            //    "total":1,
-                            //    "regions": [
-                            //        {
-                            //            "evName":  $scope.evName,
-                            //            "sites": [
-                            //                {
-                            //                    "siteRegionName": $scope.siteRegionName,
-                            //                    "siteRegion": $scope.siteRegion,
-                            //                    "siteLoginUser": $scope.siteLoginUser,
-                            //                    "siteLoginPwd": $scope.siteLoginPwd,
-                            //                    "siteLoginIp": $scope.siteLoginIp
-                            //                }
-                            //            ]
-                            //        }
-                            //    ]
-                            //};
-
-
-
                             var jsObj = {
-                                "total": 1,
-                                "regions": [
-                                {
-                                    "evName": "廊坊",
-                                    "sites": [
-                                        {
-                                            "siteRegion":"lf",
-                                            "siteRegionName ": "pub",
-                                            "siteLoginUser": "admin",
-                                            "siteLoginPwd": "HWS_lf@pub9001",
-                                            "siteLoginIp": "10.44.70.245"
-                                        }
-                                    ]
-                                }
-                            ]
+                               "total":1,
+                               "regions": [
+                                   {
+                                       "evName":  $scope.evName,
+                                       "sites": [
+                                           {
+                                               "siteRegionName": $scope.siteRegionName,
+                                               "siteRegion": $scope.siteRegion,
+                                               "siteLoginUser": $scope.siteLoginUser,
+                                               "siteLoginPwd": $scope.siteLoginPwd,
+                                               "siteLoginIp": $scope.siteLoginIp
+                                           }
+                                       ]
+                                   }
+                               ]
                             };
+
+
+
+                            // var jsObj = {
+                            //     "total": 1,
+                            //     "regions": [
+                            //     {
+                            //         "evName": "廊坊",
+                            //         "sites": [
+                            //             {
+                            //                 "siteRegion":"lf",
+                            //                 "siteRegionName ": "pub",
+                            //                 "siteLoginUser": "admin",
+                            //                 "siteLoginPwd": "HWS_lf@pub9001",
+                            //                 "siteLoginIp": "10.44.70.245"
+                            //             }
+                            //         ]
+                            //     }
+                            // ]
+                            // };
 
 
 

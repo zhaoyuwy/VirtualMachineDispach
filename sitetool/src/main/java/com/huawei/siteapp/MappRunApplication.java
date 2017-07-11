@@ -23,6 +23,7 @@ import java.util.List;
 @EnableAsync        //开启异步任务
 @ServletComponentScan
 public class MappRunApplication extends WebMvcConfigurerAdapter {
+//public class MappRunApplication  {
     public static void main(String[] args) {
         SpringApplication.run(MappRunApplication.class, args);
     }
