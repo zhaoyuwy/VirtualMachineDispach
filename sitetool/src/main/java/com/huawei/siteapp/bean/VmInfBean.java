@@ -11,23 +11,34 @@ public class VmInfBean {
 
     private String monitorObjectUrn;
 
+
     private String monitorCpuUsage;
 
     private String monitorMemUsage;
 
     private int monitorTotalCpu;
     private int monitorUsedCpu;
-    ;
+
     private int monitorTotalMem;
     private int monitorUsedMem;
 
 
     private String hostName;
-    private String hostIp;
+    private String vmIp;
+    private boolean isTemplate;
     private String clusterName;
     private String vmName;
     private String vmUri;
     private String createTime;
+    private String vmStatus;
+
+    public String getVmStatus() {
+        return vmStatus;
+    }
+
+    public void setVmStatus(String vmStatus) {
+        this.vmStatus = vmStatus;
+    }
 
     public String getMonitorObjectName() {
         return monitorObjectName;
@@ -101,14 +112,6 @@ public class VmInfBean {
         this.hostName = hostName;
     }
 
-    public String getHostIp() {
-        return hostIp;
-    }
-
-    public void setHostIp(String hostIp) {
-        this.hostIp = hostIp;
-    }
-
     public String getClusterName() {
         return clusterName;
     }
@@ -139,5 +142,21 @@ public class VmInfBean {
 
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
+    }
+
+    public String getVmIp() {
+        return vmIp;
+    }
+
+    public void setVmIp(String vmIp) {
+        this.vmIp = vmIp;
+    }
+
+    public boolean isTemplate() {
+        return isTemplate;
+    }
+
+    public void setTemplate(boolean template) {
+        isTemplate = template;
     }
 }

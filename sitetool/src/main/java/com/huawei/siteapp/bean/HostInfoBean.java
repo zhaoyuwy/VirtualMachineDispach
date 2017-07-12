@@ -10,6 +10,7 @@ public class HostInfoBean {
 
     private String monitorObjectUrn;
 
+
     private String monitorCpuUsage;
 
     private String monitorMemUsage;
@@ -24,6 +25,15 @@ public class HostInfoBean {
     private String hostName;
     private String hostIp;
     private String clusterName;
+    private String hostStatus;
+
+    public String getHostStatus() {
+        return hostStatus;
+    }
+
+    public void setHostStatus(String hostStatus) {
+        this.hostStatus = hostStatus;
+    }
 
     public String getMonitorObjectName() {
         return monitorObjectName;
