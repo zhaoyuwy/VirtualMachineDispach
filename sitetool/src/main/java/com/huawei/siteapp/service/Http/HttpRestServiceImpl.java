@@ -233,6 +233,7 @@ public class HttpRestServiceImpl {
         return siteModel;
     }
 
+    //待删除
     public void fcGetSitesClustersRest(SiteLoginRestBean restInfo) {
 
         String[] urlParm = new String[]{restInfo.getSiteLoginIp(), restInfo.getRestPort(), (String) CacheCenter.getInstance().getRestBeanResponse(ParamKey.SITE_ID)};
@@ -400,5 +401,57 @@ public class HttpRestServiceImpl {
             hosts.add(host);
         }
         service.save(hosts);
+    }
+
+    public int fcGetSitesRest(SiteModel siteModel) {
+        String[] urlParm = new String[]{siteModel.getSiteLoginIp(), PropertiesUtils.get("FC_PORT")};
+        String url = PropertiesUtils.getUrl("FcGetSites", urlParm);
+        ServiceContext sr = sendGet(url, "");
+        String restResponse = (String) sr.get(ParamKey.REST_RESPONSE);
+//        String restResponse = "{\"sites\":[{\"ip\":\"192.145.17.200\",\"uri\":\"/service/sites/43DA092B\",\"urn\":\"urn:sites:43DA092B\",\"isSelf\":true,\"isDC\":false,\"status\":\"normal\",\"name\":\"site\"}]}";
+
+        Map<String, Object> responseMap = null;
+        try {
+            responseMap = JSONUtils.jsonToMap(restResponse);
+        } catch (JSONException jsonException) {
+            logger.error("A JSONObject text must begin with", jsonException);
+            String errMsg = jsonException.getMessage();
+            logger.error("A JSONObject text must begin with ", jsonException);
+
+            if (errMsg.contains("refused") || errMsg.contains("timed out")) {
+                logger.error("rest connection time out");
+                return RetCode.REST_CONNECT_TIME_OUT;
+            }
+
+            if (errMsg.contains("peer not authenticated")) {
+                logger.info("peer not auth, try again");
+//                return reLogin(cxt, request);
+                return RetCode.LOGIN_ERROR;
+            }
+
+            if (errMsg.contains("A JSONObject text must begin with")) {
+                return RetCode.PARSE_RESPONSE_JSON_ERROR;
+            }
+            throw new BusinessException(jsonException, "execute rest request error");
+
+        }
+        String urlSites = ((HashMap<String, String>) (((List) responseMap.get(ParamKey.SITES)).get(0))).get(ParamKey.URI);
+        List<SiteModel> sites = new ArrayList<>();
+        SiteRepository siteRepository = SpringUtil.getBean(SiteRepository.class);
+
+
+        for (Object siteTemp : (List) responseMap.get(ParamKey.SITES)) {
+            SiteModel siteModelQuery = siteRepository.findSiteModelBySiteLoginIpAndSiteLoginUser(siteModel.getSiteLoginIp(), siteModel.getSiteLoginUser());
+            siteModelQuery = mapToSiteBean(siteTemp, siteModelQuery);
+
+//            2017年7月12日 16:26:53 更改copyBean;
+//            SiteModel siteModelResult = (SiteModel) CommonUtils.copyBean(siteModelQuery, siteModel);
+            siteModel.setSiteUri(siteModelQuery.getSiteUri());
+            sites.add(siteModelQuery);
+        }
+        siteRepository.save(sites);
+
+        CacheCenter.getInstance().addUrlResponse(ParamKey.SITE_ID, urlSites);
+        return RetCode.OK;
     }
 }

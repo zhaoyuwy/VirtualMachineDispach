@@ -67,7 +67,7 @@ public class SiteLoginServiceImpl implements ISiteLoginService {
         retCode = siteLoginHttpRequest.fcLoginRest(siteModel);
 
         HttpRestServiceImpl httpRequest = SpringUtil.getBean(HttpRestServiceImpl.class);
-        httpRequest.fcGetSitesRest(siteLoginRestBean);
+        httpRequest.fcGetSitesRest(siteModel);
 //
         httpRequest.fcGetSitesClustersRest(siteModel);
 //

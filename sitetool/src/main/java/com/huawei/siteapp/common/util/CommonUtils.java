@@ -5,6 +5,10 @@ import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.beans.BeanInfo;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.Method;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
@@ -116,7 +120,7 @@ public class CommonUtils {
         } catch (Exception e) {
             // TODO: handle exception
 //            logger.error(e.getMessage());
-            logger.error("",e);
+            logger.error("", e);
             return "";
         }
     }
@@ -132,8 +136,7 @@ public class CommonUtils {
     }
 
     public static boolean isloginCharacterValid(String str) {
-        if(isNull(str))
-        {
+        if (isNull(str)) {
             logger.info("input str is null.");
             return false;
         }
@@ -142,33 +145,49 @@ public class CommonUtils {
         String singleChar = null;
         int i;
 
-        for ( i=0;i<iLength;i++ )
-        {
+        for (i = 0; i < iLength; i++) {
             //singleChar = new Character(src.charAt(i)).toString();
             singleChar = Character.toString(src.charAt(i));
-            if (!isContainRight(singleChar))
-            {
+            if (!isContainRight(singleChar)) {
                 return false;
             }
         }
         return true;
     }
-    public static boolean isContainRight(String str)
-    {
-        if(isNull(str))
-        {
+
+    public static boolean isContainRight(String str) {
+        if (isNull(str)) {
             return false;
         }
 
         Matcher tMatcher = loginPatern.matcher(str);
-        if(tMatcher.find())
-        {
+        if (tMatcher.find()) {
             return true;
         }
         return false;
     }
 
-    public static String getTestReportName(){
+    public static String getTestReportName() {
         return "廊坊_PUB_10.44.70.245_hosts_" + UctTimeUtil.getCurrentDate();
+    }
+
+    public static Object copyBean(Object from, Object to) {
+        try {
+            BeanInfo beanInfo = Introspector.getBeanInfo(to.getClass());
+            PropertyDescriptor[] ps = beanInfo.getPropertyDescriptors();
+            Class<?> classType = from.getClass();
+            for (PropertyDescriptor p : ps) {
+                Method getMethod = p.getReadMethod();
+                Method setMethod = p.getWriteMethod();
+                if (null != getMethod && null != setMethod) {
+                    Method fromGetMethod = classType.getMethod(getMethod.getName());
+                    Object result = fromGetMethod.invoke(from);
+                    setMethod.invoke(0, result);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return to;
     }
 }

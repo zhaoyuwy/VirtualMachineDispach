@@ -19,7 +19,7 @@ import java.util.List;
  * @version 1.0
  */
 @RestController
-public class SysGetCanInfoController {
+public class SysGetCanVmInfoController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @ResponseBody
@@ -30,7 +30,9 @@ public class SysGetCanInfoController {
 
         List<SiteModel> siteModels = (List<SiteModel>) siteRepository.findAll();
         SiteModel siteModel = siteRepository.findSiteModelBySiteRegionNameAndSiteRegionAndSiteLoginIp(siteRegionName, siteRegion, siteLoginIp);
-//System.out.println(siteModel.toString());
+
+
+
         Result result = new Result();
 
         int retCode = 200;
