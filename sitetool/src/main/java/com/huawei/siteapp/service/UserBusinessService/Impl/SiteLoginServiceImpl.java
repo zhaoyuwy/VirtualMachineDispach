@@ -71,7 +71,7 @@ public class SiteLoginServiceImpl implements ISiteLoginService {
 //
         httpRequest.fcGetSitesClustersRest(siteModel);
 //
-        httpRequest.fcGetSitesClustersHostsRest(siteLoginRestBean);
+        httpRequest.fcGetSitesClustersHostsRest(siteModel);
         return retCode;
     }
 

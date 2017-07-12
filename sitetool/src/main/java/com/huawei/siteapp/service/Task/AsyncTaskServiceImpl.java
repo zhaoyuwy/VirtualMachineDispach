@@ -40,13 +40,6 @@ public class AsyncTaskServiceImpl {
 
     //    @Async  //加入"异步调用"注解
     public void asyncSaveVmInfoInDB(SiteLoginRestBean restInfo, String response) {
-////        testInt++;
-//
-//        int a =0;
-//        a++;
-//        System.out.println("testInt = "+0);
-//        System.out.println("a = "+a +" response = "+response);
-//        return RetCode.OK;
         JSONArray vmInfos = new JSONArray();
         for (Object vmTemp : ((List<Object>) (JSONUtils.jsonToMap(response).get("vms")))) {
             String urn = ((Map<String, String>) vmTemp).get(ParamKey.URN);
@@ -73,16 +66,6 @@ public class AsyncTaskServiceImpl {
 
             String objectName = ((Map<String, String>) itemTemp).get("objectName");
             monitorCnaInfoModel.setMonitorObjectName(objectName);
-
-//            hosts.forEach(host -> {
-//                if(host.getHostUrn().equals(urn)) {
-//                    int hostCpuTotal = host.getHostTotalSizeMHz();
-//                    int hostMemTotal = host.getHostTotalSizeMB();
-//                    monitorCpuMem.setMonitorTotalCpu(hostCpuTotal);
-//                    monitorCpuMem.setMonitorTotalMem(hostMemTotal);
-//                    return;
-//                }
-//            });
 
             Object cpuMemUsage = ((Map<String, String>) itemTemp).get("value");
             String memUsage = null;
@@ -169,5 +152,69 @@ public class AsyncTaskServiceImpl {
         logger.info("###############################   " + userModels.toString());
 
 //        userRepository.save(userModels);
+    }
+
+    public void asyncSaveVmInfoInDB(SiteModel siteModel, String response) {
+        JSONArray vmInfos = new JSONArray();
+        for (Object vmTemp : ((List<Object>) (JSONUtils.jsonToMap(response).get("vms")))) {
+            String urn = ((Map<String, String>) vmTemp).get(ParamKey.URN);
+            vmInfos.add(CommonUtils.getSendCpuMemInfo(urn));
+        }
+        String[] urlParm = new String[]{siteModel.getSiteLoginIp(), PropertiesUtils.get("FC_PORT"), siteModel.getSiteUri()};
+        String url = PropertiesUtils.getUrl("FcPostHostsCpuMem", urlParm);
+        HttpRestServiceImpl httpRestService = SpringUtil.getBean(HttpRestServiceImpl.class);
+        ServiceContext responseCxt = null;
+        try {
+            responseCxt = httpRestService.sendPost(url, vmInfos.toString());
+        } catch (Exception e) {
+            logger.error("Post Exception", e);
+        }
+        String restResponse = (String) responseCxt.get(ParamKey.REST_RESPONSE);
+
+        List<MonitorVmInfoModel> monitorVmInfoModels = new ArrayList<>();
+
+        for (Object itemTemp : ((List<Object>) (JSONUtils.jsonToMap(restResponse).get("items")))) {
+            MonitorVmInfoModel monitorCnaInfoModel = new MonitorVmInfoModel();
+
+            String urn = ((Map<String, String>) itemTemp).get(ParamKey.URN);
+            monitorCnaInfoModel.setMonitorObjectUrn(urn);
+
+            String objectName = ((Map<String, String>) itemTemp).get("objectName");
+            monitorCnaInfoModel.setMonitorObjectName(objectName);
+
+            Object cpuMemUsage = ((Map<String, String>) itemTemp).get("value");
+            String memUsage = null;
+            String cpuUsage = null;
+            for (Object aCpuMemUsage : (List<Object>) cpuMemUsage) {
+                Map<String, String> aCpuMem = (Map<String, String>) aCpuMemUsage;
+
+
+                if (aCpuMem.containsValue("cpu_usage")) {
+                    cpuUsage = aCpuMem.get("metricValue");
+                    cpuUsage = CommonUtils.isNull(cpuUsage) ? "0" : cpuUsage;
+                    monitorCnaInfoModel.setMonitorCpuUsage(cpuUsage);
+                }
+
+                if (aCpuMem.containsValue("mem_usage")) {
+                    memUsage = aCpuMem.get("metricValue");
+                    memUsage = CommonUtils.isNull(memUsage) ? "0" : memUsage;
+                    monitorCnaInfoModel.setMonitorMemUsage(memUsage);
+                }
+            }
+
+            double usedMem = Double.parseDouble(memUsage) * monitorCnaInfoModel.getMonitorTotalMem();
+            double usedCpu = Double.parseDouble(cpuUsage) * monitorCnaInfoModel.getMonitorTotalCpu();
+
+            monitorCnaInfoModel.setMonitorUsedMem((int) usedMem);
+
+            monitorCnaInfoModel.setMonitorUsedCpu((int) usedCpu);
+
+            monitorCnaInfoModel.setTime(UctTimeUtil.getCurrentDate());
+            monitorCnaInfoModel.setSiteId(siteModel.getSiteId());
+
+            monitorVmInfoModels.add(monitorCnaInfoModel);
+        }
+        MonitorVmInfoServiceImpl monitorVmInfoService = SpringUtil.getBean(MonitorVmInfoServiceImpl.class);
+        monitorVmInfoService.save(monitorVmInfoModels);
     }
 }

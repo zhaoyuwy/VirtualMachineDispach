@@ -5,10 +5,6 @@ import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.beans.BeanInfo;
-import java.beans.Introspector;
-import java.beans.PropertyDescriptor;
-import java.lang.reflect.Method;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +21,6 @@ import java.util.regex.Pattern;
 public class CommonUtils {
     private static final long SECOND = 1000;
 
-    //    private static final Logger logger = Logger.getLogger(this.class);
     protected static final Logger logger = LoggerFactory.getLogger(CommonUtils.class);
 
     private static final String loginRegexp = "[a-zA-Z0-9-_]";
@@ -169,25 +164,5 @@ public class CommonUtils {
 
     public static String getTestReportName() {
         return "廊坊_PUB_10.44.70.245_hosts_" + UctTimeUtil.getCurrentDate();
-    }
-
-    public static Object copyBean(Object from, Object to) {
-        try {
-            BeanInfo beanInfo = Introspector.getBeanInfo(to.getClass());
-            PropertyDescriptor[] ps = beanInfo.getPropertyDescriptors();
-            Class<?> classType = from.getClass();
-            for (PropertyDescriptor p : ps) {
-                Method getMethod = p.getReadMethod();
-                Method setMethod = p.getWriteMethod();
-                if (null != getMethod && null != setMethod) {
-                    Method fromGetMethod = classType.getMethod(getMethod.getName());
-                    Object result = fromGetMethod.invoke(from);
-                    setMethod.invoke(0, result);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return to;
     }
 }

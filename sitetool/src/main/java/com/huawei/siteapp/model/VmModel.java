@@ -30,6 +30,15 @@ public class VmModel implements Serializable {
     private String vmUrn;
     private boolean isTemplate;
     private String vmDescription;
+    private long siteId;
+
+    public long getSiteId() {
+        return siteId;
+    }
+
+    public void setSiteId(long siteId) {
+        this.siteId = siteId;
+    }
 
     public Long getVmId() {
         return vmId;

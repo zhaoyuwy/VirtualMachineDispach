@@ -2,6 +2,8 @@ package com.huawei.siteapp.repository;
 
 import com.huawei.siteapp.model.VmModel;
 
+import java.util.List;
+
 /**
  * Created by z00390414 on 2017/6/29.
  *
@@ -9,4 +11,5 @@ import com.huawei.siteapp.model.VmModel;
  */
 //@Service("vmRepository")
 public interface VmRepository extends BaseRepository<VmModel> {
+    List<VmModel> findVmModelsBySiteId(long siteId);
 }

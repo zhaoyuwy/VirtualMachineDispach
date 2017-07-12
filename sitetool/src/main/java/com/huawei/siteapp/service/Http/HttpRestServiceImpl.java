@@ -397,6 +397,7 @@ public class HttpRestServiceImpl {
             host.setTime(UctTimeUtil.getCurrentDate());
 
 
+
             host.setSiteId(siteModel.getSiteId());
             hosts.add(host);
         }
@@ -447,6 +448,7 @@ public class HttpRestServiceImpl {
 //            2017年7月12日 16:26:53 更改copyBean;
 //            SiteModel siteModelResult = (SiteModel) CommonUtils.copyBean(siteModelQuery, siteModel);
             siteModel.setSiteUri(siteModelQuery.getSiteUri());
+            siteModel.setSiteId(siteModelQuery.getSiteId());
             sites.add(siteModelQuery);
         }
         siteRepository.save(sites);

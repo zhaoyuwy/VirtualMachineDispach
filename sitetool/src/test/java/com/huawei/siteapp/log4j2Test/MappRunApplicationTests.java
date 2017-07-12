@@ -4,9 +4,11 @@ import com.huawei.siteapp.MappRunApplication;
 import com.huawei.siteapp.common.Bean.SiteLoginRestBean;
 import com.huawei.siteapp.common.util.SpringUtil;
 import com.huawei.siteapp.common.util.UctTimeUtil;
+import com.huawei.siteapp.model.HostModel;
 import com.huawei.siteapp.model.PersonModel;
 import com.huawei.siteapp.model.SiteModel;
 import com.huawei.siteapp.model.UserModel;
+import com.huawei.siteapp.repository.HostRepository;
 import com.huawei.siteapp.repository.Impl.RepositoryTemplate;
 import com.huawei.siteapp.repository.PersonRepository;
 import com.huawei.siteapp.service.ExcelService.HostReportServiceImpl;
@@ -200,6 +202,13 @@ public class MappRunApplicationTests {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+    @Test
+    public  void testFind(){
+        HostRepository hostRepository = SpringUtil.getBean(HostRepository.class);
+List<HostModel> hostModels = (List<HostModel>) hostRepository.findAll();
+        List<HostModel> hosts = hostRepository.findHostModelsBySiteId(-1);
+        System.out.println(hosts);
     }
 
 

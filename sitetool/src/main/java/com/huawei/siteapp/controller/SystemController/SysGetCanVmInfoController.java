@@ -6,6 +6,9 @@ import com.huawei.siteapp.bean.Result;
 import com.huawei.siteapp.common.util.SpringUtil;
 import com.huawei.siteapp.model.SiteModel;
 import com.huawei.siteapp.repository.SiteRepository;
+import com.huawei.siteapp.service.Http.MonitorAllVmsServiceImpl;
+import com.huawei.siteapp.service.Http.MonitorCnaServiceImpl;
+import com.huawei.siteapp.service.Task.TaskServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -27,15 +30,29 @@ public class SysGetCanVmInfoController {
     public Result getCanInfo(@PathVariable String siteRegionName, @RequestParam String siteRegion, @RequestParam String siteLoginIp) {
         logger.info("@@@@@@@    SysGetCanVmInfoController getCanVmInfo");
         SiteRepository siteRepository = SpringUtil.getBean(SiteRepository.class);
-
-        List<SiteModel> siteModels = (List<SiteModel>) siteRepository.findAll();
+        Result result = new Result();
         SiteModel siteModel = siteRepository.findSiteModelBySiteRegionNameAndSiteRegionAndSiteLoginIp(siteRegionName, siteRegion, siteLoginIp);
 
 
+        if (null == siteModel) {
+            logger.error("SiteRegionName siteRegion siteLoginIp not find in sites");
+            result.setStatus(400);
+            result.setMsg("SiteRegionName siteRegion siteLoginIp not find in sites");
+            return result;
+        }
+        TaskServiceImpl taskService = SpringUtil.getBean(TaskServiceImpl.class);
+        taskService.clearDbMonitorData();
 
-        Result result = new Result();
+        MonitorAllVmsServiceImpl monitorAllVmsService = SpringUtil.getBean(MonitorAllVmsServiceImpl.class);
+        int retCode = monitorAllVmsService.fcGetSitesClustersHostsAllVrmRest(siteModel);
 
-        int retCode = 200;
+        MonitorCnaServiceImpl monitorsService = SpringUtil.getBean(MonitorCnaServiceImpl.class);
+        int retCode2 = monitorsService.fcPostSitesClustersHostsCpuMemRest(siteModel);
+
+        if (200 != retCode || 200 != retCode2) {
+            retCode = 400;
+        }
+
         result.setStatus(retCode);
         result.setMsg("OK");
         result.setData(body());
