@@ -25,7 +25,8 @@ public class SysGetTopologyTreeInfoController {
 
     @ResponseBody
     @RequestMapping("/getTopologyTreeInfo")
-    public Result vmReport() throws Exception {
+    public Result getTopologyTreeInfo() throws Exception {
+        logger.info("@@@@@@@    Enter SysGetTopologyTreeInfoController getTopologyTreeInfo()");
         int retCode = RetCode.INIT_ERROR;
         Result result = new Result();
         TopologyTreeBean topologyTreeBean = siteLoginService.queryAllSiteLoginUsers();

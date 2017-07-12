@@ -69,7 +69,7 @@ public class SiteLoginServiceImpl implements ISiteLoginService {
         HttpRestServiceImpl httpRequest = SpringUtil.getBean(HttpRestServiceImpl.class);
         httpRequest.fcGetSitesRest(siteLoginRestBean);
 //
-        httpRequest.fcGetSitesClustersRest(siteLoginRestBean);
+        httpRequest.fcGetSitesClustersRest(siteModel);
 //
         httpRequest.fcGetSitesClustersHostsRest(siteLoginRestBean);
         return retCode;
@@ -83,16 +83,6 @@ public class SiteLoginServiceImpl implements ISiteLoginService {
         siteLoginRestBean.setSiteLoginPwd(siteLoginPwd);
         siteLoginRestBean.setRestPort(PropertiesUtils.get("FC_PORT"));
         return siteLoginRestBean;
-    }
-
-    private void saveSiteLoginUser(SiteLoginRestBean siteLoginRestBean) {
-        HttpRestServiceImpl httpRequest = SpringUtil.getBean(HttpRestServiceImpl.class);
-        httpRequest.fcGetSitesRest(siteLoginRestBean);
-//
-        httpRequest.fcGetSitesClustersRest(siteLoginRestBean);
-//
-        httpRequest.fcGetSitesClustersHostsRest(siteLoginRestBean);
-
     }
 
     public TopologyTreeBean queryAllSiteLoginUsers() {
@@ -130,21 +120,13 @@ public class SiteLoginServiceImpl implements ISiteLoginService {
 
     public int checkSiteUserLoginSuccess(SiteModel siteModel) {
         SiteRepository siteRepository = SpringUtil.getBean(SiteRepository.class);
-//        SiteModel siteModel = new SiteModel();
-//        String siteLoginUser = siteLoginRestBean.getSiteLoginUser();
-//        String siteLoginPwd = siteLoginRestBean.getSiteLoginPwd();
-//        String siteLoginIp = siteLoginRestBean.getSiteLoginIp();
-//        String siteRegionName = siteLoginRestBean.getSiteRegionName();
+
 
         String siteLoginIp = siteModel.getSiteLoginIp();
         String siteLoginUser = siteModel.getSiteLoginUser();
         SiteModel siteModelLogin = siteRepository.findSiteModelBySiteLoginIpAndSiteLoginUser(siteLoginIp, siteLoginUser);
         if (null == siteModelLogin) {
             logger.info("Save siteModel : siteLoginIp = " + siteLoginIp + " ,siteLoginUser = " + siteLoginUser);
-//            siteModel.setSiteLoginUser(siteLoginUser);
-//            siteModel.setSiteLoginPwd(siteLoginPwd);
-//            siteModel.setSiteLoginIp(siteLoginIp);
-//            siteModel.setSiteRegionName(siteRegionName);
             siteRepository.save(siteModel);
         } else {
             logger.info("SiteModel already exist:  siteLoginIp = " + siteLoginIp + " ,siteLoginUser = " + siteLoginUser);

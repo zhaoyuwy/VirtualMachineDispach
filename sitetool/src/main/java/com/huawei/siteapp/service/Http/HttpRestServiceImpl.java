@@ -74,10 +74,9 @@ public class HttpRestServiceImpl {
             while ((line = in.readLine()) != null) {
                 result.append(line);
             }
-        }catch (ConnectException connectException){
-            logger.error("Connection timed out: connect",connectException);
-        }
-        catch (Exception e) {
+        } catch (ConnectException connectException) {
+            logger.error("Connection timed out: connect", connectException);
+        } catch (Exception e) {
             logger.error("Send get rest Exception", e);
         }
         // 使用finally块来关闭输入流
@@ -97,7 +96,7 @@ public class HttpRestServiceImpl {
     }
 
     public ServiceContext sendPost(String url, String param) {
-        logger.info("Begin of sendPost -- " + url +"\n and postBody = "+param);
+        logger.info("Begin of sendPost -- " + url + "\n and postBody = " + param);
 
 
         PrintWriter out = null;
@@ -134,10 +133,9 @@ public class HttpRestServiceImpl {
             while ((line = in.readLine()) != null) {
                 result.append(line);
             }
-        }catch (JSONException jsonException){
-            logger.error("A JSONObject text must begin with ",jsonException);
-        }
-        catch (Exception e) {
+        } catch (JSONException jsonException) {
+            logger.error("A JSONObject text must begin with ", jsonException);
+        } catch (Exception e) {
             logger.error("Send post rest exception", e);
         }
         //使用finally块来关闭输出流、输入流
@@ -159,6 +157,7 @@ public class HttpRestServiceImpl {
         return cxt;
     }
 
+    //等待删除。
     public int fcGetSitesRest(SiteLoginRestBean restInfo) {
         String[] urlParm = new String[]{restInfo.getSiteLoginIp(), restInfo.getRestPort()};
         String url = PropertiesUtils.getUrl("FcGetSites", urlParm);
@@ -170,27 +169,25 @@ public class HttpRestServiceImpl {
         try {
             responseMap = JSONUtils.jsonToMap(restResponse);
         } catch (JSONException jsonException) {
-            logger.error("A JSONObject text must begin with",jsonException);
+            logger.error("A JSONObject text must begin with", jsonException);
             String errMsg = jsonException.getMessage();
-            logger.error("A JSONObject text must begin with ",jsonException);
+            logger.error("A JSONObject text must begin with ", jsonException);
 
-            if (errMsg.contains("refused") || errMsg.contains("timed out"))
-            {
+            if (errMsg.contains("refused") || errMsg.contains("timed out")) {
                 logger.error("rest connection time out");
                 return RetCode.REST_CONNECT_TIME_OUT;
             }
 
-            if (errMsg.contains("peer not authenticated"))
-            {
+            if (errMsg.contains("peer not authenticated")) {
                 logger.info("peer not auth, try again");
 //                return reLogin(cxt, request);
                 return RetCode.LOGIN_ERROR;
             }
 
-            if(errMsg.contains("A JSONObject text must begin with")){
+            if (errMsg.contains("A JSONObject text must begin with")) {
                 return RetCode.PARSE_RESPONSE_JSON_ERROR;
             }
-            throw new BusinessException(jsonException,"execute rest request error");
+            throw new BusinessException(jsonException, "execute rest request error");
 
         }
         String urlSites = ((HashMap<String, String>) (((List) responseMap.get(ParamKey.SITES)).get(0))).get(ParamKey.URI);
@@ -198,10 +195,9 @@ public class HttpRestServiceImpl {
         SiteRepository siteRepository = SpringUtil.getBean(SiteRepository.class);
 
 
-//        siteService.findAll()
         for (Object siteTemp : (List) responseMap.get(ParamKey.SITES)) {
-            SiteModel siteModel  = siteRepository.findSiteModelBySiteLoginIpAndSiteLoginUser(restInfo.getSiteLoginIp(),restInfo.getSiteLoginUser());
-            SiteModel site = mapToSiteBean(siteTemp,siteModel);
+            SiteModel siteModel = siteRepository.findSiteModelBySiteLoginIpAndSiteLoginUser(restInfo.getSiteLoginIp(), restInfo.getSiteLoginUser());
+            SiteModel site = mapToSiteBean(siteTemp, siteModel);
             site.setSiteLoginUser(restInfo.getSiteLoginUser());
             site.setSiteLoginPwd(restInfo.getSiteLoginPwd());
             site.setSiteLoginIp(restInfo.getSiteLoginIp());
@@ -217,7 +213,7 @@ public class HttpRestServiceImpl {
         return RetCode.OK;
     }
 
-    private SiteModel mapToSiteBean(Object siteObj,SiteModel siteModel) {
+    private SiteModel mapToSiteBean(Object siteObj, SiteModel siteModel) {
         String siteUri = ((HashMap<String, String>) siteObj).get("uri");
         String siteUrn = ((HashMap<String, String>) siteObj).get("urn");
         String siteIp = ((HashMap<String, String>) siteObj).get("ip");
@@ -275,11 +271,9 @@ public class HttpRestServiceImpl {
 
         }
         service.save(clusters);
-
-//        System.out.println(sr);
     }
 
-
+    //等待删除。
     public void fcGetSitesClustersHostsRest(SiteLoginRestBean restInfo) {
 
         String[] urlParm = new String[]{restInfo.getSiteLoginIp(), restInfo.getRestPort(), (String) CacheCenter.getInstance().getRestBeanResponse(ParamKey.SITE_ID)};
@@ -321,13 +315,90 @@ public class HttpRestServiceImpl {
         service.save(hosts);
     }
 
+    public void fcGetSitesClustersRest(SiteModel siteModel) {
+        String[] urlParm = new String[]{siteModel.getSiteLoginIp(), PropertiesUtils.get("FC_PORT"), siteModel.getSiteUri()};
+        String url = PropertiesUtils.getUrl("FcGetClusters", urlParm);
+        ServiceContext sr = sendGet(url, "");
+        String restResponse = (String) sr.get(ParamKey.REST_RESPONSE);
+//        String restResponse = "{\"clusters\":[{\"params\":null,\"description\":\"2017.3.14\",\"tag\":null,\"uri\":\"/service/sites/43DA092B/clusters/19220\",\"urn\":\"urn:sites:43DA092B:clusters:19220\",\"cpuResource\":{\"allocatedSizeMHz\":0,\"totalSizeMHz\":518800},\"memResource\":{\"allocatedSizeMB\":954284,\"totalSizeMB\":1052924},\"parentObjUrn\":null,\"parentObjName\":null,\"name\":\"IES\"},{\"params\":null,\"description\":null,\"tag\":\"domain/default\",\"uri\":\"/service/sites/43DA092B/clusters/108\",\"urn\":\"urn:sites:43DA092B:clusters:108\",\"cpuResource\":{\"allocatedSizeMHz\":39904,\"totalSizeMHz\":1882716},\"memResource\":{\"allocatedSizeMB\":3054672,\"totalSizeMB\":5636222},\"parentObjUrn\":null,\"parentObjName\":null,\"name\":\"ManagementCluster\"}]}";
+        ((List) (JSONUtils.jsonToMap(restResponse).get("clusters"))).get(0);
+        ClusterServiceImpl service = SpringUtil.getBean(ClusterServiceImpl.class);
+        List<ClusterModel> clusters = new ArrayList<>();
+        for (Object clusterTemp : ((List<Object>) (JSONUtils.jsonToMap(restResponse).get("clusters")))) {
 
-    private void setResponseInCache(Object response) {
-        for (Object o : ((Map<String, String>) response).entrySet()) {
-            Map.Entry entry = (Map.Entry) o;
-            Object key = entry.getKey();
-            Object val = entry.getValue();
-            CacheCenter.getInstance().addUrlResponse((String) key, val);
+            ClusterModel cluster = new ClusterModel();
+            String uri = ((Map<String, String>) clusterTemp).get(ParamKey.URI);
+            cluster.setClusterUri(uri);
+            String urn = ((Map<String, String>) clusterTemp).get(ParamKey.URN);
+            cluster.setClusterUrn(urn);
+            String name = ((Map<String, String>) clusterTemp).get(ParamKey.NAME);
+            cluster.setClusterName(name);
+
+            Object memResource = ((Map<String, String>) clusterTemp).get("memResource");
+            int allocatedSizeMB = ((Map<String, Integer>) memResource).get("allocatedSizeMB");
+            int totalSizeMB = ((Map<String, Integer>) memResource).get("totalSizeMB");
+            cluster.setClusterAllocatedSizeMB(allocatedSizeMB);
+            cluster.setClusterTotalSizeMB(totalSizeMB);
+
+            Object cpuResource = ((Map<String, String>) clusterTemp).get("cpuResource");
+            int allocatedSizeMHz = ((Map<String, Integer>) cpuResource).get("allocatedSizeMHz");
+            int totalSizeMHz = ((Map<String, Integer>) cpuResource).get("totalSizeMHz");
+            cluster.setClusterAllocatedSizeMHz(allocatedSizeMHz);
+            cluster.setClusterCpuTotalSizeMHz(totalSizeMHz);
+            cluster.setTime(UctTimeUtil.getCurrentDate());
+
+            cluster.setSiteId(siteModel.getSiteId());
+            clusters.add(cluster);
+
         }
+        service.save(clusters);
+    }
+
+    public void fcGetSitesClustersHostsRest(SiteModel siteModel) {
+
+        String[] urlParm = new String[]{siteModel.getSiteLoginIp(), PropertiesUtils.get("FC_PORT"), siteModel.getSiteUri()};
+        String url = PropertiesUtils.getUrl("FcGetHosts", urlParm);
+        ServiceContext sr = sendGet(url, "");
+        String restResponse = (String) sr.get(ParamKey.REST_RESPONSE);
+//        String restResponse = "{\"clusters\":[{\"params\":null,\"description\":\"2017.3.14\",\"tag\":null,\"uri\":\"/service/sites/43DA092B/clusters/19220\",\"urn\":\"urn:sites:43DA092B:clusters:19220\",\"cpuResource\":{\"allocatedSizeMHz\":0,\"totalSizeMHz\":518800},\"memResource\":{\"allocatedSizeMB\":954284,\"totalSizeMB\":1052924},\"parentObjUrn\":null,\"parentObjName\":null,\"name\":\"IES\"},{\"params\":null,\"description\":null,\"tag\":\"domain/default\",\"uri\":\"/service/sites/43DA092B/clusters/108\",\"urn\":\"urn:sites:43DA092B:clusters:108\",\"cpuResource\":{\"allocatedSizeMHz\":39904,\"totalSizeMHz\":1882716},\"memResource\":{\"allocatedSizeMB\":3054672,\"totalSizeMB\":5636222},\"parentObjUrn\":null,\"parentObjName\":null,\"name\":\"ManagementCluster\"}]}";
+//        ((List) (JSONUtils.jsonToMap(restResponse).get("clusters"))).get(0);
+        HostServiceImpl service = SpringUtil.getBean(HostServiceImpl.class);
+        ClusterServiceImpl clusterService = SpringUtil.getBean(ClusterServiceImpl.class);
+        List<ClusterModel> clusterModels = (List<ClusterModel>) clusterService.findAll();
+        List<HostModel> hosts = new ArrayList<>();
+        for (Object hostTemp : ((List<Object>) (JSONUtils.jsonToMap(restResponse).get("hosts")))) {
+            HostModel host = new HostModel();
+            String uri = ((Map<String, String>) hostTemp).get(ParamKey.URI);
+            host.setHostUri(uri);
+            String urn = ((Map<String, String>) hostTemp).get(ParamKey.URN);
+            host.setHostUrn(urn);
+            String ip = ((Map<String, String>) hostTemp).get("ip");
+            host.setHostIp(ip);
+            String name = ((Map<String, String>) hostTemp).get(ParamKey.NAME);
+            host.setHostName(name);
+            String clusterName = ((Map<String, String>) hostTemp).get("clusterName");
+            host.setClusterName(clusterName);
+            String clusterUrn = ((Map<String, String>) hostTemp).get("clusterUrn");
+            host.setClusterUrn(clusterUrn);
+
+
+            Object memResource = ((Map<String, String>) hostTemp).get("memResource");
+            int allocatedSizeMB = ((Map<String, Integer>) memResource).get("allocatedSizeMB");
+            int totalSizeMB = ((Map<String, Integer>) memResource).get("totalSizeMB");
+            host.setHostAllocatedSizeMB(allocatedSizeMB);
+            host.setHostTotalSizeMB(totalSizeMB);
+
+            Object cpuResource = ((Map<String, String>) hostTemp).get("cpuResource");
+            int allocatedSizeMHz = ((Map<String, Integer>) cpuResource).get("allocatedSizeMHz");
+            int totalSizeMHz = ((Map<String, Integer>) cpuResource).get("totalSizeMHz");
+            host.setHostAllocatedSizeMHz(allocatedSizeMHz);
+            host.setHostTotalSizeMHz(totalSizeMHz);
+            host.setTime(UctTimeUtil.getCurrentDate());
+
+
+            host.setSiteId(siteModel.getSiteId());
+            hosts.add(host);
+        }
+        service.save(hosts);
     }
 }
