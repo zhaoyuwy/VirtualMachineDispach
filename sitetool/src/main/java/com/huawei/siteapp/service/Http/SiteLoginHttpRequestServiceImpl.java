@@ -7,6 +7,7 @@ import com.huawei.siteapp.common.constats.RetCode;
 import com.huawei.siteapp.common.util.BusinessException;
 import com.huawei.siteapp.common.util.PropertiesUtils;
 import com.huawei.siteapp.common.util.SpringUtil;
+import com.huawei.siteapp.model.SiteModel;
 import com.huawei.siteapp.service.UserBusinessService.ISiteLoginService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,7 +77,6 @@ public class SiteLoginHttpRequestServiceImpl {
                 Map.Entry entry = (Map.Entry) o;
                 String key = (String) entry.getKey();
                 List<String> val = (List<String>) entry.getValue();
-                System.out.println("@@@@@@@@@@@@@@@@@" + val.toString());
                 if ("X-Auth-Token".equals(key)) {
                     CacheCenter.getInstance().addUrlResponse("FcLogin", val.get(0));
                 }
@@ -122,5 +122,14 @@ public class SiteLoginHttpRequestServiceImpl {
         siteLoginService.checkSiteUserLoginSuccess(restInfo);
         return retCode;
 
+    }
+
+    public int fcLoginRest(SiteModel siteModel) {
+        String[] urlParm = new String[]{siteModel.getSiteLoginIp(), PropertiesUtils.get("FC_PORT")};
+        String url = PropertiesUtils.getUrl("FcLogin", urlParm);
+        int retCode = sendLoginPost(url, siteModel.getSiteLoginUser(), siteModel.getSiteLoginPwd());
+        ISiteLoginService siteLoginService = SpringUtil.getBean(ISiteLoginService.class);
+        siteLoginService.checkSiteUserLoginSuccess(siteModel);
+        return retCode;
     }
 }

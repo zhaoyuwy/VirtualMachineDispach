@@ -82,6 +82,12 @@
         margin-top:10px;
     }
 
+    /*给表格设置一个class,否则直接设置会给其他的元素带来影响*/
+    table.dataTable span.ng-binding,table.dataTable span.ng-scope{
+        position:relative;
+        top:-4px;
+    }
+
 </style>
 <div id="myTabs" class="tiny-tabs-container" style="width:100%;" >
     <div class="tiny-tabs-content">
@@ -101,7 +107,7 @@
 
 
             <div class="content_right">
-                <div class="row">
+                <div class="row"  ng-show="!adminClassName">
                    <!--提示文本-->
                     <ti-alert type="type1"
                               show="show"
@@ -109,55 +115,11 @@
                               close-icon="closeIcon"
                               dismiss-on-timeout="dismissOnTimeout">{{label1}}</ti-alert><br>
 
-                    <!--<div class="radio_group">-->
-                        <!--<ti-btn-radio-group items="selectModel.values" selected-id="selectModel.selectedId" change="selectModel.change">-->
-                        <!--</ti-btn-radio-group>-->
-
-                    <!--</div>-->
-                   <!--<div>-->
-                       <div >
-                           <button ng-class="{true:'check_button',false:'radio-button'}[adminClassName]"ng-click="selectBtn()">虚拟机申请</button>
-
-                       </div>
-                   <!--</div>-->
-
-                    <!--向导-->
-                    <div ng-show="adminClassName">
-                        <div class="mawizard">
-                            <div id="tinyplus-wizard-demo">
-                                <ul class="tinyplus-wizard-steps">
-                                    <li ng-repeat="step in steps" class="{{step.state}}">
-                                        <span class="tinyplus-step-title">{{step.title}}</span>
-                                        <div class="tinyplus-step-icon"></div>
-                                    </li>
-                                </ul>
-
-
-                                <div class="widget-box">
-                                    <div ng-repeat="step in steps" ng-include="step.templateUrl" ng-show="currentStep-1 == $index"></div>
-                                </div>
-                                <div class="wizard-actions">
-                                    <!--<span ng-if="currentStep !== 1"> <tiny-button click="stepBackward()" text="stepWardmodel.previousTxt"></tiny-button> </span>-->
-                                    <span ng-if="currentStep < steps.length"> <tiny-button click="stepForward()" text="stepWardmodel.nextTxt"></tiny-button> </span>
-                                    <span ng-if="currentStep == steps.length"> <tiny-button click="finish()" text="stepWardmodel.finishTxt"></tiny-button></span>
-                                    <span> <tiny-button  click="buttonCancel()"text="stepWardmodel.cancelTxt"></tiny-button> </span>
-                                </div>
-                            </div>
-
-
-                        </div>
-
-
-                        <div style="height:60px;"></div>
-                    </div>
-
-
-
                     <!--点击树右侧出现的图表-->
 
 
 
-                <div style="margin:40px 0 60px 20px" ng-show="!adminClassName">
+                <div style="margin:40px 0 60px 20px" >
                     <ti-formfield cols="threeCols">
                         <ti-item  label="tenItem.label">
                             <ti-select ng-cloak
@@ -220,7 +182,7 @@
                             <!--主机查询显示-->
                             <div style="position: relative; left:-20px">
                                 <ti-table class="containerStyle" displayed-data="hostMangerDisplayed" src-data="hostMangerSrcData" columns="hostMangerColumns">
-                                    <table>
+                                    <table class="dataTable">
                                         <thead>
                                         <tr>
                                             <th ng-repeat="column in hostMangerColumns" width="{{column.width}}">{{column.title}}</th>
@@ -261,7 +223,7 @@
                         <!--按虚拟机查询显示-->
                         <div style="position: relative; left:-20px">
                             <ti-table class="containerStyle" displayed-data="vmDisplayed" src-data="vmSrcData" columns="vmColumns">
-                                <table>
+                                <table class="dataTable">
                                     <thead>
                                     <tr>
                                         <th ng-repeat="column in vmColumns" width="{{column.width}}">{{column.title}}</th>
@@ -275,9 +237,13 @@
                                         <td>{{row.vmId}}</td>
                                         <td>{{row.vmStatus}}</td>
                                         <td>{{row.vmType}}</td>
-                                        <td>{{row.monitorUsedCpu}}</td>
+                                        <td><ti-progressbar max-value="$scope.hostProgress.maxValue" value="row.monitorUsedCpu">{{row.monitorUsedCpu}}%
+                                        </ti-progressbar></td>
+                                        <!--<td>{{row.monitorUsedCpu}}</td>-->
                                         <td>{{row.hostTotalSizeMHz}}</td>
-                                        <td>{{row.monitorUsedMem}}</td>
+                                        <td><ti-progressbar max-value="$scope.hostProgress.maxValue" value="row.monitorUsedMem">{{row.monitorUsedMem}}%
+                                        </ti-progressbar></td>
+                                        <!--<td>{{row.monitorUsedMem}}</td>-->
                                         <td>{{row.hostTotalSizeMB}}</td>
                                         <td>{{row.vmIp}}</td>
                                         <td>{{row.vmLocation}}</td>

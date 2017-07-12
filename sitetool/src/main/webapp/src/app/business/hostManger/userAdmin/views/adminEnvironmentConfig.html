@@ -3,17 +3,46 @@
     #myTabs{
         font-family: "Helvetica Neue55", Arial, Helvetica, sans-serif;
     }
-
+    .page-header {
+        padding-bottom: 9px;
+        margin: 12px 0 20px;
+        border-bottom: 1px solid #eee;
+    }
+    .ti-alert-position{
+        position:absolute;
+        top:80px;
+        left:250px;
+        width:85%;
+        z-index:10001
+    }
+    .containerStyle1 {
+        width:650px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 30px;
+    }
 </style>
-<div id="myTabs" class="tiny-tabs-container" style="width:100%;" >
+<div id="myTabs" class="tiny-tabs-container" >
     <div class="tiny-tabs-content">
         <div id="tabs-1">
             <div  style="width:100%;">
                 <div class="row">
+                    <div class="ti-alert-position ">
+                        <ti-alert type="alertInfo.type"
+                                  show="alertInfo.contentNullError"
+                                  type-icon="true"
+                                  close-icon="true"
+                                  dismiss-on-timeout="2500" >{{alertInfo.content}}</ti-alert>
+
+                    </div>
+
 
                     <div class="mainTitle page-header" style="text-align:center;">{{list}}</div>
                     <div style="margin-bottom: 20px;">
                         <button id="openWindow" type="button" class="ti-btn-primary" ti-button>添加环境</button>
+                    </div>
+                    <div style="margin-bottom: 10px;float: right;">
+                        <span  class="" >{{i18n.evSiteTotalHead}} &nbsp;<a style="color:#007486;font-size:14px;">{{environmentTotal}}</a>&nbsp;&nbsp;{{i18n.evSiteTotalAfter}}</span>
                     </div>
 
                     <ti-table class="containerStyle" displayed-data="environmentData.data" src-data="environmentData" columns="environmentColumns">
@@ -23,71 +52,73 @@
                                 <th ng-repeat="column in environmentColumns" width="{{column.width}}">{{column.title}}</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <!--注意:ng-repeat中的displayed数据与displayed-data传入的数据一致,在scope中初始化设置为[]即可-->
-                            <!--为了更好的渲染性能，建议在ng-repeat数据时总是track by数据条目中的某个唯一属性值(如id)-->
-                            <tr ng-repeat-start="you in environmentData.data">
-                                <td>
-                                    <span class="ti-table-tree" ng-click="you.showSub =!you.showSub" ng-if="you.siteModels !== undefined">
-                                           <i class="ti-icon" ng-class="{'ti-icon-plus-square':!you.showSub, 'ti-icon-minus-square': you.showSub}"></i>
-                                    </span>
-                                    {{you.evName}}
-                                </td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <a style="margin-right:30px;"><span>添加节点</span></a>
-                                    <a style="margin-right:30px;"><span>编辑节点</span></a>
-                                    <a><span>删除节点</span></a>
-                                </td>
-                            </tr>
-                            <tr ng-repeat-start="son in you.siteModels" ng-if="you.showSub">
-                                <td style="padding-left: 30px;">
-                                </td>
-                                <td >
-                                    {{son.siteRegionName}}
-                                </td>
-                                <td>
-                                    {{son.siteRegion}}
-                                </td>
-                                <td>
-                                    {{son.siteLoginUser}}
-                                </td>
-                                <td>
-                                    {{son.siteLoginIp}}
-                                </td>
-                                <td>
-                                    <a style="margin-right:30px;"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
-                                    <a style="margin-right:30px;"><span>编辑节点</span></a>
-                                    <a><span>删除节点</span></a>
-                                </td>
-                            </tr>
-                            <tr ng-repeat-end ng-if="false">
-                            </tr>
-                            <tr ng-repeat-end ng-if="false">
-                            </tr>
+                            <tbody ng-if="environmentData.data.length > 0">
+                                <tr ng-repeat-start="you in environmentData.data">
+                                    <td>
+                                        <span class="ti-table-tree" ng-click="you.showSub =!you.showSub" ng-if="you.siteModels !== undefined">
+                                               <i class="ti-icon" ng-class="{'ti-icon-plus-square':!you.showSub, 'ti-icon-minus-square': you.showSub}"></i>
+                                        </span>
+                                        {{you.evName}}
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        <a style="margin-right:30px;"><span>添加节点</span></a>
+                                        <a style="margin-right:30px;"><span>编辑节点</span></a>
+                                        <a><span>删除节点</span></a>
+                                    </td>
+                                </tr>
+                                <tr ng-repeat-start="son in you.siteModels" ng-if="you.showSub">
+                                    <td style="padding-left: 30px;">
+                                    </td>
+                                    <td >
+                                        {{son.siteRegionName}}
+                                    </td>
+                                    <td>
+                                        {{son.siteRegion}}
+                                    </td>
+                                    <td>
+                                        {{son.siteLoginUser}}
+                                    </td>
+                                    <td>
+                                        {{son.siteLoginIp}}
+                                    </td>
+                                    <td>
+                                        <a style="margin-right:30px;"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+                                        <a style="margin-right:30px;"><span>编辑节点</span></a>
+                                        <a><span>删除节点</span></a>
+                                    </td>
+                                </tr>
+                                <tr ng-repeat-end ng-if="false">
+                                </tr>
+                                <tr ng-repeat-end ng-if="false">
+                                </tr>
 
 
 
-                            <!---->
-                            <!--<tr ng-repeat="row in environmentData.data">-->
-                                <!--<td>-->
-                                    <!--<ti-details-icon row="row" before-toggle="row.toggleDetails"></ti-details-icon> &lt;!&ndash;详情图标设置，传入行数据&ndash;&gt;-->
-                                <!--</td>-->
-                                <!--<td>{{row.evName}}</td>-->
-                                <!--<td>{{row.siteName}}</td>-->
-                                <!--<td>{{row.siteRegion}}</td>-->
-                                <!--<td>{{row.siteLoginUser}}</td>-->
-                                <!--<td>{{row.siteLoginPwd}}</td>-->
-                                <!--<td>{{row.siteLoginIp}}</td>-->
-                                <!--<td><a style="margin-right:30px;"><span>添加节点</span></a><a><span>编辑节点</span></a></td>-->
-                            <!--</tr>-->
 
                             </tbody>
+
+                            <tbody ng-if="environmentData.data.length === 0">
+                            <tr>
+                                <td ti-colspan  style="text-align: center;">{{noDadaInfo}}</td>
+                            </tr>
+                            </tbody>
                         </table>
+
+                            <!--<ti-pagination ng-if="pagingData.totalItems >5" current-page="pagingData.currentPage" total-items="pagingData.totalItems" page-size="pagingData.pageSize" page-num-change="pagingData.pageNumChange(currentPage,pageSizeNum,totalItems)"></ti-pagination>-->
+
+
+
+                            <tiny-pagination ng-if="pagingModel.totalRecords >5" id="pagingModel.id" type="pagingModel.type" total-records="pagingModel.totalRecords"
+                                             hide-display-length="pagingModel.hideDisplayLength" display-length="pagingModel.displayLength" callback="pagingModel.callback"
+                                             ></tiny-pagination>
+
                     </ti-table>
+
+
 
                 </div>
             </div>

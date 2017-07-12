@@ -40,7 +40,7 @@ public class ScheduleTask {
         logger.info("Schedule task generate report begin ");
         boolean isLoginSuccess = (Boolean) CacheCenter.getInstance().getRestBeanResponse("loginSuccess");
         if (!isLoginSuccess) {
-            logger.info("User2 has not login");
+//            logger.info("User2 has not login");
             return;
         }
         logger.info("Schedule task generate report begin after user login success");

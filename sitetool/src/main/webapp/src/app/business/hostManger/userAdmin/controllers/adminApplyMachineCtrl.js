@@ -24,12 +24,7 @@ define([
 
 
 
-
-
-
             /*** tree start ***/
-
-
 
             var setting = {
                 treeObj: null,
@@ -65,7 +60,7 @@ define([
 
             };
 
-            //$scope.trees.values = tree;
+
 
 
             var treeId = $scope.trees.id;
@@ -85,14 +80,60 @@ define([
                 "getData": function(){
                     var  promise = adminApplyMachineServe.getTree();
                     promise.then(function(response){
-                            //插入召开时间这个字段，是开始时间和结束时间结合的
-                            if(typeof(response)== "object" && response != ''){
-                                $scope.trees.values = response.data;
+                            //if(typeof(response)== "object" && response != ''){
+                            //    $scope.trees.values = response.data;
+                            //}
+
+                            if(response.status== 200){
+                                var listTree =[ {
+                                    "id": 1, //文件名称
+                                    "name": "局点信息", //局点名称
+                                    "nodeType": "business",
+                                    "parentId": null,
+
+
+                                    //默认展开直接子节点
+                                    "open": "true"
+                                }];
+
+
+                                response.data.regionBeans.forEach(function(value,index,array){
+                                    var treeSon = {
+                                        "id":index+2,
+                                        "name": array[index].evName,
+                                        "nodeType": "City",
+                                        "parentId": 1,
+                                        "open": "true"
+                                    };
+                                    listTree.push(treeSon);
+
+                                    var sonTreeLength = treeSon.id; //把父节点id 保存起来
+                                    if(JSON.stringify(array[index].siteModels)!='[]'){ //数组不为空对象
+                                        array[index].siteModels.forEach(function(value1,index1,array1){
+                                            //累加的id的值
+
+                                            var treeGrandSon ={
+                                                "id":listTree.length+index1+1,
+                                                "name": array1[index1].siteRegion+'_'+array1[index1].siteIp,
+                                                "nodeType": "point",
+                                                "parentId": sonTreeLength,
+                                                "siteLoginIp":array1[index1].siteLoginIp
+                                            };
+
+                                            listTree.push(treeGrandSon);
+                                        });
+                                    }
+
+                                });
+
+                                //$scope.trees.values = response.data.regionBeans;
+                                $scope.trees.values = listTree;
+
                             }
 
                         },
                         function(response){
-                            console.log("get请求数据失败");
+                            alert(response.msg);
                         });
                 }
             };
@@ -101,12 +142,14 @@ define([
 
 
 
+
             //单击的回调函数
             function clickFn(click, treeId, treeNode) {
                 console.log(treeNode); // 改属性的对象数据
                 console.log(treeId); //tree的id的值
                 console.log(click);//元素的jq对象
-                $scope.adminClassName =false; //即向导隐藏
+
+                $scope.adminClassName = false; //点击树 则出现右侧节点的详细信息
                 $scope.adminCheckout1.selectedId ='1'; //默认选中的是 按主机查看
                 $scope.chaxun = true;
 
@@ -146,348 +189,7 @@ define([
             $scope.type1 = "error";
             //$scope.dismissOnTimeout = 3000;
 
-
-            $scope.adminClassName =true;
-           //点击 默认按钮事件
-            $scope.selectBtn = function(){
-                $scope.adminClassName =true;
-
-            };
-
-
-
-
-          //按钮默认事件
-
-
-            //向导
-
-
-            $scope.currentStep = 1;
-            $scope.steps = [{
-                state:"active",
-                title:"模板导入",
-                templateUrl:"src/app/business/hostManger/userAdmin/views/include/wizardstep0.html"
-            },{
-                state:"undo",
-                title:"状态查询",
-                templateUrl:"src/app/business/hostManger/userAdmin/views/include/wizardstep1.html"
-            },{
-                state:"undo",
-                title:"规格审核",
-                templateUrl:"src/app/business/hostManger/userAdmin/views/include/wizardstep2.html"
-            },
-            {
-                state:"undo",
-                title:"ip分配",
-                templateUrl:"src/app/business/hostManger/userAdmin/views/include/wizardstep3.html"
-            },
-            {
-                state:"undo",
-                title:"创建成功",
-                templateUrl:"src/app/business/hostManger/userAdmin/views/include/wizardstep4.html"
-            },
-            {
-                state:"undo",
-                title:"审核通过",
-                templateUrl:"src/app/business/hostManger/userAdmin/views/include/wizardstep5.html"
-            }
-            ];
-            $scope.stepWardmodel = {
-                previousTxt:"previous",
-                nextTxt:"下一步",
-                finishTxt:"完成",
-                cancelTxt:"取消"
-            };
-            $scope.stepForward = function(){
-                $scope.steps[$scope.currentStep-1].state = "complete";
-                $scope.currentStep++;
-                $scope.steps[$scope.currentStep-1].state = "active";
-            };
-            $scope.stepBackward = function() {
-                $scope.steps[$scope.currentStep-1].state = "undo";
-                $scope.currentStep--;
-                $scope.steps[$scope.currentStep-1].state = "active";
-            };
-            $scope.finish = function() {
-                $scope.steps[$scope.currentStep-1].state = "complete";
-            };
-            $scope.buttonCancel = function() { //返回到第一步1
-
-                //$scope.steps[0].state = "active";
-                $scope.currentStep = 1;//回到起始步
-                $scope.steps.forEach(function(value,index,array) { //这里value的参数可以不管
-                        if (index == 0) {
-                            array[index].state = "active"
-                        } else {
-                            array[index].state = "undo"
-                        }
-                    });
-            };
-
-
-
-
-
-
-
-
-            //第一个 0页面的 逻辑功能
-            $scope.zeroCols = {
-                number: 2,
-                gap:["180px", "180px"]
-            };
-            $scope.fieldVertivalAlign = "middle";
-            $scope.itemVerticalAlign = "middle";
-            $scope.firstItem = {
-                label: "局点名称:",
-                required: true,
-                value: ""
-            };
-            var pointOptions= [{id:"1",label:"上海"},{id:"2",label:"廊坊"}];
-
-
-            $scope.selectModel1 = {
-                selectedId: '1',
-                disable: false,
-                placeholder: "请选择你所需要的局点...",
-                panelMaxHeight: '300px',
-                panelWidth: '180px',
-                options: pointOptions,
-                change: function(option){
-                    console.log('Select1 change event fired.');
-                    console.log(option);
-                },
-                focus: function(option){
-                    console.log('Select1 focus event fired.');
-                    console.log(option);
-                },
-                blur: function(option){
-                    console.log('Select1 blur event fired.');
-                    console.log(option);
-                }
-            };
-
-            var regionOptions = [{id:"1",label:"PO_12.123.45.23"},{id:"2",label:"DO_56gfsdg"}];
-            $scope.selectModel2 = {
-                selectedId: '1',
-                disable: false,
-                placeholder: "请选择你所在的区域...",
-                panelMaxHeight: '300px',
-                panelWidth: '180px',
-                options: regionOptions,
-                change: function(option){
-                    console.log('Select1 change event fired.');
-                    console.log(option);
-                },
-                focus: function(option){
-                    console.log('Select1 focus event fired.');
-                    console.log(option);
-                },
-                blur: function(option){
-                    console.log('Select1 blur event fired.');
-                    console.log(option);
-                }
-            };
-
-
-            $scope.secondItem = {
-                label: "文件导入:",
-                required: true
-            };
-            $scope.thirdItem = {
-                label: "所属区域:",
-                required: true,
-                value: ""
-            };
-
-            $scope.loadModel={
-                uploaderConfig:{
-                    url:"myUploadUrl",
-                    onCompleteItem:function(fileItem,response,status){
-                        // 根据状态码和返回消息设置详情信息
-                        console.log("response:"+response);
-                    }
-                },
-                text:"导入申请列表"
-            };
-
-
-
-            //第一个 1页面的 逻辑功能
-
-            $scope.oneCols = {
-                number: 2,
-                gap:["80px", "80px"]
-            };
-            $scope.twoCols = {
-                number: 5,
-                gap:["80px", "80px"]
-            };
-
-
-            $scope.fourItem = {
-                label: "模板:",
-                required: true,
-                value: ""
-            };
-
-
-            $scope.fiveItem = {
-                label: "主机名:",
-                required: true,
-                value: ""
-            };
-            $scope.sixItem = {
-                label: "CPU:",
-                required: true,
-                value: ""
-            };
-            $scope.sevenItem = {
-                label: "内存:",
-                required: true,
-                value: ""
-            };
-            $scope.eightItem = {
-                label: "硬盘:",
-                required: true,
-                value: ""
-            };
-
-
-            var templateOptions= [{id:"1",label:"Eull2"},{id:"2",label:"Nonfh_3"}];
-
-
-            $scope.selectModel3 = {
-                selectedId: '1',
-                disable: false,
-                placeholder: "请选择模板...",
-                panelMaxHeight: '300px',
-                panelWidth: '180px',
-                options: templateOptions,
-                change: function(option){
-                    console.log('Select1 change event fired.');
-                    console.log(option);
-                },
-                focus: function(option){
-                    console.log('Select1 focus event fired.');
-                    console.log(option);
-                },
-                blur: function(option){
-                    console.log('Select1 blur event fired.');
-                    console.log(option);
-                }
-            };
-
-            var nameOptions = [{id:"1",label:"DNS_DL_PC"},{id:"2",label:"uNI_fdas_4"}];
-            $scope.selectModel4 = {
-                selectedId: '1',
-                disable: false,
-                placeholder: "请选择主机名...",
-                panelMaxHeight: '300px',
-                panelWidth: '180px',
-                options: nameOptions,
-                change: function(option){
-                    console.log('Select1 change event fired.');
-                    console.log(option);
-                },
-                focus: function(option){
-                    console.log('Select1 focus event fired.');
-                    console.log(option);
-                },
-                blur: function(option){
-                    console.log('Select1 blur event fired.');
-                    console.log(option);
-                }
-            };
-
-            var cpuOptions = [{id:"1",label:1},{id:"2",label:2},{id:"3",label:3},{id:"4",label:4},{id:"5",label:5},{id:"6",label:6}];
-            $scope.selectModel5 = {
-                selectedId: '1',
-                disable: false,
-                placeholder: "请选择CPU...",
-                panelMaxHeight: '300px',
-                panelWidth: '180px',
-                options: cpuOptions,
-                change: function(option){
-                    console.log('Select1 change event fired.');
-                    console.log(option);
-                }
-            };
-
-            $scope.selectModel6 = {
-                value:2,
-                //format:"N2",
-                max:30,
-                min:0,
-                step:1,
-                disable:false,
-                //focused:true,
-                change : function(event, value) {
-                    if(value== ""){ $scope.selectModel6.value = 0}
-                    console.log("change evt:"+value);
-
-                }
-
-            };
-            $scope.selectModel7 = {
-                value: 1,
-                max:30,
-                min:0,
-                step:1,
-                disable:false,
-                change : function(event, value) {
-
-                    if(value== ""){ $scope.selectModel7.value = 0}
-                    console.log("change evt:"+value);
-                }
-            };
-
-
-
-
-
-            //增加功能 +
-            $scope.buttonAdd = false; //开始的时候就置为假
-            $scope.machineModel = {};
-            $scope.machineModel.action = [];
-            var sum = [];
-
-            //angular.forEach(sum,function(data,$index){
-            //    $index++;
-            //   $scope.machineModel.action.push({key:$index,value:data});
-            //});
-
-            var totalAdd = 0;
-            $scope.machineAdd =function($index){
-                totalAdd += $index;
-                $scope.machineModel.action.splice($scope.machineModel.action.length, 0, {key:totalAdd,data:""});
-                console.log( $scope.machineModel);
-            };
-
-            $scope.machineDel = function($index){
-                $scope.machineModel.action.splice($index,1);
-
-            };
-
-
-
-
-
-            //第三个页面 即页号为2的页面
-            $scope.nineItem = {
-                label: "描述:",
-                required: true
-            };
-
-
-
-
-            $scope.test1 = "这是向导的第2个页面";
-            $scope.test2 = "这是向导的第3个页面";
-            $scope.test3 = "这是向导的第4个页面";
-            $scope.test4 = "这是向导的第5个页面";
-            $scope.test5 = "这是向导的第6个页面";
+            $scope.adminClassName =true;//开始的时候右侧不显示
 
 
 
@@ -573,8 +275,7 @@ define([
             };
 
 
-            //饼图
-
+            //环形图1
 
             $scope.quanCharts1 = {};
             $scope.quanCharts1.options = {
@@ -758,7 +459,7 @@ define([
 
               $scope.hostProgress ={
                   maxValue:1
-              }
+              };
 
 
             $scope.hostMangerSrcData = {
@@ -823,9 +524,9 @@ define([
                     vmId:"1",
                     vmStatus:"运行中",
                     vmType:"one",
-                    monitorUsedCpu:"22%",
+                    monitorUsedCpu:22,
                     hostTotalSizeMHz:"2.1MHz",
-                    monitorUsedMem:"12%",
+                    monitorUsedMem:12,
                     hostTotalSizeMB:"120MB",
                     vmIp:"120.35.64.23",
                     vmLocation:"fdhasif",
@@ -837,9 +538,9 @@ define([
                     vmId:"1",
                     vmStatus:"运行中",
                     vmType:"one",
-                    monitorUsedCpu:"22%",
+                    monitorUsedCpu:22,
                     hostTotalSizeMHz:"2.1MHz",
-                    monitorUsedMem:"12%",
+                    monitorUsedMem:12,
                     hostTotalSizeMB:"120MB",
                     vmIp:"120.35.64.23",
                     vmLocation:"fdhasif",
@@ -851,9 +552,9 @@ define([
                     vmId:"1",
                     vmStatus:"运行中",
                     vmType:"one",
-                    monitorUsedCpu:"22%",
+                    monitorUsedCpu:22,
                     hostTotalSizeMHz:"2.1MHz",
-                    monitorUsedMem:"12%",
+                    monitorUsedMem:12,
                     hostTotalSizeMB:"120MB",
                     vmIp:"120.35.64.23",
                     vmLocation:"fdhasif",
@@ -865,9 +566,9 @@ define([
                     vmId:"1",
                     vmStatus:"运行中",
                     vmType:"one",
-                    monitorUsedCpu:"22%",
+                    monitorUsedCpu:22,
                     hostTotalSizeMHz:"2.1MHz",
-                    monitorUsedMem:"12%",
+                    monitorUsedMem:12,
                     hostTotalSizeMB:"120MB",
                     vmIp:"120.35.64.23",
                     vmLocation:"fdhasif",
@@ -941,6 +642,8 @@ define([
                     width: "10%"
                 }
             ];
+
+
 
 
 

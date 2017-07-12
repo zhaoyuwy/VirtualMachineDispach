@@ -19,9 +19,7 @@ define([
             };
 
             $scope.list = "阀值配置页面";
-
             $scope.displayed = [];
-
             var srcData = [
                 {
                     "cpu_percent":"fhdajkfh",
@@ -49,8 +47,6 @@ define([
                     "balance":"yty"
                 }
             ];
-
-
             $scope.thresholdData = { // 表格源数据，开发者对表格的数据设置请在这里进行
                 data: srcData, // 源数据
                 state: {
@@ -59,8 +55,6 @@ define([
                     pagination: false // 源数据未进行分页处理
                 }
             };
-
-
             $scope.thresholdColumns = [
                 {
                     title: "cpu使用率",
@@ -83,11 +77,6 @@ define([
                     show: undefined
                 }
             ];
-
-
-
-
-
         }];
     var module = angular.module("frm");
     module.tinyController("adminThresholdConfigCtrl.ctrl",ctrl);

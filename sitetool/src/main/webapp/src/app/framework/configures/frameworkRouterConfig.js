@@ -128,6 +128,26 @@ define(["tiny-lib/angular", "lazy-load/lazyLoad"],
                 }
             },
 
+
+
+            {
+                name:"hostMangerTotal.adminApplyVirtual",
+                url:"/adminApplyVirtual",
+                templateUrl:"src/app/business/hostManger/userAdmin/views/adminApplyVirtual.html",
+                controller:"adminApplyVirtualCtrl.ctrl",
+                scripts:{
+                    'controllers':['app/business/hostManger/userAdmin/controllers/adminApplyVirtualCtrl'],
+                    'services': ['app/business/hostManger/userAdmin/services/adminApplyVirtual']
+                }
+            },
+
+
+
+
+
+
+
+
                 //信息收集
             {
                 name:"hostMangerTotal.adminInfoCollection",

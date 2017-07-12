@@ -52,9 +52,14 @@ define([ "language/inventory"], function (i18n) {
         }else if($rootScope.leftmenuNumber=="two"){
             navList.children = [
                                     {
-                                        "text": i18n.virtualMachine_apply,
+                                        "text": i18n.hostResource_check,
                                         "icons":'icons-image',
                                         "state":"hostMangerTotal.adminApplyMachine"
+                                    },
+                                    {
+                                        "text": i18n.virtualMachine_apply,
+                                        "icons":'icons-image',
+                                        "state":"hostMangerTotal.adminApplyVirtual"   //虚拟机申请
                                     },
                                     {
                                         "text": i18n.info_collection,

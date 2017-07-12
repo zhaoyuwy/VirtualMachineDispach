@@ -73,7 +73,13 @@
                 <input id="hecpass6" class="form-control" ng-model="siteLoginPwd" type="text" placeholder="请输入用户密码"/>
             </label> <br/>
             <label for="hecpass7" ><span >ip密码:</span>
-                <input id="hecpass7" class="form-control" ng-model="siteLoginIp" type="text" placeholder="请输入ip地址"/>
+                <!--<input id="hecpass7" class="form-control" ng-model="siteLoginIp" type="text" placeholder="请输入ip地址"/>-->
+                <ti-ip  style="width: 160px;height:34px"
+                        version=4
+                        value="ipCongigOptions.value1"
+                        focused="ipCongigOptions.focused1"
+                        disable="ipCongigOptions.disable"
+                      ></ti-ip>
             </label> <br/>
         </div>
     </form>

@@ -63,7 +63,8 @@ public class SiteLoginServiceImpl implements ISiteLoginService {
         SiteLoginRestBean siteLoginRestBean = setSiteLoginRestBean(siteModel.getSiteRegionName(), siteModel.getSiteLoginIp(), siteModel.getSiteLoginUser(), siteModel.getSiteLoginPwd());
         //        登录获取token
         SiteLoginHttpRequestServiceImpl siteLoginHttpRequest = SpringUtil.getBean(SiteLoginHttpRequestServiceImpl.class);
-        retCode = siteLoginHttpRequest.fcLoginRest(siteLoginRestBean);
+//        retCode = siteLoginHttpRequest.fcLoginRest(siteLoginRestBean);
+        retCode = siteLoginHttpRequest.fcLoginRest(siteModel);
 
         HttpRestServiceImpl httpRequest = SpringUtil.getBean(HttpRestServiceImpl.class);
         httpRequest.fcGetSitesRest(siteLoginRestBean);
@@ -125,5 +126,29 @@ public class SiteLoginServiceImpl implements ISiteLoginService {
             regionBeans.add(regionBean);
         });
         return topologyTreeBean;
+    }
+
+    public int checkSiteUserLoginSuccess(SiteModel siteModel) {
+        SiteRepository siteRepository = SpringUtil.getBean(SiteRepository.class);
+//        SiteModel siteModel = new SiteModel();
+//        String siteLoginUser = siteLoginRestBean.getSiteLoginUser();
+//        String siteLoginPwd = siteLoginRestBean.getSiteLoginPwd();
+//        String siteLoginIp = siteLoginRestBean.getSiteLoginIp();
+//        String siteRegionName = siteLoginRestBean.getSiteRegionName();
+
+        String siteLoginIp = siteModel.getSiteLoginIp();
+        String siteLoginUser = siteModel.getSiteLoginUser();
+        SiteModel siteModelLogin = siteRepository.findSiteModelBySiteLoginIpAndSiteLoginUser(siteLoginIp, siteLoginUser);
+        if (null == siteModelLogin) {
+            logger.info("Save siteModel : siteLoginIp = " + siteLoginIp + " ,siteLoginUser = " + siteLoginUser);
+//            siteModel.setSiteLoginUser(siteLoginUser);
+//            siteModel.setSiteLoginPwd(siteLoginPwd);
+//            siteModel.setSiteLoginIp(siteLoginIp);
+//            siteModel.setSiteRegionName(siteRegionName);
+            siteRepository.save(siteModel);
+        } else {
+            logger.info("SiteModel already exist:  siteLoginIp = " + siteLoginIp + " ,siteLoginUser = " + siteLoginUser);
+        }
+        return RetCode.OK;
     }
 }

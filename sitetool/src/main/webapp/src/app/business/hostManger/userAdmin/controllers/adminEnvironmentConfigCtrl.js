@@ -3,10 +3,10 @@ define([
     "tiny-lib/jquery"
 ], function (i18n, $) {
     "use strict";
-    var ctrl = ["$scope", "$rootScope", "$compile", "adminEnvironmentConfigServe", "$location", "$timeout",
-        function($scope, $rootScope, $compile, adminEnvironmentConfigServe, $location, $timeout) {
+    var ctrl = ["$scope", "$rootScope", "$compile","$location", "$timeout", "adminEnvironmentConfigServe",
+        function($scope, $rootScope, $compile, $location, $timeout, adminEnvironmentConfigServe) {
             $scope.i18n = i18n;
-            //把从自定义服务传值，传过来的赋值给……
+
 
 
             var approvalAllData = JSON.parse(sessionStorage.getItem("admin_approvalAllData"));//重新转换为JSON对象
@@ -19,15 +19,50 @@ define([
                 url: "src/app/framework/views/footer.html"
             };
 
+
             $scope.list = "环境配置页面";
+
+            $scope.alertInfo = {  //提示信息
+                contentNullError:false,
+                type:"error",
+                content:""
+            };
+
+
+
+
+            //分页工具导航条
+            $scope.pagingModel = {
+                "id":"pagid3",
+                "totalRecords" :'',
+                 displayLength:5,
+                "type" : "full_numbers",
+                "hideDisplayLength" : true,
+                "callback" : function(obj) {  //点击分页的回调函数
+                    $scope.environmentData.data = '';
+
+                    $scope.environmentData.data = JSON.parse(sessionStorage.getItem('evData'))[obj.currentPage-1];
+                    $scope.$digest();//个$digest循环运行时，watchers会被执行来检查scope中的models变化，在上下文之外改变,监听函数可能没监控到，module的变化
+                    //$scope.$apply();
+
+                }
+            };
+
+
+
+
+
+
+
+
+
+
 
 
             $scope.displayed = []; // 表示表格实际呈现的数据（开发者默认设置为[]即可）
 
-
-
             $scope.environmentData = { // 表格源数据，开发者对表格的数据设置请在这里进行
-                data: '', // 源数据
+                data: [], // 源数据
                 state: {
                     filter: false, // 源数据未进行过滤处理
                     sort: false, // 源数据未进行排序处理
@@ -66,13 +101,26 @@ define([
                     width: "20%"
                 }
             ];
-
+            //表格的右上角 当没有数据的时候显示 当前的数据条数为0
+            $scope.environmentTotal = 0;
+            $scope.noDadaInfo = "暂无表格数据，请添加环境节点……";
 
             //增加环境
 
             $("#openWindow").on('click', function(event, callback) {
 
-
+                //ip框
+                $rootScope.ipCongigOptions = {
+                    value1: "",
+                    disable:false,
+                    focused1:false,
+                    blur:function(value){
+                        console.log("blur evt:"+value);
+                    },
+                    change : function(event, value) {
+                        console.log("change evt:"+value);
+                    }
+                };
 
                 var addSiteOptions = {
                     title : "添加环境",
@@ -89,46 +137,37 @@ define([
                         handler : function(event) {//点击回调函数
                             //注意要修改addServe.html页面的ng-model
 
+                            //ip框的数据传给siteIP
+                            $scope.siteLoginIp = $rootScope.ipCongigOptions.value1;
+
                             //把添加页面的数据传给
+                            if(!$scope.evName ||!$scope.siteRegionName||!$scope.siteRegion ||
+                                !$scope.siteLoginUser|| !$scope.siteLoginPwd || !$scope.siteLoginIp){
+                                $scope.alertInfo.content = "请输入添加环境字段的信息";
+                                $scope.alertInfo.contentNullError = true;
+                                return false;
+                            }
+
+
+
 
                             var jsObj = {
-                               "total":1,
-                               "regions": [
-                                   {
-                                       "evName":  $scope.evName,
-                                       "sites": [
-                                           {
-                                               "siteRegionName": $scope.siteRegionName,
-                                               "siteRegion": $scope.siteRegion,
-                                               "siteLoginUser": $scope.siteLoginUser,
-                                               "siteLoginPwd": $scope.siteLoginPwd,
-                                               "siteLoginIp": $scope.siteLoginIp
-                                           }
-                                       ]
-                                   }
-                               ]
+                                "total":1,
+                                "regions": [
+                                    {
+                                        "evName":  $scope.evName,
+                                        "sites": [
+                                            {
+                                                "siteRegionName": $scope.siteRegionName,
+                                                "siteRegion": $scope.siteRegion,
+                                                "siteLoginUser": $scope.siteLoginUser,
+                                                "siteLoginPwd": $scope.siteLoginPwd,
+                                                "siteLoginIp": $scope.siteLoginIp
+                                            }
+                                        ]
+                                    }
+                                ]
                             };
-
-
-
-                            // var jsObj = {
-                            //     "total": 1,
-                            //     "regions": [
-                            //     {
-                            //         "evName": "廊坊",
-                            //         "sites": [
-                            //             {
-                            //                 "siteRegion":"lf",
-                            //                 "siteRegionName ": "pub",
-                            //                 "siteLoginUser": "admin",
-                            //                 "siteLoginPwd": "HWS_lf@pub9001",
-                            //                 "siteLoginIp": "10.44.70.245"
-                            //             }
-                            //         ]
-                            //     }
-                            // ]
-                            // };
-
 
 
                             var evStr = JSON.stringify(jsObj);
@@ -145,8 +184,33 @@ define([
                                                 response.data.regionBeans.forEach(function(value,index,array){
                                                     array[index].showSub = true;
                                                 });
-                                                $scope.environmentData.data = response.data.regionBeans;
+                                                //得到的数据实现分页
+                                                var result = [];
+                                                for(var i=0,len= response.data.regionBeans.length;i<len;i+=5){
+                                                    result.push( response.data.regionBeans.slice(i,i+5));
+                                                }
 
+
+                                                sessionStorage.setItem("evData",JSON.stringify(result));
+                                                sessionStorage.setItem("evTotalNum",response.data.total);
+
+
+                                                $scope.environmentData.data = result[0]; //默认显示的是第一页
+                                                //$scope.environmentData.data = response.data.regionBeans;
+                                                $scope.environmentTotal = response.data.total; //表格的右上角的 环境的节点数
+
+
+                                                $scope.pagingModel.totalRecords = response.data.total;   //分页 总信息数
+
+
+                                                //置空
+                                                $scope.evName = '';
+                                                $scope.siteRegionName = '';
+                                                $scope.siteRegion = '';
+                                                $scope.siteLoginPwd = '';
+                                                $scope.siteLoginUser = '';
+                                                $scope.siteLoginIp = '';
+                                                $rootScope.ipCongigOptions.value1 = '';
                                             }
                                         },
                                         function(response){
@@ -171,17 +235,59 @@ define([
 
 
 
+            //默认页面显示的数据提前写，否则会对分页的callback 回调函数有影响
+
+            //$scope.environmentData.data = JSON.parse(sessionStorage.getItem('evData'))[0];//默认显示的是分页 第一个 页面
+            //$scope.environmentTotal = sessionStorage.getItem('evTotalNum');
+            //
+            //
+            //$scope.pagingModel.totalRecords = sessionStorage.getItem('evTotalNum');
+
+        //页面加载 加载数据
+            $scope.loadOperate = {
+                "getListData":function(){
+
+                    var promise = adminEnvironmentConfigServe.getEvSite();
+                    promise.then(
+                        function(response){
+                            //var responseData = JSON.parse(response);
+
+                            if(response.status== 200){
+
+                                console.log(response);
+
+                                response.data.regionBeans.forEach(function(value,index,array){
+                                    array[index].showSub = true;
+                                });
+                                //得到的数据实现分页
+                                var result = [];
+                                for(var i=0,len= response.data.regionBeans.length;i<len;i+=5){
+                                    result.push( response.data.regionBeans.slice(i,i+5));
+                                }
 
 
+                                sessionStorage.setItem("evData",JSON.stringify(result));
+                                sessionStorage.setItem("evTotalNum",response.data.total);
 
 
+                                $scope.environmentData.data = result[0]; //默认显示分页的是 第一页
+                                //$scope.environmentData.data = response.data.regionBeans;
+                                $scope.environmentTotal = response.data.total; //表格的右上角的 环境的节点数
 
 
+                                $scope.pagingModel.totalRecords = response.data.total;   //分页 总信息数
 
 
+                            }
+                        },
+                        function(response){
+                            alert(response.msg);
+                        }
 
-
-
+                    )
+                }
+            };
+            $scope.loadOperate.getListData();
 
 
 
