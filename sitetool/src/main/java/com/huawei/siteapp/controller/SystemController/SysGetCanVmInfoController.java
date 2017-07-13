@@ -49,13 +49,16 @@ public class SysGetCanVmInfoController {
         MonitorCnaServiceImpl monitorsService = SpringUtil.getBean(MonitorCnaServiceImpl.class);
         int retCode2 = monitorsService.fcPostSitesClustersHostsCpuMemRest(siteModel);
 
+        HostVmReportInfoBean hostVmReportInfoBean = monitorsService.getResponseBody(siteModel);
+
+
         if (200 != retCode || 200 != retCode2) {
             retCode = 400;
         }
 
         result.setStatus(retCode);
         result.setMsg("OK");
-        result.setData(body());
+        result.setData(hostVmReportInfoBean);
         return result;
     }
 

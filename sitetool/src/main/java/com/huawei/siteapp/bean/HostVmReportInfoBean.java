@@ -17,6 +17,26 @@ public class HostVmReportInfoBean<T> {
     ;
     private int monitorUsedMem;
 
+    private double monitorCpuUsage;
+    ;
+
+    public double getMonitorCpuUsage() {
+        return monitorCpuUsage;
+    }
+
+    public void setMonitorCpuUsage(double monitorCpuUsage) {
+        this.monitorCpuUsage = monitorCpuUsage;
+    }
+
+    public double getMonitorMemUsage() {
+        return monitorMemUsage;
+    }
+
+    public void setMonitorMemUsage(double monitorMemUsage) {
+        this.monitorMemUsage = monitorMemUsage;
+    }
+
+    private double monitorMemUsage;
 
     private List<T> hostOrVmModels;
 
