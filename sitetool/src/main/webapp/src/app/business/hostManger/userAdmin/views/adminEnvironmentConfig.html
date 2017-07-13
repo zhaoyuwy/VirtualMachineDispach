@@ -39,7 +39,7 @@
 
                     <div class="mainTitle page-header" style="text-align:center;">{{list}}</div>
                     <div style="margin-bottom: 20px;">
-                        <button id="openWindow" type="button" class="ti-btn-primary" ti-button>添加环境</button>
+                        <button  type="button" class="ti-btn-primary openWindow" ti-button>添加环境</button>
                     </div>
                     <div style="margin-bottom: 10px;float: right;">
                         <span  class="" >{{i18n.evSiteTotalHead}} &nbsp;<a style="color:#007486;font-size:14px;">{{environmentTotal}}</a>&nbsp;&nbsp;{{i18n.evSiteTotalAfter}}</span>
@@ -65,16 +65,16 @@
                                     <td></td>
                                     <td></td>
                                     <td>
-                                        <a style="margin-right:30px;"><span>添加节点</span></a>
-                                        <a style="margin-right:30px;"><span>编辑节点</span></a>
-                                        <a><span>删除节点</span></a>
+                                        <a  style="margin-right:30px;" title="添加节点" ng-click="addSiteFtn($index,aData)"><span>添加节点</span></a>
+                                        <a style="margin-right:30px;" title="编辑节点"><span>编辑节点</span></a>
+                                        <a title="删除节点"><span>删除节点</span></a>
                                     </td>
                                 </tr>
                                 <tr ng-repeat-start="son in you.siteModels" ng-if="you.showSub">
                                     <td style="padding-left: 30px;">
                                     </td>
                                     <td >
-                                        {{son.siteRegionName}}
+                                          {{son.siteRegionName}}
                                     </td>
                                     <td>
                                         {{son.siteRegion}}
@@ -87,8 +87,8 @@
                                     </td>
                                     <td>
                                         <a style="margin-right:30px;"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
-                                        <a style="margin-right:30px;"><span>编辑节点</span></a>
-                                        <a><span>删除节点</span></a>
+                                        <a style="margin-right:30px;" title="添加节点"><span>编辑节点</span></a>
+                                        <a title="添加节点"><span>删除节点</span></a>
                                     </td>
                                 </tr>
                                 <tr ng-repeat-end ng-if="false">

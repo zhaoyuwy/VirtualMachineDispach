@@ -6,7 +6,7 @@
     .content_left {
         display: inline-block;
         /*15%*/
-        width: 260px;
+        width: 280px;
         position: absolute;
         top: 61px;
         left: 222px;
@@ -25,7 +25,7 @@
         /*width: 70%;*/
         position: absolute;
         top: 80px;
-        left: 510px;
+        left: 530px;
         right:25px;
         bottom: 0;
         /*z-index:99;*/
@@ -136,29 +136,12 @@
                             </ti-select>
                         </ti-item>
                         <ti-item  label="elevenItem.label" >
-                            <ti-datetime style="width: 180px;"
-                                         format = "startDateTime.format"
-                                         value = "startDateTime.value"
-                                         clear-btn = "startDateTime.clearBtn"
-                                         ok-btn = "startDateTime.okBtn"
-                                         min-value = "startDateTime.minValue"
-                                         max-value = "startDateTime.maxValue"
-                                         close = "startDateTime.close"
-                                         disable = "startDateTime.disable"></ti-datetime>
+                            <span style="display: inline-block; height:26px width:180px" ng-bind="startDateTime"></span>
 
                         </ti-item>
 
                         <ti-item  label="twelveItem.label">
-                            <ti-datetime style="width: 180px;"
-                                         format = "endDateTime.format"
-                                         value = "endDateTime.value"
-                                         clear-btn = "endDateTime.clearBtn"
-                                         ok-btn = "endDateTime.okBtn"
-                                         min-value = "endDateTime.minValue"
-                                         max-value = "endDateTime.maxValue"
-                                         close = "endDateTime.close"
-                                         disable = "endDateTime.disable"></ti-datetime>
-
+                            <span style="display: inline-block; height:26px width:180px" ng-bind="endDateTime"></span>
                         </ti-item>
 
 
@@ -194,12 +177,14 @@
                                         <tr ng-repeat="row in hostMangerSrcData.data">
                                             <td>{{row.hostName}}</td>
                                             <td>{{row.hostStatus}}</td>
-                                            <td><ti-progressbar max-value="$scope.hostProgress.maxValue" value="row.monitorUsedCpu">{{row.monitorUsedCpu}}%
+                                            <td>{{row.monitorUsedCpu}}</td>
+                                            <td><ti-progressbar max-value="$scope.hostProgress.maxValue" value="row.monitorCpuUsage">{{row.monitorCpuUsage}}%
                                             </ti-progressbar></td>
-                                            <td>{{row.hostTotalSizeMHz}}</td>
-                                            <td><ti-progressbar max-value="$scope.hostProgress.maxValue" value="row.monitorUsedMem">{{row.monitorUsedMem}}%
+                                            <td>{{row.monitorTotalCpu}}</td>
+                                            <td>{{row. monitorUsedMem}}</td>
+                                            <td><ti-progressbar max-value="$scope.hostProgress.maxValue" value="row.monitorMemUsage">{{row.monitorMemUsage}}%
                                             </ti-progressbar></td>
-                                            <td>{{row.hostTotalSizeMB}}</td>
+                                            <td>{{row.monitorTotalMem}}</td>
                                             <td>{{row.clusterName}}</td>
                                             <td>{{row.hostIp}}</td>
                                             <td><a >更多操作</a></td>

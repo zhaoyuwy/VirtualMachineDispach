@@ -14,6 +14,7 @@ define([
                     "o": {}
                 },
                 "timeout":15000,
+                //"async":true,
                 "params":param,
                 "mask": true
             });
@@ -30,7 +31,7 @@ define([
                 },
                 "timeout":500,
                 "mask": true
-            })
+            });
             return promise;
         };
 

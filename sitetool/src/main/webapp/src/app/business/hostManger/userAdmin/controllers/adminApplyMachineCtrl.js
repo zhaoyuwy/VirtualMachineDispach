@@ -114,10 +114,13 @@ define([
 
                                             var treeGrandSon ={
                                                 "id":listTree.length+index1+1,
-                                                "name": array1[index1].siteRegion+'_'+array1[index1].siteIp,
+                                                "name": array1[index1].siteRegion+'_'+array1[index1].siteLoginIp,
                                                 "nodeType": "point",
                                                 "parentId": sonTreeLength,
-                                                "siteLoginIp":array1[index1].siteLoginIp
+                                                "evName":array[index].evName,
+                                                "siteLoginIp":array1[index1].siteLoginIp,
+                                                "siteRegion":array1[index1].siteRegion
+
                                             };
 
                                             listTree.push(treeGrandSon);
@@ -130,7 +133,6 @@ define([
                                 $scope.trees.values = listTree;
 
                             }
-
                         },
                         function(response){
                             alert(response.msg);
@@ -142,141 +144,7 @@ define([
 
 
 
-
-            //单击的回调函数
-            function clickFn(click, treeId, treeNode) {
-                console.log(treeNode); // 改属性的对象数据
-                console.log(treeId); //tree的id的值
-                console.log(click);//元素的jq对象
-
-                $scope.adminClassName = false; //点击树 则出现右侧节点的详细信息
-                $scope.adminCheckout1.selectedId ='1'; //默认选中的是 按主机查看
-                $scope.chaxun = true;
-
-
-            }
-            //勾选的回调函数
-            // function beforCheckFn(treeId, treeNode) {
-            //     //console.log("this node's id is " + treeNode.id);
-            //
-            // }
-
-            //复选的回调函数
-            //选中的ID集合
-            var idtotal = [];
-
-            function checkdFn(event, treeId, treeNode) {
-
-
-
-            }
-            //节点文字样式
-            function setFontCss(treeId, treeNode) {
-                return (treeNode.id <= 4 || treeNode.name == "大连" || treeNode.name == "广州" ||treeNode.name == "廊坊" || treeNode.name == "上海") ? {"font-weight": "bold"} : {"font-weight": "normal"};
-            }
-
-
-
-
-            //右侧的数据
-
-
-
-            $scope.typeIcon = true;
-            $scope.closeIcon = true;
-
-            $scope.label1 = "小贴士 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus ad amet doloLorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus ad amet dolores earum facere hic incidunt molestias mollLorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus ad amet dolores earum facere hic incidunt molestias mollLorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus ad amet dolores earum facere hic incidunt molestias mollLorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus ad amet dolores earum facere hic incidunt molestias mollres earum facere hic incidunt molestias mollitia, nulla quas quidem repudiandae sapiente sit tenetur ut! Animi aut commodi quasi!";
-            $scope.type1 = "error";
-            //$scope.dismissOnTimeout = 3000;
-
-            $scope.adminClassName =true;//开始的时候右侧不显示
-
-
-
-        //点击做的树的节点
-            $scope.threeCols = {
-                number: 4,
-                gap:["80px", "80px"]
-            };
-
-            $scope.tenItem = {
-                label: "查看:",
-                required: true,
-                value: ""
-            };
-            $scope.elevenItem = {
-                label: "开始时间:",
-                required: true,
-                value: ""
-            };
-
-            $scope.twelveItem = {
-                label: "结束时间:",
-                required: true,
-                value: ""
-            };
-
-            var checkoutOptions= [{id:"1",label:"按主机查看"},{id:"2",label:"按虚拟机查看"}];
-
-            $scope.chaxun = true;//默认开始的时候就是按主机查询
-            $scope.adminCheckout1 = {
-                selectedId: '1',
-                disable: false,
-                placeholder: "请选择查看...",
-                panelMaxHeight: '200px',
-                panelWidth: '180px',
-                options: checkoutOptions,
-                change: function(option){
-
-                    console.log(option);
-
-                    if(option.id == "2"){
-                       $scope.chaxun = false;
-                    }else{
-                       $scope.chaxun = true;
-                    }
-                }
-
-            };
-
-
-
-            $scope.startDateTime = {
-                format : {
-                    date : "yyyy.MM.dd",
-                    time : "HH:mm:ss"
-                },
-                clearBtn : true,
-                okBtn : true,
-                value3 : new Date(2015, 6, 2),
-                minValue : new Date(2015, 6, 2),
-                maxValue : new Date(2117, 8, 27),
-                disable : false,
-                close : function(value) {
-                    console.log(value);
-                }
-            };
-
-
-            $scope.endDateTime = {
-                format : {
-                    date : "yyyy.MM.dd",
-                    time : "HH:mm:ss"
-                },
-                clearBtn : true,
-                okBtn : true,
-                value3 : new Date(2015, 6, 2),
-                minValue : new Date(2015, 6, 2),
-                maxValue : new Date(2117, 8, 27),
-                disable : false,
-                close : function(value) {
-                    console.log(value);
-                }
-            };
-
-
             //环形图1
-
             $scope.quanCharts1 = {};
             $scope.quanCharts1.options = {
                 id: "firstItem",
@@ -298,25 +166,11 @@ define([
                 toolbox: {  //工具箱
                     show : true,
                     feature : {
-                        //mark : {show: false},
-                        //dataView : {show: true, readOnly: false},
-                        //magicType : {
-                        //    show: true,
-                        //    type: ['pie', 'funnel'],
-                        //    option: {
-                        //        funnel: {
-                        //            x: '25%',
-                        //            width: '50%',
-                        //            funnelAlign: 'left',
-                        //            max: 1548
-                        //        }
-                        //    }
-                        //},
                         restore : {show: true},
                         saveAsImage : {show: true}
                     }
                 },
-                series : [
+                series: [
                     {
                         name:'cpu使用率',
                         type:'pie',
@@ -342,8 +196,8 @@ define([
                             }
                         },
                         data:[
-                            {value:33, name:'未使用'},
-                            {value:67, name:'使用中'}
+                            {value:$scope.Doughnut1Use, name:'未使用'},
+                            {value:100-$scope.Doughnut1Use, name:'使用中'}
                         ]
                     }
                 ]
@@ -376,7 +230,7 @@ define([
                         saveAsImage : {show: true}
                     }
                 },
-                series : [
+                series:[
                     {
                         name:'内存使用率',
                         type:'pie',
@@ -402,60 +256,315 @@ define([
                             }
                         },
                         data:[
-                            {value:88, name:'未使用'},
-                            {value:12, name:'使用中'}
+                            {value:$scope.Doughnut2Use, name:'未使用'},
+                            {value:100-$scope.Doughnut2Use, name:'使用中'}  //这里要是没有赋值，而是直接在下面赋值就会出现 环形图加载就会没有动画的效果
                         ]
                     }
                 ]
             };
 
 
+
+
+
+
+
+            //单击点击树的节点 的回调函数，同时发送请求
+            function clickFn(click, treeId, treeNode) {
+                //console.log(treeNode); // 节点属性的对象数据
+                //console.log(treeId); //tree的id的值
+                //console.log(click);//元素的jq对象
+
+                $scope.adminClassName = false; //点击树节点 则出现右侧节点的详细信息
+                $scope.adminCheckout1.selectedId ='1'; //默认选中的是 按主机查看
+                $scope.chaxun = true; //默认的树显示显示按主机查询
+
+
+                var str = "lf?siteRegion=dmz&siteLoginIp=10.44.33.245";
+                //点击节点
+                $scope.siteDetailed ={
+                    "getData": function(){
+                        var  promise = adminApplyMachineServe.getResource(str);
+                        promise.then(function(response){
+                                if(response.status== 200){
+                                    console.log(response);
+                                    //$scope.trees.values = listTree;
+                                    $scope.hostMangerSrcData.data = response.data.hostOrVmModels;
+                                    $scope.startDateTime = response.data.time.split("_")[0]; //开始时间
+                                    $scope.endDateTime = response.data.time.split("_")[1];//结束时间
+                                    $scope.Doughnut1Use = response.data.monitorUsedCpu; //环形图1使用率
+                                    $scope.Doughnut2Use = response.data.monitorUsedMem;  //环形图2使用率
+
+                                    //console.log( $scope.Doughnut1Use);
+
+
+                                    //环形图1
+                                    $scope.quanCharts1 = {};
+                                    $scope.quanCharts1.options = {
+                                        id: "firstItem",
+                                        title : {
+                                            text: 'cpu使用率',
+                                            subtext: '',
+                                            x:'center'
+                                        },
+                                        tooltip : {
+                                            trigger: 'item',
+                                            formatter: "{a} <br/>{b} : {c} ({d}%)"
+                                        },
+                                        legend: {
+                                            orient : 'vertical',
+                                            x : 'right',
+                                            y: 'center',
+                                            data:["未使用","使用中"]  //这和下面33% 67% 要对应好否则显示的图 颜色不好看
+                                        },
+                                        toolbox: {  //工具箱
+                                            show : true,
+                                            feature : {
+                                                //mark : {show: false},
+                                                //dataView : {show: true, readOnly: false},
+                                                //magicType : {
+                                                //    show: true,
+                                                //    type: ['pie', 'funnel'],
+                                                //    option: {
+                                                //        funnel: {
+                                                //            x: '25%',
+                                                //            width: '50%',
+                                                //            funnelAlign: 'left',
+                                                //            max: 1548
+                                                //        }
+                                                //    }
+                                                //},
+                                                restore : {show: true},
+                                                saveAsImage : {show: true}
+                                            }
+                                        },
+                                        series: [
+                                            {
+                                                name:'cpu使用率',
+                                                type:'pie',
+                                                radius : ['40%', '60%'], //这里的数据是指环的厚度
+                                                itemStyle : {
+                                                    normal : {
+                                                        label : {
+                                                            show : true
+                                                        },
+                                                        labelLine : {
+                                                            show : true
+                                                        }
+                                                    },
+                                                    emphasis : {
+                                                        label : {
+                                                            show : true,
+                                                            position : 'center',
+                                                            textStyle : {
+                                                                fontSize : '22',
+                                                                fontWeight : 'bold'
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                data:[
+                                                    {value:response.data.monitorUsedCpu, name:'未使用'},
+                                                    {value:100-response.data.monitorUsedCpu, name:'使用中'}
+                                                ]
+                                            }
+                                        ]
+                                    };
+
+
+                                    //环形图2
+
+                                    $scope.quanCharts2 = {};
+                                    $scope.quanCharts2.options = {
+                                        id: "secondItem",
+                                        title : {
+                                            text: '内存使用率',
+                                            subtext: '',
+                                            x:'center'
+                                        },
+                                        tooltip : {
+                                            trigger: 'item',
+                                            formatter: "{a} <br/>{b} : {c} ({d}%)"
+                                        },
+                                        legend: {
+                                            orient : 'vertical',
+                                            x : 'right',
+                                            y: 'center',
+                                            data:["未使用","使用中"]  //这和下面33% 67% 要对应好否则显示的图 颜色不好看
+                                        },
+                                        toolbox: {  //工具箱
+                                            show : true,
+                                            feature : {
+                                                restore : {show: true},
+                                                saveAsImage : {show: true}
+                                            }
+                                        },
+                                        series:[
+                                            {
+                                                name:'内存使用率',
+                                                type:'pie',
+                                                radius : ['40%', '60%'],//这里的数据是指环的厚度
+                                                itemStyle : {
+                                                    normal : {
+                                                        label : {
+                                                            show : true
+                                                        },
+                                                        labelLine : {
+                                                            show : true
+                                                        }
+                                                    },
+                                                    emphasis : {
+                                                        label : {
+                                                            show : true,
+                                                            position : 'center',
+                                                            textStyle : {
+                                                                fontSize : '22',
+                                                                fontWeight : 'bold'
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                data:[
+                                                    {value:response.data.monitorUsedMem, name:'未使用'},
+                                                    {value:100-response.data.monitorUsedMem, name:'使用中'}
+                                                ]
+                                            }
+                                        ]
+                                    };
+
+
+
+
+                                }
+
+                            },
+                            function(response){
+                                alert(response.msg);
+                            });
+                    }
+                };
+
+                $scope.siteDetailed.getData();
+
+
+            }
+
+
+
+
+
+            //勾选的回调函数
+            // function beforCheckFn(treeId, treeNode) {
+            //     //console.log("this node's id is " + treeNode.id);
+            //
+            // }
+
+            //复选的回调函数
+                //选中的ID集合
+            var idtotal = [];
+
+            function checkdFn(event, treeId, treeNode) {}
+            //节点文字样式
+            function setFontCss(treeId, treeNode) {
+                return (treeNode.id <= 4 || treeNode.name == "大连" || treeNode.name == "广州" ||treeNode.name == "廊坊" || treeNode.name == "上海") ? {"font-weight": "bold"} : {"font-weight": "normal"};
+            }
+
+
+
+
+            //右侧的数据
+            $scope.typeIcon = true;
+            $scope.closeIcon = true;
+
+            $scope.label1 = "小贴士 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus ad amet doloLorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus ad amet dolores earum facere hic incidunt molestias mollLorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus ad amet dolores earum facere hic incidunt molestias mollLorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus ad amet dolores earum facere hic incidunt molestias mollLorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus ad amet dolores earum facere hic incidunt molestias mollres earum facere hic incidunt molestias mollitia, nulla quas quidem repudiandae sapiente sit tenetur ut! Animi aut commodi quasi!";
+            $scope.type1 = "error";
+            //$scope.dismissOnTimeout = 3000;
+
+            $scope.adminClassName =true;//开始的时候右侧不显示
+
+
+
+        //点击 树的节点
+            $scope.threeCols = {number: 4, gap:["80px", "80px"]};
+            $scope.tenItem = {label: "查看:", required: true, value: ""};
+            $scope.elevenItem = {label: "开始时间:", required: true, value: ""};
+            $scope.twelveItem = {label: "结束时间:", required: true, value: ""};
+
+
+            var checkoutOptions= [{id:"1",label:"按主机查看"},{id:"2",label:"按虚拟机查看"}];
+
+            $scope.chaxun = true;//默认开始的时候就是按主机查询
+            $scope.adminCheckout1 = {
+                selectedId: '1',
+                disable: false,
+                placeholder: "请选择查看...",
+                panelMaxHeight: '200px',
+                panelWidth: '180px',
+                options: checkoutOptions,
+                change: function(option){
+
+                    console.log(option);
+
+                    if(option.id == "2"){
+                       $scope.chaxun = false;
+                    }else{
+                       $scope.chaxun = true;
+                    }
+                }
+
+            };
+
+
+
+
+
+
             //表格数据
                 //按主机查询的表格
             $scope.hostMangerDisplayed = [];
-            var srcData = [
-                {
-                    hostName:"CAN_FAFD",
-                    hostStatus:"运行中",
-                    monitorUsedCpu:22,
-                    hostTotalSizeMHz:"2.1MHz",
-                    monitorUsedMem:12,
-                    hostTotalSizeMB:"120MB",
-                    clusterName:"NMvdfnas",
-                    hostIp:"120.35.64.23"
-                },
-                {
-                    hostName:"CAN_FAFD",
-                    hostStatus:"运行中",
-                    monitorUsedCpu:22,
-                    hostTotalSizeMHz:"2.1MHz",
-                    monitorUsedMem:12,
-                    hostTotalSizeMB:"120MB",
-                    clusterName:"NMvdfnas",
-                    hostIp:"120.35.64.23"
-                },
-                {
-                    hostName:"CAN_FAFD",
-                    hostStatus:"运行中",
-                    monitorUsedCpu:22,
-                    hostTotalSizeMHz:"2.1MHz",
-                    monitorUsedMem:12,
-                    hostTotalSizeMB:"120MB",
-                    clusterName:"NMvdfnas",
-                    hostIp:"120.35.64.23"
-                },
-                {
-                    hostName:"CAN_FAFD",
-                    hostStatus:"运行中",
-                    monitorUsedCpu: 22,
-                    hostTotalSizeMHz:"2.1MHz",
-                    monitorUsedMem:12,
-                    hostTotalSizeMB:"120MB",
-                    clusterName:"NMvdfnas",
-                    hostIp:"120.35.64.23"
-                }
-
-            ];
+            //var srcData = [
+            //    {
+            //        hostName:"CAN_FAFD",
+            //        hostStatus:"运行中",
+            //        monitorUsedCpu:22,
+            //        hostTotalSizeMHz:"2.1MHz",
+            //        monitorUsedMem:12,
+            //        hostTotalSizeMB:"120MB",
+            //        clusterName:"NMvdfnas",
+            //        hostIp:"120.35.64.23"
+            //    },
+            //    {
+            //        hostName:"CAN_FAFD",
+            //        hostStatus:"运行中",
+            //        monitorUsedCpu:22,
+            //        hostTotalSizeMHz:"2.1MHz",
+            //        monitorUsedMem:12,
+            //        hostTotalSizeMB:"120MB",
+            //        clusterName:"NMvdfnas",
+            //        hostIp:"120.35.64.23"
+            //    },
+            //    {
+            //        hostName:"CAN_FAFD",
+            //        hostStatus:"运行中",
+            //        monitorUsedCpu:22,
+            //        hostTotalSizeMHz:"2.1MHz",
+            //        monitorUsedMem:12,
+            //        hostTotalSizeMB:"120MB",
+            //        clusterName:"NMvdfnas",
+            //        hostIp:"120.35.64.23"
+            //    },
+            //    {
+            //        hostName:"CAN_FAFD",
+            //        hostStatus:"运行中",
+            //        monitorUsedCpu: 22,
+            //        hostTotalSizeMHz:"2.1MHz",
+            //        monitorUsedMem:12,
+            //        hostTotalSizeMB:"120MB",
+            //        clusterName:"NMvdfnas",
+            //        hostIp:"120.35.64.23"
+            //    }
+            //
+            //];
 
               $scope.hostProgress ={
                   maxValue:1
@@ -463,7 +572,7 @@ define([
 
 
             $scope.hostMangerSrcData = {
-                data: srcData, // 源数据
+                data:[], // 源数据
                 state: {
                     filter: false,
                     sort: false,
@@ -477,31 +586,39 @@ define([
                 },
                 {
                     title: "状态",
-                    width: "10%"
+                    width: "8%"
                 },
                 {
                     title: "已分配cpu",
+                    width: "8%"
+                },
+                {
+                    title: "cpu使用率",
                     width: "10%"
                 },
                 {
                     title: "CPU大小",
-                    width: "10%"
+                    width: "8%"
                 },
                 {
                     title: "已分配内存",
+                    width: "8%"
+                },
+                {
+                    title: "内存使用率",
                     width: "10%"
                 },
                 {
                     title: "内存大小",
-                    width: "10%"
+                    width: "8%"
                 },
                 {
                     title: "所属集群",
-                    width: "10%"
+                    width: "14%"
                 },
                 {
                     title: "主机ip",
-                    width: "10%"
+                    width: "14%"
                 },
                 {
                     title: "操作",
@@ -642,8 +759,6 @@ define([
                     width: "10%"
                 }
             ];
-
-
 
 
 

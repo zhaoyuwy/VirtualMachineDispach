@@ -3,6 +3,7 @@ package com.huawei.siteapp.controller.SystemController;
 import com.huawei.siteapp.bean.HostInfoBean;
 import com.huawei.siteapp.bean.HostVmReportInfoBean;
 import com.huawei.siteapp.bean.Result;
+import com.huawei.siteapp.common.constats.RetCode;
 import com.huawei.siteapp.common.util.SpringUtil;
 import com.huawei.siteapp.model.SiteModel;
 import com.huawei.siteapp.repository.SiteRepository;
@@ -28,9 +29,10 @@ public class SysGetCanVmInfoController {
     @ResponseBody
     @RequestMapping(value = "/getCanInfo/{siteRegionName}", method = RequestMethod.GET)
     public Result getCanInfo(@PathVariable String siteRegionName, @RequestParam String siteRegion, @RequestParam String siteLoginIp) {
-        logger.info("@@@@@@@    SysGetCanVmInfoController getCanVmInfo");
+        logger.info("@@@@@@@    SysGetCanVmInfoController getCanInfo");
         SiteRepository siteRepository = SpringUtil.getBean(SiteRepository.class);
         Result result = new Result();
+        int retCode= RetCode.OK;
         SiteModel siteModel = siteRepository.findSiteModelBySiteRegionNameAndSiteRegionAndSiteLoginIp(siteRegionName, siteRegion, siteLoginIp);
 
 
@@ -44,7 +46,7 @@ public class SysGetCanVmInfoController {
         taskService.clearDbMonitorData();
 
         MonitorAllVmsServiceImpl monitorAllVmsService = SpringUtil.getBean(MonitorAllVmsServiceImpl.class);
-        int retCode = monitorAllVmsService.fcGetSitesClustersHostsAllVrmRest(siteModel);
+        retCode = monitorAllVmsService.fcGetSitesClustersHostsAllVrmRest(siteModel);
 
         MonitorCnaServiceImpl monitorsService = SpringUtil.getBean(MonitorCnaServiceImpl.class);
         int retCode2 = monitorsService.fcPostSitesClustersHostsCpuMemRest(siteModel);
