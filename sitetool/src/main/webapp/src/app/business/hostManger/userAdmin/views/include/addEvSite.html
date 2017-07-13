@@ -92,10 +92,7 @@
                     $compile($("#myAdd"))(scope);
                     scope.$digest();
                     $('#content input[type="text"]').val('');
-                    $(".form-select").change(function(){
-                        var value = $('.form-select').val();
-                        $('.from-input').val(value);
-                    });
+                    $("input.ti_input_ipv4_octet").val('   .   .   .   ');
 
                 })
 

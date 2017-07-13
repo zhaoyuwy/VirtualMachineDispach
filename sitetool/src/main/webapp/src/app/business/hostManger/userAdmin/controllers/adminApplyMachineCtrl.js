@@ -119,7 +119,8 @@ define([
                                                 "parentId": sonTreeLength,
                                                 "evName":array[index].evName,
                                                 "siteLoginIp":array1[index1].siteLoginIp,
-                                                "siteRegion":array1[index1].siteRegion
+                                                "siteRegion":array1[index1].siteRegion,
+                                                "siteRegionName":array1[index1].siteRegionName
 
                                             };
 
@@ -280,7 +281,7 @@ define([
                 $scope.chaxun = true; //默认的树显示显示按主机查询
 
 
-                var str = "lf?siteRegion=dmz&siteLoginIp=10.44.33.245";
+                var str = treeNode.siteRegionName+"?siteRegion="+treeNode.siteRegion+"&siteLoginIp="+treeNode.siteLoginIp;
                 //点击节点
                 $scope.siteDetailed ={
                     "getData": function(){
@@ -593,25 +594,27 @@ define([
                     width: "8%"
                 },
                 {
-                    title: "cpu使用率",
-                    width: "10%"
-                },
-                {
                     title: "CPU大小",
                     width: "8%"
                 },
                 {
+                    title: "cpu使用率",
+                    width: "10%"
+                },
+
+                {
                     title: "已分配内存",
+                    width: "8%"
+                },
+                {
+                    title: "内存大小",
                     width: "8%"
                 },
                 {
                     title: "内存使用率",
                     width: "10%"
                 },
-                {
-                    title: "内存大小",
-                    width: "8%"
-                },
+
                 {
                     title: "所属集群",
                     width: "14%"

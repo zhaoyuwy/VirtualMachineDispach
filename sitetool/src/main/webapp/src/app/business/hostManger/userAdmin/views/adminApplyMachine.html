@@ -178,13 +178,13 @@
                                             <td>{{row.hostName}}</td>
                                             <td>{{row.hostStatus}}</td>
                                             <td>{{row.monitorUsedCpu}}</td>
+                                            <td>{{row.monitorTotalCpu}}</td>
                                             <td><ti-progressbar max-value="$scope.hostProgress.maxValue" value="row.monitorCpuUsage">{{row.monitorCpuUsage}}%
                                             </ti-progressbar></td>
-                                            <td>{{row.monitorTotalCpu}}</td>
                                             <td>{{row. monitorUsedMem}}</td>
+                                            <td>{{row.monitorTotalMem}}</td>
                                             <td><ti-progressbar max-value="$scope.hostProgress.maxValue" value="row.monitorMemUsage">{{row.monitorMemUsage}}%
                                             </ti-progressbar></td>
-                                            <td>{{row.monitorTotalMem}}</td>
                                             <td>{{row.clusterName}}</td>
                                             <td>{{row.hostIp}}</td>
                                             <td><a >更多操作</a></td>

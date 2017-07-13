@@ -203,13 +203,13 @@ define([
 
 
                                                 //置空
-                                                $scope.evName = '';
-                                                $scope.siteRegion = '';
-                                                $scope.siteRegionName = '';
-                                                $scope.siteLoginPwd = '';
-                                                $scope.siteLoginUser = '';
-                                                $scope.siteLoginIp = '';
-                                                $rootScope.ipCongigOptions.value1 = '';
+                                                //$scope.evName = '';
+                                                //$scope.siteRegion = '';
+                                                //$scope.siteRegionName = '';
+                                                //$scope.siteLoginPwd = '';
+                                                //$scope.siteLoginUser = '';
+                                                //$scope.siteLoginIp = '';
+                                                //$rootScope.ipCongigOptions.value1 = '';
                                             }
                                         },
                                         function (response) {
