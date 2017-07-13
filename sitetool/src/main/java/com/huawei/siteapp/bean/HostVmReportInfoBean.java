@@ -13,10 +13,6 @@ public class HostVmReportInfoBean<T> {
 
     private String time;
 
-    private int monitorUsedCpu;
-    ;
-    private int monitorUsedMem;
-
     private double monitorCpuUsage;
     ;
 
@@ -70,22 +66,6 @@ public class HostVmReportInfoBean<T> {
 
     public void setTime(String time) {
         this.time = time;
-    }
-
-    public int getMonitorUsedCpu() {
-        return monitorUsedCpu;
-    }
-
-    public void setMonitorUsedCpu(int monitorUsedCpu) {
-        this.monitorUsedCpu = monitorUsedCpu;
-    }
-
-    public int getMonitorUsedMem() {
-        return monitorUsedMem;
-    }
-
-    public void setMonitorUsedMem(int monitorUsedMem) {
-        this.monitorUsedMem = monitorUsedMem;
     }
 
     public List<T> getHostOrVmModels() {
