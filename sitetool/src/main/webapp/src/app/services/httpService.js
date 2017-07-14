@@ -193,6 +193,9 @@ define(['language-remote/framework', 'app-remote/services/tipMsgService', 'app-r
                 if(config.headers){
                     settings.headers = config.headers;
                 }
+                if (config.async) { //异步的处理
+                    settings.async = config.async;
+                }
                 var $ajax = $.ajax(settings);
                 if (window.app_enable_framework_503 && !config.disable_503) {
                     error = function (data) {

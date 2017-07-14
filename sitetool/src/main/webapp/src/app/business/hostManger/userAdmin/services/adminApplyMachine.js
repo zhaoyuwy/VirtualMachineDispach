@@ -28,7 +28,8 @@ define([
                     "s": configures.hostManger_url+"/getCanInfo/"+param,
                     "o": {}
                 },
-                "timeout":3000,
+                "timeout":30000,
+                "async":true,
                 "mask": true
 
             });

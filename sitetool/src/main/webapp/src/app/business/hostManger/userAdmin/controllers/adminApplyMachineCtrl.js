@@ -283,6 +283,7 @@ define([
 
                 var str = treeNode.siteRegionName+"?siteRegion="+treeNode.siteRegion+"&siteLoginIp="+treeNode.siteLoginIp;
                 //点击节点
+                console.log(str);
                 $scope.siteDetailed ={
                     "getData": function(){
                         var  promise = adminApplyMachineServe.getResource(str);
@@ -293,8 +294,8 @@ define([
                                     $scope.hostMangerSrcData.data = response.data.hostOrVmModels;
                                     $scope.startDateTime = response.data.time.split("_")[0]; //开始时间
                                     $scope.endDateTime = response.data.time.split("_")[1];//结束时间
-                                    $scope.Doughnut1Use = response.data.monitorUsedCpu; //环形图1使用率
-                                    $scope.Doughnut2Use = response.data.monitorUsedMem;  //环形图2使用率
+                                    $scope.Doughnut1Use = response.data.monitorCpuUsage; //环形图1使用率
+                                    $scope.Doughnut2Use = response.data.monitorCpuUsage;  //环形图2使用率
 
                                     //console.log( $scope.Doughnut1Use);
 
@@ -365,8 +366,8 @@ define([
                                                     }
                                                 },
                                                 data:[
-                                                    {value:response.data.monitorUsedCpu, name:'未使用'},
-                                                    {value:100-response.data.monitorUsedCpu, name:'使用中'}
+                                                    {value:response.data.monitorCpuUsage, name:'未使用'},
+                                                    {value:100-response.data.monitorCpuUsage, name:'使用中'}
                                                 ]
                                             }
                                         ]
@@ -426,8 +427,8 @@ define([
                                                     }
                                                 },
                                                 data:[
-                                                    {value:response.data.monitorUsedMem, name:'未使用'},
-                                                    {value:100-response.data.monitorUsedMem, name:'使用中'}
+                                                    {value:response.data.monitorMemUsage, name:'未使用'},
+                                                    {value:100-response.data.monitorMemUsage, name:'使用中'}
                                                 ]
                                             }
                                         ]
@@ -583,11 +584,11 @@ define([
             $scope.hostMangerColumns = [
                 {
                     title: "主机名",
-                    width: "10%"
+                    width: "15%"
                 },
                 {
                     title: "状态",
-                    width: "8%"
+                    width: "6%"
                 },
                 {
                     title: "已分配cpu",
@@ -617,11 +618,11 @@ define([
 
                 {
                     title: "所属集群",
-                    width: "14%"
+                    width: "8%"
                 },
                 {
                     title: "主机ip",
-                    width: "14%"
+                    width: "12%"
                 },
                 {
                     title: "操作",

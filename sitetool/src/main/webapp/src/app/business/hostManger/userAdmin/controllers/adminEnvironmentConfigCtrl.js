@@ -123,6 +123,9 @@ define([
             //增加环境 弹窗
             $(".openWindow").on('click', function(event, callback) {
 
+
+
+
                 var addSiteOptions = {
                     title: "添加环境",
                     height: "420px",
@@ -143,6 +146,12 @@ define([
                             $scope.siteLoginIp = $rootScope.ipCongigOptions.value1;
 
                             //把添加页面的数据传给
+                           
+                            //$("button.tiny-btn-without-icon").attr("disabled", true);
+                            //if($('#hecpass1').val('') !=''&&$('#hecpass2').val()!='' &&$('#hecpass3').val()!=''&& $('#hecpass4').val()!='' && $('#hecpass5').val()!='' && $('#hecpass6').val()!='' &&  $("input.ti_input_ipv4_octet").val() != '   .   .   .   '){
+                            //    $("button.tiny-btn-without-icon").attr("disabled", false);
+                            //}
+
                             if (!$scope.evName || !$scope.siteRegionName || !$scope.siteRegion || !$scope.siteLoginUser || !$scope.siteLoginPwd || !$scope.siteLoginIp) {
                                 $scope.alertInfo.content = "请输入添加环境字段的信息";
                                 $scope.alertInfo.contentNullError = true;
@@ -170,6 +179,7 @@ define([
 
 
                             var evStr = JSON.stringify(jsObj);
+                            console.log(evStr);
                             $scope.operate = {
                                 "addPassData": function () {
 
@@ -201,19 +211,28 @@ define([
 
                                                 $scope.pagingModel.totalRecords = response.data.total;   //分页 总信息数
 
-
                                                 //置空
                                                 //$scope.evName = '';
                                                 //$scope.siteRegion = '';
                                                 //$scope.siteRegionName = '';
                                                 //$scope.siteLoginPwd = '';
                                                 //$scope.siteLoginUser = '';
-                                                //$scope.siteLoginIp = '';
+                                                ////$scope.siteLoginIp = '';
                                                 //$rootScope.ipCongigOptions.value1 = '';
+
                                             }
                                         },
                                         function (response) {
                                             alert(response.msg);
+
+                                            //置空
+                                            //$scope.evName = '';
+                                            //$scope.siteRegion = '';
+                                            //$scope.siteRegionName = '';
+                                            //$scope.siteLoginPwd = '';
+                                            //$scope.siteLoginUser = '';
+                                            ////$scope.siteLoginIp = '';
+                                            //$rootScope.ipCongigOptions.value1 = '';
                                         }
                                     )
                                 }

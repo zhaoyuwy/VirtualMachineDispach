@@ -6,17 +6,18 @@
     .content_left {
         display: inline-block;
         /*15%*/
-        width: 280px;
-        position: absolute;
+        width: 250px;
+        /*position: absolute;*/
+        position: fixed;
         top: 61px;
-        left: 222px;
+        left: 202px;
         bottom: 0;
         min-height: 600px;
         overflow: auto;
         /*border: 1px solid #61105e*/
         background:#FdFdFd;
         padding:10px 0 0 5px;
-        /*z-index:100;*/
+        z-index:100;
 
     }
 
@@ -25,10 +26,10 @@
         /*width: 70%;*/
         position: absolute;
         top: 80px;
-        left: 530px;
+        left: 480px;
         right:25px;
         bottom: 0;
-        /*z-index:99;*/
+        z-index:99;
     }
     .blank {
         width: 100%;
@@ -72,7 +73,7 @@
     }
 
     .custom-head-panel {
-        height: 220px;
+        height: 240px;
         width: 35%;
         display: inline-block;
         margin-right: 20px;
@@ -119,7 +120,7 @@
 
 
 
-                <div style="margin:40px 0 60px 20px" >
+                <div style="margin:20px 0 60px 20px" >
                     <ti-formfield cols="threeCols">
                         <ti-item  label="tenItem.label">
                             <ti-select ng-cloak
