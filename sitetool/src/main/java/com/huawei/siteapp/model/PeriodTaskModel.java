@@ -29,6 +29,15 @@ public class PeriodTaskModel implements Serializable {
     private int taskStatus;
     private String taskStartTime;
     private String taskEndTime;
+    private long siteId;
+
+    public long getSiteId() {
+        return siteId;
+    }
+
+    public void setSiteId(long siteId) {
+        this.siteId = siteId;
+    }
 
     public Long getPeriodTaskId() {
         return periodTaskId;
@@ -124,6 +133,14 @@ public class PeriodTaskModel implements Serializable {
 
     public void setTaskEndTime(String taskEndTime) {
         this.taskEndTime = taskEndTime;
+    }
+
+    @Override
+    public String toString() {
+//        return "Student [id=" + id + ", name=" + name + ", age=" + age + "]";
+        return
+                "periodTask [taskName = " + taskName + ", siteRegionName = " + siteRegionName + ", siteRegion = " + siteRegion
+                        + ", siteLoginIp = " + siteLoginIp + ", isSendEmail = " + isSendEmail+"]";
     }
 
 

@@ -7,5 +7,9 @@ import com.huawei.siteapp.model.PeriodTaskModel;
  *
  * @version 1.0
  */
-public interface IPeriodTaskService  extends IBaseService<PeriodTaskModel>{
+public interface IPeriodTaskService extends IBaseService<PeriodTaskModel> {
+    PeriodTaskModel findPeriodTaskModelByPeriodTaskId(long periodTaskId);
+
+    PeriodTaskModel findPeriodTaskModelBySiteRegionNameAndSiteRegionAndSiteLoginIp(String siteRegionName, String siteRegion, String siteLoginIp);
+
 }

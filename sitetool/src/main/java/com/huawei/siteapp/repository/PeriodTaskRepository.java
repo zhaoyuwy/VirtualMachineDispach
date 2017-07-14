@@ -8,4 +8,7 @@ import com.huawei.siteapp.model.PeriodTaskModel;
  * @version 1.0
  */
 public interface PeriodTaskRepository extends BaseRepository<PeriodTaskModel> {
+    PeriodTaskModel findPeriodTaskModelByPeriodTaskId(long periodTaskId);
+    PeriodTaskModel findPeriodTaskModelBySiteRegionNameAndSiteRegionAndSiteLoginIp(String siteRegionName, String siteRegion, String siteLoginIp);
+
 }

@@ -14,6 +14,7 @@ import com.huawei.siteapp.repository.PersonRepository;
 import com.huawei.siteapp.service.ExcelService.HostReportServiceImpl;
 import com.huawei.siteapp.service.Http.HttpRestServiceImpl;
 import com.huawei.siteapp.service.Http.SiteLoginHttpRequestServiceImpl;
+import com.huawei.siteapp.service.ModelService.Impl.PeriodTaskServiceImpl;
 import com.huawei.siteapp.service.ModelService.Impl.UserServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -209,6 +210,9 @@ public class MappRunApplicationTests {
 List<HostModel> hostModels = (List<HostModel>) hostRepository.findAll();
         List<HostModel> hosts = hostRepository.findHostModelsBySiteId(-1);
         System.out.println(hosts);
+
+        PeriodTaskServiceImpl periodTaskService = SpringUtil.getBean(PeriodTaskServiceImpl.class);
+        periodTaskService.findPeriodTaskModelByPeriodTaskId(1);
     }
 
 

@@ -3,7 +3,6 @@ package com.huawei.siteapp.service.Task;
 import com.huawei.siteapp.cache.CacheCenter;
 import com.huawei.siteapp.common.Bean.SiteLoginRestBean;
 import com.huawei.siteapp.common.util.SpringUtil;
-import com.huawei.siteapp.controller.TaskController;
 import com.huawei.siteapp.service.Http.SiteLoginHttpRequestServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,21 +67,5 @@ public class ScheduleTask {
         CacheCenter.getInstance().addUrlResponse("loginSuccess", false);
     }
 
-    @Scheduled(fixedDelay = 5000)
-    void doScheduleGenerateReport() {
 
-        boolean isLoginSuccess = (Boolean) CacheCenter.getInstance().getRestBeanResponse("loginSuccess");
-        if (!isLoginSuccess) {
-            logger.info("User2 has not login");
-            return;
-        }
-        TaskController taskController = SpringUtil.getBean(TaskController.class);
-        try {
-            taskController.monitorCnaVm();
-            taskController.hostReport();
-            taskController.vmReport();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }
