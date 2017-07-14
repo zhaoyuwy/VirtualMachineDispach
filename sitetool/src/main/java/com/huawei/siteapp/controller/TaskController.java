@@ -1,5 +1,6 @@
 package com.huawei.siteapp.controller;
 
+import com.huawei.siteapp.bean.Result;
 import com.huawei.siteapp.cache.CacheCenter;
 import com.huawei.siteapp.common.Bean.SiteLoginRestBean;
 import com.huawei.siteapp.common.constats.RetCode;
@@ -22,10 +23,12 @@ import com.huawei.siteapp.service.Task.TaskServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -34,7 +37,8 @@ import java.util.concurrent.CompletableFuture;
  *
  * @version 1.0
  */
-@Controller
+@RestController
+@RequestMapping(value = "task",produces = "application/json")
 public class TaskController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
@@ -172,5 +176,23 @@ public class TaskController {
             }
         }
         return "200";
+    }
+
+    @RequestMapping(value = "/savePeriodTask", method = RequestMethod.POST)
+    @ResponseBody
+    public Result postSavePeriodTask(HttpServletRequest request) {
+
+//String param ="{\"total\":1,\"tasks\":[{\"regions\":[{\"evName\":\"langfang\",\"siteNum\":2,\"sites\":[{\"siteRegionName\":\"langfang\",\"siteRegion\":\"dmz\",\"siteLoginIp\":\"10.44.33.245\",\"taskName\":\"taskByDay\",\"taskType\":0,\"isSendEmail\":false,\"time\":\"0，1，2，3，4，5，31 22_30\"},{\"siteRegionName\":\"langfang\",\"siteRegion\":\"pub\",\"siteLoginIp\":\"10.44.70.245\",\"taskName\":\"taskByWeek\",\"taskType\":1,\"isSendEmail\":true,\"time\":\"0，1， 2，3，4，5，6 22_30\"}]}]}]}";
+
+
+
+
+
+
+        Result result = new Result();
+        result.setData(null);
+        result.setMsg("OK");
+        result.setStatus(200);
+        return result;
     }
 }
