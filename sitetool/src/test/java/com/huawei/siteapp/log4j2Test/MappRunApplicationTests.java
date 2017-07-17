@@ -197,7 +197,7 @@ public class MappRunApplicationTests {
 //            personRepository.save(userModels);
         }
         UserServiceImpl userService = SpringUtil.getBean(UserServiceImpl.class);
-        userService.save(userModels);
+//        userService.save(userModels);
         try {
             Thread.sleep(2000L);
         } catch (InterruptedException e) {

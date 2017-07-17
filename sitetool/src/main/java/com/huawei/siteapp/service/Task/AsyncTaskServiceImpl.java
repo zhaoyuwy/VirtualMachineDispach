@@ -155,6 +155,7 @@ public class AsyncTaskServiceImpl {
     }
 
     public void asyncSaveVmInfoInDB(SiteModel siteModel, String response) {
+        logger.info("save by offsets ");
         JSONArray vmInfos = new JSONArray();
         for (Object vmTemp : ((List<Object>) (JSONUtils.jsonToMap(response).get("vms")))) {
             String urn = ((Map<String, String>) vmTemp).get(ParamKey.URN);

@@ -30,9 +30,9 @@ public class SysGetCanVmInfoController {
     @RequestMapping(value = "/getCanInfo/{siteRegionName}", method = RequestMethod.GET)
     public Result getCanInfo(@PathVariable String siteRegionName, @RequestParam String siteRegion, @RequestParam String siteLoginIp) {
         logger.info("@@@@@@@    SysGetCanVmInfoController getCanInfo");
-        SiteRepository siteRepository = SpringUtil.getBean(SiteRepository.class);
         Result result = new Result();
         int retCode = RetCode.OK;
+        SiteRepository siteRepository = SpringUtil.getBean(SiteRepository.class);
         SiteModel siteModel = siteRepository.findSiteModelBySiteRegionNameAndSiteRegionAndSiteLoginIp(siteRegionName, siteRegion, siteLoginIp);
 
 

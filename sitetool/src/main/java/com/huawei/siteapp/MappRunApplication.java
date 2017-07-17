@@ -22,8 +22,9 @@ import java.util.List;
 @EnableScheduling   //开启定时任务
 @EnableAsync        //开启异步任务
 @ServletComponentScan
+//public class MappRunApplication extends WebMvcConfigurerAdapter implements SchedulingConfigurer {
 public class MappRunApplication extends WebMvcConfigurerAdapter {
-//public class MappRunApplication  {
+    //public class MappRunApplication  {
     public static void main(String[] args) {
         SpringApplication.run(MappRunApplication.class, args);
     }
@@ -42,4 +43,36 @@ public class MappRunApplication extends WebMvcConfigurerAdapter {
 
         converters.add(fastConverter);
     }
+
+
+//    @Bean
+//    public MyBean myBean() {
+//        return new MyBean();
+//    }
+//
+//    @Bean(destroyMethod = "shutdown")
+//    public Executor taskExecutor() {
+//        return Executors.newScheduledThreadPool(100);
+//    }
+//
+//    @Override
+//    public void configureTasks(ScheduledTaskRegistrar scheduledTaskRegistrar) {
+//        scheduledTaskRegistrar.setScheduler(taskExecutor());
+//        scheduledTaskRegistrar.addTriggerTask(
+//                new Runnable() {
+//                    @Override public void run() {
+//                        myBean().getSchedule();
+//                    }
+//                },
+//                new Trigger() {
+//                    @Override public Date nextExecutionTime(TriggerContext triggerContext) {
+//                        Calendar nextExecutionTime =  new GregorianCalendar();
+//                        Date lastActualExecutionTime = triggerContext.lastActualExecutionTime();
+//                        nextExecutionTime.setTime(lastActualExecutionTime != null ? lastActualExecutionTime : new Date());
+//                        nextExecutionTime.add(Calendar.MILLISECOND, env.getProperty("myRate", Integer.class)); //you can get the value from wherever you want
+//                        return nextExecutionTime.getTime();
+//                    }
+//                }
+//        );
+//    }
 }

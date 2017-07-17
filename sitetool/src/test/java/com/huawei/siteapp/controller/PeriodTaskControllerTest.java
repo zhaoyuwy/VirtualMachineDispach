@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.huawei.siteapp.model.PeriodTaskModel;
 import org.junit.Test;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -32,6 +33,11 @@ String param = "{\"total\":1,\"tasks\":[{\"regions\":[{\"evName\":\"langfang\",\
         System.out.println((periodTaskModel));
         System.out.println(jsonObjectPeriodTask);
 
+    }
+    @Test
+    public void testDate(){
+        Date dateNow = new Date();
+        System.out.println(dateNow);
     }
 
 }

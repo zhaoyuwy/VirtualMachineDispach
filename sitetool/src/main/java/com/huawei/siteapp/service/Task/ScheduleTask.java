@@ -3,9 +3,13 @@ package com.huawei.siteapp.service.Task;
 import com.huawei.siteapp.cache.CacheCenter;
 import com.huawei.siteapp.common.Bean.SiteLoginRestBean;
 import com.huawei.siteapp.common.util.SpringUtil;
+import com.huawei.siteapp.model.PeriodTaskModel;
+import com.huawei.siteapp.repository.PeriodTaskRepository;
 import com.huawei.siteapp.service.Http.SiteLoginHttpRequestServiceImpl;
+import com.huawei.siteapp.service.ModelService.Impl.PeriodTaskServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -22,6 +26,10 @@ public class ScheduleTask {
 
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
     private static int num = 0;
+
+    @Autowired
+    DynamicScheduledTask dynamicScheduledTask;
+
 
     //        @Scheduled(cron = "0 0 2 * * ?")//每天凌晨两点执行
     @Scheduled(cron = "0/10 * *  * * ? ")
@@ -66,6 +74,22 @@ public class ScheduleTask {
     public void InitLogin() {
         CacheCenter.getInstance().addUrlResponse("loginSuccess", false);
     }
+
+    @Scheduled(fixedDelay = 5000)
+    void setDynamicScheduledTask(){
+        dynamicScheduledTask.setCron("0/10 * * * * ?");
+    }
+
+    @Scheduled(fixedDelay = 50000000)
+    void taskStart(){
+        PeriodTaskServiceImpl periodTaskService = SpringUtil.getBean(PeriodTaskServiceImpl.class);
+
+        PeriodTaskRepository periodTaskRepository = SpringUtil.getBean(PeriodTaskRepository.class);
+        PeriodTaskModel periodTaskModel = periodTaskRepository.findPeriodTaskModelByPeriodTaskId(51);
+        periodTaskService.taskHandle(periodTaskModel);
+
+    }
+
 
 
 }
