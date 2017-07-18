@@ -75,12 +75,12 @@ public class ScheduleTask {
         CacheCenter.getInstance().addUrlResponse("loginSuccess", false);
     }
 
-    @Scheduled(fixedDelay = 5000)
+//    @Scheduled(fixedDelay = 5000)
     void setDynamicScheduledTask(){
         dynamicScheduledTask.setCron("0/10 * * * * ?");
     }
 
-    @Scheduled(fixedDelay = 50000000)
+//    @Scheduled(fixedDelay = 50000000)
     void taskStart(){
         PeriodTaskServiceImpl periodTaskService = SpringUtil.getBean(PeriodTaskServiceImpl.class);
 
