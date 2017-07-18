@@ -42,7 +42,7 @@ define([
                     $scope.environmentData.data = '';
 
                     $scope.environmentData.data = JSON.parse(sessionStorage.getItem('evData'))[obj.currentPage-1];
-                    $rootScope.environmentData.data = $scope.environmentData.data
+                    //$rootScope.environmentData.data = $scope.environmentData.data;
                     $scope.$digest();//个$digest循环运行时，watchers会被执行来检查scope中的models变化，在上下文之外改变,监听函数可能没监控到，module的变化
                     //$scope.$apply();
 
@@ -146,7 +146,7 @@ define([
                             $scope.siteLoginIp = $rootScope.ipCongigOptions.value1;
 
                             //把添加页面的数据传给
-                           
+
                             //$("button.tiny-btn-without-icon").attr("disabled", true);
                             //if($('#hecpass1').val('') !=''&&$('#hecpass2').val()!='' &&$('#hecpass3').val()!=''&& $('#hecpass4').val()!='' && $('#hecpass5').val()!='' && $('#hecpass6').val()!='' &&  $("input.ti_input_ipv4_octet").val() != '   .   .   .   '){
                             //    $("button.tiny-btn-without-icon").attr("disabled", false);

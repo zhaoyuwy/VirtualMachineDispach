@@ -1,0 +1,110 @@
+<style>
+    #myTabs{
+        font-family: "Helvetica Neue55", Arial, Helvetica, sans-serif;
+    }
+
+
+    .blank {
+        width: 100%;
+        height: 30px;
+    }
+
+    .radio_group{
+        margin-bottom:30px;
+    }
+
+    .radio-button{
+        width:80px;
+        height:26px;
+        margin-right:1px;
+        background: #ddd;
+        border:1px solid #ddd;
+    }
+    .radio-button:hover{
+        background: #D3EAFD;
+        border:1px solid #D3EAFD;
+    }
+
+    .check_button{
+        width:80px;
+        height:26px;
+        margin-right:1px;
+        background: #2095F2;
+        border:1px solid #2095F2;
+    }
+
+    .custom-head-panel {
+        height: 220px;
+        width: 35%;
+        display: inline-block;
+        margin-right: 20px;
+    }
+
+    .echartTable1{
+        margin-top:10px;
+    }
+
+</style>
+<div id="myTabs" class="tiny-tabs-container" style="width:100%;" >
+    <div class="tiny-tabs-content">
+        <div id="tabs-1">
+
+
+
+                <div class="row">
+                    <!--提示文本-->
+                    <ti-alert type="type1"
+                              show="show"
+                              type-icon="typeIcon"
+                              close-icon="closeIcon"
+                              dismiss-on-timeout="dismissOnTimeout">{{label1}}</ti-alert><br>
+
+
+                    <!--向导-->
+                    <div>
+                        <div class="mawizard">
+                            <div id="tinyplus-wizard-demo">
+                                <ul class="tinyplus-wizard-steps">
+                                    <li ng-repeat="step in steps" class="{{step.state}}">
+                                        <span class="tinyplus-step-title">{{step.title}}</span>
+                                        <div class="tinyplus-step-icon"></div>
+                                    </li>
+                                </ul>
+
+
+                                <div class="widget-box">
+                                    <div ng-repeat="step in steps" ng-include="step.templateUrl" ng-show="currentStep-1 == $index"></div>
+                                </div>
+                                <div class="wizard-actions">
+                                    <!--<span ng-if="currentStep !== 1"> <tiny-button click="stepBackward()" text="stepWardmodel.previousTxt"></tiny-button> </span>-->
+                                    <span ng-if="currentStep < steps.length"> <tiny-button click="stepForward()" text="stepWardmodel.nextTxt"></tiny-button> </span>
+                                    <span ng-if="currentStep == steps.length"> <tiny-button click="finish()" text="stepWardmodel.finishTxt"></tiny-button></span>
+                                    <span> <tiny-button  click="buttonCancel()"text="stepWardmodel.cancelTxt"></tiny-button> </span>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+                        <div style="height:60px;"></div>
+                    </div>
+
+                </div>
+
+
+
+        </div>
+
+    </div>
+</div>
+</div>
+
+<script>
+    require(["tiny-widgets/Tabs"], function (Tabs) {
+        var tabs = new Tabs({
+            "id": "myTabs",
+            "setActiveClass": false
+        });
+    });
+</script>

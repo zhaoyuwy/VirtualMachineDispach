@@ -156,7 +156,10 @@ define(["tiny-lib/angular", "lazy-load/lazyLoad"],
                 controller:"adminInfoCollectionCtrl.ctrl",
                 scripts:{
                     'controllers':['app/business/hostManger/userAdmin/controllers/adminInfoCollectionCtrl'],
-                    'services': ['app/business/hostManger/userAdmin/services/adminInfoCollection']
+                    'services': [
+                                    'app/business/hostManger/userAdmin/services/adminInfoCollection',
+                                    'app/business/hostManger/userAdmin/services/getCurrentDay'
+                                ]
                 }
 
             },

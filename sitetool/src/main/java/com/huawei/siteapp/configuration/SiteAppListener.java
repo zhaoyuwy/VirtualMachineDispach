@@ -59,7 +59,7 @@ public class SiteAppListener implements ServletContextListener {
             newUser.setUserName(defaultUserName);
             newUser.setUserPwd(defaultPwd);
 
-//            userService.save(newUser);
+            userService.save(newUser);
         }
 
     }

@@ -1,0 +1,114 @@
+<div id="myAdd0"  class="">
+    <div class="step1_content" style="margin:60px 0 70px 0px" >
+
+        <div class="pull-left" style="width:34%">
+            <div class="tree_text">勾选的子节点信息:</div>
+            <!--<div class="tree-border mt-10"></div>-->
+                <tinyplus-timeline side="right">
+                    <tinyplus-timeline-axis class="tinypuls-tl-axis">
+                    </tinyplus-timeline-axis>
+                    <tinyplus-timeline-item ng-repeat="group in groups">
+                        <tinyplus-timeline-badge>
+                            <div class="outerCircle">
+                                <div class="innerCircle"></div>
+                                <div class="centerCircle"></div>
+                            </div>
+                        </tinyplus-timeline-badge>
+                        <tinyplus-timeline-panel>
+                            <div class="custom-timeline-panel" ng-bind-html="group.content">
+
+                            </div>
+                        </tinyplus-timeline-panel>
+                    </tinyplus-timeline-item>
+                </tinyplus-timeline>
+
+        </div>
+
+        <div class="pull-left config-detail" style="width:66%">
+            <!--<div class="tree-border mt-10"></div>-->
+            <div class="tree_text">信息收集:</div>
+
+            <form  class="stepForm" action="#" ng-cloak style="margin-top:40px;min-height: 400px">
+                <ti-formfield vertical-align="fieldVertivalAlign" label-max-width="labelMaxWidth">
+                    <ti-item label="infoCollection.label1" required="infoCollection.required" vertical-align="fieldVertivalAlign">
+                        <input id='tiny-text'
+                               type="text"
+                               ng-model="infoCollection.value1"
+                               placeholder-text='infoCollection.placeholder1'
+                               style="width:189px;"
+                               autofocus
+                               ti-text/>
+                    </ti-item>
+
+                </ti-formfield>
+                <ti-formfield vertical-align="fieldVertivalAlign" label-max-width="labelMaxWidth">
+                    <ti-item required="infoCollection.required">
+                        <ti-item-label>{{infoCollection.label2}}</ti-item-label>
+                        <ti-select ng-cloak style="width: 189px;"
+                                   selected-id="infoCollection.selectedId2"
+                                   disable="infoCollection.disable"
+                                   placeholder-text="infoCollection.placeholder2"
+                                   panel-max-height="infoCollection.panelMaxHeight2"
+                                   options="infoCollection.options2"
+                                   change="infoCollection.change2"
+                                   panel-width="infoCollection.panelWidth2">
+                        </ti-select>
+                        <span class="common-icon-help HelpIcon" ti-tip="paraTip"></span>
+                    </ti-item>
+                </ti-formfield>
+                <ti-formfield vertical-align="fieldVertivalAlign" label-max-width="labelMaxWidth">
+                    <ti-item required="infoCollection.required">
+                        <ti-item-label>{{infoCollection.label3}}</ti-item-label>
+                        <ti-multi-select ng-cloak style="width: 189px;"
+                                   selected-id="infoCollection.selectedId3"
+                                   disable="infoCollection.disable"
+                                   placeholder-text="infoCollection.placeholder3"
+                                   panel-max-height="infoCollection.panelMaxHeight2"
+                                   options="infoCollection.options3"
+                                   change="infoCollection.change3"
+                                   panel-width="infoCollection.panelWidth3">
+                        </ti-multi-select>
+                    </ti-item>
+                </ti-formfield>
+
+                <ti-formfield vertical-align="fieldVertivalAlign" label-max-width="labelMaxWidth" style="margin-left: 36px;">
+                    <ti-item required="infoCollection.required">
+                        <ti-select ng-cloak style="width: 189px;"
+                                   selected-id="infoCollection.selectedId4"
+                                   disable="infoCollection.disable"
+                                   placeholder-text="infoCollection.placeholder4"
+                                   panel-max-height="infoCollection.panelMaxHeight2"
+                                   options="infoCollection.options4"
+                                   change="infoCollection.change4"
+                                   panel-width="infoCollection.panelWidth4">
+                        </ti-select>
+                        <ti-item-label >{{infoCollection.label4}}</ti-item-label>
+                    </ti-item>
+                    <ti-item required="infoCollection.required" >
+                        <ti-select ng-cloak style="width: 189px;"
+                                   selected-id="infoCollection.selectedId5"
+                                   disable="infoCollection.disable"
+                                   placeholder-text="infoCollection.placeholder5"
+                                   panel-max-height="infoCollection.panelMaxHeight2"
+                                   options="infoCollection.options5"
+                                   change="infoCollection.change5"
+                                   panel-width="infoCollection.panelWidth5">
+                        </ti-select>
+                        <ti-item-label >{{infoCollection.label5}}</ti-item-label>
+                    </ti-item>
+                </ti-formfield>
+
+                <div ng-repeat="item in infoCollection.checkList" style="margin-right: 20px;">
+                    <input type="checkbox" ng-model="item.checked" ti-checkbox="item.title"/>
+                    <!--<span>{{item.checked}}</span>-->
+                </div>
+
+            </form>
+
+
+        </div>
+
+
+    </div>
+    <div style="content:''"></div>
+</div>

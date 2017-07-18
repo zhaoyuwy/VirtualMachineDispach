@@ -1,7 +1,109 @@
-<link rel="stylesheet" href="theme/home/css/EngineeringMeeting.css"/>
+<!--<link rel="stylesheet" href="theme/home/css/EngineeringMeeting.css"/>-->
 <style>
     #myTabs{
         font-family: "Helvetica Neue55", Arial, Helvetica, sans-serif;
+    }
+    .tree_text{
+        font-size:16px;
+        font-weight: bold;
+        color:#00AAFF;
+    }
+    .tree-border {
+        border: 1px #D5D5D5 solid;
+        width: 100%;
+        height: 550px;
+        overflow: auto;
+    }
+    .mt-10 {
+        margin-top: 10px;
+    }
+    .span4 {
+        width: 33.33333333%;
+    }
+
+    .config-detail{
+        border-left: 2px #eeeeee solid;
+        overflow: auto;
+         min-height: 540px;
+        padding-left: 40px;
+        padding-right: 0px;
+    }
+    .step1_content:after{
+        display: block;
+        content: '';
+        clear: both;
+    }
+
+     /*时间轴的css*/
+    .custom-timeline-panel {
+        background-color: #009EE0;
+        padding: 16px 10px;
+        border-radius: 2px;
+        width:70%
+    }
+
+    .custom-timeline-panel:after, .custom-timeline-panel:before {
+        content: '';
+        border: 9px solid transparent;
+        border-right-color: #009EE0;
+        position: absolute;
+        left: -18px;
+        top: 50%;
+        margin-top: -10px;
+    }
+
+    .custom-timeline-panel:after {
+        border-width: 14px;
+        border-right-color: #009EE0;
+        left: -22px;
+        margin-top: -15px;
+    }
+
+
+
+    .outerCircle {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: #BADA55;
+        position: relative
+    }
+
+    .innerCircle {
+        width: 90%;
+        height: 90%;
+        background: white;
+        position: absolute;
+        left: 5%;
+        top: 5%;
+        border-radius: 50%;
+    }
+
+    .centerCircle {
+        position: absolute;
+        width: 50%;
+        height: 50%;
+        background: #BADA55;
+        left: 25%;
+        top: 25%;
+        border-radius: 50%;
+    }
+    /*时间轴的css*/
+    form.stepForm>table{
+        margin-bottom: 20px;
+    }
+
+    .page-header {
+        padding-bottom: 9px;
+        margin: 12px 0 20px;
+        border-bottom: 1px solid #eee;
+    }
+    .ti-alert-position{
+        position:absolute;
+        top:160px;
+        left:250px;
+        width:85%;
+        z-index:10001
     }
 
 </style>
@@ -10,8 +112,43 @@
         <div id="tabs-1">
             <div  style="width:100%;">
                 <div class="row">
+                    <div class="ti-alert-position ">
+                        <ti-alert type="alertInfo.type"
+                                  show="alertInfo.contentNullError"
+                                  type-icon="true"
+                                  close-icon="true"
+                                  dismiss-on-timeout="3000" >{{alertInfo.content}}</ti-alert>
 
-                    <div class="mainTitle page-header" style="text-align:center;">信息收集页面</div>
+                    </div>
+
+                    <div>
+                        <div class="mawizard">
+                            <div id="tinyplus-wizard-demo">
+                                <ul class="tinyplus-wizard-steps">
+                                    <li ng-repeat="step in steps" class="{{step.state}}">
+                                        <span class="tinyplus-step-title">{{step.title}}</span>
+                                        <div class="tinyplus-step-icon"></div>
+                                    </li>
+                                </ul>
+
+
+                                <div class="widget-box">
+                                    <div ng-repeat="step in steps" ng-include="step.templateUrl" ng-show="currentStep-1 == $index"></div>
+                                </div>
+                                <div class="wizard-actions">
+                                    <span ng-if="currentStep !== 1"> <tiny-button click="stepBackward()" text="infoStepModel.previousTxt"></tiny-button> </span>
+                                    <span ng-if="currentStep < steps.length"> <tiny-button click="stepForward()" text="infoStepModel.nextTxt"></tiny-button> </span>
+                                    <span ng-if="currentStep == steps.length"> <tiny-button click="finish()" text="infoStepModel.finishTxt"></tiny-button></span>
+                                    <!--<span ng-if="currentStep > 1"> <tiny-button  click="buttonCancel()"text="infoStepModel.cancelTxt"></tiny-button> </span>-->
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+                        <div style="height:60px;"></div>
+                    </div>
 
                 </div>
             </div>

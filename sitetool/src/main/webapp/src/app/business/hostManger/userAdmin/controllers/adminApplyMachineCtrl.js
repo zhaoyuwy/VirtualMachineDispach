@@ -279,11 +279,10 @@ define([
                 $scope.adminClassName = false; //点击树节点 则出现右侧节点的详细信息
                 $scope.adminCheckout1.selectedId ='1'; //默认选中的是 按主机查看
                 $scope.chaxun = true; //默认的树显示显示按主机查询
-
+                //$scope.pagingModel.totalRecords = 0;
 
                 var str = treeNode.siteRegionName+"?siteRegion="+treeNode.siteRegion+"&siteLoginIp="+treeNode.siteLoginIp;
-                //点击节点
-                console.log(str);
+
                 $scope.siteDetailed ={
                     "getData": function(){
                         var  promise = adminApplyMachineServe.getResource(str);
@@ -291,7 +290,19 @@ define([
                                 if(response.status== 200){
                                     console.log(response);
                                     //$scope.trees.values = listTree;
-                                    $scope.hostMangerSrcData.data = response.data.hostOrVmModels;
+
+
+                                    var result = [];
+                                    for(var i=0,len= response.data.hostOrVmModels.length;i<len;i+=10){
+                                        result.push( response.data.hostOrVmModels.slice(i,i+10));
+                                    }
+
+
+                                    sessionStorage.setItem("siteTreeData",JSON.stringify(result)); //把分页的数据写入缓存中
+
+                                    $scope.hostMangerSrcData.data = result[0]; //默认显示分页的是 第一页
+                                    $scope.pagingModel.totalRecords = response.data.total;   //分页 总信息数
+                                    //$scope.hostMangerSrcData.data = response.data.hostOrVmModels;
                                     $scope.startDateTime = response.data.time.split("_")[0]; //开始时间
                                     $scope.endDateTime = response.data.time.split("_")[1];//结束时间
                                     $scope.Doughnut1Use = response.data.monitorCpuUsage; //环形图1使用率
@@ -468,7 +479,7 @@ define([
             function checkdFn(event, treeId, treeNode) {}
             //节点文字样式
             function setFontCss(treeId, treeNode) {
-                return (treeNode.id <= 4 || treeNode.name == "大连" || treeNode.name == "广州" ||treeNode.name == "廊坊" || treeNode.name == "上海") ? {"font-weight": "bold"} : {"font-weight": "normal"};
+                return ( treeNode.name == "langfang" || treeNode.name == "guangzhou" ||treeNode.name == "shanghai" || treeNode.name == "dalian") ? {"font-weight": "bold"} : {"font-weight": "normal"};
             }
 
 
@@ -478,7 +489,7 @@ define([
             $scope.typeIcon = true;
             $scope.closeIcon = true;
 
-            $scope.label1 = "小贴士 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus ad amet doloLorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus ad amet dolores earum facere hic incidunt molestias mollLorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus ad amet dolores earum facere hic incidunt molestias mollLorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus ad amet dolores earum facere hic incidunt molestias mollLorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus ad amet dolores earum facere hic incidunt molestias mollres earum facere hic incidunt molestias mollitia, nulla quas quidem repudiandae sapiente sit tenetur ut! Animi aut commodi quasi!";
+            $scope.label1 = "小贴士: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus ad amet doloLorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus ad amet dolores earum facere hic incidunt molestias mollLorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus ad amet dolores earum facere hic incidunt molestias mollLorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus ad amet dolores earum facere hic incidunt molestias mollLorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus ad amet dolores earum facere hic incidunt molestias mollres earum facere hic incidunt molestias mollitia, nulla quas quidem repudiandae sapiente sit tenetur ut! Animi aut commodi quasi!";
             $scope.type1 = "error";
             //$scope.dismissOnTimeout = 3000;
 
@@ -768,6 +779,23 @@ define([
 
 
 
+            //分页工具导航条
+            $scope.pagingModel = {
+                "id":"pagid3",
+                "totalRecords" :'',
+                "displayLength":10,
+                "type" : "full_numbers",
+                "hideDisplayLength" : true,
+                "callback" : function(obj) {  //点击分页的回调函数
+                    $scope.hostMangerSrcData.data = '';
+
+                    $scope.hostMangerSrcData.data = JSON.parse(sessionStorage.getItem('siteTreeData'))[obj.currentPage-1];
+                    //$rootScope.environmentData.data = $scope.environmentData.data;
+                    $scope.$digest();//个$digest循环运行时，watchers会被执行来检查scope中的models变化，在上下文之外改变,监听函数可能没监控到，module的变化
+                    //$scope.$apply();
+
+                }
+            };
 
 
 
