@@ -1,7 +1,5 @@
 package com.huawei.siteapp.controller;
 
-import com.huawei.siteapp.cache.CacheCenter;
-import com.huawei.siteapp.common.Bean.SiteLoginRestBean;
 import com.huawei.siteapp.common.util.SpringUtil;
 import com.huawei.siteapp.service.Http.MonitorAllVmsServiceImpl;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,8 +19,8 @@ public class MonitorAllVmsController {
         MonitorAllVmsServiceImpl monitorAllVmsService = SpringUtil.getBean(MonitorAllVmsServiceImpl.class);
 //        UserController userController = SpringUtil.getBean(UserController.class);
 //        userController.testPrint();
-        int retCode = monitorAllVmsService.fcGetSitesClustersHostsAllVrmRest((SiteLoginRestBean) CacheCenter.getInstance().getRestBeanResponse("restBean"));
+//        int retCode = monitorAllVmsService.fcGetSitesClustersHostsAllVrmRest((SiteLoginRestBean) CacheCenter.getInstance().getRestBeanResponse("restBean"));
 
-        return retCode;
+        return 0;
     }
 }

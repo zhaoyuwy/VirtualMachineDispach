@@ -1,7 +1,6 @@
 package com.huawei.siteapp.service.Http;
 
 import com.huawei.siteapp.cache.CacheCenter;
-import com.huawei.siteapp.common.Bean.SiteLoginRestBean;
 import com.huawei.siteapp.common.constats.ParamKey;
 import com.huawei.siteapp.common.constats.RetCode;
 import com.huawei.siteapp.common.util.*;
@@ -157,63 +156,7 @@ public class HttpRestServiceImpl {
         return cxt;
     }
 
-    //等待删除。
-    public int fcGetSitesRest(SiteLoginRestBean restInfo) {
-        String[] urlParm = new String[]{restInfo.getSiteLoginIp(), restInfo.getRestPort()};
-        String url = PropertiesUtils.getUrl("FcGetSites", urlParm);
-        ServiceContext sr = sendGet(url, "");
-        String restResponse = (String) sr.get(ParamKey.REST_RESPONSE);
-//        String restResponse = "{\"sites\":[{\"ip\":\"192.145.17.200\",\"uri\":\"/service/sites/43DA092B\",\"urn\":\"urn:sites:43DA092B\",\"isSelf\":true,\"isDC\":false,\"status\":\"normal\",\"name\":\"site\"}]}";
-
-        Map<String, Object> responseMap = null;
-        try {
-            responseMap = JSONUtils.jsonToMap(restResponse);
-        } catch (JSONException jsonException) {
-            logger.error("A JSONObject text must begin with", jsonException);
-            String errMsg = jsonException.getMessage();
-            logger.error("A JSONObject text must begin with ", jsonException);
-
-            if (errMsg.contains("refused") || errMsg.contains("timed out")) {
-                logger.error("rest connection time out");
-                return RetCode.REST_CONNECT_TIME_OUT;
-            }
-
-            if (errMsg.contains("peer not authenticated")) {
-                logger.info("peer not auth, try again");
-//                return reLogin(cxt, request);
-                return RetCode.LOGIN_ERROR;
-            }
-
-            if (errMsg.contains("A JSONObject text must begin with")) {
-                return RetCode.PARSE_RESPONSE_JSON_ERROR;
-            }
-            throw new BusinessException(jsonException, "execute rest request error");
-
-        }
-        String urlSites = ((HashMap<String, String>) (((List) responseMap.get(ParamKey.SITES)).get(0))).get(ParamKey.URI);
-        List<SiteModel> sites = new ArrayList<>();
-        SiteRepository siteRepository = SpringUtil.getBean(SiteRepository.class);
-
-
-        for (Object siteTemp : (List) responseMap.get(ParamKey.SITES)) {
-            SiteModel siteModel = siteRepository.findSiteModelBySiteLoginIpAndSiteLoginUser(restInfo.getSiteLoginIp(), restInfo.getSiteLoginUser());
-            SiteModel site = mapToSiteBean(siteTemp, siteModel);
-            site.setSiteLoginUser(restInfo.getSiteLoginUser());
-            site.setSiteLoginPwd(restInfo.getSiteLoginPwd());
-            site.setSiteLoginIp(restInfo.getSiteLoginIp());
-            site.setSiteRegionName(restInfo.getSiteRegionName());
-            site.setSiteGroupId(restInfo.getSiteGroupId());
-            sites.add(site);
-        }
-//            siteService.saveSiteList(sites);
-//        ISiteService siteService = SpringUtil.getBean(ISiteService.class);
-        siteRepository.save(sites);
-
-        CacheCenter.getInstance().addUrlResponse(ParamKey.SITE_ID, urlSites);
-        return RetCode.OK;
-    }
-
-    private SiteModel mapToSiteBean(Object siteObj, SiteModel siteModel) {
+   private SiteModel mapToSiteBean(Object siteObj, SiteModel siteModel) {
         String siteUri = ((HashMap<String, String>) siteObj).get("uri");
         String siteUrn = ((HashMap<String, String>) siteObj).get("urn");
         String siteIp = ((HashMap<String, String>) siteObj).get("ip");
@@ -231,89 +174,6 @@ public class HttpRestServiceImpl {
         siteModel.setSiteIsSelf(siteIsSelf);
 
         return siteModel;
-    }
-
-    //待删除
-    public void fcGetSitesClustersRest(SiteLoginRestBean restInfo) {
-
-        String[] urlParm = new String[]{restInfo.getSiteLoginIp(), restInfo.getRestPort(), (String) CacheCenter.getInstance().getRestBeanResponse(ParamKey.SITE_ID)};
-        String url = PropertiesUtils.getUrl("FcGetClusters", urlParm);
-        ServiceContext sr = sendGet(url, "");
-        String restResponse = (String) sr.get(ParamKey.REST_RESPONSE);
-//        String restResponse = "{\"clusters\":[{\"params\":null,\"description\":\"2017.3.14\",\"tag\":null,\"uri\":\"/service/sites/43DA092B/clusters/19220\",\"urn\":\"urn:sites:43DA092B:clusters:19220\",\"cpuResource\":{\"allocatedSizeMHz\":0,\"totalSizeMHz\":518800},\"memResource\":{\"allocatedSizeMB\":954284,\"totalSizeMB\":1052924},\"parentObjUrn\":null,\"parentObjName\":null,\"name\":\"IES\"},{\"params\":null,\"description\":null,\"tag\":\"domain/default\",\"uri\":\"/service/sites/43DA092B/clusters/108\",\"urn\":\"urn:sites:43DA092B:clusters:108\",\"cpuResource\":{\"allocatedSizeMHz\":39904,\"totalSizeMHz\":1882716},\"memResource\":{\"allocatedSizeMB\":3054672,\"totalSizeMB\":5636222},\"parentObjUrn\":null,\"parentObjName\":null,\"name\":\"ManagementCluster\"}]}";
-        ((List) (JSONUtils.jsonToMap(restResponse).get("clusters"))).get(0);
-        ClusterServiceImpl service = SpringUtil.getBean(ClusterServiceImpl.class);
-        List<ClusterModel> clusters = new ArrayList<>();
-        for (Object clusterTemp : ((List<Object>) (JSONUtils.jsonToMap(restResponse).get("clusters")))) {
-
-            ClusterModel cluster = new ClusterModel();
-            String uri = ((Map<String, String>) clusterTemp).get(ParamKey.URI);
-            cluster.setClusterUri(uri);
-            String urn = ((Map<String, String>) clusterTemp).get(ParamKey.URN);
-            cluster.setClusterUrn(urn);
-            String name = ((Map<String, String>) clusterTemp).get(ParamKey.NAME);
-            cluster.setClusterName(name);
-
-            Object memResource = ((Map<String, String>) clusterTemp).get("memResource");
-            int allocatedSizeMB = ((Map<String, Integer>) memResource).get("allocatedSizeMB");
-            int totalSizeMB = ((Map<String, Integer>) memResource).get("totalSizeMB");
-            cluster.setClusterAllocatedSizeMB(allocatedSizeMB);
-            cluster.setClusterTotalSizeMB(totalSizeMB);
-//            setResponseInCache(memResource);
-
-            Object cpuResource = ((Map<String, String>) clusterTemp).get("cpuResource");
-            int allocatedSizeMHz = ((Map<String, Integer>) cpuResource).get("allocatedSizeMHz");
-            int totalSizeMHz = ((Map<String, Integer>) cpuResource).get("totalSizeMHz");
-            cluster.setClusterAllocatedSizeMHz(allocatedSizeMHz);
-            cluster.setClusterCpuTotalSizeMHz(totalSizeMHz);
-            cluster.setTime(UctTimeUtil.getCurrentDate());
-//            setResponseInCache(cpuResource);
-            clusters.add(cluster);
-
-        }
-        service.save(clusters);
-    }
-
-    //等待删除。
-    public void fcGetSitesClustersHostsRest(SiteLoginRestBean restInfo) {
-
-        String[] urlParm = new String[]{restInfo.getSiteLoginIp(), restInfo.getRestPort(), (String) CacheCenter.getInstance().getRestBeanResponse(ParamKey.SITE_ID)};
-        String url = PropertiesUtils.getUrl("FcGetHosts", urlParm);
-        ServiceContext sr = sendGet(url, "");
-        String restResponse = (String) sr.get(ParamKey.REST_RESPONSE);
-//        String restResponse = "{\"clusters\":[{\"params\":null,\"description\":\"2017.3.14\",\"tag\":null,\"uri\":\"/service/sites/43DA092B/clusters/19220\",\"urn\":\"urn:sites:43DA092B:clusters:19220\",\"cpuResource\":{\"allocatedSizeMHz\":0,\"totalSizeMHz\":518800},\"memResource\":{\"allocatedSizeMB\":954284,\"totalSizeMB\":1052924},\"parentObjUrn\":null,\"parentObjName\":null,\"name\":\"IES\"},{\"params\":null,\"description\":null,\"tag\":\"domain/default\",\"uri\":\"/service/sites/43DA092B/clusters/108\",\"urn\":\"urn:sites:43DA092B:clusters:108\",\"cpuResource\":{\"allocatedSizeMHz\":39904,\"totalSizeMHz\":1882716},\"memResource\":{\"allocatedSizeMB\":3054672,\"totalSizeMB\":5636222},\"parentObjUrn\":null,\"parentObjName\":null,\"name\":\"ManagementCluster\"}]}";
-//        ((List) (JSONUtils.jsonToMap(restResponse).get("clusters"))).get(0);
-        HostServiceImpl service = SpringUtil.getBean(HostServiceImpl.class);
-        List<HostModel> hosts = new ArrayList<>();
-        for (Object hostTemp : ((List<Object>) (JSONUtils.jsonToMap(restResponse).get("hosts")))) {
-            HostModel host = new HostModel();
-            String uri = ((Map<String, String>) hostTemp).get(ParamKey.URI);
-            host.setHostUri(uri);
-            String urn = ((Map<String, String>) hostTemp).get(ParamKey.URN);
-            host.setHostUrn(urn);
-            String ip = ((Map<String, String>) hostTemp).get("ip");
-            host.setHostIp(ip);
-            String name = ((Map<String, String>) hostTemp).get(ParamKey.NAME);
-            host.setHostName(name);
-            String clusterName = ((Map<String, String>) hostTemp).get("clusterName");
-            host.setClusterName(clusterName);
-
-
-            Object memResource = ((Map<String, String>) hostTemp).get("memResource");
-            int allocatedSizeMB = ((Map<String, Integer>) memResource).get("allocatedSizeMB");
-            int totalSizeMB = ((Map<String, Integer>) memResource).get("totalSizeMB");
-            host.setHostAllocatedSizeMB(allocatedSizeMB);
-            host.setHostTotalSizeMB(totalSizeMB);
-
-            Object cpuResource = ((Map<String, String>) hostTemp).get("cpuResource");
-            int allocatedSizeMHz = ((Map<String, Integer>) cpuResource).get("allocatedSizeMHz");
-            int totalSizeMHz = ((Map<String, Integer>) cpuResource).get("totalSizeMHz");
-            host.setHostAllocatedSizeMHz(allocatedSizeMHz);
-            host.setHostTotalSizeMHz(totalSizeMHz);
-            host.setTime(UctTimeUtil.getCurrentDate());
-            hosts.add(host);
-        }
-        service.save(hosts);
     }
 
     public void fcGetSitesClustersRest(SiteModel siteModel) {

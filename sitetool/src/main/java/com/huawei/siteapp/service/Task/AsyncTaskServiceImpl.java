@@ -12,7 +12,6 @@ import com.huawei.siteapp.model.SiteModel;
 import com.huawei.siteapp.repository.PersonRepository;
 import com.huawei.siteapp.service.ExcelService.HostReportServiceImpl;
 import com.huawei.siteapp.service.Http.HttpRestServiceImpl;
-import com.huawei.siteapp.service.Http.MonitorAllVmsServiceImpl;
 import com.huawei.siteapp.service.Http.MonitorCnaServiceImpl;
 import com.huawei.siteapp.service.ModelService.Impl.MonitorCnaInfoServiceImpl;
 import com.huawei.siteapp.service.ModelService.Impl.MonitorVmInfoServiceImpl;
@@ -129,12 +128,6 @@ public class AsyncTaskServiceImpl {
         } catch (Exception e) {
             logger.error("This is report Exception", e);
         }
-    }
-
-    public void asyncGenerateVmReport() {
-        MonitorAllVmsServiceImpl monitorAllVmsService = SpringUtil.getBean(MonitorAllVmsServiceImpl.class);
-        int retCode = monitorAllVmsService.fcGetSitesClustersHostsAllVrmRest((SiteLoginRestBean) CacheCenter.getInstance().getRestBeanResponse("restBean"));
-
     }
 
     @Async  //加入"异步调用"注解

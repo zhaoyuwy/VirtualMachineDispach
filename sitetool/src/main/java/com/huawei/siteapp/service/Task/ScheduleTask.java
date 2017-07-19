@@ -1,11 +1,9 @@
 package com.huawei.siteapp.service.Task;
 
 import com.huawei.siteapp.cache.CacheCenter;
-import com.huawei.siteapp.common.Bean.SiteLoginRestBean;
 import com.huawei.siteapp.common.util.SpringUtil;
 import com.huawei.siteapp.model.PeriodTaskModel;
 import com.huawei.siteapp.repository.PeriodTaskRepository;
-import com.huawei.siteapp.service.Http.SiteLoginHttpRequestServiceImpl;
 import com.huawei.siteapp.service.ModelService.Impl.PeriodTaskServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,37 +37,6 @@ public class ScheduleTask {
         logger.info("Schedule task doSomethingWith begin. times =  " + num);
 //        System.out.println("Schedule task doSomethingWith begin. times = " + num);
     }
-
-    //    @Scheduled(cron = "0 0/5 * * * ?")
-//    @Scheduled(fixedDelay = 5000)
-//    每30分执行一次
-    void doScheduleTaskHalfHour() {
-        logger.info("Schedule task generate report begin ");
-        boolean isLoginSuccess = (Boolean) CacheCenter.getInstance().getRestBeanResponse("loginSuccess");
-        if (!isLoginSuccess) {
-//            logger.info("User2 has not login");
-            return;
-        }
-        logger.info("Schedule task generate report begin after user login success");
-        //                登录获取token
-        SiteLoginHttpRequestServiceImpl siteLoginHttpRequest = new SiteLoginHttpRequestServiceImpl();
-        SiteLoginRestBean siteLoginRestBean = (SiteLoginRestBean) CacheCenter.getInstance().getRestBeanResponse("siteLoginRestBean");
-        String username = (String) CacheCenter.getInstance().getRestBeanResponse("username");
-        String pwd = (String) CacheCenter.getInstance().getRestBeanResponse("pwd");
-
-        TaskServiceImpl taskService = SpringUtil.getBean(TaskServiceImpl.class);
-//        清除monitor数据
-        taskService.clearDbMonitorData();
-//        登录token
-        siteLoginHttpRequest.fcLoginRest(siteLoginRestBean);
-
-        AsyncTaskServiceImpl asyncTaskService = SpringUtil.getBean(AsyncTaskServiceImpl.class);
-        asyncTaskService.asyncGenerateHostReport();
-
-        asyncTaskService.asyncGenerateVmReport();
-        logger.info("Schedule task generate report end");
-    }
-
     @PostConstruct
     public void InitLogin() {
         CacheCenter.getInstance().addUrlResponse("loginSuccess", false);

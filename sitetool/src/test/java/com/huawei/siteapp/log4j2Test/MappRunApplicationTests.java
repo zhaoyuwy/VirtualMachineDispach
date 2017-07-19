@@ -12,8 +12,6 @@ import com.huawei.siteapp.repository.HostRepository;
 import com.huawei.siteapp.repository.Impl.RepositoryTemplate;
 import com.huawei.siteapp.repository.PersonRepository;
 import com.huawei.siteapp.service.ExcelService.HostReportServiceImpl;
-import com.huawei.siteapp.service.Http.HttpRestServiceImpl;
-import com.huawei.siteapp.service.Http.SiteLoginHttpRequestServiceImpl;
 import com.huawei.siteapp.service.ModelService.Impl.PeriodTaskServiceImpl;
 import com.huawei.siteapp.service.ModelService.Impl.UserServiceImpl;
 import org.junit.Test;
@@ -103,36 +101,6 @@ public class MappRunApplicationTests {
         siteLoginRestBean.setVrmIp("192.145.17.200");
         siteLoginRestBean.setRestPort("7070");
         return siteLoginRestBean;
-    }
-
-    @Test
-    public void propertiesRest() throws Exception {
-//        登录获取token
-        SiteLoginHttpRequestServiceImpl siteLoginHttpRequest = new SiteLoginHttpRequestServiceImpl();
-
-        String user = "kwx319070";
-        String pwd = "OpsImage@12345";
-//        siteLoginHttpRequest.fcLoginRest(getTestRest(), user, pwd);
-
-        HttpRestServiceImpl httpRequest = new HttpRestServiceImpl();
-        httpRequest.fcGetSitesRest(getTestRest());
-
-//        httpRequest.fcGetSitesClustersRest(getTestRest());
-    }
-
-    @Test
-    public void LangFangFc() throws Exception {
-//        登录获取token
-        SiteLoginHttpRequestServiceImpl siteLoginHttpRequest = new SiteLoginHttpRequestServiceImpl();
-
-        String user = "admin";
-        String pwd = "HWS_lf@pub9001";
-//        siteLoginHttpRequest.fcLoginRest(getTestRest(), user, pwd);
-
-        HttpRestServiceImpl httpRequest = new HttpRestServiceImpl();
-        httpRequest.fcGetSitesRest(getTestRest());
-
-//        httpRequest.fcGetSitesClustersRest(getTestRest());
     }
 
     @Test
