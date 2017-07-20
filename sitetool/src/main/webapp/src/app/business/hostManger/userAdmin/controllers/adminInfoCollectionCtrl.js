@@ -196,13 +196,10 @@ define([
                     arr[index].siteNum =  arr[index].sites.length;
                 });
 
-
-
                 var str = {
                     "total": 1,
                     "tasks": [{"regions": dest}]
                 };
-
 
                 $scope.postInfoOption ={
                     "postData": function(){
@@ -218,11 +215,7 @@ define([
                             });
                     }
                 };
-
                 $scope.postInfoOption.postData();
-
-
-
 
                 $scope.steps[$scope.currentStep-1].state = "complete";
             };
@@ -432,7 +425,7 @@ define([
                 content:
                 "<p ><strong style='color: red;font-size: 16px'>信息收集->参数配置</strong></span></p><hr>"+
                 "<p >任务类型选择的是'按天选择'" +
-                " '选择时间'数据是当月的X号，1代表着1号，依次类推……</p><br>"+
+                "'选择时间'数据是当月的X号，1代表着1号，依次类推……</p><br>"+
                 "<p>任务类型选择的是'按星期选择'" +
                 "'选择时间'数据是对应星期中的星期X，0代表着星期一，依次类推……" + "</p>",
                 position: "right-top",
@@ -477,8 +470,12 @@ define([
                     var option = {};
                     option.id = i+'';
                     option.type = i;
-                    if(i<10){ option.label = "0"+i; }
-                    option.label = i+'';
+                    if(i<10){
+                        option.label = "0"+i;
+                    } else{
+                        option.label = i+'';
+                    }
+
                     infoOption5.push(option);
                 }
             })();

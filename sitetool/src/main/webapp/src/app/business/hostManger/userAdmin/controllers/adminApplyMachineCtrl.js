@@ -8,8 +8,8 @@ define([
 ], function (i18n, commonService, $, Tree, _TreeDirective, Class) {
     "use strict";
 
-    var ctrl = ["$scope", "$rootScope", "$compile", "adminApplyMachineServe", "$location", "$timeout", "$state",
-        function($scope, $rootScope, $compile, adminApplyMachineServe, $location, $timeout, $state) {
+    var ctrl = ["$scope", "$rootScope", "$compile", "$location", "$timeout", "$state", "adminApplyMachineServe",
+        function($scope, $rootScope, $compile, $location, $timeout, $state, adminApplyMachineServe) {
             $scope.i18n = i18n;
 
             //var token = sessionStorage.getItem("meeting_token");
@@ -23,9 +23,7 @@ define([
             };
 
 
-
             /*** tree start ***/
-
             var setting = {
                 treeObj: null,
                 view: {
@@ -60,18 +58,13 @@ define([
 
             };
 
-
-
-
             var treeId = $scope.trees.id;
             var treeNode = $scope.trees.values;
-
             var treeObj = $.fn.zTree.getZTreeObj("host_tree");
 
 
 
             // var nodes = treeObj.getCheckedNodes(true);
-
             //var idBox = [];
 
 
@@ -278,19 +271,24 @@ define([
 
                 $scope.adminClassName = false; //点击树节点 则出现右侧节点的详细信息
                 $scope.adminCheckout1.selectedId ='1'; //默认选中的是 按主机查看
-                $scope.chaxun = true; //默认的树显示显示按主机查询
+                $scope.chaxun = true; //默认的树显示显示按主机查询相关页面片段
                 //$scope.pagingModel.totalRecords = 0;
 
+                //当点击其他的右侧子节点的数据的时 ，给数据置空，防止没有返回数据时还杂显示之前的数据,它没有进入http的失败函数中，postman显示是status：200 ，但是没有数据，所以在失败函数中置空不行
+                $scope.cacheHostTableData = [];
+                $scope.pagingModel.totalRecords = 0;
+                $scope.cacheVmTableData = [];
+                $scope.vmSrcData.data = 0;
+
                 var str = treeNode.siteRegionName+"?siteRegion="+treeNode.siteRegion+"&siteLoginIp="+treeNode.siteLoginIp;
+                //str保存在$scope.urlPostfix 后面其他的接口需要用到
+                $scope.urlPostfix = str;
 
                 $scope.siteDetailed ={
                     "getData": function(){
                         var  promise = adminApplyMachineServe.getResource(str);
                         promise.then(function(response){
                                 if(response.status== 200){
-                                    console.log(response);
-                                    //$scope.trees.values = listTree;
-
 
                                     var result = [];
                                     for(var i=0,len= response.data.hostOrVmModels.length;i<len;i+=10){
@@ -298,17 +296,23 @@ define([
                                     }
 
 
-                                    sessionStorage.setItem("siteTreeData",JSON.stringify(result)); //把分页的数据写入缓存中
+                                    //sessionStorage.setItem("siteTreeData",JSON.stringify(result)); //把分页的数据写入缓存中
+                                    //$scope.hostMangerSrcData.data = result[0]; //默认显示分页的是 第一页
 
-                                    $scope.hostMangerSrcData.data = result[0]; //默认显示分页的是 第一页
+                                    //分页的数据保存在sessionStorage，有bug就是点击左侧树的其他节点，要是节点没返回数据就会用缓存的数据
+                                    $scope.cacheHostTableData = result;
+                                    $scope.hostMangerSrcData.data =  $scope.cacheHostTableData[0]; //默认显示分页的是 第一页
+
+
                                     $scope.pagingModel.totalRecords = response.data.total;   //分页 总信息数
+
+
                                     //$scope.hostMangerSrcData.data = response.data.hostOrVmModels;
                                     $scope.startDateTime = response.data.time.split("_")[0]; //开始时间
                                     $scope.endDateTime = response.data.time.split("_")[1];//结束时间
                                     $scope.Doughnut1Use = response.data.monitorCpuUsage; //环形图1使用率
                                     $scope.Doughnut2Use = response.data.monitorCpuUsage;  //环形图2使用率
 
-                                    //console.log( $scope.Doughnut1Use);
 
 
                                     //环形图1
@@ -384,9 +388,7 @@ define([
                                         ]
                                     };
 
-
                                     //环形图2
-
                                     $scope.quanCharts2 = {};
                                     $scope.quanCharts2.options = {
                                         id: "secondItem",
@@ -445,9 +447,6 @@ define([
                                         ]
                                     };
 
-
-
-
                                 }
 
                             },
@@ -465,7 +464,6 @@ define([
 
 
 
-
             //勾选的回调函数
             // function beforCheckFn(treeId, treeNode) {
             //     //console.log("this node's id is " + treeNode.id);
@@ -479,7 +477,7 @@ define([
             function checkdFn(event, treeId, treeNode) {}
             //节点文字样式
             function setFontCss(treeId, treeNode) {
-                return ( treeNode.name == "langfang" || treeNode.name == "guangzhou" ||treeNode.name == "shanghai" || treeNode.name == "dalian") ? {"font-weight": "bold"} : {"font-weight": "normal"};
+                return ( treeNode.name == "langfang"|| treeNode.name == "hangzhou" || treeNode.name == "guangzhou" ||treeNode.name == "shanghai" || treeNode.name == "dalian") ? {"font-weight": "bold"} : {"font-weight": "normal"};
             }
 
 
@@ -518,10 +516,38 @@ define([
 
                     console.log(option);
 
-                    if(option.id == "2"){
+                    if(option.id == "2"){ //按虚拟机查询
                        $scope.chaxun = false;
-                    }else{
+                        $scope.getvmResourceData = {
+                            getdata: function (){
+                                var promise = adminApplyMachineServe.getVirtualResource($scope.urlPostfix);
+                                promise.then(function (response) {
+                                        if (response.status == 200) {
+
+                                            var result = [];
+                                            for (var i = 0, len = response.data.hostOrVmModels.length; i < len; i += 10) {
+                                                result.push(response.data.hostOrVmModels.slice(i, i + 10));
+                                            }
+
+
+                                            //sessionStorage.setItem("siteTreeVmData", JSON.stringify(result)); //把分页的数据写入缓存中
+                                            $scope.cacheVmTableData = result;
+                                            $scope.vmSrcData.data =  $scope.cacheVmTableData[0]; //默认显示分页的是 第一页
+                                            $scope.vmpagingModel.totalRecords = response.data.total;   //分页 总信息数
+
+
+                                        }
+
+                                    },
+                                    function (response) {
+                                        alert(response.msg);
+                                    });
+                            }
+                        };
+                        $scope.getvmResourceData.getdata();
+                    }else{ //按主机查询
                        $scope.chaxun = true;
+
                     }
                 }
 
@@ -531,57 +557,30 @@ define([
 
 
 
+        //点击导出报告
+        $scope.reportResource = function(){
+                    var  promise = adminApplyMachineServe.leadingOutHostReport($scope.urlPostfix);
+                    promise.then(function(response){
+                            if(response.status== 200){
+                                window.open(response.data.reportPath);
+                            }
+
+                        },
+                        function(response){
+                            alert(response.msg);
+                        });
+        };
+
+
+
 
             //表格数据
                 //按主机查询的表格
             $scope.hostMangerDisplayed = [];
-            //var srcData = [
-            //    {
-            //        hostName:"CAN_FAFD",
-            //        hostStatus:"运行中",
-            //        monitorUsedCpu:22,
-            //        hostTotalSizeMHz:"2.1MHz",
-            //        monitorUsedMem:12,
-            //        hostTotalSizeMB:"120MB",
-            //        clusterName:"NMvdfnas",
-            //        hostIp:"120.35.64.23"
-            //    },
-            //    {
-            //        hostName:"CAN_FAFD",
-            //        hostStatus:"运行中",
-            //        monitorUsedCpu:22,
-            //        hostTotalSizeMHz:"2.1MHz",
-            //        monitorUsedMem:12,
-            //        hostTotalSizeMB:"120MB",
-            //        clusterName:"NMvdfnas",
-            //        hostIp:"120.35.64.23"
-            //    },
-            //    {
-            //        hostName:"CAN_FAFD",
-            //        hostStatus:"运行中",
-            //        monitorUsedCpu:22,
-            //        hostTotalSizeMHz:"2.1MHz",
-            //        monitorUsedMem:12,
-            //        hostTotalSizeMB:"120MB",
-            //        clusterName:"NMvdfnas",
-            //        hostIp:"120.35.64.23"
-            //    },
-            //    {
-            //        hostName:"CAN_FAFD",
-            //        hostStatus:"运行中",
-            //        monitorUsedCpu: 22,
-            //        hostTotalSizeMHz:"2.1MHz",
-            //        monitorUsedMem:12,
-            //        hostTotalSizeMB:"120MB",
-            //        clusterName:"NMvdfnas",
-            //        hostIp:"120.35.64.23"
-            //    }
-            //
-            //];
 
-              $scope.hostProgress ={
-                  maxValue:1
-              };
+            $scope.hostProgress ={
+                maxValue:1
+            };
 
 
             $scope.hostMangerSrcData = {
@@ -650,70 +649,9 @@ define([
 
               //按虚拟机查询
             $scope.vmDisplayed = [];
-            var vmData = [
-                {
-                    vmName:"CAN_FAFD",
-                    vmId:"1",
-                    vmStatus:"运行中",
-                    vmType:"one",
-                    monitorUsedCpu:22,
-                    hostTotalSizeMHz:"2.1MHz",
-                    monitorUsedMem:12,
-                    hostTotalSizeMB:"120MB",
-                    vmIp:"120.35.64.23",
-                    vmLocation:"fdhasif",
-                    hostName:"host1",
-                    vmCreateTime:"2017-07-02"
-                },
-                {
-                    vmName:"CAN_FAFD",
-                    vmId:"1",
-                    vmStatus:"运行中",
-                    vmType:"one",
-                    monitorUsedCpu:22,
-                    hostTotalSizeMHz:"2.1MHz",
-                    monitorUsedMem:12,
-                    hostTotalSizeMB:"120MB",
-                    vmIp:"120.35.64.23",
-                    vmLocation:"fdhasif",
-                    hostName:"host1",
-                    vmCreateTime:"2017-07-02"
-                },
-                {
-                    vmName:"CAN_FAFD",
-                    vmId:"1",
-                    vmStatus:"运行中",
-                    vmType:"one",
-                    monitorUsedCpu:22,
-                    hostTotalSizeMHz:"2.1MHz",
-                    monitorUsedMem:12,
-                    hostTotalSizeMB:"120MB",
-                    vmIp:"120.35.64.23",
-                    vmLocation:"fdhasif",
-                    hostName:"host1",
-                    vmCreateTime:"2017-07-02"
-                },
-                {
-                    vmName:"CAN_FAFD",
-                    vmId:"1",
-                    vmStatus:"运行中",
-                    vmType:"one",
-                    monitorUsedCpu:22,
-                    hostTotalSizeMHz:"2.1MHz",
-                    monitorUsedMem:12,
-                    hostTotalSizeMB:"120MB",
-                    vmIp:"120.35.64.23",
-                    vmLocation:"fdhasif",
-                    hostName:"host1",
-                    vmCreateTime:"2017-07-02"
-                }
-            ];
-
-
-
 
             $scope.vmSrcData = {
-                data: vmData, // 源数据
+                data:'', // 源数据
                 state: {
                     filter: false,
                     sort: false,
@@ -723,19 +661,19 @@ define([
             $scope.vmColumns = [
                 {
                     title: "虚拟机名称",
-                    width: "10%"
+                    width: "15%"
                 },
                 {
                     title: "Id",
-                    width: "10%"
+                    width: "7%"
                 },
                 {
                     title: "状态",
-                    width: "10%"
+                    width: "6%"
                 },
                 {
                     title: "类型",
-                    width: "10%"
+                    width: "6%"
                 },
                 {
                     title: "已分配cpu",
@@ -746,11 +684,19 @@ define([
                     width: "10%"
                 },
                 {
+                    title: "cpu使用率",
+                    width: "10%"
+                },
+                {
                     title: "已分配内存",
                     width: "10%"
                 },
                 {
                     title: "内存大小",
+                    width: "10%"
+                },
+                {
+                    title: "内存使用率",
                     width: "10%"
                 },
                 {
@@ -780,6 +726,7 @@ define([
 
 
             //分页工具导航条
+              //按主机查看 分页导航条
             $scope.pagingModel = {
                 "id":"pagid3",
                 "totalRecords" :'',
@@ -789,8 +736,9 @@ define([
                 "callback" : function(obj) {  //点击分页的回调函数
                     $scope.hostMangerSrcData.data = '';
 
-                    $scope.hostMangerSrcData.data = JSON.parse(sessionStorage.getItem('siteTreeData'))[obj.currentPage-1];
-                    //$rootScope.environmentData.data = $scope.environmentData.data;
+                    //$scope.hostMangerSrcData.data = JSON.parse(sessionStorage.getItem('siteTreeData'))[obj.currentPage-1];
+                    $scope.hostMangerSrcData.data=$scope.cacheHostTableData[obj.currentPage-1];
+
                     $scope.$digest();//个$digest循环运行时，watchers会被执行来检查scope中的models变化，在上下文之外改变,监听函数可能没监控到，module的变化
                     //$scope.$apply();
 
@@ -798,6 +746,71 @@ define([
             };
 
 
+                //按虚拟机查看的分页导航条
+            $scope.vmpagingModel = {
+                "id":"pagid4",
+                "totalRecords" :'',
+                "displayLength":10,
+                "type" : "full_numbers",
+                "hideDisplayLength" : true,
+                "callback" : function(obj) {  //点击分页的回调函数
+                    $scope.vmSrcData.data = '';
+
+                    //$scope.vmSrcData.data = JSON.parse(sessionStorage.getItem('siteTreeVmData'))[obj.currentPage-1];
+                    $scope.vmSrcData.data = $scope.cacheVmTableData[obj.currentPage-1];
+
+                    $scope.$digest();//个$digest循环运行时，watchers会被执行来检查scope中的models变化，在上下文之外改变,监听函数可能没监控到，module的变化
+                    //$scope.$apply();
+
+                }
+            };
+
+
+            //tingyUI2的分页导航
+            //$scope.fenye ={
+            //    totalItems:70,
+            //    currentPage:1,
+            //    pageSize:{
+            //        options: [10,20,40,50],
+            //        size:10
+            //        //change:function(currentPage,pageSizeNum,totalItems){//pageSizeNum代表着 $scope.fenye.pageSize.size
+            //        //    console.log(currentPage);
+            //        //    console.log(pageSizeNum);
+            //        //    console.log( $scope.fenye.pageSize.size);
+            //        //    console.log(totalItems);
+            //        //}
+            //    },
+            //    pageNumChange:function(currentPage,pageSizeNum,totalItems){
+            //        //$scope.hostMangerSrcData.data = '';
+            //        //console.log($scope.fenye.currentPage);
+            //        //console.log(currentPage);
+            //        //console.log(pageSizeNum);
+            //        //console.log(totalItems);
+            //        $scope.hostMangerSrcData.data = JSON.parse(sessionStorage.getItem('siteTreeData'))[currentPage-1];
+            //       // $scope.$digest();//个$digest循环运行时，watchers会被执行来检查scope中的models变化，在上下文之外改变,监听函数可能没监控到，module的变化
+            //
+            //    },
+            //    pageUpdate:function(currentPage,pageSizeNum,totalItems){
+            //        console.log(currentPage);
+            //        console.log(pageSizeNum);
+            //        console.log(totalItems);
+            //    }
+            //}
+
+
+            <!--tinyUI1分页构造器方法-->
+            //var tiny1options = {
+            //    "type" : "full_numbers",
+            //    "total-records" : 620,
+            //    "callback" : function(obj) {
+            //        alert("directive currentPage:" + obj.currentPage);
+            //    },
+            //    "changeSelect" : function(evtObj) {
+            //        alert("displayLength:" + evtObj.displayLength);
+            //    }
+            //};
+            //var pag = new tinyWidget.Pagination(tiny1options).rendTo("paginationFullnumbers");
+            //var myModule = angular.module("myModule",["wcc"]);
 
 
 

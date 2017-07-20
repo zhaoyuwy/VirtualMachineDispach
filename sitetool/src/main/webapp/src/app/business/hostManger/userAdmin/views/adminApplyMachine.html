@@ -89,6 +89,13 @@
         top:-4px;
     }
 
+    .containerStyle1 {
+        width:650px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 30px;
+    }
+
 </style>
 <div id="myTabs" class="tiny-tabs-container" style="width:100%;" >
     <div class="tiny-tabs-content">
@@ -147,7 +154,7 @@
 
 
                         <ti-item   >
-                            <button type="button"   class="ti-btn-primary"  ti-button >报告导出</button>
+                            <button type="button"   class="ti-btn-primary"  ng-click="reportResource()" ti-button >报告导出</button>
                         </ti-item>
 
                     </ti-formfield>
@@ -194,8 +201,15 @@
                                     </table>
                                     <!--pagingModel.totalRecords = 10;-->
                                     <tiny-pagination  id="pagingModel.id" type="pagingModel.type" total-records="pagingModel.totalRecords"
-                                                     hide-display-length="pagingModel.hideDisplayLength" display-length="pagingModel.displayLength" callback="pagingModel.callback"
-                                            ></tiny-pagination>
+                                                     hide-display-length="pagingModel.hideDisplayLength" display-length="pagingModel.displayLength" callback="pagingModel.callback">
+                                            </tiny-pagination>
+
+                                     <!--tinyUI2分页-->
+                                    <!--<div class="containerStyle1">-->
+                                        <!--<ti-pagination current-page="fenye.currentPage" total-items="fenye.totalItems" page-size="fenye.pageSize" page-num-change="fenye.pageNumChange(currentPage,pageSizeNum,totalItems)" page-update="fenye.pageUpdate(currentPage,pageSizeNum,totalItems)"></ti-pagination>-->
+                                    <!--</div>-->
+                                    <!--tinyUI1分页构造器方法-->
+                                    <!--<div id="paginationFullnumbers"></div>-->
                                 </ti-table>
 
 
@@ -207,7 +221,7 @@
 
                    <div ng-show="!chaxun">
                         <div class="echartTable1">
-                            <div style="height:220px"></div>
+                            <div style="height:240px"></div>
                         </div>
 
                         <!--按虚拟机查询显示-->
@@ -224,25 +238,32 @@
                                     <!--为了更好的渲染性能，建议在ng-repeat数据时总是track by数据条目中的某个唯一属性值(如id)-->
                                     <tr ng-repeat="row in vmSrcData.data">
                                         <td>{{row.vmName}}</td>
-                                        <td>{{row.vmId}}</td>
+                                        <td>{{row.vmUrn}}</td>
                                         <td>{{row.vmStatus}}</td>
                                         <td>{{row.vmType}}</td>
-                                        <td><ti-progressbar max-value="$scope.hostProgress.maxValue" value="row.monitorUsedCpu">{{row.monitorUsedCpu}}%
+                                        <td>{{row.monitorUsedCpu}}</td>
+                                        <td>{{row.monitorTotalCpu}}</td>
+
+                                        <td><ti-progressbar max-value="$scope.hostProgress.maxValue" value="row.monitorCpuUsage">{{row.monitorCpuUsage}}%
                                         </ti-progressbar></td>
-                                        <!--<td>{{row.monitorUsedCpu}}</td>-->
-                                        <td>{{row.hostTotalSizeMHz}}</td>
-                                        <td><ti-progressbar max-value="$scope.hostProgress.maxValue" value="row.monitorUsedMem">{{row.monitorUsedMem}}%
+
+                                        <td>{{row.monitorUsedMem}}</td>
+                                        <td>{{row.monitorTotalMem}}</td>
+
+                                        <td><ti-progressbar max-value="$scope.hostProgress.maxValue" value="row.monitorMemUsage">{{row.monitorMemUsage}}%
                                         </ti-progressbar></td>
-                                        <!--<td>{{row.monitorUsedMem}}</td>-->
-                                        <td>{{row.hostTotalSizeMB}}</td>
+
                                         <td>{{row.vmIp}}</td>
-                                        <td>{{row.vmLocation}}</td>
+                                        <td>{{row.clusterName}}</td>
                                         <td>{{row.hostName}}</td>
                                         <td>{{row.vmCreateTime}}</td>
                                         <td><a>更多</a></td>
                                     </tr>
                                     </tbody>
                                 </table>
+                                <tiny-pagination  id="vmpagingModel.id" type="vmpagingModel.type" total-records="vmpagingModel.totalRecords"
+                                                  hide-display-length="vmpagingModel.hideDisplayLength" display-length="vmpagingModel.displayLength" callback="vmpagingModel.callback">
+                                </tiny-pagination>
                             </ti-table>
                         </div>
                    </div>

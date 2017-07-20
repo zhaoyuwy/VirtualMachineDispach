@@ -7,8 +7,6 @@ define([
         function($scope, $rootScope, $compile, $location, $timeout, adminEnvironmentConfigServe) {
             $scope.i18n = i18n;
 
-
-
             var approvalAllData = JSON.parse(sessionStorage.getItem("admin_approvalAllData"));//重新转换为JSON对象
             var token = sessionStorage.getItem("meeting_token");
             // 页面加载时，防止用户点击浏览器的前进和后退带来的影响
@@ -29,8 +27,6 @@ define([
             };
 
 
-
-
             //分页工具导航条
             $scope.pagingModel = {
                 "id":"pagid3",
@@ -48,17 +44,6 @@ define([
 
                 }
             };
-
-
-
-
-
-
-
-
-
-
-
 
             $scope.displayed = []; // 表示表格实际呈现的数据（开发者默认设置为[]即可）
 
