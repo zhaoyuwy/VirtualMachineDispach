@@ -23,7 +23,7 @@ define([
 
 
         //刷新页面时请求的数据
-        this.getEvSite =function(){
+        this.getEvSite = function(){
             var promise = camel.get({
                 'url': {
                     "s": configures.hostManger_url+"/getTopologyTreeInfo",
@@ -34,6 +34,26 @@ define([
             });
             return promise;
         };
+
+
+
+
+        //子节点编辑节点
+
+        this.sonEditsite = function(param){
+            var promise = camel.post({
+                'url': {
+                    "s": configures.hostManger_url+"",
+                    "o": {}
+                },
+                "timeout":3000,
+                "params":param,
+                "mask": true
+            });
+            return promise;
+        };
+
+
 
 
 

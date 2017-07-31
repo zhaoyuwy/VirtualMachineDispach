@@ -7,9 +7,7 @@ import com.huawei.siteapp.common.constats.RetCode;
 import com.huawei.siteapp.common.util.SpringUtil;
 import com.huawei.siteapp.model.SiteModel;
 import com.huawei.siteapp.repository.SiteRepository;
-import com.huawei.siteapp.service.Http.MonitorAllVmsServiceImpl;
 import com.huawei.siteapp.service.Http.MonitorCnaServiceImpl;
-import com.huawei.siteapp.service.Task.TaskServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -42,19 +40,19 @@ public class SysGetCanVmInfoController {
             result.setMsg("SiteRegionName siteRegion siteLoginIp not find in sites");
             return result;
         }
-        TaskServiceImpl taskService = SpringUtil.getBean(TaskServiceImpl.class);
-        taskService.clearDbMonitorData();
+//        TaskServiceImpl taskService = SpringUtil.getBean(TaskServiceImpl.class);
+//        taskService.clearDbMonitorData();
 
-        MonitorAllVmsServiceImpl monitorAllVmsService = SpringUtil.getBean(MonitorAllVmsServiceImpl.class);
-        retCode = monitorAllVmsService.fcGetSitesClustersHostsAllVrmRest(siteModel);
+//        MonitorAllVmsServiceImpl monitorAllVmsService = SpringUtil.getBean(MonitorAllVmsServiceImpl.class);
+//        retCode = monitorAllVmsService.fcGetSitesClustersHostsAllVrmRest(siteModel);
 
         MonitorCnaServiceImpl monitorsService = SpringUtil.getBean(MonitorCnaServiceImpl.class);
-        int retCode2 = monitorsService.fcPostSitesClustersHostsCpuMemRest(siteModel);
+//        int retCode2 = monitorsService.fcPostSitesClustersHostsCpuMemRest(siteModel);
 
         HostVmReportInfoBean hostVmReportInfoBean = monitorsService.getResponseBody(siteModel);
 
 
-        if (200 != retCode || 200 != retCode2) {
+        if (200 != retCode ) {
             retCode = 400;
         }
 

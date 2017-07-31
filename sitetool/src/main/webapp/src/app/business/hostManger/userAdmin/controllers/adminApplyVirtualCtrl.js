@@ -31,32 +31,35 @@ define([
 
 
             $scope.currentStep = 1;
-            $scope.steps = [{
-                state:"active",
-                title:"模板导入",
-                templateUrl:"src/app/business/hostManger/userAdmin/views/include/wizardstep0.html"
-            },{
-                state:"undo",
-                title:"状态查询",
-                templateUrl:"src/app/business/hostManger/userAdmin/views/include/wizardstep1.html"
-            },{
-                state:"undo",
-                title:"规格审核",
-                templateUrl:"src/app/business/hostManger/userAdmin/views/include/wizardstep2.html"
-            },
+            $scope.steps = [
+                {
+                    state:"active",
+                    title:"模板导入",
+                    templateUrl:"src/app/business/hostManger/userAdmin/views/include/wizardstep0.html"
+                },
                 {
                     state:"undo",
-                    title:"ip分配",
+                    title:"状态查询",
+                    templateUrl:"src/app/business/hostManger/userAdmin/views/include/wizardstep1.html"
+                },
+                {
+                    state:"undo",
+                    title:"规格审核",
+                    templateUrl:"src/app/business/hostManger/userAdmin/views/include/wizardstep2.html"
+                },
+                {
+                    state:"undo",
+                    title:"LLD规划",
                     templateUrl:"src/app/business/hostManger/userAdmin/views/include/wizardstep3.html"
                 },
                 {
                     state:"undo",
-                    title:"创建成功",
+                    title:"LLD审核",
                     templateUrl:"src/app/business/hostManger/userAdmin/views/include/wizardstep4.html"
                 },
                 {
                     state:"undo",
-                    title:"审核通过",
+                    title:"创建成功",
                     templateUrl:"src/app/business/hostManger/userAdmin/views/include/wizardstep5.html"
                 }
             ];
@@ -93,6 +96,45 @@ define([
             };
 
 
+            //树的接口数据请求
+            $scope.requestOption = {
+                "getData": function(){
+                    var  promise = adminApplyVirtualServe.getTree();
+                    promise.then(function(response){
+                            //if(typeof(response)== "object" && response != ''){
+                            //    $scope.trees.values = response.data;
+                            //}
+
+
+                            if(response.status== 200){
+                                $scope.pointArr =[];
+                                response.data.regionBeans.forEach(function(value, index, arr){
+                                    var pointOption ={};
+                                    pointOption.id= index;
+                                    pointOption.label = arr[index].evName;
+                                    pointOption.sonSiteArr =[];
+
+                                    arr[index].siteModels.forEach(function(value1, index1, arr1){
+                                          //arr1[index1].siteRegionName;
+                                        var sonPointOption ={};
+                                        sonPointOption.id= index1;
+                                        sonPointOption.label = arr1[index1].siteRegion;
+                                        pointOption.sonSiteArr.push(sonPointOption);
+                                    })
+                                    $scope.pointArr.push(pointOption);
+                                });
+                                $scope.selectModel1.options = $scope.pointArr;   //把局点名称     变成这样的数据结构 var pointOptions= [{id:"1",label:"hangzhou",sonSiteArr:[{id:"1",label:"pub"}]},{id:"2",label:"廊坊"}]; 其中sonSiteArr就是 “所属区域”的数据的
+
+                                console.log($scope.pointArr);
+                            }
+                        },
+                        function(response){
+                            alert(response.msg);
+                        });
+                }
+            };
+
+            $scope.requestOption.getData();
 
 
 
@@ -105,54 +147,52 @@ define([
                 gap:["180px", "180px"]
             };
             $scope.fieldVertivalAlign = "middle";
-            $scope.itemVerticalAlign = "middle";
+            $scope.itemVerticalAlign = "top";
             $scope.firstItem = {
                 label: "局点名称:",
                 required: true,
                 value: ""
             };
-            var pointOptions= [{id:"1",label:"上海"},{id:"2",label:"廊坊"}];
+            //var pointOptions= [{id:"1",label:"上海"},{id:"2",label:"廊坊"}];
+            $scope.paraTip = {
+                content:
+                "<p ><strong style='color: red;font-size: 16px'>虚拟机申请->模板导入</strong></span></p><hr>"+
+                "<p >局点名称与父节点的环境名称相同，这里实际取的是环境名称 </p><br>",
+                position: "right-top",
+                maxWidth:"300px",
+                hideEffect:{
+                    duration:50
+                },
+                showEffect: {
+                    duration:200
+                }
+            };
+
+
 
 
             $scope.selectModel1 = {
-                selectedId: '1',
+                selectedId: '',
                 disable: false,
                 placeholder: "请选择你所需要的局点...",
                 panelMaxHeight: '300px',
                 panelWidth: '180px',
-                options: pointOptions,
+                options: $scope.pointArr,
                 change: function(option){
-                    console.log('Select1 change event fired.');
-                    console.log(option);
-                },
-                focus: function(option){
-                    console.log('Select1 focus event fired.');
-                    console.log(option);
-                },
-                blur: function(option){
-                    console.log('Select1 blur event fired.');
-                    console.log(option);
+                    $scope.selectModel2.options= option.sonSiteArr;
                 }
             };
 
-            var regionOptions = [{id:"1",label:"PO_12.123.45.23"},{id:"2",label:"DO_56gfsdg"}];
+            //var regionOptions = [{id:"1",label:"PO_12.123.45.23"},{id:"2",label:"DO_56gfsdg"}];
             $scope.selectModel2 = {
-                selectedId: '1',
+                selectedId: '',
                 disable: false,
                 placeholder: "请选择你所在的区域...",
                 panelMaxHeight: '300px',
                 panelWidth: '180px',
-                options: regionOptions,
+                options: '',
                 change: function(option){
                     console.log('Select1 change event fired.');
-                    console.log(option);
-                },
-                focus: function(option){
-                    console.log('Select1 focus event fired.');
-                    console.log(option);
-                },
-                blur: function(option){
-                    console.log('Select1 blur event fired.');
                     console.log(option);
                 }
             };
@@ -188,13 +228,13 @@ define([
                 gap:["80px", "80px"]
             };
             $scope.twoCols = {
-                number: 5,
+                number: 7,
                 gap:["80px", "80px"]
             };
 
 
             $scope.fourItem = {
-                label: "模板:",
+                label: "操作系统:",
                 required: true,
                 value: ""
             };
@@ -221,6 +261,21 @@ define([
                 value: ""
             };
 
+            $scope.nineItem = {
+                label: "网段:",
+                required: true
+            };
+
+            $scope.tenItem = {
+                label: "主备:",
+                required: true
+            };
+
+            //$scope.elevenItem = {
+            //    label: "主备:",
+            //    required: true
+            //};
+
 
             var templateOptions= [{id:"1",label:"Eull2"},{id:"2",label:"Nonfh_3"}];
 
@@ -245,55 +300,47 @@ define([
                     console.log(option);
                 }
             };
+            //
+            //var nameOptions = [{id:"1",label:"DNS_DL_PC"},{id:"2",label:"uNI_fdas_4"}];
+            //$scope.selectModel4 = {
+            //    selectedId: '1',
+            //    disable: false,
+            //    placeholder: "请选择主机名...",
+            //    panelMaxHeight: '300px',
+            //    panelWidth: '150px',
+            //    options: nameOptions,
+            //    change: function(option){
+            //        console.log('Select1 change event fired.');
+            //        console.log(option);
+            //    }
+            //};
 
-            var nameOptions = [{id:"1",label:"DNS_DL_PC"},{id:"2",label:"uNI_fdas_4"}];
-            $scope.selectModel4 = {
-                selectedId: '1',
-                disable: false,
-                placeholder: "请选择主机名...",
-                panelMaxHeight: '300px',
-                panelWidth: '180px',
-                options: nameOptions,
-                change: function(option){
-                    console.log('Select1 change event fired.');
-                    console.log(option);
-                },
-                focus: function(option){
-                    console.log('Select1 focus event fired.');
-                    console.log(option);
-                },
-                blur: function(option){
-                    console.log('Select1 blur event fired.');
-                    console.log(option);
-                }
-            };
+            //主机名是自己填写的
 
-            var cpuOptions = [{id:"1",label:1},{id:"2",label:2},{id:"3",label:3},{id:"4",label:4},{id:"5",label:5},{id:"6",label:6}];
+            var cpuOptions = [{id:"1",label:2},{id:"2",label:4},{id:"3",label:6},{id:"4",label:8},{id:"5",label:16}];
             $scope.selectModel5 = {
                 selectedId: '1',
                 disable: false,
                 placeholder: "请选择CPU...",
                 panelMaxHeight: '300px',
-                panelWidth: '180px',
+                panelWidth: '80px',
                 options: cpuOptions,
                 change: function(option){
-                    console.log('Select1 change event fired.');
+                    console.log('Select5 change event fired.');
                     console.log(option);
                 }
             };
 
             $scope.selectModel6 = {
-                value:2,
-                //format:"N2",
-                max:30,
-                min:0,
-                step:1,
-                disable:false,
-                //focused:true,
-                change : function(event, value) {
-                    if(value== ""){ $scope.selectModel6.value = 0}
-                    console.log("change evt:"+value);
-
+                selectedId: '1',
+                disable: false,
+                placeholder: "请选择内存...",
+                panelMaxHeight: '300px',
+                panelWidth: '80px',
+                options: cpuOptions,
+                change: function(option){
+                    console.log('Select6 change event fired.');
+                    console.log(option);
                 }
 
             };
@@ -311,6 +358,19 @@ define([
             };
 
 
+            var hostOptions = [{id:"1",label:"master"},{id:"2",label:"slaver"}];
+            $scope.selectModel8 = {
+                selectedId: '1',
+                disable: false,
+                placeholder: "请选择主备...",
+                panelMaxHeight: '300px',
+                panelWidth: '80px',
+                options: hostOptions,
+                change: function(option){
+                    console.log('Select8 change event fired.');
+                    console.log(option);
+                }
+            };
 
 
 
@@ -342,7 +402,7 @@ define([
 
 
             //第三个页面 即页号为2的页面
-            $scope.nineItem = {
+            $scope.nineItem1 = {
                 label: "描述:",
                 required: true
             };

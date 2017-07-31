@@ -65,7 +65,7 @@
                                     <td></td>
                                     <td></td>
                                     <td>
-                                        <a  style="margin-right:30px;" title="添加节点" ng-click="addSiteFtn($index,aData)"><span>添加节点</span></a>
+                                        <a  style="margin-right:30px;" title="添加节点" ng-click="addSiteFtn($index)"><span>添加节点</span></a>
                                         <a style="margin-right:30px;" title="编辑节点"><span>编辑节点</span></a>
                                         <a title="删除节点"><span>删除节点</span></a>
                                     </td>
@@ -87,8 +87,8 @@
                                     </td>
                                     <td>
                                         <a style="margin-right:30px;"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
-                                        <a style="margin-right:30px;" title="添加节点"><span>编辑节点</span></a>
-                                        <a title="添加节点"><span>删除节点</span></a>
+                                        <a style="margin-right:30px;" title="编辑节点" ng-click="EditSite(you.evName,son.siteRegionName,son.siteRegion,son.siteLoginUser,son.siteLoginIp)"><span>编辑节点</span></a>
+                                        <a title="删除节点"><span>删除节点</span></a>
                                     </td>
                                 </tr>
                                 <tr ng-repeat-end ng-if="false">

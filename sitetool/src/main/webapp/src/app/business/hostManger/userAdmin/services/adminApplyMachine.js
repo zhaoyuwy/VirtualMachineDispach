@@ -56,6 +56,7 @@ define([
         this.leadingOutHostReport = function (param) {
             var promise = camel.get({
                 'url': {
+                   // "s": configures.hostManger_url+"/report/testDownload/"+param,
                     "s": configures.hostManger_url+"/report/getHostReport/"+param,
                     "o": {}
                 },

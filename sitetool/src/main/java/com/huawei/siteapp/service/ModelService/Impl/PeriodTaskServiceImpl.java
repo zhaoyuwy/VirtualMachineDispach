@@ -57,9 +57,9 @@ public class PeriodTaskServiceImpl extends BaseServiceImpl<PeriodTaskModel> impl
             String[] hourMin = (splitTime[1]).split("_");
             Date dateNow = new Date();
 
-            Date setDate = new Date(dateNow.getYear(), dateNow.getMonth(), Integer.parseInt(byDay[5]), Integer.parseInt(hourMin[0]), Integer.parseInt(hourMin[1]));
+//            Date setDate = new Date(dateNow.getYear(), dateNow.getMonth(), Integer.parseInt(byDay[5]), Integer.parseInt(hourMin[0]), Integer.parseInt(hourMin[1]));
 
-            if (dateNow.after(setDate)) {
+//            if (dateNow.after(setDate)) {
                 logger.info("task begin");
 
                 TaskServiceImpl taskService = SpringUtil.getBean(TaskServiceImpl.class);
@@ -87,9 +87,9 @@ public class PeriodTaskServiceImpl extends BaseServiceImpl<PeriodTaskModel> impl
                 logger.info("PeriodTaskServiceImpl taskHandle "+retCode);
             }
 
-        } else {
-
-        }
+//        } else {
+//
+//        }
 
     }
 }

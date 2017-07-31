@@ -348,6 +348,107 @@ define([
             };
 
 
+
+
+            //子节点 "编辑节点"的功能
+
+
+            $scope.EditSite = function(evName,siteRegionName,siteRegion,siteLoginUser,siteLoginIp){
+                $rootScope.evName = evName;
+                $rootScope.siteRegionName = siteRegionName;
+                $rootScope.siteRegion = siteRegion;
+                $rootScope.siteLoginUser = siteLoginUser;
+                //$rootScope.siteLoginPwd = siteLoginPwd;  //密码没有返回,所以拿不到，这个到时跟后台对接一下，看看要不要返回还是只要这么多字段
+                $rootScope.ipCongigOptions.value1 = siteLoginIp;
+
+                var addSiteOptions = {
+                    title: "编辑节点",
+                    height: "420px",
+                    width: "430px",
+                    "content-type": 'url',
+                    content: "src/app/business/hostManger/userAdmin/views/include/sonEditSite.html",
+                    resizable: true,
+                    beforeClose: function () {
+                    },
+                    buttons: [{
+                        key: "btnOK",
+                        label: 'OK',//按钮上显示的文字
+                        focused: true,//默认焦点
+                        handler: function (event) {//点击回调函数
+                            //注意要修改addServe.html页面的ng-model
+
+                            //ip框的数据传给siteIP
+                            $rootScope.siteLoginIp = $rootScope.ipCongigOptions.value1;
+
+                            //把添加页面的数据传给
+                            //if (!$rootScope.evName || !$rootScope.siteRegionName || !$rootScope.siteRegion || !$rootScope.siteLoginUser || !$rootScope.siteLoginPwd || !$rootScope.siteLoginIp) {
+                            //    $scope.alertInfo.content = "字段信息不能为空";
+                            //    $scope.alertInfo.contentNullError = true;
+                            //    return false;
+                            //}
+
+
+                            var jsObj = {
+                                "total": 1,
+                                "regions": [
+                                    {
+                                        "evName": $rootScope.evName,
+                                        "sites": [
+                                            {
+                                                "siteRegion": $rootScope.siteRegion,
+                                                "siteRegionName": $rootScope.siteRegionName,
+                                                "siteLoginUser": $rootScope.siteLoginUser,
+                                                "siteLoginPwd": $rootScope.siteLoginPwd,
+                                                "siteLoginIp": $rootScope.siteLoginIp
+                                            }
+                                        ]
+                                    }
+                                ]
+                            };
+
+
+                            var evStr = JSON.stringify(jsObj);
+                            console.log(evStr);
+                            $scope.operate = {
+                                "addPassData": function () {
+
+                                    var promise = adminEnvironmentConfigServe.sonEditsite(evStr);
+                                    promise.then(
+                                        function (response) {
+                                            //var responseData = JSON.parse(response);
+
+                                            if (response.status == 200) {
+
+                                            }
+                                        },
+                                        function (response) {
+                                            alert(response.msg);
+                                        }
+                                    )
+                                }
+                            };
+                            $scope.operate.addPassData();
+                            win.destroy();
+                            //关闭了弹窗就置空 ，以免对其他的有影响
+                            $rootScope.evName = '';
+                            $rootScope.siteRegionName = '';
+                            $rootScope.siteRegion = '';
+                            $rootScope.siteLoginUser = '';
+                            $rootScope.evName = '';
+                            $rootScope.ipCongigOptions.value1 = '';
+                        }
+
+                    }]
+                };
+
+                var win = new tinyWidget.Window(addSiteOptions);
+                win.show();
+            };
+
+
+
+
+
             //默认页面显示的数据提前写，否则会对分页的callback 回调函数有影响
 
             //$scope.environmentData.data = JSON.parse(sessionStorage.getItem('evData'))[0];//默认显示的是分页 第一个 页面

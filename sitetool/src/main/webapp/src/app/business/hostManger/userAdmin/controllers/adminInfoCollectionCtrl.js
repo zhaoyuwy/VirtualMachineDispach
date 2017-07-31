@@ -309,15 +309,12 @@ define([
                                                 "siteLoginIp":array1[index1].siteLoginIp,
                                                 "siteRegion":array1[index1].siteRegion,
                                                 "siteRegionName":array1[index1].siteRegionName
-
                                             };
                                             secondSiteData.push(treeGrandSon);
                                             listTree.push(treeGrandSon);
                                         });
                                     }
-
                                 });
-
                                 //$scope.trees.values = response.data.regionBeans;
                                 $scope.trees.values = listTree;
 
@@ -386,7 +383,7 @@ define([
             }
             //节点文字样式
             function setFontCss(treeId, treeNode) {
-                return ( treeNode.name == "langfang" || treeNode.name == "guangzhou" ||treeNode.name == "shanghai" || treeNode.name == "dalian") ? {"font-weight": "bold"} : {"font-weight": "normal"};
+                return ( treeNode.name == "hangzhou" ||treeNode.name == "langfang" || treeNode.name == "guangzhou" ||treeNode.name == "shanghai" || treeNode.name == "dalian") ? {"font-weight": "bold"} : {"font-weight": "normal"};
             }
 
             //单击点击树的节点 的回调函数，同时发送请求
@@ -425,9 +422,8 @@ define([
                 content:
                 "<p ><strong style='color: red;font-size: 16px'>信息收集->参数配置</strong></span></p><hr>"+
                 "<p >任务类型选择的是'按天选择'" +
-                "'选择时间'数据是当月的X号，1代表着1号，依次类推……</p><br>"+
-                "<p>任务类型选择的是'按星期选择'" +
-                "'选择时间'数据是对应星期中的星期X，0代表着星期一，依次类推……" + "</p>",
+                "'选择时间'数据是当月的X号，0代表着1号，依次类推……</p><br>"+
+                "<p>任务类型选择的是'按星期选择'" + "'选择时间'数据是对应星期中的星期X，0代表着星期一，依次类推……" + "</p>",
                 position: "right-top",
                 maxWidth:"300px",
                 hideEffect:{

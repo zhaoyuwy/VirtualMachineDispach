@@ -12,7 +12,7 @@
 
             /*主机管理系统 顶部导航start*/
             "virtualMachine_apply":"虚拟机申请",
-            "hostResource_check":"主机资源查看",
+            "hostResource_check":"资源查看",
             "info_collection":"信息收集",
             "system_manger":"系统管理",
 

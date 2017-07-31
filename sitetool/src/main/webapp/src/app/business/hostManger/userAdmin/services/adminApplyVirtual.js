@@ -6,8 +6,25 @@ define([
     "use strict";
     var service = function (exception, $q, camel) {
 
-        //configures.hostManger_url+
+        //请求树的数据
         this.getTree = function () {
+            var promise = camel.get({
+                'url': {
+                    "s": configures.hostManger_url+"/getTopologyTreeInfo",
+                    "o": {}
+                },
+                "timeout":3000,
+                "mask": true
+
+            });
+            return promise;
+        };
+
+
+
+
+        //configures.hostManger_url+
+        this.getTreeData = function () {
             var promise = camel.get({
                 'url': {
                     "s": "/hostManger/urlCommon/applyTree",

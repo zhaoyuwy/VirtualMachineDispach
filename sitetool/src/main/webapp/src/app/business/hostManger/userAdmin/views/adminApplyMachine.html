@@ -79,8 +79,26 @@
         margin-right: 20px;
     }
 
+
+
     .echartTable1{
         margin-top:10px;
+        /*display: inline-block;*/
+    }
+
+    .figurePic{
+        display:inline-block;
+
+    }
+    .PicSon1{
+        position: relative;
+        left:450px;
+        bottom:-5px;
+    }
+    .PicSon2{
+        position: relative;
+        left:500px;
+        bottom:-5px;
     }
 
     /*给表格设置一个class,否则直接设置会给其他的元素带来影响*/
@@ -162,8 +180,19 @@
                    <div ng-show="chaxun">
 
                         <div class="echartTable1">
-                            <tinyplus-charts class="custom-head-panel" options="quanCharts1.options"></tinyplus-charts>
-                            <tinyplus-charts class="custom-head-panel" options="quanCharts2.options"></tinyplus-charts>
+                                <tinyplus-charts class="custom-head-panel" options="quanCharts1.options"></tinyplus-charts>
+                                <tinyplus-charts class="custom-head-panel" options="quanCharts2.options"></tinyplus-charts>
+                            <!--<div class="PicSon1">-->
+                                <!--<div style="color:#63CD4F">未使用：</div>-->
+                                <!--<div style="color:#67D6F2">使用中：</div>-->
+
+                            <!--</div>-->
+                            <!--<div class="PicSon2">-->
+                                <!--<div style="color:#63CD4F">未使用：</div>-->
+                                <!--<div style="color:#67D6F2">使用中：</div>-->
+
+                            <!--</div>-->
+
                         </div>
 
 
@@ -172,7 +201,7 @@
                         <div>
                             <!--主机查询显示-->
                             <div style="position: relative; left:-20px">
-                                <ti-table class="containerStyle" displayed-data="hostMangerDisplayed" src-data="hostMangerSrcData" columns="hostMangerColumns">
+                                <ti-table class="containerStyle" displayed-data="hostMangerSrcData.hostMangerDisplayed" src-data="hostMangerSrcData" columns="hostMangerColumns">
                                     <table class="dataTable">
                                         <thead>
                                         <tr>
@@ -182,7 +211,7 @@
                                         <tbody>
                                         <!--注意:ng-repeat中的displayed数据与displayed-data传入的数据一致,在scope中初始化设置为[]即可-->
                                         <!--为了更好的渲染性能，建议在ng-repeat数据时总是track by数据条目中的某个唯一属性值(如id)-->
-                                        <tr ng-repeat="row in hostMangerSrcData.data">
+                                        <tr ng-repeat="row in hostMangerSrcData.hostMangerDisplayed">
                                             <td>{{row.hostName}}</td>
                                             <td>{{row.hostStatus}}</td>
                                             <td>{{row.monitorUsedCpu}}</td>
@@ -199,34 +228,35 @@
                                         </tr>
                                         </tbody>
                                     </table>
-                                    <!--pagingModel.totalRecords = 10;-->
-                                    <tiny-pagination  id="pagingModel.id" type="pagingModel.type" total-records="pagingModel.totalRecords"
-                                                     hide-display-length="pagingModel.hideDisplayLength" display-length="pagingModel.displayLength" callback="pagingModel.callback">
-                                            </tiny-pagination>
 
-                                     <!--tinyUI2分页-->
-                                    <!--<div class="containerStyle1">-->
-                                        <!--<ti-pagination current-page="fenye.currentPage" total-items="fenye.totalItems" page-size="fenye.pageSize" page-num-change="fenye.pageNumChange(currentPage,pageSizeNum,totalItems)" page-update="fenye.pageUpdate(currentPage,pageSizeNum,totalItems)"></ti-pagination>-->
-                                    <!--</div>-->
-                                    <!--tinyUI1分页构造器方法-->
-                                    <!--<div id="paginationFullnumbers"></div>-->
+                                    <!--<tiny-pagination  id="pagingModel.id" type="pagingModel.type" total-records="pagingModel.totalRecords"-->
+                                                     <!--hide-display-length="pagingModel.hideDisplayLength" display-length="pagingModel.displayLength" callback="pagingModel.callback">-->
+                                    <!--</tiny-pagination>-->
+
+
+                                    <ti-pagination current-page="hostPagingModel.currentPage" total-items="hostPagingModel.totalItems" page-size="hostPagingModel.pageSize"  page-num-change="hostPagingModel.pageNumChange(currentPage,pageSizeNum,totalItems)"   page-update ="hostPagingModel.pageUpdate(currentPage,pageSizeNum,totalItems)"></ti-pagination>
                                 </ti-table>
-
-
                             </div>
-
-
                         </div>
                    </div>
 
                    <div ng-show="!chaxun">
                         <div class="echartTable1">
-                            <div style="height:240px"></div>
+                            <!--<div style="height:240px"></div>-->
+
+                            <div id="vmCircleView1" class="custom-head-panel">
+                                <div style="text-align: center;font-size: 16px;font-weight: bold">容灾预警</div>
+                                <tiny-cirque id="vmViewModel1.id" rotate="vmViewModel1.rotate" r="vmViewModel1.r" data="vmViewModel1.data" stroke-width="vmViewModel1.strokeWidth" show-legend="vmViewModel1.showLegend" center-text="vmViewModel1.data.centerText"></tiny-cirque>
+                            </div>
+                            <div id="vmCircleView2" class="custom-head-panel">
+                                <div style="text-align: center;font-size: 16px;font-weight: bold">容灾预警</div>
+                                <tiny-cirque id="vmViewModel2.id" rotate="vmViewModel2.rotate" r="vmViewModel2.r" data="vmViewModel2.data" stroke-width="vmViewModel2.strokeWidth" show-legend="vmViewModel2.showLegend" center-text="vmViewModel2.data.centerText"></tiny-cirque>
+                            </div>
                         </div>
 
                         <!--按虚拟机查询显示-->
                         <div style="position: relative; left:-20px">
-                            <ti-table class="containerStyle" displayed-data="vmDisplayed" src-data="vmSrcData" columns="vmColumns">
+                            <ti-table class="containerStyle" displayed-data="vmSrcData.vmDisplayed" src-data="vmSrcData" columns="vmColumns">
                                 <table class="dataTable">
                                     <thead>
                                     <tr>
@@ -236,7 +266,7 @@
                                     <tbody>
                                     <!--注意:ng-repeat中的displayed数据与displayed-data传入的数据一致,在scope中初始化设置为[]即可-->
                                     <!--为了更好的渲染性能，建议在ng-repeat数据时总是track by数据条目中的某个唯一属性值(如id)-->
-                                    <tr ng-repeat="row in vmSrcData.data">
+                                    <tr ng-repeat="row in vmSrcData.vmDisplayed">
                                         <td>{{row.vmName}}</td>
                                         <td>{{row.vmUrn}}</td>
                                         <td>{{row.vmStatus}}</td>
@@ -261,28 +291,17 @@
                                     </tr>
                                     </tbody>
                                 </table>
-                                <tiny-pagination  id="vmpagingModel.id" type="vmpagingModel.type" total-records="vmpagingModel.totalRecords"
-                                                  hide-display-length="vmpagingModel.hideDisplayLength" display-length="vmpagingModel.displayLength" callback="vmpagingModel.callback">
-                                </tiny-pagination>
+                                <!--<tiny-pagination  id="vmpagingModel.id" type="vmpagingModel.type" total-records="vmpagingModel.totalRecords"-->
+                                                  <!--hide-display-length="vmpagingModel.hideDisplayLength" display-length="vmpagingModel.displayLength" callback="vmpagingModel.callback">-->
+                                <!--</tiny-pagination>-->
+
+                                <ti-pagination current-page="vmpagingModel.currentPage" total-items="vmpagingModel.totalItems" page-size="vmpagingModel.pageSize"></ti-pagination>
                             </ti-table>
                         </div>
                    </div>
                 </div>
                 </div>
-
-
-
-
-
-
             </div>
-
-
-
-
-
-
-
         </div>
 
     </div>

@@ -1,13 +1,12 @@
 <div id="myAdd0"  class="container">
     <div  style="margin:90px 0 160px 0px" >
 
-
-
         <form action="#">
 
-            <ti-formfield cols="zeroCols">
+            <ti-formfield cols="zeroCols" >
                 <ti-item label="firstItem.label" required="firstItem.required">
-                    <ti-select ng-cloak
+                    <span  style="float:right;position:relative;right:-20px;top:15px" class="common-icon-help HelpIcon" ti-tip="paraTip"></span>
+                    <ti-select ng-cloak style="position:relative;top:-10px"
                                selected-id="selectModel1.selectedId"
                                disable="selectModel1.disable"
                                placeholder-text="selectModel1.placeholder"
@@ -19,7 +18,9 @@
                                panel-width="selectModel1.panelWidth">
 
                     </ti-select>
+
                 </ti-item>
+
                 <ti-item required="secondItem.required">
                     <ti-item-label>{{secondItem.label}}</ti-item-label>
                     <ti-file-upload uploader="loadModel.uploaderConfig">
