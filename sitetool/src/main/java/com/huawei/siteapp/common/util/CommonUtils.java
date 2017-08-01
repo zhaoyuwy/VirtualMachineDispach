@@ -1,6 +1,7 @@
 package com.huawei.siteapp.common.util;
 
 
+import com.huawei.siteapp.model.SiteModel;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -164,5 +165,8 @@ public class CommonUtils {
 
     public static String getTestReportName() {
         return "廊坊_PUB_10.44.70.245_hosts_" + UctTimeUtil.getCurrentDate();
+    }
+    public static String getReportName(SiteModel siteModel) {
+        return siteModel.getSiteRegionName()+"_"+siteModel.getSiteRegion()+"_"+siteModel.getSiteLoginIp()+"_hosts_"+ UctTimeUtil.getCurrentDate();
     }
 }

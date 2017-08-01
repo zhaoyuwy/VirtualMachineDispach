@@ -1,22 +1,22 @@
 package com.huawei.siteapp.service.Task;
 
 import com.huawei.siteapp.cache.CacheCenter;
+import com.huawei.siteapp.common.constats.RetCode;
 import com.huawei.siteapp.common.util.CommonUtils;
 import com.huawei.siteapp.common.util.SpringUtil;
 import com.huawei.siteapp.model.MonitorCnaInfoModel;
 import com.huawei.siteapp.model.PeriodTaskModel;
 import com.huawei.siteapp.model.SiteModel;
+import com.huawei.siteapp.repository.MonitorCnaInfoRepository;
 import com.huawei.siteapp.repository.PeriodTaskRepository;
 import com.huawei.siteapp.repository.SiteRepository;
 import com.huawei.siteapp.service.ExcelService.HostReportServiceImpl;
 import com.huawei.siteapp.service.Http.MonitorAllVmsServiceImpl;
 import com.huawei.siteapp.service.Http.MonitorCnaServiceImpl;
-import com.huawei.siteapp.service.ModelService.Impl.MonitorCnaInfoServiceImpl;
 import com.huawei.siteapp.service.ModelService.Impl.PeriodTaskServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -73,30 +73,40 @@ public class ScheduleTask {
 
     }
 
-    @Scheduled(cron = "0 0/7 * * * ?")
+//    @Scheduled(cron = "0 0/7 * * * ?")
     void taskTest() {
         logger.info("#######################################################################");
         TaskServiceImpl taskService = SpringUtil.getBean(TaskServiceImpl.class);
         taskService.clearDbMonitorData();
         SiteRepository siteRepository = SpringUtil.getBean(SiteRepository.class);
-        SiteModel siteModel = siteRepository.findOne((long) 2);
+        List<SiteModel> siteModels = (List<SiteModel>) siteRepository.findAll();
+        int retCode = RetCode.INIT_ERROR;
+        for (SiteModel siteModeTemp : siteModels) {
+            logger.info(siteModeTemp.toString());
+            MonitorAllVmsServiceImpl monitorAllVmsService = SpringUtil.getBean(MonitorAllVmsServiceImpl.class);
+            retCode = monitorAllVmsService.fcGetSitesClustersHostsAllVrmRest(siteModeTemp);
+            if (200 !=retCode){
+                return ;
+            }
+            MonitorCnaServiceImpl monitorsService = SpringUtil.getBean(MonitorCnaServiceImpl.class);
+            retCode = monitorsService.fcPostSitesClustersHostsCpuMemRest(siteModeTemp);
 
-
-        MonitorAllVmsServiceImpl monitorAllVmsService = SpringUtil.getBean(MonitorAllVmsServiceImpl.class);
-        int retCode = monitorAllVmsService.fcGetSitesClustersHostsAllVrmRest(siteModel);
-
-        MonitorCnaServiceImpl monitorsService = SpringUtil.getBean(MonitorCnaServiceImpl.class);
-        int retCode2 = monitorsService.fcPostSitesClustersHostsCpuMemRest(siteModel);
-
-
-        MonitorCnaInfoServiceImpl monitorCpuMemService = SpringUtil.getBean(MonitorCnaInfoServiceImpl.class);
-        Iterable<MonitorCnaInfoModel> hosts = monitorCpuMemService.findAll();
-        HostReportServiceImpl hostReportServiceImpl = SpringUtil.getBean(HostReportServiceImpl.class);
-        try {
-            retCode = hostReportServiceImpl.poiTemplate(CommonUtils.getTestReportName(), (List<MonitorCnaInfoModel>) hosts);
-        } catch (Exception e) {
-            logger.error("", e);
+            if (200 !=retCode){
+                return ;
+            }
+            MonitorCnaInfoRepository monitorCpuMemService = SpringUtil.getBean(MonitorCnaInfoRepository.class);
+            Iterable<MonitorCnaInfoModel> hosts = monitorCpuMemService.findMonitorCnaInfoModelsBySiteId(siteModeTemp.getSiteId());
+            HostReportServiceImpl hostReportServiceImpl = SpringUtil.getBean(HostReportServiceImpl.class);
+            try {
+                retCode = hostReportServiceImpl.poiTemplate(CommonUtils.getReportName(siteModeTemp), (List<MonitorCnaInfoModel>) hosts);
+            } catch (Exception e) {
+                logger.error("", e);
+            }
         }
+//        SiteModel siteModel = siteRepository.findOne((long) 2);
+
+
+
 
         logger.info("PeriodTaskServiceImpl taskHandle " + retCode);
     }
