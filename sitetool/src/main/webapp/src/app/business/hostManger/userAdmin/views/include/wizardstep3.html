@@ -1,18 +1,51 @@
-<div id="myAdd"  class="">
-    <div  style="margin:90px 0 160px 0px" >
-        <div>{{test3}} </div>
+<div id="myAdd0"  class="">
+    <div  style="margin:90px 0 160px 20px" >
+
+        <form action="#">
+            <ti-formfield cols="zeroCols" >
+                <ti-item required="step3Item1.required">
+                    <button type="button" class="ti-btn-default" ti-button>导出申请列表</button>
+                </ti-item>
+
+
+                <ti-item required="step3Item.required">
+                    <ti-item-label>{{step3Item.label1}}</ti-item-label>
+                    <ti-file-upload uploader="step3Item.uploaderConfig">
+                    </ti-file-upload>
+                </ti-item>
+
+            </ti-formfield>
+
+        </form>
+
+        <div class="tree_text">主机信息:</div>
+
+        <div ng-cloak >
+            <ti-table class="containerStyle" displayed-data="hostTableData.displayed" src-data="hostTableData" columns="hostTableData.columns">
+                <table>
+                    <thead>
+                    <tr>
+                        <th ng-repeat="column in hostTableData.columns" width="{{column.width}}">{{column.title}}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!--注意:ng-repeat中的displayed数据与displayed-data传入的数据一致,在scope中初始化设置为[]即可-->
+                    <!--为了更好的渲染性能，建议在ng-repeat数据时总是track by数据条目中的某个唯一属性值(如id)-->
+                    <tr ng-repeat="row in hostTableData.displayed ">
+                        <td>{{row.hostName}}</td>
+                        <td>{{row.operatSystem}}</td>
+                        <td>{{row.cpu}}</td>
+                        <td>{{row.menu}}</td>
+                        <td>{{row.hardpan}}</td>
+                        <td>{{row.netSegment}}</td>
+                        <td>{{row.hostEquipment}}</td>
+                        <td>{{row.describe}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </ti-table>
+        </div>
+
     </div>
 
-
 </div>
-<script type="application/javascript">
-    require(['app/business/hostManger/userAdmin/controllers/adminApplyMachineCtrl'],
-            function (adminApplyMachineCtrl) {
-                angular.element(document).injector().invoke(function ($compile) {
-                    var scope = $("#myAdd").scope();
-                    $compile($("#myAdd"))(scope);
-                    scope.$digest();
-                })
-
-            })
-</script>

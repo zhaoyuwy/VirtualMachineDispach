@@ -483,7 +483,7 @@ define([
             $scope.typeIcon = true;
             $scope.closeIcon = true;
 
-            $scope.label1 = "小贴士: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus ad amet doloLorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus ad amet dolores earum facere hic incidunt molestias mollLorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus ad amet dolores earum facere hic incidunt molestias mollLorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus ad amet dolores earum facere hic incidunt molestias mollLorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus ad amet dolores earum facere hic incidunt molestias mollres earum facere hic incidunt molestias mollitia, nulla quas quidem repudiandae sapiente sit tenetur ut! Animi aut commodi quasi!";
+            $scope.label1 = "小贴士:  主机资源查看：查看在当前环境信息(系统管理--- ->环境名称)所有CAN，VM信息(CPU，内存，ip)！";
             $scope.type1 = "error";
             //$scope.dismissOnTimeout = 3000;
 

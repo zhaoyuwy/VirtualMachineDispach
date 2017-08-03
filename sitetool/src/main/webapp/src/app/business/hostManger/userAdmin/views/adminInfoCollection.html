@@ -106,18 +106,29 @@
         z-index:10001
     }
 
+    .ti-alert-middle{
+        position:absolute;
+        width:200px;
+        height:40px;
+        left: 50%;
+        top: 50%;
+        margin:-100px 0 0 -20px;
+    }
+
 </style>
 <div id="myTabs" class="tiny-tabs-container" style="width:100%;" >
     <div class="tiny-tabs-content">
         <div id="tabs-1">
             <div  style="width:100%;">
                 <div class="row">
+                    <!--提示文本-->
+
                     <div class="ti-alert-position ">
                         <ti-alert type="alertInfo.type"
                                   show="alertInfo.contentNullError"
                                   type-icon="true"
                                   close-icon="true"
-                                  dismiss-on-timeout="3000" >{{alertInfo.content}}</ti-alert>
+                                  dismiss-on-timeout="3500" >{{alertInfo.content}}</ti-alert>
 
                     </div>
 

@@ -17,9 +17,6 @@ define([
                 url: "src/app/framework/views/footer.html"
             };
 
-            // 初始值  我的跟踪 我的代办 会议查询 (出系统用户外，其他都显示)
-            $rootScope.userSystemBlank = true;
-
 
         }];
     var module = angular.module("frm");

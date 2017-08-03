@@ -14,14 +14,10 @@ define(["language/inventory"], function (i18n) {
             required: true,
             value: ""
         };
-
-
         $scope.passWordItem = {
             label: "密码:",
             required: true
         };
-
-
 
         $scope.userItem = {
             label: "",
@@ -32,9 +28,6 @@ define(["language/inventory"], function (i18n) {
             required: true
         };
 
-
-
-
         $scope.HECPASS_button = {
             okLabel: "登 录"
         };
@@ -43,10 +36,6 @@ define(["language/inventory"], function (i18n) {
         $rootScope.menus = {};
         $rootScope.footer = {};
 
-
-
-        // 初始值  我的跟踪 我的代办 会议查询 这些要默认显示
-        //$rootScope.userSystemBlank = true;
 
         //按回车键执行函数
 
@@ -140,9 +129,6 @@ define(["language/inventory"], function (i18n) {
                 }
             };
             $scope.operateLogin.login();
-
-
-
         }
 
     }];

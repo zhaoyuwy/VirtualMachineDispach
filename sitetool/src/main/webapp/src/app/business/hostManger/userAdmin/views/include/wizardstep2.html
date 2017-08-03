@@ -1,18 +1,50 @@
-<div id="myAdd"  class="">
+<div id="myAdd0"  class="container">
     <div  style="margin:90px 0 160px 0px" >
-        <button type="button" class="ti-btn-primary" ti-button>导出申请列表</button>
+
+        <form action="#">
+            <ti-formfield cols="zeroCols" >
+                <ti-item label="step2Item1.label1" required="step2Item1.required">
+
+                    <ti-select ng-cloak
+                               selected-id="step2Item1.selectedId"
+                               disable="step2Item1.disable"
+                               placeholder-text="step2Item1.placeholder"
+                               panel-max-height="step2Item1.panelMaxHeight"
+                               change="step2Item1.change1()"
+                               options="step2Item1.option1"
+                               panel-width="step2Item1.panelWidth">
+
+                    </ti-select>
+
+                </ti-item>
+
+
+                <ti-item required="step2Item1.required">
+                    <!--<ti-item-label>{{step2Item1.label2}}</ti-item-label>-->
+                    <input type="checkbox" ng-model="step2Item2.checked" ti-checkbox="step2Item2.title"/>
+                </ti-item>
+
+
+            </ti-formfield>
+            <ti-formfield style="margin-top:40px;" >
+                <ti-item>
+                    <button type="button" class="ti-btn-primary" ti-button>导出申请列表</button>
+                </ti-item>
+            </ti-formfield>
+        </form>
+
     </div>
 
 
 </div>
-<script type="application/javascript">
-    require(['app/business/hostManger/userAdmin/controllers/adminApplyMachineCtrl'],
-            function (adminApplyMachineCtrl) {
-                angular.element(document).injector().invoke(function ($compile) {
-                    var scope = $("#myAdd").scope();
-                    $compile($("#myAdd"))(scope);
-                    scope.$digest();
-                })
+<!--<script type="application/javascript">-->
+    <!--require(['app/business/hostManger/userAdmin/controllers/adminApplyMachineCtrl'],-->
+            <!--function (adminApplyMachineCtrl) {-->
+                <!--angular.element(document).injector().invoke(function ($compile) {-->
+                    <!--var scope = $("#myAdd").scope();-->
+                    <!--$compile($("#myAdd"))(scope);-->
+                    <!--scope.$digest();-->
+                <!--})-->
 
-            })
-</script>
+            <!--})-->
+<!--</script>-->

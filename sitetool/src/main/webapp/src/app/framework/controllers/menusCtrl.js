@@ -336,8 +336,7 @@ define(['bootstrap/bootstrap.min', 'app-remote/framework/localization/config',"l
         $rootScope.meeting_userName =sessionStorage.getItem('hostManger');
         //$rootScope.HECPASS_token =sessionStorage.getItem('HECPASS_token');
 
-        if( $rootScope.meeting_userName == '' || $rootScope.meeting_userName == null){
-
+        if( $rootScope.meeting_userName == '' || $rootScope.meeting_userName == null || $rootScope.meeting_userName == undefined){
             $location.path('/login');
             return  false;
         }

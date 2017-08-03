@@ -2,12 +2,9 @@
     display:block;
     vertical-align: middle;
     /*设置父元素沾满满屏幕*/
-
-
     /*background: url("../images/login_bgg.png") no-repeat ;*/
     background-size:100% 100%;
     background-attachment: fixed;
-
 }
 .login-bg {
     position:absolute;
@@ -34,41 +31,34 @@
     width: 100%;
 }
 
-.overflow {
-    overflow: hidden;
-}
 
 #pageImg {
     float: left;
     width: 60%;
     max-width: 800px;
-    /*max-height: 515px;*/
+    max-height: 515px;
     margin-left: 5%;
-    margin-top: 100px;
+    margin-top: 80px;
+    z-index:99;
 }
-
 .hec-pull-right{
-    /*float:right;*/
-    width:300px;
-    height:280px;
+    float:right;
+    width:320px;
+    min-height:280px;
     border:1px solid #ddd;
     border-radius:10px;
     padding:20px 0 0 20px;
     position:absolute;
-    top:260px;
+    top:275px;
     background: #fff;
-
 }
-
 .userLoginLabel {
-
     float: left;
     font-family: 微软雅黑;
     font-size: 20px;
     color: rgb(51, 51, 51);
 
 }
-
 .loginLine {
     font-family: 微软雅黑;
     color: rgb(51, 51, 51);
@@ -78,29 +68,48 @@
     line-height: 40px;
     height: 40px;
     overflow: hidden;
-
 }
 
 .form-button{
     width:188.99px;
+    height: 34px;
 }
 .form-button:hover{
     width:188.99px;
     background: #BC0000;
     color:#fff;
+    height: 34px;
 }
-
-.ti-form .ti-form-label {
-    padding-right: 10px;
-    white-space: nowrap;
-    color: #666666;
-    padding-bottom: 20px;
+form>table{
+    margin-bottom:20px;
 }
-
-.ti-form .ti-form-content {
-    padding-bottom: 20px;
+form>table:nth-child(2){
+    margin-bottom:15px;
 }
-
+form>table:nth-child(3){
+   position:relative;
+    left:45px;
+    margin-bottom:10px;
+}
+form>table:nth-child(4){
+    position:relative;
+    left:60px;
+    margin-bottom:40px;
+}
 div.font18{
     margin-bottom:20px;
 }
+
+.titleLogo{
+    position: relative;
+    top:-30px;
+    font-size: 22px;
+    font-weight: normal;
+
+}
+.i18nBtn{
+    position: relative;
+    left: 20px;
+    font-size: 14px;
+}
+

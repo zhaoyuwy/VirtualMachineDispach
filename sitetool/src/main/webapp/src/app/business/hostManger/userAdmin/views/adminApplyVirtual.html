@@ -51,6 +51,12 @@
         width:250px !important;
 
     }
+    .tree_text{
+        font-size:16px;
+        font-weight: bold;
+        color:#00AAFF;
+        margin:20px 0;
+    }
 
 </style>
 <div id="myTabs" class="tiny-tabs-container" style="width:100%;" >
@@ -84,10 +90,10 @@
                                     <div ng-repeat="step in steps" ng-include="step.templateUrl" ng-show="currentStep-1 == $index"></div>
                                 </div>
                                 <div class="wizard-actions">
-                                    <!--<span ng-if="currentStep !== 1"> <tiny-button click="stepBackward()" text="stepWardmodel.previousTxt"></tiny-button> </span>-->
+                                    <span ng-if="currentStep !== 1"> <tiny-button click="stepBackward()" text="stepWardmodel.previousTxt"></tiny-button> </span>
                                     <span ng-if="currentStep < steps.length"> <tiny-button click="stepForward()" text="stepWardmodel.nextTxt"></tiny-button> </span>
                                     <span ng-if="currentStep == steps.length"> <tiny-button click="finish()" text="stepWardmodel.finishTxt"></tiny-button></span>
-                                    <span> <tiny-button  click="buttonCancel()"text="stepWardmodel.cancelTxt"></tiny-button> </span>
+                                    <span ng-if="currentStep !== 1"> <tiny-button  click="buttonCancel()"text="stepWardmodel.cancelTxt"></tiny-button> </span>
                                 </div>
                             </div>
 

@@ -2,6 +2,14 @@
     #myTabs{
         font-family: "Helvetica Neue55", Arial, Helvetica, sans-serif;
     }
+    .page-header {
+        padding-bottom: 9px;
+        margin: 12px 0 20px;
+        border-bottom: 1px solid #eee;
+    }
+    .firstModel td.ti-form-label{
+        width:133px;
+    }
 
 </style>
 <div id="myTabs" class="tiny-tabs-container" style="width:100%;" >
@@ -10,29 +18,61 @@
             <div  style="width:100%;">
                 <div class="row">
 
-                    <div class="mainTitle page-header" style="text-align:center;">{{list}}</div>
+                    <div class="mainTitle page-header" style="text-align:center;">{{i18n.systemConfigpage}}</div>
 
-                    <ti-table class="containerStyle" displayed-data="displayed" src-data="environmentData" columns="emailColumns">
-                        <table>
-                            <thead>
-                            <tr>
-                                <th ng-repeat="column in emailColumns" width="{{column.width}}">{{column.title}}</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <!--注意:ng-repeat中的displayed数据与displayed-data传入的数据一致,在scope中初始化设置为[]即可-->
-                            <!--为了更好的渲染性能，建议在ng-repeat数据时总是track by数据条目中的某个唯一属性值(如id)-->
-                            <tr ng-repeat="row in emailData.data">
-                                <td>{{row.system_session}}</td>
-                                <td>{{row.system_token}}</td>
-                                <td>{{row.system_pwPeriod}}</td>
-                                <td><a style="margin-right:30px;"><span>修改</span></a><a><span>删除</span></a></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </ti-table>
+                    <form action="#">
+                        <div class="firstModel" style="border:1px solid #ddd;padding:100px 15px;border-radius: 4px;" >
 
+                            <ti-formfield>
+                                <ti-item label="systemConfigItem.label1" required="systemConfigItem.required">
+                                    <ti-select ng-cloak
+                                               selected-id="systemConfigItem.selectedId1"
+                                               disable="systemConfigItem.disable"
+                                               placeholder-text="systemConfigItem.placeholder1"
+                                               panel-max-height="systemConfigItem.panelMaxHeight"
+                                               change="systemConfigItem.change1"
+                                               options="systemConfigItem.options1"
+                                               panel-width="systemConfigItem.panelWidth">
+                                    </ti-select>
+                                    <span style="padding-left:10px;">分钟</span>
+                                </ti-item>
+                            </ti-formfield>
+                            <div style="margin:20px;"></div>
+                            <ti-formfield >
+                                <ti-item label="systemConfigItem.label2" required="systemConfigItem.required">
+                                    <ti-select ng-cloak
+                                               selected-id="systemConfigItem.selectedId2"
+                                               disable="systemConfigItem.disable"
+                                               placeholder-text="systemConfigItem.placeholder2"
+                                               panel-max-height="systemConfigItem.panelMaxHeight"
+                                               change="systemConfigItem.change2"
+                                               options="systemConfigItem.options2"
+                                               panel-width="systemConfigItem.panelWidth">
+                                    </ti-select>
+                                    <span style="padding-left:10px;">次</span>
+                                </ti-item>
 
+                            </ti-formfield>
+                            </ti-formfield>
+                            <div style="margin:20px;"></div>
+                            <ti-formfield >
+                                <ti-item label="systemConfigItem.label3" required="systemConfigItem.required">
+                                    <ti-select ng-cloak
+                                               selected-id="systemConfigItem.selectedId3"
+                                               disable="systemConfigItem.disable"
+                                               placeholder-text="systemConfigItem.placeholder3"
+                                               panel-max-height="systemConfigItem.panelMaxHeight"
+                                               change="systemConfigItem.change3"
+                                               options="systemConfigItem.options3"
+                                               panel-width="systemConfigItem.panelWidth">
+                                    </ti-select>
+                                    <span style="padding-left:10px;">分钟</span>
+                                </ti-item>
+
+                            </ti-formfield>
+
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

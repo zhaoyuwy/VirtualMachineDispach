@@ -5,54 +5,66 @@
 <div class="login-bg">
     <div class="bg-login login_content " ng-keyup="myKeyup($event)" >
 
-        <div class="row-fluid overflow ng-scope" id="loginPage" style="height: 539px;">
+        <div class="row-fluid  ng-scope" id="loginPage" style="height: 539px;">
+            <div>
+                <div class="titleLogo">
+                    <p><img src="theme/default/images/hwlogo.png" alt=""> <span style="color: #00adf5" ng-bind="i18n.hecmanger_projiect"></span> <span ng-bind="i18n.hecmanger_sys"></span></p>
+                </div>
+                <div class="col-sm-offset-8 i18nBtn">
+                    <a>English</a>
+                </div>
+            </div>
 
-            <img id="pageImg" ng-src="theme/default/images/login_poster.png" src="theme/default/images/login_poster.png">
+            <img id="pageImg" ng-src="theme/default/images/login_poster.png">
 
             <div class="hec-pull-right col-sm-offset-8">
-            <div class="font18 lheight_40 ng-binding userLoginLabel" ng-bind="i18n.hecmanger_loginLabel"> </div>
-            <div class="loginLine lineEn">
-                <hr>
+                <div class="font18 lheight_40 ng-binding userLoginLabel" ng-bind="i18n.hecmanger_loginLabel"> </div>
+                <div class="loginLine lineEn">
+                    <hr>
+                </div>
+
+                <form action="#"   ng-cloak>
+                    <ti-formfield vertical-align="fieldVertivalAlign">
+                        <ti-item label="userNameItem.label" required="userNameItem.required" vertical-align="itemVerticalAlign">
+                            <input id='tiny-text'
+                                   type="text"
+                                   ng-model="userNameItem.value"
+                                   placeholder="请输入用户名"
+                                   style="width:189px;height:34px;"
+                                   autofocus
+                                   ti-text/>
+                        </ti-item>
+                    </ti-formfield>
+                    <ti-formfield vertical-align="fieldVertivalAlign">
+                        <ti-item required="passWordItem.required">
+                            <ti-item-label>{{passWordItem.label}}&nbsp;&nbsp;&nbsp;</ti-item-label>
+                            <input id='tiny-password'
+                                   type="password"
+                                   ng-keyup="myKeyup($event)"
+                                   placeholder="请输入用户密码"
+                                   ng-model="passWordItem.value"
+                                   style="width:189px;height:34px;"
+                                   ti-text />
+                        </ti-item>
+                    </ti-formfield>
+                    <ti-formfield vertical-align="fieldVertivalAlign">
+                        <ti-item >
+                            <ti-item-label>{{userItem.label}}</ti-item-label>
+                            <input type="radio" ng-model="userItem.userType" value="普通用户"
+                                   ti-radio="userItem.commonUser"/>
+                            <span style="padding-right: 48px;"></span>
+                            <input type="radio" ng-model="userItem.userType" value="管理用户"
+                                   ti-radio="userItem.adminUser"/>
+                        </ti-item>
+                    </ti-formfield>
+                    <ti-formfield vertical-align="fieldVertivalAlign">
+                        <ti-btn-item>
+                            <button  class="form-button" type="button" ti-button ng-click="hecLogin()">{{HECPASS_button.okLabel}}</button>
+
+                        </ti-btn-item>
+                    </ti-formfield>
+                </form>
             </div>
-            <form action="#"   ng-cloak>
-                <ti-formfield vertical-align="fieldVertivalAlign">
-                    <ti-item label="userNameItem.label" required="userNameItem.required" vertical-align="itemVerticalAlign">
-                        <input id='tiny-text'
-                               type="text"
-                               ng-model="userNameItem.value"
-                               placeholder="请输入用户名"
-                               style="width:189px;"
-                               autofocus
-                               ti-text/>
-                    </ti-item>
-                    <ti-item required="passWordItem.required">
-                        <ti-item-label>{{passWordItem.label}}</ti-item-label>
-                        <input id='tiny-password'
-                               type="password"
-                               ng-keyup="myKeyup($event)"
-                               placeholder="请输入用户密码"
-                               ng-model="passWordItem.value"
-                               style="width:189px;"
-                               ti-text />
-                    </ti-item>
-
-                    <ti-item >
-                        <ti-item-label>{{userItem.label}}</ti-item-label>
-                        <input type="radio" ng-model="userItem.userType" value="普通用户"
-                               ti-radio="userItem.commonUser"/>
-                        <span style="padding-right: 48px;"></span>
-                        <input type="radio" ng-model="userItem.userType" value="管理用户"
-                               ti-radio="userItem.adminUser"/>
-                    </ti-item>
-
-
-                    <ti-btn-item>
-                        <button  class="form-button" type="button" ti-button ng-click="hecLogin()">{{HECPASS_button.okLabel}}</button>
-
-                    </ti-btn-item>
-                </ti-formfield>
-            </form>
-      </div>
         </div>
     </div>
 </div>

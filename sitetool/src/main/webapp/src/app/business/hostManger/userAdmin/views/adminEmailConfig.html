@@ -2,6 +2,27 @@
     #myTabs{
         font-family: "Helvetica Neue55", Arial, Helvetica, sans-serif;
     }
+    .page-header {
+        padding-bottom: 9px;
+        margin: 12px 0 20px;
+        border-bottom: 1px solid #eee;
+    }
+    .tree_text{
+        font-size:16px;
+        font-weight: bold;
+        color:#080808;
+        margin-bottom: 10px;
+    }
+
+    .firstModel td.ti-form-label{
+        width:73px;
+    }
+    .secondModel td.ti-form-label{
+        width:49px;
+    }
+    .thirdModel td.ti-form-label{
+        width:85px;
+    }
 
 </style>
 <div id="myTabs" class="tiny-tabs-container" style="width:100%;" >
@@ -9,27 +30,88 @@
         <div id="tabs-1">
             <div  style="width:100%;">
                 <div class="row">
+                    <div class="mainTitle page-header" style="text-align:center;">{{i18n.emailCongfigpage}}</div>
+                    <div style="border:1px solid #ddc;padding:20px 10px; border-radius: 4px;background: #FdFdFd;">
+                        <form action="#">
+                            <div  class="firstModel" style="border:1px solid #ddd;padding:20px 15px; border-radius: 4px; background: #FeFeFe;">
+                                <div class="tree_text">服务器:</div>
+                                <ti-formfield>
+                                    <ti-item label="emailConfigItem.label1" required="emailConfigItem.required" style="width:73px;">
+                                        <!--<ti-select ng-cloak-->
+                                                   <!--selected-id="emailConfigItem.selectedId1"-->
+                                                   <!--disable="emailConfigItem.disable"-->
+                                                   <!--placeholder-text="emailConfigItem.placeholder1"-->
+                                                   <!--panel-max-height="emailConfigItem.panelMaxHeight"-->
+                                                   <!--change="emailConfigItem.change1"-->
+                                                   <!--options="emailConfigItem.options1"-->
+                                                   <!--panel-width="emailConfigItem.panelWidth">-->
+                                        <!--</ti-select>-->
 
-                    <div class="mainTitle page-header" style="text-align:center;">{{list}}</div>
+                                        <input  type="text" id='tiny-text15' ng-model="emailConfigItem.value1" placeholder="{{emailConfigItem.placeholder1}}" style="width:189px;"  ti-text/>
+                                    </ti-item>
+                                </ti-formfield>
+                                <div style="margin:20px;"></div>
+                                <ti-formfield >
+                                    <ti-item label="emailConfigItem.label2" required="emailConfigItem.required" style="width:73px;">
+                                        <input  type="text" id='tiny-text16' ng-model="emailConfigItem.value2" placeholder="{{emailConfigItem.placeholder2}}" style="width:189px;"  ti-text/>
+                                    </ti-item>
+                                </ti-formfield>
 
-                    <ti-table class="containerStyle" displayed-data="displayed" src-data="environmentData" columns="emailColumns">
-                        <table>
-                            <thead>
-                            <tr>
-                                <th ng-repeat="column in emailColumns" width="{{column.width}}">{{column.title}}</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <!--注意:ng-repeat中的displayed数据与displayed-data传入的数据一致,在scope中初始化设置为[]即可-->
-                            <!--为了更好的渲染性能，建议在ng-repeat数据时总是track by数据条目中的某个唯一属性值(如id)-->
-                            <tr ng-repeat="row in emailData.data">
-                                <td>{{row.email_Info}}</td>
-                                <td>{{row.email_name}}</td>
-                                <td><a style="margin-right:30px;"><span>test</span></a><a><span>保存</span></a></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </ti-table>
+                            </div>
+                            <div style="margin:40px;"></div>
+
+                            <div class="secondModel" style="border:1px solid #ddd;padding:20px 15px; border-radius: 4px; background: #FeFeFe;">
+                                <div class="tree_text">用户身份:</div>
+                                <input type="checkbox" ng-model="emailConfigItem.IdChecked" ti-checkbox="emailConfigItem.IdTitle"  ng-click="emailConfigItem.IDClick(emailConfigItem.IdChecked)" ng-change="emailConfigItem.IDChange(emailConfigItem.IdChecked)"/>
+                                <div style="margin:20px;"></div>
+                                <ti-formfield>
+                                    <ti-item label="emailConfigItem.label3" required="emailConfigItem.required">
+                                        <input  type="text" id='tiny-text17' ng-disabled="emailConfigItem.IdDisabled" ng-model="emailConfigItem.value3" placeholder="{{emailConfigItem.placeholder4}}" style="width:189px;"  ti-text/>
+                                    </ti-item>
+                                </ti-formfield>
+                                <div style="margin:20px;"></div>
+                                <ti-formfield >
+                                    <ti-item label="emailConfigItem.label4" required="emailConfigItem.required">
+                                        <input  type="text" id='tiny-text18'  ng-disabled="emailConfigItem.IdDisabled" ng-model="emailConfigItem.value4" placeholder="{{emailConfigItem.placeholder4}}" style="width:189px;"  ti-text/>
+                                    </ti-item>
+                                </ti-formfield>
+
+                            </div>
+
+                            <div style="margin:40px;"></div>
+
+                            <div class="thirdModel"  style="border:1px solid #ddd;padding:20px 15px; border-radius: 4px; background: #FeFeFe;">
+                                <div class="tree_text">安全性:</div>
+                                <input type="checkbox" ng-model="emailConfigItem.safetyChecked" ti-checkbox="emailConfigItem.safetyTitle"  ng-click="emailConfigItem.safetyClick(emailConfigItem.safetyChecked)" ng-change="emailConfigItem.safetyChange(emailConfigItem.safetyChecked)"/>
+                                <div style="margin:20px;"></div>
+                                <ti-formfield cols="emailConfigItem.safetyCols">
+                                    <ti-item label="emailConfigItem.label5" required="emailConfigItem.required">
+                                        <input  type="text" id='tiny-text19'  ng-model="emailConfigItem.value5" placeholder="{{emailConfigItem.placeholder5}}" style="width:189px;"  ti-text/>
+                                    </ti-item>
+                                    <ti-item>
+                                        <button type="button" class="ti-btn-primary" ti-button>测试</button>
+                                    </ti-item>
+                                </ti-formfield>
+                                <div style="margin:20px;"></div>
+                                <ti-formfield >
+                                    <ti-item label="emailConfigItem.label6" required="emailConfigItem.required">
+                                        <input  type="text" id='tiny-text20'  ng-model="emailConfigItem.value6" placeholder="{{emailConfigItem.placeholder6}}" style="width:189px;"  ti-text/>
+                                    </ti-item>
+                                </ti-formfield>
+                                <div style="margin:20px;"></div>
+                                <ti-formfield >
+                                    <ti-item label="emailConfigItem.label7" required="emailConfigItem.required">
+                                        <input  type="text" id='tiny-text21'  ng-model="emailConfigItem.value7" placeholder="{{emailConfigItem.placeholder7}}" style="width:189px;"  ti-text/>
+                                    </ti-item>
+                                </ti-formfield>
+
+
+                            </div>
+
+
+                        </form>
+                    </div>
+
 
                 </div>
             </div>

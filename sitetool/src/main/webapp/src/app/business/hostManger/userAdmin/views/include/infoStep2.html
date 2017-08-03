@@ -25,7 +25,14 @@
             </table>
         </ti-table>
 
+        <div class="ti-alert-middle ">
+            <ti-alert type="alertResponse.type"
+                      show="alertResponse.contentNullError"
+                      type-icon="true"
+                      close-icon="false"
+                      dismiss-on-timeout="3000" >{{alertResponse.content}}</ti-alert>
 
+        </div>
 
         <!--<div class="span4 ng-scope">-->
             <!--<div class="tree_text">fdasfas</div>-->

@@ -17,6 +17,7 @@ import com.huawei.siteapp.service.ModelService.Impl.PeriodTaskServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -37,16 +38,6 @@ public class ScheduleTask {
 
     @Autowired
     DynamicScheduledTask dynamicScheduledTask;
-
-
-    //        @Scheduled(cron = "0 0 2 * * ?")//每天凌晨两点执行
-//    @Scheduled(cron = "0/10 * *  * * ? ")
-    //每5秒执行一次
-    void doSomethingWith() {
-//        num++;
-//        logger.info("Schedule task doSomethingWith begin. times =  " + num);
-//        System.out.println("Schedule task doSomethingWith begin. times = " + num);
-    }
 
     @PostConstruct
     public void InitLogin() {
@@ -73,7 +64,7 @@ public class ScheduleTask {
 
     }
 
-//    @Scheduled(cron = "0 0/7 * * * ?")
+    @Scheduled(cron = "0 0 2 * * ?")
     void taskTest() {
         logger.info("#######################################################################");
         TaskServiceImpl taskService = SpringUtil.getBean(TaskServiceImpl.class);

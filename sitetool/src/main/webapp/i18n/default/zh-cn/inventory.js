@@ -5,6 +5,8 @@
 
             /*主机管理系统 登录页面start*/
             "hecmanger_loginLabel":"FC主机 管理系统",
+            "hecmanger_projiect":"FC主机",
+            "hecmanger_sys":"管理系统",
 
 
             /*主机管理系统  登录页面end*/
@@ -20,18 +22,50 @@
 
 
            /*系统管理页面 start*/
-                "environmentConfig":"环境配置",
-                "emailConfig":"邮件配置",
-                "thresholdConfig":"阀值配置",
-                "systemConfig":"系统配置",
+            "environmentConfig":"环境配置",
+            "emailConfig":"邮件配置",
+            "thresholdConfig":"阈值配置",
+            "systemConfig":"系统配置",
 
-
-                "evSiteTotalHead":"环境节点总共",
-                "evSiteTotalAfter":"条"
+            "evSiteTotalHead":"环境节点总共",
+            "evSiteTotalAfter":"条",
             /*系统管理页面 end*/
 
 
 
+       /*环境配置页面 start*/
+            "environmentConfigPage":"环境配置页面",
+            "addEnvironment":"添加环境",
+            "addSite":"添加节点",
+            "editSite":"编辑节点",
+            "deleteSite":"删除节点",
+
+
+            "evName":"环境名称",
+            "siteRegionName":"局点名称",
+            "siteRegion":"所属区域",
+            "siteLoginUser":"操作用户",
+            "siteLoginPwd":"用户密码",
+            "siteLoginIp":"ip地址",
+            "operation":"操作",
+            "noDadaInfo":"暂无表格数据，请添加环境节点……",
+            "evAlertInfo":"请输入添加环境字段的信息",
+            "siteAlertInfo":"请输入添加环境字段的信息",
+            "confirmDeleteSite":"确定删除该节点信息?",
+            "confirmDeleteEv":"确定删除该环境?",
+        /*环境配置页面 end*/
+
+
+        /*邮件配置页面 start */
+
+        emailCongfigpage:"邮件配置页面",
+        /*邮件配置页面 end */
+
+        /*阈值配置页面 start */
+        thresholdConfigpage:"阈值配置页面",
+        /*阈值配置页面 end */
+
+        systemConfigpage:'系统配置页面'
 };
     return inventory
 });

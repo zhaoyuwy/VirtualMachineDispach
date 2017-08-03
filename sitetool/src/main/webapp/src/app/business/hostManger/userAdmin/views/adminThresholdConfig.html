@@ -2,6 +2,11 @@
     #myTabs{
         font-family: "Helvetica Neue55", Arial, Helvetica, sans-serif;
     }
+    .page-header {
+        padding-bottom: 9px;
+        margin: 12px 0 20px;
+        border-bottom: 1px solid #eee;
+    }
 
 </style>
 <div id="myTabs" class="tiny-tabs-container" style="width:100%;" >
@@ -10,32 +15,44 @@
             <div  style="width:100%;">
                 <div class="row">
 
-                    <div class="mainTitle page-header" style="text-align:center;">{{list}}</div>
+                    <div class="mainTitle page-header" style="text-align:center;">{{i18n.thresholdConfigpage}}</div>
 
+                    <form action="#">
+                        <div  style="border:1px solid #ddd;padding:100px 15px;border-radius: 4px;">
 
-                    <ti-table class="containerStyle"  displayed-data="displayed" src-data="thresholdData" columns="thresholdColumns">
-                        <ti-cols-toggle style="float:right;"></ti-cols-toggle>
-                        <table>
-                            <thead>
-                            <tr>
-                                <th ng-repeat="column in thresholdColumns" ng-if="column.show || column.show === undefined">{{column.title}}</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <!--注意:ng-repeat中的displayed数据与displayed-data传入的数据一致,在scope中初始化设置为[]即可-->
-                            <!--<tr ng-repeat="row in displayed track by $index">-->  <!--下面两种效果都能出来-->
-                            <tr ng-repeat="row in thresholdData.data">
-                              <td ng-if="thresholdColumns[0].show">{{row.cpu_percent}}</td>
-                              <td ng-if="thresholdColumns[1].show">{{row.ram_percent}}</td>
-                              <td ng-if="thresholdColumns[2].show">{{row.birth_date}}</td>
-                              <td>{{row.balance}}</td>
-                              <td ><a style="margin-right:30px;"><span>编辑</span></a><a><span>删除</span></a></td>
-                          </tr>
-                          </tbody>
-                      </table>
-                  </ti-table>
+                            <ti-formfield>
+                                <ti-item label="thresholdConfigItem.label1" required="thresholdConfigItem.required">
+                                    <ti-select ng-cloak
+                                    selected-id="thresholdConfigItem.selectedId1"
+                                    disable="thresholdConfigItem.disable"
+                                    placeholder-text="thresholdConfigItem.placeholder1"
+                                    panel-max-height="thresholdConfigItem.panelMaxHeight"
+                                    change="thresholdConfigItem.change1"
+                                    options="thresholdConfigItem.options1"
+                                    panel-width="thresholdConfigItem.panelWidth">
+                                    </ti-select>
+                                    <span style="padding-left:10px;">分钟</span>
+                                </ti-item>
+                            </ti-formfield>
+                            <div style="margin:20px;"></div>
+                            <ti-formfield >
+                                <ti-item label="thresholdConfigItem.label2" required="thresholdConfigItem.required">
+                                    <ti-select ng-cloak
+                                               selected-id="thresholdConfigItem.selectedId2"
+                                               disable="thresholdConfigItem.disable"
+                                               placeholder-text="thresholdConfigItem.placeholder2"
+                                               panel-max-height="thresholdConfigItem.panelMaxHeight"
+                                               change="thresholdConfigItem.change2"
+                                               options="thresholdConfigItem.options2"
+                                               panel-width="thresholdConfigItem.panelWidth">
+                                    </ti-select>
+                                    <span style="padding-left:10px;">次</span>
+                                </ti-item>
 
+                            </ti-formfield>
 
+                        </div>
+                    </form>
               </div>
           </div>
       </div>

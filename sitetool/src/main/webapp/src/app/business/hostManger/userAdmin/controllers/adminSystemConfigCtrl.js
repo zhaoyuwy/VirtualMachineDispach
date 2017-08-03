@@ -9,8 +9,8 @@ define([
             //把从自定义服务传值，传过来的赋值给……
 
 
-            var approvalAllData = JSON.parse(sessionStorage.getItem("admin_approvalAllData"));//重新转换为JSON对象
-            var token = sessionStorage.getItem("meeting_token");
+            //var approvalAllData = JSON.parse(sessionStorage.getItem("admin_approvalAllData"));//重新转换为JSON对象
+            //var token = sessionStorage.getItem("meeting_token");
             // 页面加载时，防止用户点击浏览器的前进和后退带来的影响
             $rootScope.menus = {
                 url: "src/app/framework/views/menus.html"
@@ -19,65 +19,34 @@ define([
                 url: "src/app/framework/views/footer.html"
             };
 
-            $scope.list = "系统配置页面";
-
-
-
-            $scope.displayed = [];
-
-            var srcData = [
-                {
-                    "system_session":"fdafhhgj",
-                    "system_token":"langfang",
-                    "system_pwPeriod":"2017-12-12"
-                },
-                {
-                    "system_session":"fdafhhgj",
-                    "system_token":"langfang",
-                    "system_pwPeriod":"2017-12-12"
-                },
-                {
-                    "system_session":"fdafhhgj",
-                    "system_token":"langfang",
-                    "system_pwPeriod":"2017-12-12"
+            $scope.systemConfigItem ={
+                placeholder1:'请选择会话超时时间',
+                placeholder2:'请选择登录密码错误锁定账户',
+                placeholder3:'请选择登录密码错误锁定时长',
+                label1:"会话超时时间:",
+                label2:"登录密码错误锁定账户:",
+                label3:"登录密码错误锁定时长:",
+                selectedId1:'',
+                selectedId2:'',
+                selectedId3:'',
+                disable:false,
+                panelMaxHeight:"200px",
+                panelWidth:'190px',
+                options1:'',
+                options2:'',
+                options3:'',
+                change1:function(option){
 
                 },
-                {
-                    "system_session":"fdafhhgj",
-                    "system_token":"langfang",
-                    "system_pwPeriod":"2017-12-12"
+                change2:function(option){
+
+                },
+                change3:function(option){
+
                 }
-            ];
+            }
 
 
-            $scope.emailData = { // 表格源数据，开发者对表格的数据设置请在这里进行
-                data: srcData, // 源数据
-                state: {
-                    filter: false, // 源数据未进行过滤处理
-                    sort: false, // 源数据未进行排序处理
-                    pagination: false // 源数据未进行分页处理
-                }
-            };
-
-
-            $scope.emailColumns = [
-                {
-                    title: "session",
-                    width: "20%"
-                },
-                {
-                    title: "token",
-                    width: "20%"
-                },
-                {
-                    title: "密码有效期",
-                    width: "20%"
-                },
-                {
-                    title: "操作",
-                    width: "20%"
-                }
-            ];
 
 
 

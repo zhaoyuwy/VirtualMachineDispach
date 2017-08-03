@@ -6,12 +6,11 @@ define([
     var ctrl = ["$scope", "$rootScope", "$compile", "$location", "$timeout", "getCurrentDayServe", "adminInfoCollectionServe",
         function($scope, $rootScope, $compile, $location, $timeout, getCurrentDayServe, adminInfoCollectionServe) {
             $scope.i18n = i18n;
-            //把从自定义服务传值，传过来的赋值给……
 
-
-            var approvalAllData = JSON.parse(sessionStorage.getItem("admin_approvalAllData"));//重新转换为JSON对象
-            var token = sessionStorage.getItem("meeting_token");
-            // 页面加载时，防止用户点击浏览器的前进和后退带来的影响
+            //var approvalAllData = JSON.parse(sessionStorage.getItem("admin_approvalAllData"));//重新转换为JSON对象
+            //
+            //var token = sessionStorage.getItem("meeting_token");
+            // 页面加载时，防止用户点击浏览器的前进和后退 或者刷新出现的问题
             $rootScope.menus = {
                 url: "src/app/framework/views/menus.html"
             };
@@ -20,13 +19,25 @@ define([
             };
 
 
+            $scope.$on("$viewContentLoaded", function () { //页面渲染完成执行的函数  类似于$(function(){}),或者$(document).ready()函数
+                initRoles(); //定义一个初始化函数
+            });
+
+            function initRoles(){}
+
+
 
             $scope.alertInfo = {  //提示信息
+                    contentNullError:false,
+                    type:"error",
+                    content:""
+                };
+
+            $scope.alertResponse = {  //提示信息
                 contentNullError:false,
-                type:"error",
+                type:"success",
                 content:""
             };
-
 
             //定义一个空数组，用于树节点复选选中插入
             var treeSiteChecked = [];
@@ -51,25 +62,29 @@ define([
                 }
             };
 
+
             //默认是的第一个子页面 即 infoStep0
-            $scope.alertInfo.content= "请选择需要收集信息的局点或区域，选择完成，请点击'下一步'";
+            $scope.alertInfo.content= "信息收集：对当前所配置的环境信息，所有的CAN，VM使用率(CPU，内存)进行查看任务的创建，任务结果会在主机资源查看中显示，并发送主机信息报告到管理员邮箱中。";
             $scope.alertInfo.contentNullError =true;
 
 
             $scope.currentStep = 1;
-            $scope.steps = [{
-                state:"active",
-                title:"选择局点或区域",
-                templateUrl:"src/app/business/hostManger/userAdmin/views/include/infoStep0.html"
-            },{
-                state:"undo",
-                title:"参数配置",
-                templateUrl:"src/app/business/hostManger/userAdmin/views/include/infoStep1.html"
-            },{
-                state:"undo",
-                title:"下发",
-                templateUrl:"src/app/business/hostManger/userAdmin/views/include/infoStep2.html"
-            }];
+            $scope.steps = [
+                {
+                    state:"active",
+                    title:"选择局点或区域",
+                    templateUrl:"src/app/business/hostManger/userAdmin/views/include/infoStep0.html"
+                },
+                {
+                    state:"undo",
+                    title:"参数配置",
+                    templateUrl:"src/app/business/hostManger/userAdmin/views/include/infoStep1.html"
+                },
+                {
+                    state:"undo",
+                    title:"下发",
+                    templateUrl:"src/app/business/hostManger/userAdmin/views/include/infoStep2.html"
+                }];
             $scope.infoStepModel = {
                 previousTxt:"上一步",
                 nextTxt:"下一步",
@@ -150,26 +165,14 @@ define([
                 $scope.currentStep++;
                 $scope.steps[$scope.currentStep-1].state = "active";
             };
+            //上一步
             $scope.stepBackward = function() {
                 $scope.steps[$scope.currentStep-1].state = "undo";
                 $scope.currentStep--;
                 $scope.steps[$scope.currentStep-1].state = "active";
             };
+            //完成
             $scope.finish = function() {
-
-
-                //for(var i= 0;i<$scope.infoCollectionData.data.length; i++){
-                //    var result = $scope.infoCollectionData.data[i].evName;
-                //
-                //    for(var j= 1;j<$scope.infoCollectionData.data.length;j++){
-                //       if(result==$scope.infoCollectionData.data[j].evName){
-                //
-                //       }
-                //    }
-                //}
-
-
-
                 var map = {}, dest = [];
                 for(var i = 0; i < $scope.infoCollectionData.data.length; i++){
                     var ai = $scope.infoCollectionData.data[i];
@@ -207,11 +210,20 @@ define([
                         promise.then(function(response){
                                     //console.log(response);
                                 if(response.status== 200){
-                                    alert("信息收集成功下发！");
+                                    //alert("信息收集成功下发！");
+                                    $scope.alertResponse = {  //提示信息
+                                        contentNullError:true,
+                                        type:"success",
+                                        content:"信息收集成功下发!"
+                                    };
                                 }
                             },
                             function(response){
-                                alert(response.msg);
+                                $scope.alertResponse = {  //提示信息
+                                    contentNullError:true,
+                                    type:"error",
+                                    content:"信息收集成功下发!"
+                                };
                             });
                     }
                 };
@@ -221,7 +233,7 @@ define([
             };
 
 
-            /*tree start*/
+
             /*** tree start ***/
 
             var setting = {
@@ -335,11 +347,15 @@ define([
                    // console.log(event);//元素的jq对象
 
                 if(treeNode.nodeType == 'point'){  //点击二级子节点
-
                     if(treeNode.checked == true){
                         treeSiteChecked.push(treeNode);
                     }else if(treeNode.checked == false){
-                        treeSiteChecked.remove(treeNode);
+                        treeSiteChecked.forEach(function(value,index,arr){
+                           if(value.id == treeNode.id){
+                               treeSiteChecked.splice(index,1);
+                           }
+                        });
+                        //treeSiteChecked.remove(treeNode);
                     }
                 }else  if(treeNode.nodeType == 'City') {   //点击一级子节点
                     if(treeNode.checked == true) {
@@ -347,7 +363,7 @@ define([
                         if(treeSiteChecked.length>0){  //开始为空数组，用于树节点复选选中插入
                             treeSiteChecked.forEach(function(value,index,arr){
                                 treeNode.children.forEach(function(value1,index1,arr1){
-                                    if(value1 ==value){
+                                    if(value1.id ==value.id){
                                         treeSiteChecked.splice(index,1); //有相同的删掉相同的对象
                                     }else{
                                         treeSiteChecked.push(value1);//没相同的就push
@@ -362,13 +378,13 @@ define([
                     }else {
                         // 当选择为false时，treeSiteChecked长度不可能<0
                         treeNode.children.forEach(function(value1,index1,arr1){ //注意这里两个循环不能写反，否则只能删掉一个
-                            var keyVal = value1;
+                            var keyVal = value1.id; //不能直接比较对象本身，对象本身他们的字段不完全对等，应该比较的是id；应为
                             treeSiteChecked.forEach(function(value,index,arr){
-                                if(keyVal ==value){
+                                if(keyVal ==value.id){
                                     treeSiteChecked.splice(index,1);
                                 }
                             })
-                        })
+                        });
 
                     }
                 }else if(treeNode.nodeType == 'business'){  //如果选择的是根节点，即 节点信息复选框
@@ -393,9 +409,9 @@ define([
             //    console.log(click);//元素的jq对象
             //}
 
-
-
             /*tree end*/
+
+
 
            /*第二个子页面*/
             /*时间轴 start*/
@@ -573,7 +589,8 @@ define([
                     title: "选择时间",
                     width: "15%"
                 }
-            ]
+            ];
+
 
 
 

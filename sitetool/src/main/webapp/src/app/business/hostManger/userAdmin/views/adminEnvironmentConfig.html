@@ -21,6 +21,9 @@
         margin-right: auto;
         margin-top: 30px;
     }
+    .ti-tooltip-right-top{
+        z-index:10000;
+    }
 </style>
 <div id="myTabs" class="tiny-tabs-container" >
     <div class="tiny-tabs-content">
@@ -37,15 +40,15 @@
                     </div>
 
 
-                    <div class="mainTitle page-header" style="text-align:center;">{{list}}</div>
+                    <div class="mainTitle page-header" style="text-align:center;">{{i18n.environmentConfigPage}}</div>
                     <div style="margin-bottom: 20px;">
-                        <button  type="button" class="ti-btn-primary openWindow" ti-button>添加环境</button>
+                        <button  type="button" class="ti-btn-primary openWindow" ti-button>{{i18n.addEnvironment}}</button>
                     </div>
                     <div style="margin-bottom: 10px;float: right;">
                         <span  class="" >{{i18n.evSiteTotalHead}} &nbsp;<a style="color:#007486;font-size:14px;">{{environmentTotal}}</a>&nbsp;&nbsp;{{i18n.evSiteTotalAfter}}</span>
                     </div>
 
-                    <ti-table class="containerStyle" displayed-data="environmentData.data" src-data="environmentData" columns="environmentColumns">
+                    <ti-table class="containerStyle" displayed-data="environmentData.displayed" src-data="environmentData" columns="environmentColumns">
                         <table>
                             <thead>
                             <tr>
@@ -53,7 +56,7 @@
                             </tr>
                             </thead>
                             <tbody ng-if="environmentData.data.length > 0">
-                                <tr ng-repeat-start="you in environmentData.data">
+                                <tr ng-repeat-start="you in environmentData.displayed">
                                     <td>
                                         <span class="ti-table-tree" ng-click="you.showSub =!you.showSub" ng-if="you.siteModels !== undefined">
                                                <i class="ti-icon" ng-class="{'ti-icon-plus-square':!you.showSub, 'ti-icon-minus-square': you.showSub}"></i>
@@ -65,9 +68,9 @@
                                     <td></td>
                                     <td></td>
                                     <td>
-                                        <a  style="margin-right:30px;" title="添加节点" ng-click="addSiteFtn($index)"><span>添加节点</span></a>
-                                        <a style="margin-right:30px;" title="编辑节点"><span>编辑节点</span></a>
-                                        <a title="删除节点"><span>删除节点</span></a>
+                                        <a  style="margin-right:30px;" title="{{i18n.addSite}}" ng-click="addSiteFtn($index)"><span>{{i18n.addSite}}</span></a>
+                                        <a style="margin-right:30px;" title="{{i18n.editSite}}"><span>{{i18n.editSite}}</span></a>
+                                        <a title="{{i18n.deleteSite}}" ng-click="evDelete(you.evName,you.siteModels,$index)"><span>{{i18n.deleteSite}}</span></a>
                                     </td>
                                 </tr>
                                 <tr ng-repeat-start="son in you.siteModels" ng-if="you.showSub">
@@ -87,8 +90,8 @@
                                     </td>
                                     <td>
                                         <a style="margin-right:30px;"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
-                                        <a style="margin-right:30px;" title="编辑节点" ng-click="EditSite(you.evName,son.siteRegionName,son.siteRegion,son.siteLoginUser,son.siteLoginIp)"><span>编辑节点</span></a>
-                                        <a title="删除节点"><span>删除节点</span></a>
+                                        <a style="margin-right:30px;" title="{{i18n.editSite}}" ng-click="EditSite(you.evName,son.siteRegionName,son.siteRegion,son.siteLoginUser,son.siteLoginIp)"><span>{{i18n.editSite}}</span></a>
+                                        <a title="{{i18n.deleteSite}}" ng-click="openDelete(you.evName,$index,son.siteRegionName,son.siteRegion,son.siteLoginUser,son.siteLoginIp)"><span>{{i18n.deleteSite}}</span></a>
                                     </td>
                                 </tr>
                                 <tr ng-repeat-end ng-if="false">
@@ -112,9 +115,12 @@
 
 
 
-                            <tiny-pagination ng-if="pagingModel.totalRecords >5" id="pagingModel.id" type="pagingModel.type" total-records="pagingModel.totalRecords"
-                                             hide-display-length="pagingModel.hideDisplayLength" display-length="pagingModel.displayLength" callback="pagingModel.callback"
-                                             ></tiny-pagination>
+                            <!--<tiny-pagination ng-if="pagingModel.totalRecords >5" id="pagingModel.id" type="pagingModel.type" total-records="pagingModel.totalRecords"-->
+                                             <!--hide-display-length="pagingModel.hideDisplayLength" display-length="pagingModel.displayLength" callback="pagingModel.callback">-->
+                            <!--</tiny-pagination>-->
+
+
+                        <ti-pagination current-page="pagingModel.currentPage" total-items="pagingModel.totalItems" page-size="pagingModel.pageSize"></ti-pagination>
 
                     </ti-table>
 
