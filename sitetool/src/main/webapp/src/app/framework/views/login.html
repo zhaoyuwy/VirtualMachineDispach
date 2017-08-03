@@ -11,58 +11,71 @@
                     <p><img src="theme/default/images/hwlogo.png" alt=""> <span style="color: #00adf5" ng-bind="i18n.hecmanger_projiect"></span> <span ng-bind="i18n.hecmanger_sys"></span></p>
                 </div>
                 <div class="col-sm-offset-8 i18nBtn">
-                    <a>English</a>
+                    <div class="dropup pull-left">
+                        <a class="console-footer-btn dropdown-toggle console-footer-btn-dropdown" data-toggle="dropdown">
+                            <span class="hwsicon-frame-image-footer-earth"></span>
+                            <span class="padding-left-25" ng-bind="languageName"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-language common-dropdown-menu common-font-size-common">
+                            <li ng-repeat="languageArr in supportLanguage" ng-if="languageArr[0] !== language">
+                                <a target="_self" ng-click="changeLanguage(languageArr[0])">
+                                    <span ng-bind="languageArr[1]"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 
-            <img id="pageImg" ng-src="theme/default/images/login_poster.png">
+            <img id="pageImg" ng-src="{{pic_loading}}">
 
             <div class="hec-pull-right col-sm-offset-8">
-                <div class="font18 lheight_40 ng-binding userLoginLabel" ng-bind="i18n.hecmanger_loginLabel"> </div>
+                <div class="font18 lheight_40 ng-binding userLoginLabel" ng-bind="i18n.hecmanger_loginLabel"></div>
                 <div class="loginLine lineEn">
                     <hr>
                 </div>
 
-                <form action="#"   ng-cloak>
-                    <ti-formfield vertical-align="fieldVertivalAlign">
+                <form action="#"  ng-cloak>
+                    <ti-formfield  class="user_logo" vertical-align="fieldVertivalAlign">
                         <ti-item label="userNameItem.label" required="userNameItem.required" vertical-align="itemVerticalAlign">
                             <input id='tiny-text'
                                    type="text"
                                    ng-model="userNameItem.value"
-                                   placeholder="请输入用户名"
+                                   placeholder="{{i18n.input_userName}}"
                                    style="width:189px;height:34px;"
                                    autofocus
                                    ti-text/>
                         </ti-item>
                     </ti-formfield>
-                    <ti-formfield vertical-align="fieldVertivalAlign">
-                        <ti-item required="passWordItem.required">
-                            <ti-item-label>{{passWordItem.label}}&nbsp;&nbsp;&nbsp;</ti-item-label>
+                    <ti-formfield  class="user_logo" vertical-align="fieldVertivalAlign">
+                        <ti-item  required="passWordItem.required" vertical-align="itemVerticalAlign">
+                            <ti-item-label>{{passWordItem.label}}</ti-item-label>
                             <input id='tiny-password'
                                    type="password"
                                    ng-keyup="myKeyup($event)"
-                                   placeholder="请输入用户密码"
+                                   placeholder="{{i18n.input_userPassword}}"
                                    ng-model="passWordItem.value"
                                    style="width:189px;height:34px;"
                                    ti-text />
                         </ti-item>
                     </ti-formfield>
-                    <ti-formfield vertical-align="fieldVertivalAlign">
-                        <ti-item >
-                            <ti-item-label>{{userItem.label}}</ti-item-label>
-                            <input type="radio" ng-model="userItem.userType" value="普通用户"
-                                   ti-radio="userItem.commonUser"/>
-                            <span style="padding-right: 48px;"></span>
-                            <input type="radio" ng-model="userItem.userType" value="管理用户"
-                                   ti-radio="userItem.adminUser"/>
-                        </ti-item>
-                    </ti-formfield>
-                    <ti-formfield vertical-align="fieldVertivalAlign">
-                        <ti-btn-item>
-                            <button  class="form-button" type="button" ti-button ng-click="hecLogin()">{{HECPASS_button.okLabel}}</button>
-
-                        </ti-btn-item>
-                    </ti-formfield>
+                    <div  class ="{{form_language}}">
+                        <ti-formfield vertical-align="fieldVertivalAlign">
+                            <ti-item >
+                                <ti-item-label>{{userItem.label}}</ti-item-label>
+                                <input type="radio" ng-model="userItem.userType" value="{{i18n.Average_user}}"
+                                       ti-radio="userItem.commonUser"/>
+                                <span style="padding-right: 48px;"></span>
+                                <input type="radio" ng-model="userItem.userType" value="{{i18n.Managing_users}}"
+                                       ti-radio="userItem.adminUser"/>
+                            </ti-item>
+                        </ti-formfield>
+                        <ti-formfield vertical-align="fieldVertivalAlign">
+                            <ti-btn-item>
+                                <button  class="form-button" type="button" ti-button ng-click="hecLogin()">{{HECPASS_button.okLabel}}</button>
+                            </ti-btn-item>
+                        </ti-formfield>
+                    </div>
                 </form>
             </div>
         </div>

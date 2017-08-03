@@ -10,32 +10,46 @@ define(["language/inventory"], function (i18n) {
         $scope.fieldVertivalAlign = "middle";
         $scope.itemVerticalAlign = "middle";
         $scope.userNameItem = {
-            label: "用户名:",
+            label: i18n.userName,
             required: true,
             value: ""
         };
         $scope.passWordItem = {
-            label: "密码:",
+            label: i18n.password,
             required: true
         };
 
         $scope.userItem = {
             label: "",
-            userType: "普通用户",  //代表着单选中的值
-            defaultSelected: "普通用户",
-            adminUser: "管理用户",
-            commonUser:"普通用户",
+            userType:i18n.Average_user,  //代表着单选中的值
+            defaultSelected: i18n.Average_user,
+            adminUser: i18n.Managing_users,
+            commonUser:i18n.Average_user,
             required: true
         };
 
         $scope.HECPASS_button = {
-            okLabel: "登 录"
+            okLabel: i18n.Sign_in
         };
 
         // 页面加载时，防止用户点击浏览器的前进和后退带来的影响
         $rootScope.menus = {};
         $rootScope.footer = {};
 
+
+
+        console.log($rootScope.supportLanguage);
+        console.log($rootScope.language);
+        console.log($rootScope.languageName);
+
+        if($rootScope.language === 'zh-cn'){ // 判断使用了哪国的语言
+            $scope.pic_loading = 'theme/default/images/login_poster_zh.png'
+            $scope.form_language = "form_table form_offset_zh";
+
+        }else if($rootScope.language === 'en-us'){
+            $scope.pic_loading = 'theme/default/images/login_poster_en.png'
+            $scope.form_language = "form_table form_offset_en";
+        }
 
         //按回车键执行函数
 
@@ -49,9 +63,10 @@ define(["language/inventory"], function (i18n) {
         };
 
 
+
         $scope.hecLogin = function(){
 
-            if($scope.userItem.userType=="普通用户"){
+            if($scope.userItem.userType==i18n.Average_user){ //是否为普通用户
                 $scope.hostUserType = "0";
             }else{
                 $scope.hostUserType = "1";
@@ -63,11 +78,11 @@ define(["language/inventory"], function (i18n) {
             };
 
             if($scope.userNameItem.value == ''){
-                alert("请输入用户名");
+                alert(i18n.input_userName);
                 return;
             }
             if($scope.passWordItem.value == ''){
-                alert("请输入密码");
+                alert(i18n.input_userPassword);
                 return
             }
             var str = JSON.stringify(HECPASSInfo);
@@ -124,7 +139,7 @@ define(["language/inventory"], function (i18n) {
 
                         },
                         function(response){
-                          alert("输入的用户名或密码有误！");
+                          alert(i18n.input_error);
                         });
                 }
             };

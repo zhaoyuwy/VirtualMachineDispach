@@ -1,32 +1,32 @@
 ﻿define([], function () {
     "use strict";
     var inventory = {
-            "hostManger_summary":"主机管理系统平台",
+            "hostManger_summary":"host Management",
 
             /*主机管理系统 登录页面start*/
-            "hecmanger_loginLabel":"FC主机 管理系统",
-            "hecmanger_projiect":"FC主机",
-            "hecmanger_sys":"管理系统",
+            "hecmanger_loginLabel":"FC host MS",
+            "hecmanger_projiect":"FC host",
+            "hecmanger_sys":"management system",
 
 
-            'userName':"用户名:",
-            "password":"密码:",
-            "Average_user":"普通用户", //普通用户
-            "Managing_users":"管理用户", //管理用户
-            "Sign_in":"登录",
-            "input_userName":"请输入用户名",//请输入用户名
-            "input_userPassword":"请输入用户密码",
-            "input_error":"输入的用户名或者密码有误！",//输入的用户名或密码有误
+            'userName':"userName:",
+            "password":"Password:",
+            "Average_user":"Average", //普通用户
+            "Managing_users":"Managing", //管理用户
+            "Sign_in":"Sign in",
+            "input_userName":"Please input user name",//请输入用户名
+            "input_userPassword":"Please input user password",
+            "input_error":"input Username or password error!",//输入的用户名或密码有误
 
 
             /*主机管理系统  登录页面end*/
 
 
             /*主机管理系统 顶部导航start*/
-            "virtualMachine_apply":"虚拟机申请",
-            "hostResource_check":"资源查看",
-            "info_collection":"信息收集",
-            "system_manger":"系统管理",
+            "virtualMachine_apply":"virtualMachine_apply",
+            "hostResource_check":"resource_check",
+            "info_collection":"info_collection",
+            "system_manger":"system_manger",
 
             /*主机管理系统 顶部导航end*/
 
@@ -43,7 +43,7 @@
 
 
 
-       /*环境配置页面 start*/
+           /*环境配置页面 start*/
             "environmentConfigPage":"环境配置页面",
             "addEnvironment":"添加环境",
             "addSite":"添加节点",
@@ -63,19 +63,19 @@
             "siteAlertInfo":"请输入添加环境字段的信息",
             "confirmDeleteSite":"确定删除该节点信息?",
             "confirmDeleteEv":"确定删除该环境?",
-        /*环境配置页面 end*/
+            /*环境配置页面 end*/
 
 
-        /*邮件配置页面 start */
+            /*邮件配置页面 start */
 
-        emailCongfigpage:"邮件配置页面",
-        /*邮件配置页面 end */
+            emailCongfigpage:"邮件配置页面",
+            /*邮件配置页面 end */
 
-        /*阈值配置页面 start */
-        thresholdConfigpage:"阈值配置页面",
-        /*阈值配置页面 end */
+            /*阈值配置页面 start */
+            thresholdConfigpage:"阈值配置页面",
+            /*阈值配置页面 end */
 
-        systemConfigpage:'系统配置页面'
+            systemConfigpage:'系统配置页面'
 };
     return inventory
 });
