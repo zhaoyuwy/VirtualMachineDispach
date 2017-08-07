@@ -27,7 +27,7 @@
 
 .tiny-layout-west {
     margin: 0;
-    width: 200px;
+    width: 210px;
     box-shadow: 0 0 0 rgba(0, 0, 0, 0.2);
     padding-bottom: 30px;
     border-left: 1px solid #e5e5e5;
@@ -111,9 +111,29 @@
 .tiny-layout-west li.leftMenuTitle .icons-dmk_logo:before {
     font-size: 48px;
 }
-.icons-imageconsole:before {
-    font-size: 48px;
+.icons-imageconsole{
+    display: inline-block;
+    font-size:60px;
+    text-align: center;
+    position: relative;
+    margin-right: 24px;
+    margin-top: 15px;
 }
+.icons-imageconsole span{
+    float:right;
+
+
+}
+.icons-imageconsole span:nth-child(2),.icons-imageconsole span:nth-child(3){
+    position: relative;
+    left:60px;
+
+}
+.icons-imageconsole:before {
+
+}
+
+
 .tiny-layout-west .leftMenuTitle .ecm-icon {
     display: inline-block;
     border: 1px solid #e5e5e5;
@@ -483,7 +503,7 @@
     font-size: 22px;
     line-height: 22px;
     float: left;
-    padding-right: 10px;
+    /*padding-right: 10px;*/
 }
 
 .border-black {

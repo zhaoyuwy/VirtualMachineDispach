@@ -99,7 +99,6 @@ define([
                         $scope.alertInfo.contentNullError =true;
                         return;
                     }else {
-                        //console.log(treeSiteChecked);
                         $scope.groups = [];
                         treeSiteChecked.forEach(function(value,index,arr){
                             var groupsOption ={
@@ -133,6 +132,16 @@ define([
                        $scope.alertInfo.contentNullError =true;
                        return;
                    }
+
+                    if( $scope.infoCollection.selectedId2 == '1'){
+                        $scope.infoSelectOption3.forEach(function(value, index, arr) {
+                            $scope.infoSelectOption3.forEach(function (value, index, arr) {
+                                if (Number(value) > 6) {
+                                    arr.splice(index, 1)
+                                }
+                            })
+                        })
+                    }
                     var sendTableData = [];
                     //先把时间多选的数据，全部拼接好
                     //console.log($scope.infoSelectOption3);
@@ -140,7 +149,6 @@ define([
                     for(var i = 1;i<$scope.infoSelectOption3.length;i++){
                         initTimeOption = initTimeOption+','+$scope.infoSelectOption3[i];
                     }
-
 
                     treeSiteChecked.forEach(function(value,index,arr){
                         var sendTableOption ={
@@ -172,45 +180,52 @@ define([
                 $scope.steps[$scope.currentStep-1].state = "active";
             };
             //完成
-            $scope.finish = function() {
-                var map = {}, dest = [];
-                for(var i = 0; i < $scope.infoCollectionData.data.length; i++){
-                    var ai = $scope.infoCollectionData.data[i];
-                    if(!map[ai.id]){
-                        dest.push({
-                            evName: ai.evName,
-                            siteNum:'',
-                            sites: [ai]
+            $scope.finish = function(){
+                var regions = [];
 
-                        });
-                        map[ai.id] = ai;
-                    }else{
-                        for(var j = 0; j < dest.length; j++){
-                            var dj = dest[j];
-                            if(dj.id == ai.id){
-                                dj.sites.push(ai);
-                                break;
-                            }
-                        }
+                _.each($scope.infoCollectionData.data,function(element, index, list){
+                    var option = {};
+                    var total = 0;
+
+                    if(regions.length != 0){
+                        //即已经push了对象进去
+                        regions.forEach(function(value, index, arr){
+                           if( arr[index].evName == element.evName){ //当evName相同的时候，就往改对象的 sites的数组中加一个
+                               arr[index].siteNum++;
+                               arr[index].sites.push(element)
+                           }else{
+                               //当evName,不等于的时候,设置一个变量，用来记录的比较的次数，当regions里面的元素都比较完了一遍，再执行往该对象里面push一个兄弟对象
+                               total++;
+                               if(regions.length == total){
+                                   option ={
+                                       evName:element.evName,
+                                       siteNum:1,
+                                       sites:[element]
+                                   };
+                                   regions.push(option);
+                               }
+                           }
+                        })
+                    }else{  //即没有push 对象进去，就是直接装进去
+                        option ={
+                            evName:element.evName,
+                            siteNum:1,
+                            sites:[element]   //sites是数组
+                        };
+                        regions.push(option);
                     }
-                }
-
-                dest.forEach(function(value,index,arr){
-                    arr[index].siteNum =  arr[index].sites.length;
                 });
+
 
                 var str = {
                     "total": 1,
-                    "tasks": [{"regions": dest}]
+                    "tasks": [{"regions": regions}]
                 };
-
                 $scope.postInfoOption ={
                     "postData": function(){
                         var  promise = adminInfoCollectionServe.postInfoCollection(str);
                         promise.then(function(response){
-                                    //console.log(response);
                                 if(response.status== 200){
-                                    //alert("信息收集成功下发！");
                                     $scope.alertResponse = {  //提示信息
                                         contentNullError:true,
                                         type:"success",
@@ -311,7 +326,6 @@ define([
                                     if(JSON.stringify(array[index].siteModels)!='[]'){ //数组不为空对象
                                         array[index].siteModels.forEach(function(value1,index1,array1){
                                             //累加的id的值
-
                                             var treeGrandSon ={
                                                 "id":listTree.length+index1+1,
                                                 "name": array1[index1].siteRegion+'_'+array1[index1].siteLoginIp,
@@ -523,13 +537,14 @@ define([
                    $scope.infoSelectOption2 = option;
                     if(option.type == 0){
                         $scope.infoCollection.options3 = infoOption31;
+
                     }else{
                         $scope.infoCollection.options3 = infoOption32;
+
                     }
                 },
                 change3:function(option){
                     $scope.infoSelectOption3 = option;
-                    //console.log($scope.infoSelectOption3);
                 },
                 change4:function(option){
                     $scope.infoSelectOption4 = option;

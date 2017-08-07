@@ -32,6 +32,7 @@
 
 
            /*系统管理页面 start*/
+            "project_version":"版本号:v1.0.0",
             "environmentConfig":"环境配置",
             "emailConfig":"邮件配置",
             "thresholdConfig":"阈值配置",

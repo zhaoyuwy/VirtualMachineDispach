@@ -13,8 +13,15 @@
         <div class="tiny-layout-west">
             <ul>
                 <li class="leftMenuTitle">
-                    <span class="icons-imageconsole"></span>
-                    <div class="font18 lheight_40 ng-binding" ng-bind="i18n.hostManger_summary"></div>
+                    <span  style="" class="oac-OpsAutoChange_icon icons-imageconsole">
+                        <span class="path1"></span>
+                        <span class="path2"></span>
+                        <span class="path3"></span>
+                    </span>
+                    <!--<div class="font18 lheight_40 ng-binding" ng-bind="i18n.hostManger_summary"></div>-->
+                    <div style="margin-top: 10px;margin-bottom: 15px;text-align: center;margin-right: 24px;">
+                        <span ng-bind="i18n.project_version"></span>
+                    </div>
                 </li>
                 <li ng-repeat="m1 in leftMenu.children">
                     <div class="tiny-layout-head" ng-if="m1.children && m1.children.length" ui-sref="{{m1.state}}"
@@ -26,7 +33,7 @@
                        ng-bind="m1.text"></a>
                     <ul ng-if="m1.children && m1.children.length" class="sideMenu_two">
                         <li ng-repeat="m2 in m1.children">
-                            <a ui-sref="{{m2.state}}" ng-bind="m2.text"></a>
+                            <a ui-sref="{{m2.state}}" ng-bind="m2.text" ng-class="m2.icons"></a>
                         </li>
                     </ul>
                 </li>

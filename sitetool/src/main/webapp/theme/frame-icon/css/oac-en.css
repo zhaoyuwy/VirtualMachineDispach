@@ -1,0 +1,368 @@
+.mt10{
+    margin-top: 20px;
+}
+.mb10{margin-bottom: 10px;}
+
+
+/*左右信息展示 start*/
+.column-exe{
+    padding-right:172px;
+    padding-left: 0px;
+}
+
+.info-left{
+    width: 180px;
+    float: left;
+    margin-top: 10px;
+    font-size:12px;
+    color: #666;
+}
+
+.info-right{
+    float:left;
+    margin-top:10px;
+    font-size:12px;
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /*min-width:200px;*/
+    width:calc(100% - 180px);
+}
+/*左右信息展示 end*/
+
+.containerStyle {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    /*margin-top: 10px;*/
+}
+
+.link ,.a-link{
+    cursor: pointer;
+    margin-right: 10px;
+}
+.link{
+    color: #0af;
+    float: left;
+}
+.link:hover{
+    color: #0af;
+    text-decoration:underline;
+}
+a:focus{
+    color: #0af;
+}
+.a-link{
+    font-size: 14px;
+    margin-left: 4px;
+}
+.a-link:hover{
+    color: #0af;
+    text-decoration: none;
+}
+
+/*标题 start*/
+.title {
+    font-size: 18px;
+    text-align: left;
+    border-bottom: 1px solid lightgrey;
+    /*margin-bottom: 10px;*/
+    line-height: 18px;
+}
+
+.title-container{
+    margin-bottom: 10px;
+    padding-bottom: 14px;
+}
+/*标题 end*/
+
+.menu-hwsicon-frame-user-head {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    /*top: -27px;*/
+    margin-right: 5px;
+}
+
+#tiny-menu{
+    line-height:30px;
+}
+
+/**中英文切换 start*/
+#languageId button,#feedback{
+    padding: 0 15px;
+    background-color: #343434;
+    border-color: #343434;
+    border-radius: 20px;
+    color:#aaaaaa;
+    font-size: 14px;
+}
+
+#languageId button:hover,#feedback:hover{
+    background-color: #6c6c6c;
+    border-color: #6c6c6c;
+    color:#ffffff;
+}
+
+.triangle{
+    width: 0px;
+    height: 0px;
+    border-width: 0px 6px 6px 6px;
+    border-color: #6c6c6c transparent;
+    border-style: solid;
+    margin-left: 80px;
+    margin-top:5px;
+}
+
+.content{
+    background-color: #6c6c6c;
+    border-color: #6c6c6c;
+    color:#ffffff;
+    text-align: center;
+    font-size: 12px;
+    z-index:10000;
+    height:70px;
+    padding: 5px 0;
+}
+
+.lang-switch{
+    color:#fff;
+    background-color: #6c6c6c;
+    font-size: 14px;
+    height: 30px;
+}
+
+.lang-switch:hover{
+    color:#fff;
+    cursor: pointer;
+    background-color: #4b4b4b;
+}
+
+#languageId .ti-collapse-panel{
+    border-style: hidden;
+    background-color: #6c6c6c;
+}
+/**中英文切换 end*/
+
+.oac-icon{
+    font-size:60px;
+}
+
+#flowTreeId {
+    width:500px;
+}
+.config-add-modal{width: 410px}
+#config_value{
+    width:200px;
+    height:29px;
+    margin-right: 5px;
+}
+.margin-right10{  margin-right: 10px;}
+.margin-left50{  margin-left: 50px;}
+.margin-left100{  margin-left: 100px;}
+
+.ti-alert-position {
+    width:calc(100% - 290px);
+    position: fixed;
+    margin-top: -20px;
+}
+/*服务部署详情 start*/
+#deplyMtId {
+    position: absolute;
+    z-index:10000;
+    width:150px;
+    background-color:#ffffff;
+    border: 1px solid #d3d3d3;
+    padding:5px;
+    font-size:12px;
+}
+
+.sd-info {
+    font-size:12px;
+    color: #666;
+}
+
+.sd-info:hover{
+    cursor: pointer;
+}
+
+.sd-info-left{
+    margin-left:23px;
+    float:left;
+}
+
+#test .ti-collapse-panel {
+    min-height: 0px;
+    border-style: hidden;
+    padding: 0px;
+}
+/*服务部署详情 end*/
+
+/*流程编辑弹窗 start*/
+.popup-width-edflow{
+    width:630px;
+}
+
+#flowTreeId {
+    width:500px;
+}
+
+/*流程编辑弹窗 end*/
+
+/*面包屑 start*/
+.bread-container{
+    margin-bottom: 40px;
+}
+.bread-default{
+    font-size: 12px;
+    color:#999;
+}
+
+.bread-link{
+    color: #009ee0;
+    cursor: pointer;
+}
+/*面包屑 end*/
+
+/*刷新按钮 start*/
+.fresh-btn{
+    padding:0 8px;
+}
+/*刷新按钮 end*/
+/*作业 begin*/
+.job-label{
+    width: 80px;
+    vertical-align: top;
+}
+.CodeMirror{
+    display: inline-block;
+    width: 85%;
+}
+.job-remark{
+    width:400px;
+    min-height: 100px;
+}
+.required-form{
+    margin-right: 2px;
+    color: red;
+}
+.server-layout{
+    display: inline-block;
+    vertical-align: top;
+}
+.server-list{
+    width: 62%;
+    margin-left: 2%
+}
+.confirm-modal{  width: 820px;  }
+.param-modal{  width: 580px;  }
+.para-counter{  padding-left: 5px;  }
+.para-counter label{  width: 122px;  }
+.para-counter input{width: 200px;}
+.para-counter span{
+    color: #0af;
+    cursor: pointer;
+}
+.execute-job-detail{
+    display:inline-block;
+    width: 85%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    vertical-align: middle;
+}
+.small-adjust{
+    float: left;
+    margin-left: 6px;
+}
+.server-table-limit{
+    max-height: 497px;
+    overflow-y: auto;
+    display: block;
+}
+/*作业 end*/
+
+#gatewayTable .ti-details-tr>td,
+#JobDetailTable .ti-details-tr>td,
+#common_detail_table .ti-details-tr>td,
+#detailDeployTable .ti-details-tr>td{
+    padding: 20px 10px 20px 10px;
+}
+
+.config-text{
+    width: 90px;
+}
+
+/*升级 start*/
+
+.parallelPanel{
+    border:1px solid #f1f1f1;
+    width:calc(50% - 20px);
+    height: 76px;
+    padding:18px 20px 20px 20px;
+    color:#666;
+    border-radius: 2px;
+    margin-left:20px;
+    margin-top:20px;
+    float:left;
+    background: #f1f1f1 url("../../default/images/drag-shading-default.png") no-repeat right bottom;
+}
+
+.parallelPanel:hover{
+    border: 1px #009ee0 solid;
+}
+
+.parallelPanel:hover .config-node{
+    color: #009ee0;
+}
+
+.parallelPanelActive .config-node{
+    color: #ffffff;
+}
+
+.parallelPanelActive{
+    width:calc(50% - 20px);
+    height: 76px;
+    padding:18px 20px 20px 20px;
+    color:#fff;
+    border-radius: 2px;
+    margin-left:20px;
+    margin-top:20px;
+    float:left;
+    background: #009ee0 url("../../default/images/drag-shading-selected.png") no-repeat right bottom;
+}
+
+.editor-style{
+    width:98%;
+    min-height:600px;
+}
+.confirm-text{
+    display: inline-block;
+    width: 100px;
+    line-height: 32px;
+}
+/*升级 end*/
+
+.ti-leftmenu-head {
+    padding-bottom: 0px;
+    margin-bottom: 15px;
+    padding-left: 0px;
+    margin-left: 24px;
+    margin-right: 24px;
+}
+
+.tiny-framework-mask{
+    opacity: 0;
+}
+.tiny-framework-loading{
+    background: url("../../custom/img/loading_small.gif") no-repeat 50%;
+}
+.order-detail-progress{
+    display: inline-block;
+    width: 400px;
+    height: 6px;
+    margin: 16px 15px 18px 20px;
+}

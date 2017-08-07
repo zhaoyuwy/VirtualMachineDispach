@@ -17,33 +17,33 @@ define([ "language/inventory"], function (i18n) {
             navList.children = [
                                     {
                                         "text": i18n.virtualMachine_apply,
-                                        "icons":'icons-image',
+                                        "icons":'iconfont icon-11_6xunijishenqing',
                                         "state":"hostMangerTotal.commonApplyMachine"
                                     },
                                     {
                                         "text": i18n.system_manger,
-                                        "icons":'icons-image',
+                                        "icons":'iconfont icon-xitongguanli',
                                         //"state":"hostMangerTotal.commonSystemManger"
                                         "state":"hostMangerTotal.commonEnvironmentConfig",
                                         "children":[
                                             {
                                                 "text": i18n.environmentConfig,
-                                                "icons":'icons-image',
+                                                "icons":'iconfont icon-huanjingpeizhi',
                                                 "state":"hostMangerTotal.commonEnvironmentConfig"
                                             },
                                             {
                                                 "text": i18n.emailConfig,
-                                                "icons":'icons-image',
+                                                "icons":'iconfont icon-Mail-configuration',
                                                 "state":"hostMangerTotal.commonEmailConfig"
                                             },
                                             {
                                                 "text": i18n.thresholdConfig,
-                                                "icons":'icons-image',
+                                                "icons":'iconfont icon-42yuzhishezhi',
                                                 "state":"hostMangerTotal.commonThresholdConfig"
                                             },
                                             {
                                                 "text": i18n.systemConfig,
-                                                "icons":'icons-image',
+                                                "icons":'iconfont icon-xitongpeizhi',
                                                 "state":"hostMangerTotal.commonSystemConfig"
                                             }
                                         ]
@@ -53,43 +53,43 @@ define([ "language/inventory"], function (i18n) {
             navList.children = [
                                     {
                                         "text": i18n.hostResource_check,
-                                        "icons":'icons-image',
+                                        "icons":'iconfont icon-chakanmeitiziyuan',
                                         "state":"hostMangerTotal.adminApplyMachine"
                                     },
                                     {
                                         "text": i18n.virtualMachine_apply,
-                                        "icons":'icons-image',
+                                        "icons":'iconfont icon-11_6xunijishenqing',
                                         "state":"hostMangerTotal.adminApplyVirtual"   //虚拟机申请
                                     },
                                     {
                                         "text": i18n.info_collection,
-                                        "icons":'icons-image',
+                                        "icons":'iconfont icon-xinxishouji',
                                         "state":"hostMangerTotal.adminInfoCollection"
                                     },
                                     {
                                         "text": i18n.system_manger,
-                                        "icons":'icons-image',
+                                        "icons":'iconfont icon-xitongguanli',
                                         //"state":"hostMangerTotal.adminSystemManger",
                                         "state":"hostMangerTotal.adminEnvironmentConfig",
                                         "children":[
                                             {
                                                 "text": i18n.environmentConfig,
-                                                "icons":'icons-image',
+                                                "icons":'iconfont icon-huanjingpeizhi',
                                                 "state":"hostMangerTotal.adminEnvironmentConfig"
                                             },
                                             {
                                                 "text": i18n.emailConfig,
-                                                "icons":'icons-image',
+                                                "icons":'iconfont icon-Mail-configuration',
                                                 "state":"hostMangerTotal.adminEmailConfig"
                                             },
                                             {
                                                 "text": i18n.thresholdConfig,
-                                                "icons":'icons-image',
+                                                "icons":'iconfont icon-42yuzhishezhi',
                                                 "state":"hostMangerTotal.adminThresholdConfig"
                                             },
                                             {
                                                 "text": i18n.systemConfig,
-                                                "icons":'icons-image',
+                                                "icons":'iconfont icon-xitongpeizhi',
                                                 "state":"hostMangerTotal.adminSystemConfig"
                                             }
                                         ]

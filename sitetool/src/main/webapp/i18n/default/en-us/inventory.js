@@ -32,10 +32,11 @@
 
 
            /*系统管理页面 start*/
-            "environmentConfig":"环境配置",
-            "emailConfig":"邮件配置",
-            "thresholdConfig":"阈值配置",
-            "systemConfig":"系统配置",
+            "project_version":"version:v1.0.0",
+            "environmentConfig":"environmentConfig",
+            "emailConfig":"emailConfig",
+            "thresholdConfig":"thresholdConfig",
+            "systemConfig":"systemConfig",
 
             "evSiteTotalHead":"环境节点总共",
             "evSiteTotalAfter":"条",

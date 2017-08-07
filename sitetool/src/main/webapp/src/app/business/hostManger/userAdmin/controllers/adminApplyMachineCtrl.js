@@ -138,125 +138,143 @@ define([
 
 
 
-            //环形图1
-            $scope.quanCharts1 = {};
-            $scope.quanCharts1.options = {
-                id: "firstItem",
-                title : {
-                    text: 'cpu使用率',
-                    subtext: '',
-                    x:'center'
-                },
-                tooltip : {
-                    trigger: 'item',
-                    formatter: "{a} <br/>{b} : {c} ({d}%)"
-                },
-                legend: {
-                    orient : 'vertical',
-                    x : 'right',
-                    y: 'center',
-                    data:["未使用","使用中"]  //这和下面33% 67% 要对应好否则显示的图 颜色不好看
-                },
-                toolbox: {  //工具箱
-                    show : true,
-                    feature : {
-                        restore : {show: true},
-                        saveAsImage : {show: true}
-                    }
-                },
-                series: [
-                    {
-                        name:'cpu使用率',
-                        type:'pie',
-                        radius : ['40%', '60%'], //这里的数据是指环的厚度
-                        itemStyle : {
-                            normal : {
-                                label : {
-                                    show : true
+            //复选的回调函数
+            //选中的ID集合
+            var idtotal = [];
+
+            function checkdFn(event, treeId, treeNode) {}
+            //节点文字样式
+            function setFontCss(treeId, treeNode) {
+                return ( treeNode.name == "langfang"|| treeNode.name == "hangzhou" || treeNode.name == "guangzhou" ||treeNode.name == "shanghai" || treeNode.name == "dalian" || treeNode.name == "hunan") ? {"font-weight": "bold"} : {"font-weight": "normal"};
+            }
+
+
+
+            //右侧的内容
+
+            function loadChartsPic(){
+                //环形图1
+                $scope.quanCharts1 = {};
+                $scope.quanCharts1.options = {
+                    id: "firstItem",
+                    title : {
+                        text: 'cpu使用率',
+                        subtext: '',
+                        x:'center'
+                    },
+                    tooltip : {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                    },
+                    legend: {
+                        orient : 'vertical',
+                        x : 'right',
+                        y: 'center',
+                        data:["未使用","使用中"]  //这和下面33% 67% 要对应好否则显示的图 颜色不好看
+                    },
+                    toolbox: {  //工具箱
+                        show : true,
+                        feature : {
+                            restore : {show: true},
+                            saveAsImage : {show: true}
+                        }
+                    },
+                    series: [
+                        {
+                            name:'cpu使用率',
+                            type:'pie',
+                            radius : ['40%', '60%'], //这里的数据是指环的厚度
+                            itemStyle : {
+                                normal : {
+                                    label : {
+                                        show : true
+                                    },
+                                    labelLine : {
+                                        show : true
+                                    }
                                 },
-                                labelLine : {
-                                    show : true
-                                }
-                            },
-                            emphasis : {
-                                label : {
-                                    show : true,
-                                    position : 'center',
-                                    textStyle : {
-                                        fontSize : '22',
-                                        fontWeight : 'bold'
+                                emphasis : {
+                                    label : {
+                                        show : true,
+                                        position : 'center',
+                                        textStyle : {
+                                            fontSize : '22',
+                                            fontWeight : 'bold'
+                                        }
                                     }
                                 }
-                            }
-                        },
-                        data:[
-                            {value:$scope.Doughnut1Use, name:'未使用'},
-                            {value:100-$scope.Doughnut1Use, name:'使用中'}
-                        ]
-                    }
-                ]
-            };
-
-            //环形图2
-
-            $scope.quanCharts2 = {};
-            $scope.quanCharts2.options = {
-                id: "secondItem",
-                title : {
-                    text: '内存使用率',
-                    subtext: '',
-                    x:'center'
-                },
-                tooltip : {
-                    trigger: 'item',
-                    formatter: "{a} <br/>{b} : {c} ({d}%)"
-                },
-                legend: {
-                    orient : 'vertical',
-                    x : 'right',
-                    y: 'center',
-                    data:["未使用","使用中"]  //这和下面33% 67% 要对应好否则显示的图 颜色不好看
-                },
-                toolbox: {  //工具箱
-                    show : true,
-                    feature : {
-                        restore : {show: true},
-                        saveAsImage : {show: true}
-                    }
-                },
-                series:[
-                    {
-                        name:'内存使用率',
-                        type:'pie',
-                        radius : ['40%', '60%'],//这里的数据是指环的厚度
-                        itemStyle : {
-                            normal : {
-                                label : {
-                                    show : true
-                                },
-                                labelLine : {
-                                    show : true
-                                }
                             },
-                            emphasis : {
-                                label : {
-                                    show : true,
-                                    position : 'center',
-                                    textStyle : {
-                                        fontSize : '22',
-                                        fontWeight : 'bold'
+                            data:[
+                                {value:$scope.Doughnut1Use, name:'未使用'},
+                                {value:100-$scope.Doughnut1Use, name:'使用中'}
+                            ]
+                        }
+                    ]
+                };
+
+                //环形图2
+
+                $scope.quanCharts2 = {};
+                $scope.quanCharts2.options = {
+                    id: "secondItem",
+                    title : {
+                        text: '内存使用率',
+                        subtext: '',
+                        x:'center'
+                    },
+                    tooltip : {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                    },
+                    legend: {
+                        orient : 'vertical',
+                        x : 'right',
+                        y: 'center',
+                        data:["未使用","使用中"]  //这和下面33% 67% 要对应好否则显示的图 颜色不好看
+                    },
+                    toolbox: {  //工具箱
+                        show : true,
+                        feature : {
+                            restore : {show: true},
+                            saveAsImage : {show: true}
+                        }
+                    },
+                    series:[
+                        {
+                            name:'内存使用率',
+                            type:'pie',
+                            radius : ['40%', '60%'],//这里的数据是指环的厚度
+                            itemStyle : {
+                                normal : {
+                                    label : {
+                                        show : true
+                                    },
+                                    labelLine : {
+                                        show : true
+                                    }
+                                },
+                                emphasis : {
+                                    label : {
+                                        show : true,
+                                        position : 'center',
+                                        textStyle : {
+                                            fontSize : '22',
+                                            fontWeight : 'bold'
+                                        }
                                     }
                                 }
-                            }
-                        },
-                        data:[
-                            {value:$scope.Doughnut2Use, name:'未使用'},
-                            {value:100-$scope.Doughnut2Use, name:'使用中'}  //这里要是没有赋值，而是直接在下面赋值就会出现 环形图加载就会没有动画的效果
-                        ]
-                    }
-                ]
-            };
+                            },
+                            data:[
+                                {value:$scope.Doughnut2Use, name:'未使用'},
+                                {value:100-$scope.Doughnut2Use, name:'使用中'}  //这里要是没有赋值，而是直接在下面赋值就会出现 环形图加载就会没有动画的效果
+                            ]
+                        }
+                    ]
+                };
 
+            }
+
+            loadChartsPic();
 
 
 
@@ -269,6 +287,10 @@ define([
                 //console.log(treeId); //tree的id的值
                 //console.log(click);//元素的jq对象
 
+                if(treeNode.nodeType != 'point'){
+                    $scope.adminClassName = true;
+                    return;
+                }
                 $scope.adminClassName = false; //点击树节点 则出现右侧节点的详细信息
                 $scope.adminCheckout1.selectedId ='1'; //默认选中的是 按主机查看
                 $scope.chaxun = true; //默认的树显示显示按主机查询相关页面片段
@@ -309,139 +331,9 @@ define([
                                     $scope.Doughnut1Use = response.data.monitorCpuUsage; //环形图1使用率
                                     $scope.Doughnut2Use = response.data.monitorCpuUsage;  //环形图2使用率
 
+                                    //加载环形图的
+                                    loadChartsPic();
 
-
-                                    //环形图1
-                                    $scope.quanCharts1 = {};
-                                    $scope.quanCharts1.options = {
-                                        id: "firstItem",
-                                        title : {
-                                            text: 'cpu使用率',
-                                            subtext: '',
-                                            x:'center'
-                                        },
-                                        tooltip : {
-                                            trigger: 'item',
-                                            formatter: "{a} <br/>{b} : {c} ({d}%)"
-                                        },
-                                        legend: {
-                                            orient : 'vertical',
-                                            x : 'right',
-                                            y: 'center',
-                                            data:["未使用","使用中"]  //这和下面33% 67% 要对应好否则显示的图 颜色不好看
-                                        },
-                                        toolbox: {  //工具箱
-                                            show : true,
-                                            feature : {
-                                                //mark : {show: false},
-                                                //dataView : {show: true, readOnly: false},
-                                                //magicType : {
-                                                //    show: true,
-                                                //    type: ['pie', 'funnel'],
-                                                //    option: {
-                                                //        funnel: {
-                                                //            x: '25%',
-                                                //            width: '50%',
-                                                //            funnelAlign: 'left',
-                                                //            max: 1548
-                                                //        }
-                                                //    }
-                                                //},
-                                                restore : {show: true},
-                                                saveAsImage : {show: true}
-                                            }
-                                        },
-                                        series: [
-                                            {
-                                                name:'cpu使用率',
-                                                type:'pie',
-                                                radius : ['40%', '60%'], //这里的数据是指环的厚度
-                                                itemStyle : {
-                                                    normal : {
-                                                        label : {
-                                                            show : true
-                                                        },
-                                                        labelLine : {
-                                                            show : true
-                                                        }
-                                                    },
-                                                    emphasis : {
-                                                        label : {
-                                                            show : true,
-                                                            position : 'center',
-                                                            textStyle : {
-                                                                fontSize : '22',
-                                                                fontWeight : 'bold'
-                                                            }
-                                                        }
-                                                    }
-                                                },
-                                                data:[
-                                                    {value:response.data.monitorCpuUsage, name:'未使用'},
-                                                    {value:100-response.data.monitorCpuUsage, name:'使用中'}
-                                                ]
-                                            }
-                                        ]
-                                    };
-
-                                    //环形图2
-                                    $scope.quanCharts2 = {};
-                                    $scope.quanCharts2.options = {
-                                        id: "secondItem",
-                                        title : {
-                                            text: '内存使用率',
-                                            subtext: '',
-                                            x:'center'
-                                        },
-                                        tooltip : {
-                                            trigger: 'item',
-                                            formatter: "{a} <br/>{b} : {c} ({d}%)"
-                                        },
-                                        legend: {
-                                            orient : 'vertical',
-                                            x : 'right',
-                                            y: 'center',
-                                            data:["未使用","使用中"]  //这和下面33% 67% 要对应好否则显示的图 颜色不好看
-                                        },
-                                        toolbox: {  //工具箱
-                                            show : true,
-                                            feature : {
-                                                restore : {show: true},
-                                                saveAsImage : {show: true}
-                                            }
-                                        },
-                                        series:[
-                                            {
-                                                name:'内存使用率',
-                                                type:'pie',
-                                                radius : ['40%', '60%'],//这里的数据是指环的厚度
-                                                itemStyle : {
-                                                    normal : {
-                                                        label : {
-                                                            show : true
-                                                        },
-                                                        labelLine : {
-                                                            show : true
-                                                        }
-                                                    },
-                                                    emphasis : {
-                                                        label : {
-                                                            show : true,
-                                                            position : 'center',
-                                                            textStyle : {
-                                                                fontSize : '22',
-                                                                fontWeight : 'bold'
-                                                            }
-                                                        }
-                                                    }
-                                                },
-                                                data:[
-                                                    {value:response.data.monitorMemUsage, name:'未使用'},
-                                                    {value:100-response.data.monitorMemUsage, name:'使用中'}
-                                                ]
-                                            }
-                                        ]
-                                    };
 
                                 }
 
@@ -465,16 +357,6 @@ define([
             //     //console.log("this node's id is " + treeNode.id);
             //
             // }
-
-            //复选的回调函数
-                //选中的ID集合
-            var idtotal = [];
-
-            function checkdFn(event, treeId, treeNode) {}
-            //节点文字样式
-            function setFontCss(treeId, treeNode) {
-                return ( treeNode.name == "langfang"|| treeNode.name == "hangzhou" || treeNode.name == "guangzhou" ||treeNode.name == "shanghai" || treeNode.name == "dalian") ? {"font-weight": "bold"} : {"font-weight": "normal"};
-            }
 
 
 
@@ -525,7 +407,6 @@ define([
                                             //    result.push(response.data.hostOrVmModels.slice(i, i + 10));
                                             //}
 
-
                                             //sessionStorage.setItem("siteTreeVmData", JSON.stringify(result)); //把分页的数据写入缓存中
                                             //$scope.cacheVmTableData = result;
                                             //$scope.vmSrcData.data =  $scope.cacheVmTableData[0]; //默认显示分页的是 第一页
@@ -560,8 +441,8 @@ define([
                             if(response.status== 200){
                                 console.log(response.data.reportPath);
                                 var urlAddress = response.data.reportPath;
-                               // window.open("http://localhost:8088/report/2017_06_29_12_44_36.xlsx ");
-                                window.open("http://10.65.65.73:8081/lld/uploads/BJ/2017/test-20170706165009.xlsx ");
+                                window.open(urlAddress);
+                               // window.open("http://10.65.65.73:8081/lld/uploads/BJ/2017/test-20170706165009.xlsx ");
                                 //document.location.href = response.data.reportPath;
                             }
 

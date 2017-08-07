@@ -1,0 +1,65 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('../fonts/icomoon.eot?e3blmj');
+  src:  url('../fonts/icomoon.eot?e3blmj#iefix') format('embedded-opentype'),
+    url('../fonts/icomoon.ttf?e3blmj') format('truetype'),
+    url('../fonts/icomoon.woff?e3blmj') format('woff'),
+    url('../fonts/icomoon.svg?e3blmj#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="oac-"], [class*=" oac-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.oac-gateway:before {
+  content: "\e909";
+}
+.oac-job:before {
+  content: "\e90a";
+}
+.oac-script:before {
+  content: "\e908";
+}
+.oac-OpsAutoChange_icon .path1:before {
+  content: "\e900";
+  color: rgb(204, 205, 205);
+}
+.oac-OpsAutoChange_icon .path2:before {
+  content: "\e901";
+  margin-left: -1em;
+  color: rgb(102, 103, 103);
+}
+.oac-OpsAutoChange_icon .path3:before {
+  content: "\e902";
+  margin-left: -1em;
+  color: rgb(102, 103, 103);
+}
+.oac-flowMgmt:before {
+  content: "\e903";
+}
+.oac-configMgmt:before {
+  content: "\e904";
+}
+.oac-home:before {
+  content: "\e905";
+}
+.oac-allOrders:before {
+  content: "\e906";
+}
+.oac-myOrders:before {
+  content: "\e907";
+}
+
