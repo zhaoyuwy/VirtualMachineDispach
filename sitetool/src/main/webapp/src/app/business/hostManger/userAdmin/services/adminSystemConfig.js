@@ -5,13 +5,14 @@ define([
     "use strict";
     var service = function (exception, $q, camel) {
 
-        this.getWaitDiscussionList = function () {
-            var promise = camel.get({
+        this.setSystemConfig = function(param) {
+            var promise = camel.post({
                 'url': {
-                    "s": configures.hostManger_url+"",
+                    "s": configures.hostManger_url+"/saveSystemConfig",
                     "o": {}
                 },
                 "timeout":500,
+                "params":param,
                 "mask": true
 
             });

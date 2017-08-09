@@ -23,6 +23,14 @@
     .thirdModel td.ti-form-label{
         width:85px;
     }
+    .ti-alert-middle{
+        position:absolute;
+        width:300px;
+        height:40px;
+        left: 50%;
+        top: 50%;
+        margin:-50px 0 0 0px;
+    }
 
 </style>
 <div id="myTabs" class="tiny-tabs-container" style="width:100%;" >
@@ -32,7 +40,7 @@
                 <div class="row">
                     <div class="mainTitle page-header" style="text-align:center;">{{i18n.emailCongfigpage}}</div>
                     <div style="border:1px solid #ddc;padding:20px 10px; border-radius: 4px;background: #FdFdFd;">
-                        <form action="#">
+                        <form action="#" id="validFormId">
                             <div  class="firstModel" style="border:1px solid #ddd;padding:20px 15px; border-radius: 4px; background: #FeFeFe;">
                                 <div class="tree_text">服务器:</div>
                                 <ti-formfield>
@@ -47,13 +55,13 @@
                                                    <!--panel-width="emailConfigItem.panelWidth">-->
                                         <!--</ti-select>-->
 
-                                        <input  type="text" id='tiny-text15' ng-model="emailConfigItem.value1" placeholder="{{emailConfigItem.placeholder1}}" style="width:189px;"  ti-text/>
+                                        <input ti-validation="emailConfigItem.tiValidation1" type="text" id='tiny-text15' ng-model="emailConfigItem.value1" placeholder="{{emailConfigItem.placeholder1}}" style="width:189px;"  ti-text/>
                                     </ti-item>
                                 </ti-formfield>
                                 <div style="margin:20px;"></div>
                                 <ti-formfield >
                                     <ti-item label="emailConfigItem.label2" required="emailConfigItem.required" style="width:73px;">
-                                        <input  type="text" id='tiny-text16' ng-model="emailConfigItem.value2" placeholder="{{emailConfigItem.placeholder2}}" style="width:189px;"  ti-text/>
+                                        <input ti-validation="emailConfigItem.tiValidation2" type="text" id='tiny-text16' ng-model="emailConfigItem.value2" placeholder="{{emailConfigItem.placeholder2}}" style="width:189px;"  ti-text/>
                                     </ti-item>
                                 </ti-formfield>
 
@@ -66,13 +74,13 @@
                                 <div style="margin:20px;"></div>
                                 <ti-formfield>
                                     <ti-item label="emailConfigItem.label3" required="emailConfigItem.required">
-                                        <input  type="text" id='tiny-text17' ng-disabled="emailConfigItem.IdDisabled" ng-model="emailConfigItem.value3" placeholder="{{emailConfigItem.placeholder3}}" style="width:189px;"  ti-text/>
+                                        <input ti-validation="emailConfigItem.tiValidation3" type="text" id='tiny-text17' ng-disabled="emailConfigItem.IdDisabled" ng-model="emailConfigItem.value3" placeholder="{{emailConfigItem.placeholder3}}" style="width:189px;"  ti-text/>
                                     </ti-item>
                                 </ti-formfield>
                                 <div style="margin:20px;"></div>
                                 <ti-formfield >
                                     <ti-item label="emailConfigItem.label4" required="emailConfigItem.required">
-                                        <input  type="text" id='tiny-text18'  ng-disabled="emailConfigItem.IdDisabled" ng-model="emailConfigItem.value4" placeholder="{{emailConfigItem.placeholder4}}" style="width:189px;"  ti-text/>
+                                        <input  ti-validation="emailConfigItem.tiValidation4" type="text" id='tiny-text18'  ng-disabled="emailConfigItem.IdDisabled" ng-model="emailConfigItem.value4" placeholder="{{emailConfigItem.placeholder4}}" style="width:189px;"  ti-text/>
                                     </ti-item>
                                 </ti-formfield>
 
@@ -86,22 +94,29 @@
                                 <div style="margin:20px;"></div>
                                 <ti-formfield cols="emailConfigItem.safetyCols">
                                     <ti-item label="emailConfigItem.label5" required="emailConfigItem.required">
-                                        <input  type="text" id='tiny-text19'  ng-model="emailConfigItem.value5" placeholder="{{emailConfigItem.placeholder5}}" style="width:189px;"  ti-text/>
+                                        <input   ti-validation="emailConfigItem.tiValidation5" type="text" id='tiny-text19'  ng-model="emailConfigItem.value5" placeholder="{{emailConfigItem.placeholder5}}" style="width:189px;"  ti-text/>
                                     </ti-item>
                                     <ti-item>
-                                        <button type="button" class="ti-btn-primary" ti-button>测试</button>
+                                        <button type="button" class="ti-btn-primary" ng-click="testEmailConfigBtn()" ti-button>测试</button>
                                     </ti-item>
                                 </ti-formfield>
                                 <div style="margin:20px;"></div>
                                 <ti-formfield >
                                     <ti-item label="emailConfigItem.label6" required="emailConfigItem.required">
-                                        <input  type="text" id='tiny-text20'  ng-model="emailConfigItem.value6" placeholder="{{emailConfigItem.placeholder6}}" style="width:189px;"  ti-text/>
+                                        <input ti-validation="emailConfigItem.tiValidation6" type="text" id='tiny-text20'  ng-model="emailConfigItem.value6" placeholder="{{emailConfigItem.placeholder6}}" style="width:189px;"  ti-text/>
                                     </ti-item>
                                 </ti-formfield>
                                 <div style="margin:20px;"></div>
                                 <ti-formfield >
+                                    <ti-item label="emailConfigItem.label8" required="emailConfigItem.required">
+                                        <input ti-validation="emailConfigItem.tiValidation7" type="text" id='tiny-text21'  ng-model="emailConfigItem.value8" placeholder="{{emailConfigItem.placeholder8}}" style="width:189px;"  ti-text/>
+                                    </ti-item>
+                                </ti-formfield>
+                                <div style="margin:20px;"></div>
+
+                                <ti-formfield >
                                     <ti-item label="emailConfigItem.label7" required="emailConfigItem.required">
-                                        <input  type="text" id='tiny-text21'  ng-model="emailConfigItem.value7" placeholder="{{emailConfigItem.placeholder7}}" style="width:189px;"  ti-text/>
+                                        <input   ti-validation="emailConfigItem.tiValidation8" type="text" id='tiny-text22'  ng-model="emailConfigItem.value7" placeholder="{{emailConfigItem.placeholder7}}" style="width:189px;"  ti-text/>
                                     </ti-item>
                                 </ti-formfield>
 
@@ -111,7 +126,16 @@
 
                         </form>
                         <div style="margin-top:10px;">
-                            <button type="button" class="ti-btn-primary" ti-button>保存并下发</button>
+                            <button type="button" class="ti-btn-primary"  ng-click ="sendEmailConfigBtn()" ti-button>保存并下发</button>
+                        </div>
+
+                        <div class="ti-alert-middle ">
+                            <ti-alert type="alertResponse.type"
+                                      show="alertResponse.contentNullError"
+                                      type-icon="true"
+                                      close-icon="false"
+                                      dismiss-on-timeout="3000" >{{alertResponse.content}}</ti-alert>
+
                         </div>
                     </div>
 

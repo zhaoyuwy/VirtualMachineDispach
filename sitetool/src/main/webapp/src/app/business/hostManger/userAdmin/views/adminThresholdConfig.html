@@ -7,6 +7,17 @@
         margin: 12px 0 20px;
         border-bottom: 1px solid #eee;
     }
+    .first-form td.ti-form-label{
+        width:135px;
+    }
+    .ti-alert-middle{
+        position:absolute;
+        width:300px;
+        height:40px;
+        left: 50%;
+        top: 50%;
+        margin:-50px 0 0 0px;
+    }
 
 </style>
 <div id="myTabs" class="tiny-tabs-container" style="width:100%;" >
@@ -17,43 +28,37 @@
 
                     <div class="mainTitle page-header" style="text-align:center;">{{i18n.thresholdConfigpage}}</div>
 
-                    <form action="#">
-                        <div  style="border:1px solid #ddd;padding:100px 15px;border-radius: 4px;">
+                    <form action="#" id="validFormId">
+                        <div  class="first-form"style="border:1px solid #ddd;padding:100px 15px;border-radius: 4px;">
 
                             <ti-formfield>
                                 <ti-item label="thresholdConfigItem.label1" required="thresholdConfigItem.required">
-                                    <ti-select ng-cloak
-                                    selected-id="thresholdConfigItem.selectedId1"
-                                    disable="thresholdConfigItem.disable"
-                                    placeholder-text="thresholdConfigItem.placeholder1"
-                                    panel-max-height="thresholdConfigItem.panelMaxHeight"
-                                    change="thresholdConfigItem.change1"
-                                    options="thresholdConfigItem.options1"
-                                    panel-width="thresholdConfigItem.panelWidth">
-                                    </ti-select>
+                                    <input ti-validation="thresholdConfigItem.tiValidation1" type="text" id='tiny-text1' ng-model="thresholdConfigItem.value1" placeholder="{{thresholdConfigItem.placeholder1}}" style="width:189px;"  ti-text/>
                                     <span style="padding-left:10px;">分钟</span>
                                 </ti-item>
                             </ti-formfield>
                             <div style="margin:20px;"></div>
                             <ti-formfield >
                                 <ti-item label="thresholdConfigItem.label2" required="thresholdConfigItem.required">
-                                    <ti-select ng-cloak
-                                               selected-id="thresholdConfigItem.selectedId2"
-                                               disable="thresholdConfigItem.disable"
-                                               placeholder-text="thresholdConfigItem.placeholder2"
-                                               panel-max-height="thresholdConfigItem.panelMaxHeight"
-                                               change="thresholdConfigItem.change2"
-                                               options="thresholdConfigItem.options2"
-                                               panel-width="thresholdConfigItem.panelWidth">
-                                    </ti-select>
+                                    <input ti-validation="thresholdConfigItem.tiValidation2" type="text" id='tiny-text2' ng-model="thresholdConfigItem.value2" placeholder="{{thresholdConfigItem.placeholder2}}" style="width:189px;"  ti-text/>
                                     <span style="padding-left:10px;">次</span>
                                 </ti-item>
 
                             </ti-formfield>
 
                         </div>
+
+                        <div class="ti-alert-middle ">
+                            <ti-alert type="alertResponse.type"
+                                      show="alertResponse.contentNullError"
+                                      type-icon="true"
+                                      close-icon="false"
+                                      dismiss-on-timeout="3000" >{{alertResponse.content}}</ti-alert>
+
+                        </div>
+
                         <div style="margin-top:10px;">
-                            <button type="button" class="ti-btn-primary" ti-button>保存并下发</button>
+                            <button type="button" class="ti-btn-primary"ng-click="sendThreshold()" ti-button>保存并下发</button>
                         </div>
                     </form>
               </div>

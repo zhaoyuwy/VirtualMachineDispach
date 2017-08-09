@@ -11,6 +11,15 @@
         width:133px;
     }
 
+    .ti-alert-middle{
+        position:absolute;
+        width:300px;
+        height:40px;
+        left: 50%;
+        top: 50%;
+        margin:-50px 0 0 0px;
+    }
+
 </style>
 <div id="myTabs" class="tiny-tabs-container" style="width:100%;" >
     <div class="tiny-tabs-content">
@@ -20,35 +29,22 @@
 
                     <div class="mainTitle page-header" style="text-align:center;">{{i18n.systemConfigpage}}</div>
 
-                    <form action="#">
+                    <form action="#" id="validFormId">
                         <div class="firstModel" style="border:1px solid #ddd;padding:100px 15px;border-radius: 4px;" >
 
                             <ti-formfield>
                                 <ti-item label="systemConfigItem.label1" required="systemConfigItem.required">
-                                    <ti-select ng-cloak
-                                               selected-id="systemConfigItem.selectedId1"
-                                               disable="systemConfigItem.disable"
-                                               placeholder-text="systemConfigItem.placeholder1"
-                                               panel-max-height="systemConfigItem.panelMaxHeight"
-                                               change="systemConfigItem.change1"
-                                               options="systemConfigItem.options1"
-                                               panel-width="systemConfigItem.panelWidth">
-                                    </ti-select>
+
+
+                                    <input ti-validation="systemConfigItem.tiValidation1" type="text" id='tiny-text1' ng-model="systemConfigItem.value1" placeholder="{{systemConfigItem.placeholder1}}" style="width:189px;"  ti-text/>
                                     <span style="padding-left:10px;">分钟</span>
                                 </ti-item>
                             </ti-formfield>
                             <div style="margin:20px;"></div>
                             <ti-formfield >
                                 <ti-item label="systemConfigItem.label2" required="systemConfigItem.required">
-                                    <ti-select ng-cloak
-                                               selected-id="systemConfigItem.selectedId2"
-                                               disable="systemConfigItem.disable"
-                                               placeholder-text="systemConfigItem.placeholder2"
-                                               panel-max-height="systemConfigItem.panelMaxHeight"
-                                               change="systemConfigItem.change2"
-                                               options="systemConfigItem.options2"
-                                               panel-width="systemConfigItem.panelWidth">
-                                    </ti-select>
+                                    <input ti-validation="systemConfigItem.tiValidation2" type="text" id='tiny-text2' ng-model="systemConfigItem.value2" placeholder="{{systemConfigItem.placeholder2}}" style="width:189px;"  ti-text/>
+
                                     <span style="padding-left:10px;">次</span>
                                 </ti-item>
 
@@ -57,15 +53,9 @@
                             <div style="margin:20px;"></div>
                             <ti-formfield >
                                 <ti-item label="systemConfigItem.label3" required="systemConfigItem.required">
-                                    <ti-select ng-cloak
-                                               selected-id="systemConfigItem.selectedId3"
-                                               disable="systemConfigItem.disable"
-                                               placeholder-text="systemConfigItem.placeholder3"
-                                               panel-max-height="systemConfigItem.panelMaxHeight"
-                                               change="systemConfigItem.change3"
-                                               options="systemConfigItem.options3"
-                                               panel-width="systemConfigItem.panelWidth">
-                                    </ti-select>
+
+                                    <input ti-validation="systemConfigItem.tiValidation3" type="text" id='tiny-text3' ng-model="systemConfigItem.value3" placeholder="{{systemConfigItem.placeholder3}}" style="width:189px;"  ti-text/>
+
                                     <span style="padding-left:10px;">分钟</span>
                                 </ti-item>
 
@@ -74,8 +64,18 @@
                         </div>
 
                     </form>
+
+                    <div class="ti-alert-middle ">
+                        <ti-alert type="alertResponse.type"
+                                  show="alertResponse.contentNullError"
+                                  type-icon="true"
+                                  close-icon="false"
+                                  dismiss-on-timeout="3000" >{{alertResponse.content}}</ti-alert>
+
+                    </div>
+
                     <div style="margin-top:10px;">
-                        <button type="button" class="ti-btn-primary" ti-button>保存并下发</button>
+                        <button type="button" class="ti-btn-primary" ng-click="setSystemConfig()" ti-button>保存并下发</button>
                     </div>
                 </div>
             </div>
