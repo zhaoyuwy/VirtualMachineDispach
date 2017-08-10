@@ -159,7 +159,7 @@ public class ReportController {
         Map<String, String> map = new HashMap<>();
         System.out.println(System.getProperty("user.dir"));
 
-        String reportName = "\\report\\2017_06_29_12_44_36.xlsx";
+        String reportName = "\\report\\2017-08-10 020004.xlsx";
         String path = System.getProperty("user.dir");
         map.put("reportPath", path+reportName);
         return map;

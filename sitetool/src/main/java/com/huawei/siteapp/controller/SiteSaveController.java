@@ -89,6 +89,69 @@ public class SiteSaveController {
         return topologyTreeBean;
     }
 
+    @RequestMapping(value = "/deleteSite", method = RequestMethod.POST)
+    @ResponseBody
+    public Result deleteSite(HttpServletRequest request) {
 
+        logger.info("Enter saveSite.");
+        Result result = new Result();
+
+        int retCode;
+
+        String jsonRst = JSONUtils.jsonToServiceContext(request);
+        JSONObject jo = JSONObject.parseObject(jsonRst);
+        JSONArray regionsStr = jo.getJSONArray("regions");
+//        JSONArray sites = regionsStr.getJSONArray("sites");
+        JSONObject site = regionsStr.getJSONObject(0);
+        JSONArray sites = site.getJSONArray("sites");
+        SiteModel siteModel = JSON.toJavaObject(sites.getJSONObject(0), SiteModel.class);
+
+
+
+        if (CommonUtils.isNull(jsonRst)) {
+            retCode = RetCode.INNER_ERROR;
+            logger.error("parse param error");
+        } else {
+            retCode =siteLoginService.checkAndDeleteSiteInfo(siteModel);
+        }
+        TopologyTreeBean  topologyTreeBean = siteLoginService.queryAllSiteLoginUsers();
+        result.setStatus(retCode);
+        result.setMsg("OK");
+        result.setData(topologyTreeBean);
+        return result;
+    }
+
+    @RequestMapping(value = "/modifySite", method = RequestMethod.POST)
+    @ResponseBody
+    public Result modifySite(HttpServletRequest request) {
+
+        logger.info("Enter saveSite.");
+        Result result = new Result();
+
+        int retCode;
+
+        String jsonRst = JSONUtils.jsonToServiceContext(request);
+        JSONObject jo = JSONObject.parseObject(jsonRst);
+        JSONArray regionsStr = jo.getJSONArray("regions");
+//        JSONArray sites = regionsStr.getJSONArray("sites");
+        JSONObject site = regionsStr.getJSONObject(0);
+        JSONArray sites = site.getJSONArray("sites");
+        SiteModel siteModel = JSON.toJavaObject(sites.getJSONObject(0), SiteModel.class);
+
+
+
+        if (CommonUtils.isNull(jsonRst)) {
+            retCode = RetCode.INNER_ERROR;
+            logger.error("parse param error");
+        } else {
+            retCode =siteLoginService.checkAndDeleteSiteInfo(siteModel);
+            retCode =siteLoginService.checkAndSaveSiteInfo(siteModel);
+        }
+        TopologyTreeBean  topologyTreeBean = siteLoginService.queryAllSiteLoginUsers();
+        result.setStatus(retCode);
+        result.setMsg("OK");
+        result.setData(topologyTreeBean);
+        return result;
+    }
 
 }

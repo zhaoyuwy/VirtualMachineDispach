@@ -74,7 +74,15 @@ public class SiteLoginServiceImpl implements ISiteLoginService {
         httpRequest.fcGetSitesClustersHostsRest(siteModel);
         return retCode;
     }
-
+    @Override
+    public int checkAndDeleteSiteInfo(SiteModel siteModel){
+        int retCode = RetCode.INIT_ERROR;
+        SiteRepository siteRepository = SpringUtil.getBean(SiteRepository.class);
+        SiteModel siteModelTemp = siteRepository.findSiteModelBySiteRegionNameAndSiteRegionAndSiteLoginIp(siteModel.getSiteRegionName(), siteModel.getSiteRegion(), siteModel.getSiteLoginIp());
+        siteRepository.delete(siteModelTemp.getSiteId());
+        retCode = RetCode.OK;
+        return retCode;
+    }
     private SiteLoginRestBean setSiteLoginRestBean(String siteRegionName, String siteLoginIp, String siteLoginUser, String siteLoginPwd) {
         SiteLoginRestBean siteLoginRestBean = new SiteLoginRestBean();
         siteLoginRestBean.setSiteRegionName(siteRegionName);

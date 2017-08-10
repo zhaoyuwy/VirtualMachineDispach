@@ -83,8 +83,8 @@ public class SystermConfigController {
 
     private Result systemConfig(){
         Result result = new Result();
-        result.setMsg("OK");
-        result.setStatus(200);
+        result.setMsg("OKffff");
+        result.setStatus(201);
         result.setData("mail systemConfig ok");
         return result;
     }

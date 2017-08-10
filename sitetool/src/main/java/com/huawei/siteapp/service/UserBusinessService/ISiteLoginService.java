@@ -14,6 +14,8 @@ public interface ISiteLoginService {
 
     int checkAndSaveSiteInfo(SiteModel siteModel);
 
+    int checkAndDeleteSiteInfo(SiteModel siteModel);
+
     TopologyTreeBean queryAllSiteLoginUsers();
 
     int checkSiteUserLoginSuccess(SiteModel siteModel);
