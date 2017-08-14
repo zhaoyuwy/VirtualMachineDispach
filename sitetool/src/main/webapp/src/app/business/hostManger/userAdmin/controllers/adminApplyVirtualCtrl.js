@@ -3,8 +3,8 @@ define([
     "tiny-lib/jquery"
 ], function (i18n, $) {
     "use strict";
-    var ctrl = ["$scope", "$rootScope", "$compile", "adminApplyVirtualServe", "$location", "$timeout",
-        function($scope, $rootScope, $compile, adminApplyVirtualServe, $location, $timeout) {
+    var ctrl = ["$scope", "$rootScope", "$compile", "$location", "$timeout","tiValid", "adminApplyVirtualServe",
+        function($scope, $rootScope, $compile, $location, $timeout, tiValid,adminApplyVirtualServe) {
             $scope.i18n = i18n;
             //把从自定义服务传值，传过来的赋值给……
 
@@ -70,15 +70,24 @@ define([
                 cancelTxt:"取消"
             };
             $scope.stepForward = function(){
-                $scope.steps[$scope.currentStep-1].state = "complete";
-                $scope.currentStep++;
-                $scope.steps[$scope.currentStep-1].state = "active";
-                console.log($scope.currentStep);
-                if($scope.currentStep ==4){ //第二个字页面点击事件
+                if($scope.currentStep ==1) { //第一个子页面点击事件
+                    if($scope.selectModel1.selectedId == -1  ){
+                        alert("请选择局点名称");
+                        return
+                    }
+                    //if(!$scope.fileName){alert("请选择上传文件！"); return;}
+                    if( $scope.selectModel2.selectedId == -1){
+                        alert("请选择所属区域");
+                        return;
+                    }
 
-                    //console.log( $scope.selectModel3);
-                    //console.log( $scope.statusTableData.data);
-                    //console.log($scope.nineItem);
+                }
+                if($scope.currentStep ==2) { //第一个子页面点击事件
+                    if (!tiValid.check($("#validFormId"))) {  //验证
+                        tiValid.check($("#validFormId"));
+                        return;
+                    }
+
                     if( $scope.selectModel3.selectedId =='1'){
                         $scope.selectModel3.value = "Eull2";
                     }else if($scope.selectModel3.selectedId =='2'){
@@ -87,11 +96,49 @@ define([
                     _.each($scope.statusTableData.data, function(element, index, list){
                         element.operatSystem =  $scope.selectModel3.value;
                         element.describe = $scope.nineItem.value;
+                        element.siteRegion = $scope.selectModel2.options[$scope.selectModel2.selectedId].label
                     });
-                     console.log($scope.statusTableData.data);
 
-                    $scope.hostTableData.data = $scope.statusTableData.data;
+                    $scope.hostTableData.data = $scope.statusTableData.data; //把数据传入后续的表格页面
+
+                    var option ={
+                        total:$scope.selectModel1.options[$scope.selectModel1.selectedId].sonSiteArr.length,
+                        regions:[{
+                            "evName":$scope.selectModel1.options[$scope.selectModel1.selectedId].label ,
+                            "sites":$scope.statusTableData.data
+                        }]
+                    };
+                    console.log(option);
+                    var str = JSON.stringify(option);
+
+                    //下发申请任务
+                    $scope.requestOption.vmApply(str);
                 }
+
+                $scope.steps[$scope.currentStep-1].state = "complete";
+                $scope.currentStep++;
+                $scope.steps[$scope.currentStep-1].state = "active";
+                console.log($scope.currentStep);
+
+
+                //if($scope.currentStep ==4){ //第二个子页面点击事件
+                //
+                //    //console.log( $scope.selectModel3);
+                //    //console.log( $scope.statusTableData.data);
+                //    //console.log($scope.nineItem);
+                //    if( $scope.selectModel3.selectedId =='1'){
+                //        $scope.selectModel3.value = "Eull2";
+                //    }else if($scope.selectModel3.selectedId =='2'){
+                //        $scope.selectModel3.value = "Nonfh_3";
+                //    }
+                //    _.each($scope.statusTableData.data, function(element, index, list){
+                //        element.operatSystem =  $scope.selectModel3.value;
+                //        element.describe = $scope.nineItem.value;
+                //    });
+                //     console.log($scope.statusTableData.data);
+                //
+                //    $scope.hostTableData.data = $scope.statusTableData.data;
+                //}
             };
             $scope.stepBackward = function() {
                 $scope.steps[$scope.currentStep-1].state = "undo";
@@ -104,63 +151,27 @@ define([
             };
             $scope.buttonCancel = function() { //返回到第一步1
 
-                //$scope.steps[0].state = "active";
-                $scope.currentStep = 1;//回到起始步
-                $scope.steps.forEach(function(value,index,array) { //这里value的参数可以不管
-                    if (index == 0) {
-                        array[index].state = "active"
-                    } else {
-                        array[index].state = "undo"
-                    }
-                });
+                    //$scope.steps[0].state = "active";
+                //$scope.currentStep = 1;//回到起始步
+                //$scope.steps.forEach(function(value,index,array) { //这里value的参数可以不管
+                //    if (index == 0) {
+                //        array[index].state = "active"
+                //    } else {
+                //        array[index].state = "undo"
+                //    }
+                //});
                 //把所有的子页面数据清空
-
-                $scope.$on("$viewContentLoaded", function () {  //页面渲染完成 执行 执行渲染0号页面的 、请求树的结构
-                    pageLoad();
-                   // $scope.requestOption.getData();//请求树的数据
-
-                });
+                window.location.reload(); //直接刷新页面，回到虚拟机申请的初始状态
+                //$scope.$on("$viewContentLoaded", function () {  //页面渲染完成 执行 执行渲染0号页面的 、请求树的结构
+                //    pageLoad();
+                //   // $scope.requestOption.getData();//请求树的数据
+                //
+                //});
 
             };
 
 
-            //树的接口数据请求
-            $scope.requestOption = {
-                "getData": function(){
-                    var  promise = adminApplyVirtualServe.getTree();
-                    promise.then(function(response){
-                            //if(typeof(response)== "object" && response != ''){
-                            //    $scope.trees.values = response.data;
-                            //}
 
-
-                            if(response.status== 200){
-                                $scope.pointArr =[];
-                                response.data.regionBeans.forEach(function(value, index, arr){
-                                    var pointOption ={};
-                                    pointOption.id= index;
-                                    pointOption.label = arr[index].evName;
-                                    pointOption.sonSiteArr =[];
-
-                                    arr[index].siteModels.forEach(function(value1, index1, arr1){
-                                          //arr1[index1].siteRegionName;
-                                        var sonPointOption ={};
-                                        sonPointOption.id= index1;
-                                        sonPointOption.label = arr1[index1].siteRegion;
-                                        pointOption.sonSiteArr.push(sonPointOption);
-                                    });
-                                    $scope.pointArr.push(pointOption);
-                                });
-                                $scope.selectModel1.options = $scope.pointArr;   //把局点名称     变成这样的数据结构 var pointOptions= [{id:"1",label:"hangzhou",sonSiteArr:[{id:"1",label:"pub"}]},{id:"2",label:"廊坊"}]; 其中sonSiteArr就是 “所属区域”的数据的
-
-                                console.log($scope.pointArr);
-                            }
-                        },
-                        function(response){
-                            alert(response.msg);
-                        });
-                }
-            };
 
             //$scope.requestOption.getData();
 
@@ -202,7 +213,7 @@ define([
 
 
                 $scope.selectModel1 = {
-                    selectedId: '',
+                    selectedId: -1,
                     disable: false,
                     placeholder: "请选择你所需要的局点...",
                     panelMaxHeight: '300px',
@@ -215,14 +226,13 @@ define([
 
                 //var regionOptions = [{id:"1",label:"PO_12.123.45.23"},{id:"2",label:"DO_56gfsdg"}];
                 $scope.selectModel2 = {
-                    selectedId: '',
+                    selectedId: -1,
                     disable: false,
                     placeholder: "请选择你所在的区域...",
                     panelMaxHeight: '300px',
                     panelWidth: '180px',
                     options: '',
                     change: function (option) {
-                        console.log('Select1 change event fired.');
                         console.log(option);
                     }
                 };
@@ -243,6 +253,8 @@ define([
                         url: "myUploadUrl",
                         onCompleteItem: function (fileItem, response, status) {
                             // 根据状态码和返回消息设置详情信息
+
+                          $scope.fileName =  fileItem.flie.name;
                             console.log("response:" + response);
                         }
                     },
@@ -370,6 +382,16 @@ define([
                             sort: false,
                             pagination: false
                         }
+                    },
+                    tiValidation1:{
+                        "validator":[{
+                            rule:"required"
+                        }]
+                    },
+                    tiValidation2:{
+                        "validator":[{
+                            rule:"required"
+                        }]
                     }
                 };
 
@@ -517,6 +539,51 @@ define([
             };
 
 
+            //树的接口数据请求
+            $scope.requestOption = {
+                "getData": function(){
+                    var  promise = adminApplyVirtualServe.getTree();
+                    promise.then(function(response){
+                            if(response.status== 200){
+                                $scope.pointArr =[];
+                                response.data.regionBeans.forEach(function(value, index, arr){
+                                    var pointOption ={};
+                                    pointOption.id= index;
+                                    pointOption.label = arr[index].evName;
+                                    pointOption.sonSiteArr =[];
+
+                                    arr[index].siteModels.forEach(function(value1, index1, arr1){
+                                        //arr1[index1].siteRegionName;
+                                        var sonPointOption ={};
+                                        sonPointOption.id= index1;
+                                        sonPointOption.label = arr1[index1].siteRegion;
+                                        pointOption.sonSiteArr.push(sonPointOption);
+                                    });
+                                    $scope.pointArr.push(pointOption);
+                                });
+                                $scope.selectModel1.options = $scope.pointArr;   //把局点名称     变成这样的数据结构 var pointOptions= [{id:"1",label:"hangzhou",sonSiteArr:[{id:"1",label:"pub"}]},{id:"2",label:"廊坊"}]; 其中sonSiteArr就是 “所属区域”的数据的
+
+                                console.log($scope.pointArr);
+                            }
+                        },
+                        function(response){
+                            alert(response.msg);
+                        });
+                },
+                "vmApply":function(str){
+                    var promise = adminApplyVirtualServe.vmApply(str);
+                    promise.then(function(response){
+                       if(response.status==200){
+                           alert(response.msg);
+                       }else{
+                           alert(response.msg);
+                       }
+                    },
+                    function(response){
+                        alert(response.msg);
+                    })
+                }
+            };
 
 
         }];

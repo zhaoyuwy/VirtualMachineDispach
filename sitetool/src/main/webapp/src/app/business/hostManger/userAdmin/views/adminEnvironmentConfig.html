@@ -24,6 +24,15 @@
     .ti-tooltip-right-top{
         z-index:10000;
     }
+
+    .ti-alert-middle{
+        position:absolute;
+        width:300px;
+        height:40px;
+        left: 50%;
+        top: 50%;
+        margin:-50px 0 0 0px;
+    }
 </style>
 <div id="myTabs" class="tiny-tabs-container" >
     <div class="tiny-tabs-content">
@@ -36,6 +45,15 @@
                                   type-icon="true"
                                   close-icon="true"
                                   dismiss-on-timeout="2500" >{{alertInfo.content}}</ti-alert>
+
+                    </div>
+
+                    <div class="ti-alert-middle ">
+                        <ti-alert type="alertResponse.type"
+                                  show="alertResponse.contentNullError"
+                                  type-icon="true"
+                                  close-icon="false"
+                                  dismiss-on-timeout="3000" >{{alertResponse.content}}</ti-alert>
 
                     </div>
 
@@ -69,8 +87,8 @@
                                     <td></td>
                                     <td>
                                         <a  style="margin-right:30px;" title="{{i18n.addSite}}" ng-click="addSiteFtn($index)"><span>{{i18n.addSite}}</span></a>
-                                        <a style="margin-right:30px;" title="{{i18n.editSite}}"><span>{{i18n.editSite}}</span></a>
-                                        <a title="{{i18n.deleteSite}}" ng-click="evDelete(you.evName,you.siteModels,$index)"><span>{{i18n.deleteSite}}</span></a>
+                                        <!--<a style="margin-right:30px;" title="{{i18n.editSite}}"><span>{{i18n.editSite}}</span></a>-->
+                                        <!--<a title="{{i18n.deleteSite}}" ng-click="evDelete(you.evName,you.siteModels,$index)"><span>{{i18n.deleteSite}}</span></a>-->
                                     </td>
                                 </tr>
                                 <tr ng-repeat-start="son in you.siteModels" ng-if="you.showSub">
@@ -104,7 +122,7 @@
 
                             </tbody>
 
-                            <tbody ng-if="environmentData.data.length === 0">
+                            <tbody ng-if="environmentData.data.length === 0 ||environmentData.data ==null">
                             <tr>
                                 <td ti-colspan  style="text-align: center;">{{noDadaInfo}}</td>
                             </tr>

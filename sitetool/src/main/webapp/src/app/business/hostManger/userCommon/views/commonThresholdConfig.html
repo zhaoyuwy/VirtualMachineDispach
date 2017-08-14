@@ -2,6 +2,22 @@
     #myTabs{
         font-family: "Helvetica Neue55", Arial, Helvetica, sans-serif;
     }
+    .page-header {
+        padding-bottom: 9px;
+        margin: 12px 0 20px;
+        border-bottom: 1px solid #eee;
+    }
+    .first-form td.ti-form-label{
+        width:135px;
+    }
+    .ti-alert-middle{
+        position:absolute;
+        width:300px;
+        height:40px;
+        left: 50%;
+        top: 50%;
+        margin:-50px 0 0 0px;
+    }
 
 </style>
 <div id="myTabs" class="tiny-tabs-container" style="width:100%;" >
@@ -10,32 +26,41 @@
             <div  style="width:100%;">
                 <div class="row">
 
-                    <div class="mainTitle page-header" style="text-align:center;">{{list}}</div>
+                    <div class="mainTitle page-header" style="text-align:center;">{{i18n.thresholdConfigpage}}</div>
 
+                    <form action="#" id="validFormId">
+                        <div  class="first-form"style="border:1px solid #ddd;padding:100px 15px;border-radius: 4px;">
 
-                    <ti-table class="containerStyle"  displayed-data="displayed" src-data="thresholdData" columns="thresholdColumns">
-                        <ti-cols-toggle style="float:right;"></ti-cols-toggle>
-                        <table>
-                            <thead>
-                            <tr>
-                                <th ng-repeat="column in thresholdColumns" ng-if="column.show || column.show === undefined">{{column.title}}</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <!--注意:ng-repeat中的displayed数据与displayed-data传入的数据一致,在scope中初始化设置为[]即可-->
-                            <!--<tr ng-repeat="row in displayed track by $index">-->  <!--下面两种效果都能出来-->
-                            <tr ng-repeat="row in thresholdData.data">
-                                <td ng-if="thresholdColumns[0].show">{{row.cpu_percent}}</td>
-                                <td ng-if="thresholdColumns[1].show">{{row.ram_percent}}</td>
-                                <td ng-if="thresholdColumns[2].show">{{row.birth_date}}</td>
-                                <td>{{row.balance}}</td>
-                                <td ><a style="margin-right:30px;"><span>编辑</span></a><a><span>删除</span></a></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </ti-table>
+                            <ti-formfield>
+                                <ti-item label="thresholdConfigItem.label1" required="thresholdConfigItem.required">
+                                    <input ti-validation="thresholdConfigItem.tiValidation1" type="text" id='tiny-text1' ng-model="thresholdConfigItem.value1" placeholder="{{thresholdConfigItem.placeholder1}}" style="width:189px;"  ti-text/>
+                                    <span style="padding-left:10px;">%</span>
+                                </ti-item>
+                            </ti-formfield>
+                            <div style="margin:20px;"></div>
+                            <ti-formfield >
+                                <ti-item label="thresholdConfigItem.label2" required="thresholdConfigItem.required">
+                                    <input ti-validation="thresholdConfigItem.tiValidation2" type="text" id='tiny-text2' ng-model="thresholdConfigItem.value2" placeholder="{{thresholdConfigItem.placeholder2}}" style="width:189px;"  ti-text/>
+                                    <span style="padding-left:10px;">%</span>
+                                </ti-item>
 
+                            </ti-formfield>
 
+                        </div>
+
+                        <div class="ti-alert-middle ">
+                            <ti-alert type="alertResponse.type"
+                                      show="alertResponse.contentNullError"
+                                      type-icon="true"
+                                      close-icon="false"
+                                      dismiss-on-timeout="3000" >{{alertResponse.content}}</ti-alert>
+
+                        </div>
+
+                        <div style="margin-top:10px;">
+                            <button type="button" class="ti-btn-primary"ng-click="sendThreshold()" ti-button>保存并下发</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

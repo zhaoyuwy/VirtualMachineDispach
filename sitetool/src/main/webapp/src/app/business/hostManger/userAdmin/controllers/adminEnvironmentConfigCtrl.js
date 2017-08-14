@@ -22,6 +22,12 @@ define([
             };
 
 
+            $scope.alertResponse = {  //提示信息
+                contentNullError:false,
+                type:"success",
+                content:""
+            };
+
             //分页工具导航条
             //$scope.pagingModel = {
             //    "id":"pagid3",
@@ -223,7 +229,12 @@ define([
                                             }
                                         },
                                         function (response) {
-                                            alert(response.msg);
+
+                                            $scope.alertResponse = {  //提示信息
+                                                contentNullError:true,
+                                                type:"error",
+                                                content:response.msg
+                                            };
 
                                             //置空
                                             //$scope.evName = '';
@@ -345,7 +356,12 @@ define([
                                             }
                                         },
                                         function (response) {
-                                            alert(response.msg);
+                                            $scope.alertResponse = {  //提示信息
+                                                contentNullError:true,
+                                                type:"error",
+                                                content:response.msg
+                                            };
+
                                         }
                                     )
                                 }
@@ -405,14 +421,6 @@ define([
                             //ip框的数据传给siteIP
                             $rootScope.siteLoginIp = $rootScope.ipCongigOptions.value1;
 
-                            //把添加页面的数据传给
-                            //if (!$rootScope.evName || !$rootScope.siteRegionName || !$rootScope.siteRegion || !$rootScope.siteLoginUser || !$rootScope.siteLoginPwd || !$rootScope.siteLoginIp) {
-                            //    $scope.alertInfo.content = "字段信息不能为空";
-                            //    $scope.alertInfo.contentNullError = true;
-                            //    return false;
-                            //}
-
-
                             var jsObj = {
                                 "total": 1,
                                 "regions": [
@@ -433,26 +441,7 @@ define([
 
 
                             var evStr = JSON.stringify(jsObj);
-                            console.log(evStr);
-                            $scope.operate = {
-                                "addPassData": function () {
-
-                                    var promise = adminEnvironmentConfigServe.sonEditsite(evStr);
-                                    promise.then(
-                                        function (response) {
-                                            //var responseData = JSON.parse(response);
-
-                                            if (response.status == 200) {
-
-                                            }
-                                        },
-                                        function (response) {
-                                            alert(response.msg);
-                                        }
-                                    )
-                                }
-                            };
-                            $scope.operate.addPassData();
+                            $scope.loadOperate.editSonsite(evStr);
                             win.destroy();
                             //关闭了弹窗就置空 ，以免对其他的有影响
                             $rootScope.evName = '';
@@ -488,7 +477,7 @@ define([
 
             //删除节点，子节点 删除按钮
             $scope.openDelete =function(evName,$index,siteRegionName,siteRegion,siteLoginUser,siteLoginIp) {
-                if (confirm(i18n.confirmDeleteSite)) {
+                if (confirm(i18n.confirmDeleteSite)){
                     //$index 指的是该节点在当前的环境的 第几个 从0开始
                     var jsObj = {
                         "total": 1,
@@ -500,25 +489,28 @@ define([
                                         "siteRegion": siteRegion,
                                         "siteRegionName": siteRegionName,
                                         "siteLoginUser": siteLoginUser,
-                                        "siteLoginPwd": '',
+                                        "siteLoginPwd": '', //后台没返回
                                         "siteLoginIp": siteLoginIp
                                     }
                                 ]
                             }
                         ]
                     };
+                    console.log($index);
+                    console.log(evName);
+                    console.log( $scope.environmentData.data);
 
                     var str = JSON.stringify(jsObj);
                   //这里调用 删除的接口函数
-
+                    $scope.loadOperate.deleteSonsite(str);
                     //页面上删掉改 数据应该是
-                    var newData = $scope.environmentData.data.forEach(function(value,index,arr){
-                        if(arr[index].evName == evName){
-                            arr[index].siteModels.forEach(function(value1,index1,arr1){
-                                arr1.splice($index,1);
-                            })
-                        }
-                    });
+                    //$scope.environmentData.data.forEach(function(value,index,arr){
+                    //    if(arr[index].evName == evName){
+                    //        arr[index].siteModels.forEach(function(value1,index1,arr1){
+                    //            arr1.splice($index,1);
+                    //        })
+                    //    }
+                    //});
                 }
             };
 
@@ -532,39 +524,85 @@ define([
 
                             if(response.status== 200){
 
-                                console.log(response);
-
-                                response.data.regionBeans.forEach(function(value,index,array){
+                              if(response.data !=null){
+                                  response.data.regionBeans.forEach(function(value,index,array){
                                     array[index].showSub = true;
                                 });
-                                //得到的数据实现分页
-                                //var result = [];
-                                //for(var i=0,len= response.data.regionBeans.length;i<len;i+=5){
-                                //    result.push( response.data.regionBeans.slice(i,i+5));
-                                //}
+                              }else{
+                                  $scope.alertResponse = {  //提示信息
+                                      contentNullError:true,
+                                      type:"error",
+                                      content:"没有表格数据，请添加环境！"
+                                  };
 
+                              }
 
-                                //sessionStorage.setItem("evData",JSON.stringify(result)); //把分页的数据写入缓存中
-                                //sessionStorage.setItem("evTotalNum",response.data.total);
-
-
-                                //$scope.environmentData.data = result[0]; //默认显示分页的是 第一页
                                 $scope.environmentData.data = response.data.regionBeans;
-                                console.log(response.data.regionBeans);
                                 $scope.environmentTotal = response.data.total; //表格的右上角的 环境的节点数
-
-
                                 $scope.pagingModel.totalItems = response.data.total;   //分页 总信息数
 
 
                             }
                         },
                         function(response){
-                            alert(response.msg);
+                            $scope.alertResponse = {  //提示信息
+                                contentNullError:true,
+                                type:"error",
+                                content:response.msg
+                            };
                         }
 
                     )
+                },
+                "deleteSonsite":function(param){
+                    var promise = adminEnvironmentConfigServe.sonDeletesite(param);
+                    promise.then( function(response){
+                            //var responseData = JSON.parse(response);
+
+                            if(response.status== 200){
+                                response.data.regionBeans.forEach(function(value,index,array){
+                                    array[index].showSub = true;
+                                });
+                                $scope.environmentData.data = response.data.regionBeans;
+
+                            }
+                        },
+                        function(response){
+                            $scope.alertResponse = {  //提示信息
+                                contentNullError:true,
+                                type:"error",
+                                content:response.msg
+                            };
+                        })
+                },
+                "editSonsite":function(param){
+                    var promise = adminEnvironmentConfigServe.sonEditsite(param);
+
+                    promise.then( function(response){
+                            if(response.status== 200){
+                                console.log("执行了修改节点……");
+                                response.data.regionBeans.forEach(function(value,index,array){
+                                    array[index].showSub = true;
+                                });
+                                $scope.environmentData.data = response.data.regionBeans;
+
+                            }else{
+                                $scope.alertResponse = {  //提示信息
+                                    contentNullError:true,
+                                    type:"error",
+                                    content:response.msg
+                                };
+                            }
+                        },
+                        function(response){
+                            $scope.alertResponse = {  //提示信息
+                                contentNullError:true,
+                                type:"error",
+                                content:response.msg
+                            };
+                        })
                 }
+
             };
             $scope.loadOperate.getListData();
         }];

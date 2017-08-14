@@ -96,7 +96,8 @@ define([
                     tiValidation2:{//验证端口号
                         "validator":[{
                             rule:"required"
-                        }]
+                        },
+                        {rule:"number"}]
                     },
                     tiValidation3:{//验证端口号
                         "validator":[]
@@ -188,7 +189,7 @@ define([
                 );
 
                 var option = {
-                    "total": 1,
+                    "total": $scope.evNameList.length,
                     "regions": $scope.evNameList
                 };
                 return option;

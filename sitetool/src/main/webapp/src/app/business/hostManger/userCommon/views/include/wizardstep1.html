@@ -1,9 +1,7 @@
-<div id="myAdd1"  class="container">
-    <div  style="margin:90px 0 60px 0px" >
-
+<div id="myAdd1"  class="">
+    <div  style="margin:60px 0 60px 20px" >
         <form action="#">
-
-            <ti-formfield cols="oneCols" style="margin-left:12px;">
+            <ti-formfield cols="oneCols" >
                 <ti-item label="fourItem.label" required="fourItem.required">
                     <ti-select ng-cloak
                                selected-id="selectModel3.selectedId"
@@ -11,220 +9,107 @@
                                placeholder-text="selectModel3.placeholder"
                                panel-max-height="selectModel3.panelMaxHeight"
                                change="selectModel3.change"
-                               focus="selectModel3.focus"
-                               blur="selectModel3.blur"
                                options="selectModel3.options"
                                panel-width="selectModel3.panelWidth">
-
                     </ti-select>
                 </ti-item>
                 <ti-item >
                     <button type="button" class="ti-btn-primary" ti-button>自定义模板</button>
                 </ti-item>
-
             </ti-formfield>
-            <div style="margin:20px;"></div>
-
-            <!--<button type="button" class="ti-btn-primary glyphicon glyphicon-plus"  ti-button ng-click="machineAdd($index)"></button>-->
-
-            <!--此处用于添加 + 采用ng-repeat-->
-            <!--注意这里有两套 一套是本身有一行的，另外一套是用于自增自减-->
-            <div  class = "keright">
-                <ti-formfield cols="twoCols">
-                    <ti-item  label="fiveItem.label" required="fiveItem.required">
-                        <ti-select ng-cloak
-                                   selected-id="selectModel4.selectedId"
-                                   disable="selectModel4.disable"
-                                   placeholder-text="selectModel4.placeholder"
-                                   panel-max-height="selectModel4.panelMaxHeight"
-                                   change="selectModel4.change"
-                                   focus="selectModel4.focus"
-                                   blur="selectModel4.blur"
-                                   options="selectModel4.options"
-                                   panel-width="selectModel4.panelWidth">
-                        </ti-select>
-                    </ti-item>
-                    <ti-item  label="sixItem.label" required="sixItem.required">
-                        <ti-select ng-cloak
-                                   selected-id="selectModel5.selectedId"
-                                   disable="selectModel5.disable"
-                                   placeholder-text="selectModel5.placeholder"
-                                   panel-max-height="selectModel5.panelMaxHeight"
-                                   change="selectModel5.change"
-                                   focus="selectModel5.focus"
-                                   blur="selectModel5.blur"
-                                   options="selectModel5.options"
-                                   panel-width="selectModel5.panelWidth">
-                        </ti-select>
-                    </ti-item>
-
-                    <ti-item  label="sevenItem.label" required="sevenItem.required">
-                        <!--<ti-select ng-cloak-->
-                                   <!--selected-id="selectModel6.selectedId"-->
-                                   <!--disable="selectModel6.disable"-->
-                                   <!--placeholder-text="selectModel6.placeholder"-->
-                                   <!--panel-max-height="selectModel6.panelMaxHeight"-->
-                                   <!--change="selectModel6.change"-->
-                                   <!--focus="selectModel6.focus"-->
-                                   <!--blur="selectModel6.blur"-->
-                                   <!--options="selectModel6.options"-->
-                                   <!--panel-width="selectModel6.panelWidth">-->
-                        <!--</ti-select>-->
-                        <ti-spinner style="width: 200px;height:25px"
-                                    max="selectModel6.max"
-                                    min="selectModel6.min"
-                                    step="selectModel6.step"
-                                    format="selectModel6.format"
-                                    value="selectModel6.value"
-                                    disable="selectModel6.disable"
-                                    focused="selectModel6.focused"
-                                    change="selectModel6.change"></ti-spinner>
-
-                    </ti-item>
-
-                    <ti-item  label="eightItem.label" required="eightItem.required">
-                        <!--<ti-select ng-cloak-->
-                                   <!--selected-id="selectModel7.selectedId"-->
-                                   <!--disable="selectModel7.disable"-->
-                                   <!--placeholder-text="selectModel7.placeholder"-->
-                                   <!--panel-max-height="selectModel7.panelMaxHeight"-->
-                                   <!--change="selectModel7.change"-->
-                                   <!--focus="selectModel7.focus"-->
-                                   <!--blur="selectModel7.blur"-->
-                                   <!--options="selectModel7.options"-->
-                                   <!--panel-width="selectModel7.panelWidth">-->
-                        <!--</ti-select>-->
-                        <ti-spinner style="width: 200px;height:25px"
-                                    max="selectModel7.max"
-                                    min="selectModel7.min"
-                                    step="selectModel7.step"
-                                    format="selectModel7.format"
-                                    value="selectModel7.value"
-                                    disable="selectModel7.disable"
-                                    focused="selectModel7.focused"
-                                    change="selectModel7.change"></ti-spinner>
-
-                    </ti-item>
-
-                    <ti-item   >
-                        <button type="button"  class="ti-btn-primary glyphicon glyphicon glyphicon-plus"  ti-button ng-click="machineAdd($index)"></button>
-                    </ti-item>
-                    <!--<ti-item ng-show="buttonAdd" >-->
-                    <!--<button type="button" class="ti-btn-primary glyphicon glyphicon-plus"  ti-button ng-click="machineAdd($index)"></button>-->
-                    <!--</ti-item>-->
-
-                </ti-formfield>
-
-            </div>
-
-
-            <!--第二套-->
-            <div  class = "keright"ng-repeat="children in machineModel.action">
-                <ti-formfield cols="twoCols">
-                    <ti-item  label="fiveItem.label" required="fiveItem.required">
-                        <ti-select ng-cloak
-                                   selected-id="selectModel4.selectedId"
-                                   disable="selectModel4.disable"
-                                   placeholder-text="selectModel4.placeholder"
-                                   panel-max-height="selectModel4.panelMaxHeight"
-                                   change="selectModel4.change"
-                                   focus="selectModel4.focus"
-                                   blur="selectModel4.blur"
-                                   options="selectModel4.options"
-                                   panel-width="selectModel4.panelWidth">
-                        </ti-select>
-                    </ti-item>
-                    <ti-item  label="sixItem.label" required="sixItem.required">
-                        <ti-select ng-cloak
-                                   selected-id="selectModel5.selectedId"
-                                   disable="selectModel5.disable"
-                                   placeholder-text="selectModel5.placeholder"
-                                   panel-max-height="selectModel5.panelMaxHeight"
-                                   change="selectModel5.change"
-                                   focus="selectModel5.focus"
-                                   blur="selectModel5.blur"
-                                   options="selectModel5.options"
-                                   panel-width="selectModel5.panelWidth">
-                        </ti-select>
-                    </ti-item>
-
-                    <ti-item  label="sevenItem.label" required="sevenItem.required">
-                        <!--<ti-select ng-cloak-->
-                                   <!--selected-id="selectModel6.selectedId"-->
-                                   <!--disable="selectModel6.disable"-->
-                                   <!--placeholder-text="selectModel6.placeholder"-->
-                                   <!--panel-max-height="selectModel6.panelMaxHeight"-->
-                                   <!--change="selectModel6.change"-->
-                                   <!--focus="selectModel6.focus"-->
-                                   <!--blur="selectModel6.blur"-->
-                                   <!--options="selectModel6.options"-->
-                                   <!--panel-width="selectModel6.panelWidth">-->
-                        <!--</ti-select>-->
-                        <ti-spinner style="width: 200px;height:25px"
-                                    max="selectModel6.max"
-                                    min="selectModel6.min"
-                                    step="selectModel6.step"
-                                    format="selectModel6.format"
-                                    value="selectModel6.value"
-                                    disable="selectModel6.disable"
-                                    focused="selectModel6.focused"
-                                    change="selectModel6.change"></ti-spinner>
-                    </ti-item>
-
-                    <ti-item  label="eightItem.label" required="eightItem.required">
-                        <!--<ti-select ng-cloak-->
-                                   <!--selected-id="selectModel7.selectedId"-->
-                                   <!--disable="selectModel7.disable"-->
-                                   <!--placeholder-text="selectModel7.placeholder"-->
-                                   <!--panel-max-height="selectModel7.panelMaxHeight"-->
-                                   <!--change="selectModel7.change"-->
-                                   <!--focus="selectModel7.focus"-->
-                                   <!--blur="selectModel7.blur"-->
-                                   <!--options="selectModel7.options"-->
-                                   <!--panel-width="selectModel7.panelWidth">-->
-                        <!--</ti-select>-->
-
-                        <ti-spinner style="width: 200px;height:25px"
-                                    max="selectModel7.max"
-                                    min="selectModel7.min"
-                                    step="selectModel7.step"
-                                    format="selectModel7.format"
-                                    value="selectModel7.value"
-                                    disable="selectModel7.disable"
-                                    focused="selectModel7.focused"
-                                    change="selectModel7.change"></ti-spinner>
-                    </ti-item>
-
-                    <ti-item   >
-                        <button type="button"   class="ti-btn-primary  glyphicon glyphicon-minus"  ti-button  ng-click="machineDel($index)"></button>
-                    </ti-item>
-                    <!--<ti-item ng-show="buttonAdd" >-->
-                        <!--<button type="button" class="ti-btn-primary glyphicon glyphicon-plus"  ti-button ng-click="machineAdd($index)"></button>-->
-                    <!--</ti-item>-->
-
-                </ti-formfield>
-
-
-
-            </div>
-
-
-            <!--<span class="">+</span>-->
-            <div style="margin:20px;"></div>
-            <ti-formfield  style="margin-left:18px;">
-                <ti-item label="nineItem.label" required="nineItem.require" vertical-align="itemVerticalAlign">
-                <textarea id='tiny-textarea'
-                          ng-model="nineItem.value"
-                          placeholder="请输入描述信息"
-                          autofocus
-                          style="width:289px;min-height: 100px;"
-                          ti-textarea>
-                </textarea>
-                </ti-item>
-            </ti-formfield>
-
         </form>
+        <div style="margin:20px;"></div>
+        <form action="#" id="validFormId">
+            <div>
+                <ti-table class="containerStyle"  displayed-data="statusTableData.displayed" src-data="statusTableData" columns="statusColumns">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th ng-repeat="column in statusColumns">{{column.title}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!--注意:ng-repeat中的displayed数据与displayed-data传入的数据一致,在scope中初始化设置为[]即可-->
+                        <tr ng-repeat="row in statusTableData.displayed " >
+                            <td style="padding:3px 5px;"><input ti-validation="statusTableData.tiValidation1"  type="text" id='tiny-text15' ng-model="row.hostName" placeholder="请输入主机名" style="width:189px;"  ti-text/></td>
+                            <td style="padding:3px 5px;"> <ti-select ng-cloak
+                                            style="width:80px"
+                                            selected-id="row.cpu"
+                                            disable="selectModel5.disable"
+                                            placeholder-text="selectModel5.placeholder"
+                                            panel-max-height="selectModel5.panelMaxHeight"
+                                            change="selectModel5.change"
+                                            options="selectModel5.options"
+                                            panel-width="selectModel5.panelWidth">
+                            </ti-select></td>
+                            <td style="padding:3px 5px;"> <ti-select style="width:80px"
+                                            selected-id="row.menu"
+                                            disable="selectModel5.disable"
+                                            placeholder-text="selectModel6.placeholder"
+                                            panel-max-height="selectModel6.panelMaxHeight"
+                                            change="selectModel6.change"
+                                            options="selectModel6.options"
+                                            panel-width="selectModel6.panelWidth">
+                            </ti-select></td>
+                            <td style="padding:3px 5px;"> <ti-spinner style="width:80px"
+                                             max="selectModel7.max"
+                                             min="selectModel7.min"
+                                             step="selectModel7.step"
+                                             format="selectModel7.format"
+                                             value="row.hardpan"
+                                             disable="selectModel7.disable"
+                                             change="selectModel7.change"></ti-spinner></td>
+                            <td style="padding:3px 5px;">
+                                <!--<span syle="width:80px" >{{row.netSegment}}</span>-->
 
+                                <ti-select style="width:180px"
+                                           selected-id="row.netSegment"
+                                           disable="selectModel9.disable"
+                                           placeholder-text="selectModel9.placeholder"
+                                           panel-max-height="selectModel9.panelMaxHeight"
+                                           change="selectModel9.change"
+                                           options="selectModel9.options"
+                                           panel-width="selectModel9.panelWidth">
+                                </ti-select>
+                            </td>
+                            <td style="padding:3px 5px;">
+                                <ti-select style="width:80px"
+                                             selected-id="row.hostEquipment"
+                                             disable="selectModel8.disable"
+                                             placeholder-text="selectModel8.placeholder"
+                                             panel-max-height="selectModel8.panelMaxHeight"
+                                             change="selectModel8.change"
+                                             options="selectModel8.options"
+                                             panel-width="selectModel8.panelWidth">
+                                 </ti-select>
+                            </td>
+                            <td style="padding:3px 5px;">
+                                <button ng-if="$index==0" type="button"  class="ti-btn-primary glyphicon glyphicon glyphicon-plus"  ti-button ng-click="newmachineAdd($index)"></button>
+                                <button ng-if="$index!=0" type="button"   class="ti-btn-primary  glyphicon glyphicon-minus"  ti-button  ng-click="newmachineDel($index)"></button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <!--<ti-pagination current-page="currentPage" total-items="totalItems" page-size="pageSize"></ti-pagination>-->
+                </ti-table>
+
+                <div style="margin:30px;"></div>
+                <ti-formfield >
+                    <ti-item label="nineItem.label" required="nineItem.required" vertical-align="itemVerticalAlign">
+                        <!--ti-validation="statusTableData.tiValidation1"-->
+                        <textarea id='tiny-textarea'
+
+                        ng-model="nineItem.value"
+                        placeholder="请输入描述信息"
+                        autofocus
+                        style="width:389px;min-height: 220px;"
+                        ti-textarea>
+                        </textarea>
+                    </ti-item>
+                </ti-formfield>
+
+            </div>
+        </form>
     </div>
 
 

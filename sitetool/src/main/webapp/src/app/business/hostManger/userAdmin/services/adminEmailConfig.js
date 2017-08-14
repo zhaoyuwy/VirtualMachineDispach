@@ -38,7 +38,7 @@ define([
         this.testEmailConfig = function (param) {
             var promise = camel.post({
                 'url': {
-                    "s": configures.hostManger_url+"/testEmail",
+                    "s": configures.hostManger_url+"/Email",
                     "o": {}
                 },
                 "timeout":3000,

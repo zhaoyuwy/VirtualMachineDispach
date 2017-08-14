@@ -22,20 +22,35 @@ define([
 
 
 
-
-        //configures.hostManger_url+
-        this.getTreeData = function () {
-            var promise = camel.get({
+        this.vmApply= function (param) {
+            var promise = camel.post({
                 'url': {
-                    "s": "/hostManger/urlCommon/applyTree",
+                    "s": configures.hostManger_url+"/vmApply",
                     "o": {}
                 },
-                "timeout":500,
+                "timeout":3000,
+                "params":param,
                 "mask": true
 
             });
             return promise;
         };
+
+
+
+        //configures.hostManger_url+
+        //this.getTreeData = function () {
+        //    var promise = camel.get({
+        //        'url': {
+        //            "s": "/hostManger/urlCommon/applyTree",
+        //            "o": {}
+        //        },
+        //        "timeout":500,
+        //        "mask": true
+        //
+        //    });
+        //    return promise;
+        //};
     };
     var basicManagerModule = angular.module('frm');
     basicManagerModule.tinyService('adminApplyVirtualServe', service);

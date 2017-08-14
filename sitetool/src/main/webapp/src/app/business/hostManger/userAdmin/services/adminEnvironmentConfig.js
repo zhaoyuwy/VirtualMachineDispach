@@ -39,11 +39,10 @@ define([
 
 
         //子节点编辑节点
-
         this.sonEditsite = function(param){
             var promise = camel.post({
                 'url': {
-                    "s": configures.hostManger_url+"",
+                    "s": configures.hostManger_url+"/modifySite",
                     "o": {}
                 },
                 "timeout":3000,
@@ -53,7 +52,19 @@ define([
             return promise;
         };
 
-
+        //子节点删除
+        this.sonDeletesite = function(param){
+            var promise = camel.post({
+                'url': {
+                    "s": configures.hostManger_url+"/deleteSite",
+                    "o": {}
+                },
+                "timeout":3000,
+                "params":param,
+                "mask": true
+            });
+            return promise;
+        };
 
 
 

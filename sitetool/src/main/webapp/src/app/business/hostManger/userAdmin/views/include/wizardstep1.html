@@ -19,95 +19,98 @@
             </ti-formfield>
         </form>
         <div style="margin:20px;"></div>
+        <form action="#" id="validFormId">
+            <div>
+                <ti-table class="containerStyle"  displayed-data="statusTableData.displayed" src-data="statusTableData" columns="statusColumns">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th ng-repeat="column in statusColumns">{{column.title}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!--注意:ng-repeat中的displayed数据与displayed-data传入的数据一致,在scope中初始化设置为[]即可-->
+                        <tr ng-repeat="row in statusTableData.displayed " >
+                            <td style="padding:3px 5px;"><input ti-validation="statusTableData.tiValidation1"  type="text" id='tiny-text15' ng-model="row.hostName" placeholder="请输入主机名" style="width:189px;"  ti-text/></td>
+                            <td style="padding:3px 5px;"> <ti-select ng-cloak
+                                            style="width:80px"
+                                            selected-id="row.cpu"
+                                            disable="selectModel5.disable"
+                                            placeholder-text="selectModel5.placeholder"
+                                            panel-max-height="selectModel5.panelMaxHeight"
+                                            change="selectModel5.change"
+                                            options="selectModel5.options"
+                                            panel-width="selectModel5.panelWidth">
+                            </ti-select></td>
+                            <td style="padding:3px 5px;"> <ti-select style="width:80px"
+                                            selected-id="row.menu"
+                                            disable="selectModel5.disable"
+                                            placeholder-text="selectModel6.placeholder"
+                                            panel-max-height="selectModel6.panelMaxHeight"
+                                            change="selectModel6.change"
+                                            options="selectModel6.options"
+                                            panel-width="selectModel6.panelWidth">
+                            </ti-select></td>
+                            <td style="padding:3px 5px;"> <ti-spinner style="width:80px"
+                                             max="selectModel7.max"
+                                             min="selectModel7.min"
+                                             step="selectModel7.step"
+                                             format="selectModel7.format"
+                                             value="row.hardpan"
+                                             disable="selectModel7.disable"
+                                             change="selectModel7.change"></ti-spinner></td>
+                            <td style="padding:3px 5px;">
+                                <!--<span syle="width:80px" >{{row.netSegment}}</span>-->
 
-        <div>
-            <ti-table class="containerStyle"  displayed-data="statusTableData.displayed" src-data="statusTableData" columns="statusColumns">
-                <table>
-                    <thead>
-                    <tr>
-                        <th ng-repeat="column in statusColumns">{{column.title}}</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <!--注意:ng-repeat中的displayed数据与displayed-data传入的数据一致,在scope中初始化设置为[]即可-->
-                    <tr ng-repeat="row in statusTableData.displayed " >
-                        <td style="padding:3px 5px;"><input  type="text" id='tiny-text15' ng-model="row.hostName" placeholder="请输入主机名" style="width:189px;"  ti-text/></td>
-                        <td style="padding:3px 5px;"> <ti-select ng-cloak
-                                        style="width:80px"
-                                        selected-id="row.cpu"
-                                        disable="selectModel5.disable"
-                                        placeholder-text="selectModel5.placeholder"
-                                        panel-max-height="selectModel5.panelMaxHeight"
-                                        change="selectModel5.change"
-                                        options="selectModel5.options"
-                                        panel-width="selectModel5.panelWidth">
-                        </ti-select></td>
-                        <td style="padding:3px 5px;"> <ti-select style="width:80px"
-                                        selected-id="row.menu"
-                                        disable="selectModel5.disable"
-                                        placeholder-text="selectModel6.placeholder"
-                                        panel-max-height="selectModel6.panelMaxHeight"
-                                        change="selectModel6.change"
-                                        options="selectModel6.options"
-                                        panel-width="selectModel6.panelWidth">
-                        </ti-select></td>
-                        <td style="padding:3px 5px;"> <ti-spinner style="width:80px"
-                                         max="selectModel7.max"
-                                         min="selectModel7.min"
-                                         step="selectModel7.step"
-                                         format="selectModel7.format"
-                                         value="row.hardpan"
-                                         disable="selectModel7.disable"
-                                         change="selectModel7.change"></ti-spinner></td>
-                        <td style="padding:3px 5px;">
-                            <!--<span syle="width:80px" >{{row.netSegment}}</span>-->
+                                <ti-select style="width:180px"
+                                           selected-id="row.netSegment"
+                                           disable="selectModel9.disable"
+                                           placeholder-text="selectModel9.placeholder"
+                                           panel-max-height="selectModel9.panelMaxHeight"
+                                           change="selectModel9.change"
+                                           options="selectModel9.options"
+                                           panel-width="selectModel9.panelWidth">
+                                </ti-select>
+                            </td>
+                            <td style="padding:3px 5px;">
+                                <ti-select style="width:80px"
+                                             selected-id="row.hostEquipment"
+                                             disable="selectModel8.disable"
+                                             placeholder-text="selectModel8.placeholder"
+                                             panel-max-height="selectModel8.panelMaxHeight"
+                                             change="selectModel8.change"
+                                             options="selectModel8.options"
+                                             panel-width="selectModel8.panelWidth">
+                                 </ti-select>
+                            </td>
+                            <td style="padding:3px 5px;">
+                                <button ng-if="$index==0" type="button"  class="ti-btn-primary glyphicon glyphicon glyphicon-plus"  ti-button ng-click="newmachineAdd($index)"></button>
+                                <button ng-if="$index!=0" type="button"   class="ti-btn-primary  glyphicon glyphicon-minus"  ti-button  ng-click="newmachineDel($index)"></button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <!--<ti-pagination current-page="currentPage" total-items="totalItems" page-size="pageSize"></ti-pagination>-->
+                </ti-table>
 
-                            <ti-select style="width:180px"
-                                       selected-id="row.netSegment"
-                                       disable="selectModel9.disable"
-                                       placeholder-text="selectModel9.placeholder"
-                                       panel-max-height="selectModel9.panelMaxHeight"
-                                       change="selectModel9.change"
-                                       options="selectModel9.options"
-                                       panel-width="selectModel9.panelWidth">
-                            </ti-select>
-                        </td>
-                        <td style="padding:3px 5px;">
-                            <ti-select style="width:80px"
-                                         selected-id="row.hostEquipment"
-                                         disable="selectModel8.disable"
-                                         placeholder-text="selectModel8.placeholder"
-                                         panel-max-height="selectModel8.panelMaxHeight"
-                                         change="selectModel8.change"
-                                         options="selectModel8.options"
-                                         panel-width="selectModel8.panelWidth">
-                             </ti-select>
-                        </td>
-                        <td style="padding:3px 5px;">
-                            <button ng-if="$index==0" type="button"  class="ti-btn-primary glyphicon glyphicon glyphicon-plus"  ti-button ng-click="newmachineAdd($index)"></button>
-                            <button ng-if="$index!=0" type="button"   class="ti-btn-primary  glyphicon glyphicon-minus"  ti-button  ng-click="newmachineDel($index)"></button>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                <!--<ti-pagination current-page="currentPage" total-items="totalItems" page-size="pageSize"></ti-pagination>-->
-            </ti-table>
+                <div style="margin:30px;"></div>
+                <ti-formfield >
+                    <ti-item label="nineItem.label" required="nineItem.required" vertical-align="itemVerticalAlign">
+                         <!--后续需要把描述信息 写成必填信息，可把下面注释代码，当如 ng-model上面空白行中-->
+                        <!--ti-validation="statusTableData.tiValidation1"-->
+                        <textarea id='tiny-textarea'
 
-            <div style="margin:30px;"></div>
-            <ti-formfield >
-                <ti-item label="nineItem.label" required="nineItem.required" vertical-align="itemVerticalAlign">
-                    <textarea id='tiny-textarea'
-                    ng-model="nineItem.value"
-                    placeholder="请输入描述信息"
-                    autofocus
-                    style="width:389px;min-height: 220px;"
-                    ti-textarea>
-                    </textarea>
-                </ti-item>
-            </ti-formfield>
+                        ng-model="nineItem.value"
+                        placeholder="请输入描述信息"
+                        autofocus
+                        style="width:389px;min-height: 220px;"
+                        ti-textarea>
+                        </textarea>
+                    </ti-item>
+                </ti-formfield>
 
-        </div>
-
+            </div>
+        </form>
     </div>
 
 

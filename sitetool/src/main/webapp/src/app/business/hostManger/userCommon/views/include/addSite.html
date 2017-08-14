@@ -1,0 +1,103 @@
+<style>
+    #content{margin-left:20px;}
+    #content input{
+        width:160px;
+
+
+    }
+    #content input::-webkit-input-placeholder{
+        font-size:12px;
+        font-family: "Helvetica Neue55", Arial, Helvetica, sans-serif;
+
+    }
+
+    #content input.ti-combobox-text{
+        width:134px;
+        height:34px;
+    }
+    #content div.ti-combobox-text{
+        z-index:10000
+    }
+
+
+    div.ti-dropdown-container-down{
+        z-index:10000
+    }
+    #content span{ width:110px;display: inline-block;  }
+    #content label{margin-bottom: 5px;}
+    .form-control {
+        display: inline-block;
+        width: 100%;
+        height: 34px;
+        padding: 6px 12px;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #555;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    }
+    .form-select{
+        height:34px;
+        border-radius: 4px;
+    }
+    .from-input{
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+</style>
+<div id="myAdd"  style="margin-left: 10px;margin-top: 20px;">
+    <form action=" ">
+        <div id="content">
+
+            <label for="hecpass1" ><span >环境名称:</span>
+                <input  id="hecpass1" class="form-control"  ng-model="$parent.evName" type="text" placeholder="请环境名称" readonly/>
+            </label><br/>
+
+            <label for="hecpass2" ><span >局点名称:</span>
+                <input id="hecpass2" class="form-control" ng-model="siteRegionName"  type="text" placeholder="请输入节点名称"/>
+            </label> <br/>
+
+            <label for="hecpass3" ><span >所属区域:</span>
+                <input id="hecpass3" class="form-control" ng-model="siteRegion"   type="text" placeholder="请输入所属区域">
+            </label><br/>
+
+            <label for="hecpass5" ><span >操作用户:</span>
+                <input id="hecpass5" class="form-control" ng-model="siteLoginUser"  type="text" placeholder="请输入操作用户"/>
+            </label><br/>
+            <label for="hecpass6" ><span >用户密码:</span>
+                <input id="hecpass6" class="form-control" ng-model="siteLoginPwd" type="text" placeholder="请输入用户密码"/>
+            </label> <br/>
+            <label for="hecpass7" ><span >ip地址:</span>
+                <!--<input id="hecpass7" class="form-control" ng-model="siteLoginIp" type="text" placeholder="请输入ip地址"/>-->
+                <ti-ip  style="width: 160px;height:34px"
+                        version=4
+                        value="ipCongigOptions.value1"
+                        focused="ipCongigOptions.focused1"
+                        disable="ipCongigOptions.disable"
+                        ></ti-ip>
+            </label> <br/>
+        </div>
+    </form>
+</div>
+<script type="application/javascript">
+    require(['app/business/hostManger/userCommon/controllers/commonEnvironmentConfigCtrl'],
+            function (commonEnvironmentConfigCtrl) {
+                angular.element(document).injector().invoke(function ($compile) {
+                    var scope = $("#myAdd").scope();
+                    $compile($("#myAdd"))(scope);
+                    scope.$digest();
+                    $('#hecpass2').val('');
+                    $('#hecpass3').val('');
+                    $('#hecpass4').val('');
+                    $('#hecpass5').val('');
+                    $('#hecpass6').val('');
+                    $("input.ti_input_ipv4_octet").val('   .   .   .   ');
+                })
+
+            })
+</script>

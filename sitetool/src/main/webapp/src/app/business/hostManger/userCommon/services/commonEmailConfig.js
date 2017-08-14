@@ -5,18 +5,51 @@ define([
     "use strict";
     var service = function (exception, $q, camel) {
 
-        this.getWaitDiscussionList = function () {
+        //请求树的数据
+        this.getTree = function () {
             var promise = camel.get({
                 'url': {
-                    "s": configures.hostManger_url+"",
+                    "s": configures.hostManger_url+"/getTopologyTreeInfo",
                     "o": {}
                 },
-                "timeout":500,
+                "timeout":3000,
                 "mask": true
 
             });
             return promise;
         };
+
+
+        this.sendEmailConfig = function (param) {
+            var promise = camel.post({
+                'url': {
+                    "s": configures.hostManger_url+"/saveMail",
+                    "o": {}
+                },
+                "timeout":3000,
+                "params":param,
+                "mask": true
+
+            });
+            return promise;
+        };
+
+
+        this.testEmailConfig = function (param) {
+            var promise = camel.post({
+                'url': {
+                    "s": configures.hostManger_url+"/Email",
+                    "o": {}
+                },
+                "timeout":3000,
+                "params":param,
+                "mask": true
+
+            });
+            return promise;
+        };
+
+
     };
     var basicManagerModule = angular.module('frm');
     basicManagerModule.tinyService('commonEmailConfigServe', service);

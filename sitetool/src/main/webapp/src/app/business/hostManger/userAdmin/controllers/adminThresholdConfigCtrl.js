@@ -76,7 +76,7 @@ define([
                 );
 
                 var option = {
-                    "total": 1,
+                    "total": $scope.evNameList.length,
                     "regions": $scope.evNameList
                 };
                 return option;

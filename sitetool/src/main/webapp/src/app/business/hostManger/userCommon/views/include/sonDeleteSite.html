@@ -1,0 +1,19 @@
+<script type="text/ng-template" id="myModalContent.html">
+    <div class="ti-modal-header">
+        <span>I'm a modal!</span><span class="ti-close" ng-click="cancel()"></span>
+    </div>
+    <div class="ti-modal-body">
+        <input style="width:70px;height:29px;" type="text" ti-text/>
+        <ul>
+            <li ng-repeat="item in items">
+                <a href="#" ng-click="$event.preventDefault(); selected.item = item">{{ item }}</a>
+            </li>
+        </ul>
+        Selected: <b>{{ selected.item }}</b>
+        <br/>
+    </div>
+    <div class="ti-modal-footer">
+        <button type="button" ti-button ti-focused="true" ng-click="ok()">OK</button>
+        <button type="button" ti-button  ng-click="cancel()">Cancel</button>
+    </div>
+</script>
