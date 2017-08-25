@@ -30,8 +30,8 @@ public class SiteAppListener implements ServletContextListener {
         webApplicationContext = (WebApplicationContext) servletContextEvent.getServletContext().getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
 
 
-        System.out.println("ServletContex初始化");
-        System.out.println(servletContextEvent.getServletContext().getServerInfo());
+//        System.out.println("ServletContex初始化");
+//        System.out.println(servletContextEvent.getServletContext().getServerInfo());
         RepositoryTemplate repositoryTemplate = webApplicationContext.getBean(RepositoryTemplate.class);
         try {
             repositoryTemplate.executeSqlFile();
