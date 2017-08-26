@@ -10,6 +10,12 @@ import java.util.ArrayList;
  */
 public class CodeCounter {
 
+    static long files = 0;
+    static long codeLines = 0;
+    static long commentLines = 0;
+    static long blankLines = 0;
+    static ArrayList<File> fileArray = new ArrayList<File>();
+
     /**
      * 代码行数统计
      */
@@ -19,7 +25,7 @@ public class CodeCounter {
 
         ArrayList<File> al = getFile(new File(path));
         for (File f : al) {
-            if (f.getName().matches(".*\\.java$")){ // 匹配java格式的文件
+            if (f.getName().matches(".*\\.java$")) { // 匹配java格式的文件
                 count(f);
                 System.out.println(f);
             }
@@ -30,14 +36,10 @@ public class CodeCounter {
         System.out.println("空白行数：" + blankLines);
     }
 
-    static long files = 0;
-    static long codeLines = 0;
-    static long commentLines = 0;
-    static long blankLines = 0;
-    static ArrayList<File> fileArray = new ArrayList<File>();
 
     /**
      * 获得目录下的文件和子目录下的文件
+     *
      * @param f
      * @return
      */
@@ -55,6 +57,7 @@ public class CodeCounter {
 
     /**
      * 统计方法
+     *
      * @param f
      */
     private static void count(File f) {
@@ -74,7 +77,7 @@ public class CodeCounter {
                     flag = true;
                 } else if (line.startsWith("/*") && line.endsWith("*/")) {
                     commentLines++;
-                } else if (flag == true) {
+                } else if (flag) {
                     commentLines++;
                     if (line.endsWith("*/")) {
                         flag = false;
@@ -84,8 +87,6 @@ public class CodeCounter {
                 }
             }
             files++;
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
