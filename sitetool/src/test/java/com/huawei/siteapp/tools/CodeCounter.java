@@ -1,7 +1,9 @@
 package com.huawei.siteapp.tools;
 
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by z00390414 on 2017/7/3.
@@ -34,6 +36,12 @@ public class CodeCounter {
         System.out.println("代码行数：" + codeLines);
         System.out.println("注释行数：" + commentLines);
         System.out.println("空白行数：" + blankLines);
+
+        try {
+            writeFile1();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -98,6 +106,52 @@ public class CodeCounter {
                     e.printStackTrace();
                 }
             }
+        }
+    }
+
+    public static void writeFile1() throws IOException {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+        System.out.println(df.format(new Date()));// new Date()为获取当前系统时间
+        String content = "time：" + df.format(new Date())+", ";
+//        bw.write("当前时间：" + df.format(new Date()));
+        content = content + "" + "file num：" + files +", ";
+        content = content + "" +"code line：" + codeLines+", ";
+        content = content + "" +"comment line：" + commentLines+", ";
+        content = content + "" +"brank line：" + blankLines+".\n";
+//            bw.write("something");
+        String fileName = "codeNumCount.txt";
+        CodeCounter.appendMethodA(fileName, content);
+    }
+
+    /**
+     * A方法追加文件：使用RandomAccessFile
+     */
+    public static void appendMethodA(String fileName, String content) {
+        try {
+            // 打开一个随机访问文件流，按读写方式
+            RandomAccessFile randomFile = new RandomAccessFile(fileName, "rw");
+            // 文件长度，字节数
+            long fileLength = randomFile.length();
+            //将写文件指针移到文件尾。
+            randomFile.seek(fileLength);
+            randomFile.writeBytes(content);
+            randomFile.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * B方法追加文件：使用FileWriter
+     */
+    public static void appendMethodB(String fileName, String content) {
+        try {
+            //打开一个写文件器，构造函数中的第二个参数true表示以追加形式写文件
+            FileWriter writer = new FileWriter(fileName, true);
+            writer.write(content);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
