@@ -2,7 +2,6 @@ package com.huawei.siteapp.service.ExcelService;
 
 import com.huawei.siteapp.bean.HostInfoBean;
 import com.huawei.siteapp.bean.HostVmReportInfoBean;
-import com.huawei.siteapp.bean.TemplateSourceBean;
 import com.huawei.siteapp.cache.InputStreamCache;
 import com.huawei.siteapp.common.constats.RetCode;
 import com.huawei.siteapp.common.util.CommonUtils;
@@ -18,10 +17,8 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -45,28 +42,28 @@ public class HostReportServiceImpl implements IHostReportService {
     private static int REPORT_PIE_CHART_ROW_INDEX = 13;
     private static String[] FORMULA_GROUP = {"", "SUM(C28:C11000)/100", "SUM(D28:D999999)-B14", "", "", "SUM(F28:F11000)/100", "SUM(G28:G11000)-F14"};
 
-    @Autowired
-    TemplateSourceBean templateSourceBean;
+ /*   @Autowired
+    TemplateSourceBean templateSourceBean;*/
 
-    @PostConstruct
-    private void getClassesPath() {
-//        D:\mine20170614\restDemo\VirtualMachineDispach\sitetool\src\main\resources\ExcelTemplate\HostReportTemplate.xlsx
-        ClassLoader cl = getClass().getClassLoader();
-        if (cl != null) {
-//            CLASS_LOADER_PATH = cl.getResource("").getPath();
-//            EXCEL_TEMPLATE_PATH = CLASS_LOADER_PATH + "/ExcelTemplate/HostReportTemplate2.xlsx";
-//            EXCEL_REPORT_RESULT_PATH = "ExcelReportResult";
-        } else {
-            logger.error("get class path fail!");
-        }
-//        try {
-//            CLASS_LOADER_PATH = URLDecoder.decode(CLASS_LOADER_PATH, "UTF-8");
-//            EXCEL_TEMPLATE_PATH = URLDecoder.decode(EXCEL_TEMPLATE_PATH, "UTF-8");
-//            EXCEL_REPORT_RESULT_PATH = URLDecoder.decode(EXCEL_REPORT_RESULT_PATH, "UTF-8");
-//        } catch (UnsupportedEncodingException e2) {
-//            logger.error("Decode failed.");
+//    @PostConstruct
+//    private void getClassesPath() {
+////        D:\mine20170614\restDemo\VirtualMachineDispach\sitetool\src\main\resources\ExcelTemplate\HostReportTemplate.xlsx
+//        ClassLoader cl = getClass().getClassLoader();
+//        if (cl != null) {
+////            CLASS_LOADER_PATH = cl.getResource("").getPath();
+////            EXCEL_TEMPLATE_PATH = CLASS_LOADER_PATH + "/ExcelTemplate/HostReportTemplate2.xlsx";
+////            EXCEL_REPORT_RESULT_PATH = "ExcelReportResult";
+//        } else {
+//            logger.error("get class path fail!");
 //        }
-    }
+////        try {
+////            CLASS_LOADER_PATH = URLDecoder.decode(CLASS_LOADER_PATH, "UTF-8");
+////            EXCEL_TEMPLATE_PATH = URLDecoder.decode(EXCEL_TEMPLATE_PATH, "UTF-8");
+////            EXCEL_REPORT_RESULT_PATH = URLDecoder.decode(EXCEL_REPORT_RESULT_PATH, "UTF-8");
+////        } catch (UnsupportedEncodingException e2) {
+////            logger.error("Decode failed.");
+////        }
+//    }
 
 
     @Override
