@@ -41,6 +41,7 @@ public class SendMailUtil {
         props.put(KEY_PROPS, "true");
         //props.put("mail.smtp.auth", "true");
         s =  Session.getDefaultInstance(props, new Authenticator(){
+            @Override
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(SEND_UNAME, SEND_PWD);
             }});

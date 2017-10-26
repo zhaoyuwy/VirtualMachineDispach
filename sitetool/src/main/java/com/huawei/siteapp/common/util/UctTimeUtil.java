@@ -72,13 +72,13 @@ public class UctTimeUtil {
         calendar.setTime(new Date());
         if (field != null && !field.equals("")) {
             if (field.equals("y")) {
-                calendar.add(calendar.YEAR, amount);
+                calendar.add(Calendar.YEAR, amount);
             } else if (field.equals("M")) {
-                calendar.add(calendar.MONTH, amount);
+                calendar.add(Calendar.MONTH, amount);
             } else if (field.equals("d")) {
-                calendar.add(calendar.DAY_OF_MONTH, amount);
+                calendar.add(Calendar.DAY_OF_MONTH, amount);
             } else if (field.equals("H")) {
-                calendar.add(calendar.HOUR, amount);
+                calendar.add(Calendar.HOUR, amount);
             }
         } else {
             return null;

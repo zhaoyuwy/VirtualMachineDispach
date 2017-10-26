@@ -15,6 +15,7 @@ import javax.annotation.Resource;
 @Repository("siteService")
 public class SiteServiceImpl extends BaseServiceImpl<SiteModel> implements ISiteService {
 
+    @Override
     @Resource(name = "siteRepository")
     public void setRepository(BaseRepository<SiteModel> dao) {
         super.setRepository(dao);

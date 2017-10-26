@@ -15,6 +15,7 @@ import javax.annotation.Resource;
 @Repository("monitorVmInfoService")
 public class MonitorVmInfoServiceImpl extends BaseServiceImpl<MonitorVmInfoModel> implements IMonitorVmInfoService {
 
+    @Override
     @Resource(name = "monitorVmInfoRepository")
     public void setRepository(BaseRepository<MonitorVmInfoModel> dao) {
         super.setRepository(dao);

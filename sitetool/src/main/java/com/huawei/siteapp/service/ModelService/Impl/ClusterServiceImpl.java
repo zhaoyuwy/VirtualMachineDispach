@@ -14,6 +14,7 @@ import javax.annotation.Resource;
  */
 @Repository
 public class ClusterServiceImpl extends BaseServiceImpl<ClusterModel> implements IClusterService {
+    @Override
     @Resource(name = "clusterRepository")
     public void setRepository(BaseRepository<ClusterModel> dao) {
         super.setRepository(dao);

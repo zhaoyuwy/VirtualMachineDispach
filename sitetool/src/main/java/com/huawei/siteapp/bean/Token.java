@@ -42,10 +42,12 @@ public class Token {
     /**
      * expirationTime 不予考虑, 因为就算 expirationTime 不同也认为是相同的 token.
      */
+    @Override
     public int hashCode() {
         return id.hashCode();
     }
 
+    @Override
     public boolean equals(Object object) {
         return object instanceof Token && ((Token) object).id.equals(this.id);
     }

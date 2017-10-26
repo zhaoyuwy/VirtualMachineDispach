@@ -16,6 +16,7 @@ import javax.annotation.Resource;
  */
 @Repository("userService")
 public class UserServiceImpl extends BaseServiceImpl<UserModel> implements IUserService {
+    @Override
     @Resource(name = "userRepository")
     public void setRepository(BaseRepository<UserModel> dao) {
         super.setRepository(dao);

@@ -97,6 +97,7 @@ public class MachineModel {
         this.description = description;
     }
 
+    @Override
     public String toString(){
         return "Machine Info "+machineName+"\t \t\t"+ regionName+"\t "+machineCpu;
     }

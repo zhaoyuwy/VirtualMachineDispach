@@ -106,6 +106,7 @@ public class SiteLoginRestBean {
         this.restBody = restBody;
     }
 
+    @Override
     public String toString()
     {
         StringBuffer buffer = new StringBuffer();

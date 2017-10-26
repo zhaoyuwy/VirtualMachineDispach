@@ -31,11 +31,13 @@ import java.util.List;
 public class PeriodTaskServiceImpl extends BaseServiceImpl<PeriodTaskModel> implements IPeriodTaskService {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    @Override
     @Resource(name = "periodTaskRepository")
     public void setRepository(BaseRepository<PeriodTaskModel> dao) {
         super.setRepository(dao);
     }
 
+    @Override
     public PeriodTaskModel findPeriodTaskModelByPeriodTaskId(long periodTaskId) {
         PeriodTaskRepository periodTaskRepository = SpringUtil.getBean(PeriodTaskRepository.class);
         return periodTaskRepository.findPeriodTaskModelByPeriodTaskId(periodTaskId);

@@ -29,7 +29,7 @@ public class DynamicScheduledTask implements SchedulingConfigurer {
 //    private static String cron;
 
     public void setCron(String cron) {
-        this.cron = cron;
+        DynamicScheduledTask.cron = cron;
     }
 //    public DynamicScheduledTask() {
 //        cron = "0/5 * * * * ?";

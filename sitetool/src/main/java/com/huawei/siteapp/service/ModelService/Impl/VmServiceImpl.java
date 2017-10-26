@@ -14,6 +14,7 @@ import javax.annotation.Resource;
  */
 @Repository("vmService")
 public class VmServiceImpl extends BaseServiceImpl<VmModel> implements IVmService {
+    @Override
     @Resource(name = "vmRepository")
     public void setRepository(BaseRepository<VmModel> dao) {
         super.setRepository(dao);

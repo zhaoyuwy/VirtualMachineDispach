@@ -15,6 +15,7 @@ import javax.annotation.Resource;
 @Service("monitorCnaInfoService")
 public class MonitorCnaInfoServiceImpl extends BaseServiceImpl<MonitorCnaInfoModel> implements IMonitorCnaInfoService {
 
+    @Override
     @Resource(name = "monitorCnaInfoRepository")
     public void setRepository(BaseRepository<MonitorCnaInfoModel> dao) {
         super.setRepository(dao);

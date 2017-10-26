@@ -14,6 +14,7 @@ import javax.annotation.Resource;
  */
 @Repository("monitorTaskService")
 public class MonitorTaskServiceImpl extends BaseServiceImpl<MonitorTaskModel> implements IMonitorTaskService {
+    @Override
     @Resource(name = "monitorTaskRepository")
     public void setRepository(BaseRepository<MonitorTaskModel> dao) {
         super.setRepository(dao);

@@ -14,6 +14,7 @@ import javax.annotation.Resource;
  */
 @Service
 public class HostServiceImpl extends BaseServiceImpl<HostModel> implements IHostService {
+    @Override
     @Resource(name = "hostRepository")
     public void setRepository(BaseRepository<HostModel> dao) {
         super.setRepository(dao);

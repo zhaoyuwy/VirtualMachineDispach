@@ -93,6 +93,7 @@ public class SiteLoginServiceImpl implements ISiteLoginService {
         return siteLoginRestBean;
     }
 
+    @Override
     public TopologyTreeBean queryAllSiteLoginUsers() {
         SiteServiceImpl siteService = SpringUtil.getBean(SiteServiceImpl.class);
         List<SiteModel> siteModels = (List<SiteModel>) siteService.findAll();
@@ -126,6 +127,7 @@ public class SiteLoginServiceImpl implements ISiteLoginService {
         return topologyTreeBean;
     }
 
+    @Override
     public int checkSiteUserLoginSuccess(SiteModel siteModel) {
         SiteRepository siteRepository = SpringUtil.getBean(SiteRepository.class);
 

@@ -23,9 +23,9 @@ public class FileGBK2UTF8 {
 
     public static void main(String[] args) {
         //需要转换的文件目录
-        String fromPath = "D:\\zhaoyu\\08部门项目\\01网络项目\\PNTL";
+        String fromPath = "D:\\zhaoyu\\Download\\201709\\PNTL-dev_optGroup-f8336b13846bd8bcc994b4cf3f0932c741fcbbc3\\PNTL-dev_optGroup-f8336b13846bd8bcc994b4cf3f0932c741fcbbc3\\PNTL_agent";
         //转换到指定的文件目录
-        String toPath = "D:\\zhaoyu\\08部门项目\\01网络项目\\PNTL2";
+        String toPath = "D:\\zhaoyu\\Download\\201709\\PNTL-dev_optGroup-f8336b13846bd8bcc994b4cf3f0932c741fcbbc3\\PNTL-dev_optGroup-f8336b13846bd8bcc994b4cf3f0932c741fcbbc3\\PNTL_agent2";
 
         info("start transform [from path]={0} [to path]={1}", fromPath, toPath);
 

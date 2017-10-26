@@ -1,19 +1,13 @@
 package com.huawei.siteapp.mail;
 
 
-import java.security.Security;
-import java.util.Date;
-import java.util.Properties;
-
-import javax.mail.Authenticator;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
+import javax.mail.*;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.security.Security;
+import java.util.Date;
+import java.util.Properties;
 
 /**
  * Created by z00390414 on 2017/6/16.
@@ -46,6 +40,7 @@ public class SendEmail {
         final String password = "Ishot@12";
         Session session = Session.getDefaultInstance(props,
                 new Authenticator() {
+                    @Override
                     protected PasswordAuthentication getPasswordAuthentication() {
                         return new PasswordAuthentication(username, password);
                     }
